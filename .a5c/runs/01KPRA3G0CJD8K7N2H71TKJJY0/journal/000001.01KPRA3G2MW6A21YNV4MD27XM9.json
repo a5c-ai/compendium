@@ -1,0 +1,16 @@
+{
+  "type": "RUN_CREATED",
+  "recordedAt": "2026-04-21T15:21:23.796Z",
+  "data": {
+    "runId": "01KPRA3G0CJD8K7N2H71TKJJY0",
+    "processId": "design-system-remediation",
+    "entrypoint": {
+      "importPath": "../../processes/design-system-repo.js",
+      "exportName": "process"
+    },
+    "harness": "claude-code",
+    "prompt": "Fix the design system: 1) Fix broken example app (API mismatches, CSS import), 2) Make components match HTML mockups in project/preview/ and project/ui_kits/, 3) Add dark mode + mobile viewport to Storybook, 4) Add more complete stories, 5) Add GitHub Actions pipeline for npm publish + Storybook GitHub Pages deploy",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "989e09b96c57be9e60f873ea5fb090beb525655bdf39bd2c9dfe771064e29abe"
+}

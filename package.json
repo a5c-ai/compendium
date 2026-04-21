@@ -26,7 +26,7 @@
       "import": "./dist/icons.js",
       "require": "./dist/icons.cjs"
     },
-    "./css": "./dist/style.css",
+    "./css": "./dist/tokens.css",
     "./css/*": "./dist/*.css"
   },
   "files": ["dist", "README.md", "LICENSE"],
@@ -52,7 +52,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "vite build",
+    "build": "vite build && tsc --emitDeclarationOnly --declaration --declarationDir dist",
     "build-storybook": "storybook build",
     "lint": "tsc --noEmit",
     "test": "vitest",

@@ -888,7 +888,7 @@
 .tkc-cal__day[data-range-start="true"] { border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
 .tkc-cal__day[data-range-end="true"]   { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
 
-/* Badge / stamp */
+/* Badge / stamp — we already have tk-stamp, but add a compact numeric badge */
 .tkc-badge {
   display: inline-flex; align-items: center; justify-content: center;
   min-width: 18px; height: 18px; padding: 0 6px;
@@ -897,3 +897,40 @@
   border-radius: 999px;
   box-shadow: 0 0 0 1.5px var(--tkc-paper);
 }
+
+/* ════════════════════════════════════════════════════════════
+   DEMO ROW — labeled control display on plates
+   ════════════════════════════════════════════════════════════ */
+.tkc-demo {
+  display: grid; gap: 20px;
+  padding: 20px 4px 8px;
+}
+.tkc-demo__row {
+  display: grid; grid-template-columns: 180px 1fr; gap: 24px;
+  align-items: start;
+  padding-bottom: 18px; border-bottom: 1px dashed var(--tkc-rule-q);
+}
+.tkc-demo__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.tkc-demo__label {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--tkc-ink-soft); padding-top: 6px;
+}
+.tkc-demo__label .n {
+  display: block; font-family: var(--font-display); font-style: italic; font-weight: 500;
+  font-size: 17px; color: var(--tkc-ink); letter-spacing: -.005em;
+  text-transform: none; margin-top: 2px;
+}
+.tkc-demo__label .h {
+  display: block; font-style: italic; font-family: var(--font-body);
+  font-size: 12px; color: var(--tkc-ink-quiet); text-transform: none;
+  letter-spacing: 0; margin-top: 4px; line-height: 1.35;
+}
+.tkc-demo__body { display: flex; flex-direction: column; gap: 14px; }
+.tkc-demo__inline { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.tkc-demo__stack { display: grid; gap: 10px; }
+.tkc-demo__readout {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em;
+  color: var(--tkc-ink-quiet);
+}
+.tkc-demo__grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.tkc-demo__grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }

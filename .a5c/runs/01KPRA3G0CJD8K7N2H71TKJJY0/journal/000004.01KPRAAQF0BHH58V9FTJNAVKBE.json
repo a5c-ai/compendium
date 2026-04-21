@@ -1,0 +1,8 @@
+{
+  "type": "RUN_COMPLETED",
+  "recordedAt": "2026-04-21T15:30:00.000Z",
+  "data": {
+    "reason": "Process reused incorrectly - terminated",
+    "result": {"success": false, "skipped": true}
+  }
+}

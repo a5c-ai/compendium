@@ -1,8 +1,11 @@
 /* ============================================================
    @a5c-ai/compendium Design Tokens — Entry Point
-   Import order: variables -> reset -> base
+   Import order: variables -> reset -> base -> ornate -> codex-ornate -> technical
    ============================================================ */
 
 @import './variables.css';
 @import './reset.css';
 @import './base.css';
+@import './ornate.css';
+@import './codex-ornate.css';
+@import './technical.css';

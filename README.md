@@ -1,6 +1,6 @@
 # @a5c-ai/compendium
 
-The a5c.ai design system — Codex Seraphinianus-inspired React components, design tokens, and icons.
+The a5c.ai design system — Codex/Steampunk-inspired React components, design tokens, and icons.
 
 ## Install
 
