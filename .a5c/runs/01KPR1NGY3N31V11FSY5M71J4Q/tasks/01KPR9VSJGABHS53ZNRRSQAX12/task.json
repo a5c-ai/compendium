@@ -1,0 +1,25 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPR9VSJGABHS53ZNRRSQAX12/input.json",
+    "outputJsonPath": "tasks/01KPR9VSJGABHS53ZNRRSQAX12/output.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "final",
+    "verify"
+  ],
+  "shell": {
+    "command": "cd \".\" && npx tsc --noEmit && npx vite build && echo \"All checks passed\"",
+    "expectedExitCode": 0,
+    "timeout": 300000
+  },
+  "title": "Final verification sweep — TSC + Vite build",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR9VSJGABHS53ZNRRSQAX12",
+  "taskId": "final-verification",
+  "invocationKey": "design-system-repo:S000014:final-verification",
+  "stepId": "S000014",
+  "inputs": {
+    "projectDir": "."
+  }
+}

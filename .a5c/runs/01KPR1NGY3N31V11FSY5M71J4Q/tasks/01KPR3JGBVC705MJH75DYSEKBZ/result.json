@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR3JGBVC705MJH75DYSEKBZ",
+  "taskId": "create-example-app",
+  "invocationKey": "design-system-repo:S000011:create-example-app",
+  "status": "ok",
+  "result": {
+    "filesCreated": [
+      "examples/basic-usage/package.json",
+      "examples/basic-usage/tsconfig.json",
+      "examples/basic-usage/vite.config.ts",
+      "examples/basic-usage/index.html",
+      "examples/basic-usage/src/main.tsx",
+      "examples/basic-usage/src/App.tsx",
+      "examples/basic-usage/src/App.css"
+    ],
+    "success": true
+  },
+  "startedAt": "2026-04-21T13:29:57.009Z",
+  "finishedAt": "2026-04-21T13:29:57.009Z",
+  "value": {
+    "filesCreated": [
+      "examples/basic-usage/package.json",
+      "examples/basic-usage/tsconfig.json",
+      "examples/basic-usage/vite.config.ts",
+      "examples/basic-usage/index.html",
+      "examples/basic-usage/src/main.tsx",
+      "examples/basic-usage/src/App.tsx",
+      "examples/basic-usage/src/App.css"
+    ],
+    "success": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR9F0RMTCZHJGDGQ1BD828W",
+  "taskId": "__sdk.breakpoint",
+  "invocationKey": "design-system-repo:S000013:__sdk.breakpoint",
+  "status": "ok",
+  "result": {
+    "approved": true,
+    "response": "Approve — run final verification"
+  },
+  "startedAt": "2026-04-21T15:16:52.044Z",
+  "finishedAt": "2026-04-21T15:16:52.044Z",
+  "value": {
+    "approved": true,
+    "response": "Approve — run final verification"
+  }
+}

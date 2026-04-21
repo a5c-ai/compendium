@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T13:30:18.738Z",
+  "data": {
+    "effectId": "01KPR3R36CJSC3NY970S01GF8W",
+    "invocationKey": "design-system-repo:S000012:setup-publishing",
+    "invocationHash": "7cb9065aa41a8b653ebfe685b895f6f02e7a0f6c941f85a51050acf55031ee43",
+    "stepId": "S000012",
+    "taskId": "setup-publishing",
+    "kind": "agent",
+    "label": "publishing",
+    "taskDefRef": "tasks/01KPR3R36CJSC3NY970S01GF8W/task.json",
+    "labels": [
+      "publishing",
+      "npm",
+      "docs"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "fd4360141dbf9f3f98f38af20aa9d94d255aa0cb3341fc76a523e0aa4d4c3e5d"
+}

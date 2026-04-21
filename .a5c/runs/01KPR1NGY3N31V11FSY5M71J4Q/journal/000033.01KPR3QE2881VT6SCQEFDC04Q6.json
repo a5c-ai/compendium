@@ -1,0 +1,14 @@
+{
+  "type": "EFFECT_RESOLVED",
+  "recordedAt": "2026-04-21T13:29:57.064Z",
+  "data": {
+    "effectId": "01KPR3JGBVC705MJH75DYSEKBZ",
+    "status": "ok",
+    "resultRef": "tasks/01KPR3JGBVC705MJH75DYSEKBZ/result.json",
+    "startedAt": "2026-04-21T13:29:57.009Z",
+    "finishedAt": "2026-04-21T13:29:57.009Z",
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "ee625913b9e8f1961fb2f4ea104cf2f2c42cab0dc1c844cef477960bb58ffe0d"
+}

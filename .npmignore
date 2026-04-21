@@ -1,0 +1,13 @@
+project/
+.a5c/
+.storybook/
+examples/
+storybook-static/
+*.stories.tsx
+*.stories.ts
+.changeset/
+.git/
+.gitignore
+tsconfig.json
+vite.config.ts
+src/

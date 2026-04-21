@@ -1,0 +1,21 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T13:27:15.627Z",
+  "data": {
+    "effectId": "01KPR3JGBVC705MJH75DYSEKBZ",
+    "invocationKey": "design-system-repo:S000011:create-example-app",
+    "invocationHash": "00b7113c250f688e1fa27c4c80d9b5c22a42862d6ff9d498676209e1c57badfb",
+    "stepId": "S000011",
+    "taskId": "create-example-app",
+    "kind": "agent",
+    "label": "example",
+    "taskDefRef": "tasks/01KPR3JGBVC705MJH75DYSEKBZ/task.json",
+    "labels": [
+      "example",
+      "documentation"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "1e37d123e90f8effbb5b37dcf89a9aea4e627e311296015b8c6eaa12403cdca1"
+}

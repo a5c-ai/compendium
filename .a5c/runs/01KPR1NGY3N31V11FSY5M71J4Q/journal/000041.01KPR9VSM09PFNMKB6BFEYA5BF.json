@@ -1,0 +1,21 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T15:17:11.424Z",
+  "data": {
+    "effectId": "01KPR9VSJGABHS53ZNRRSQAX12",
+    "invocationKey": "design-system-repo:S000014:final-verification",
+    "invocationHash": "22e9df505227db90863ff77f157346d4b965e3ef6cc5814052ac72ab42ca7822",
+    "stepId": "S000014",
+    "taskId": "final-verification",
+    "kind": "shell",
+    "label": "verify",
+    "taskDefRef": "tasks/01KPR9VSJGABHS53ZNRRSQAX12/task.json",
+    "labels": [
+      "verify",
+      "final"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "f2259252a73ba68dd621a0005782d7ab912ff1217b6e8d7f50f7c68ff01897f8"
+}

@@ -19,11 +19,11 @@ export const Tabs: React.FC<TabsProps> = ({
   value,
   defaultValue,
   onChange,
-  items,
+  items = [],
 }) => {
   const [v, set] = useCtrl(
     value,
-    defaultValue || items[0]?.value,
+    defaultValue || (items && items[0]?.value),
     onChange
   );
   return (

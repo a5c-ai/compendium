@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR3R36CJSC3NY970S01GF8W",
+  "taskId": "setup-publishing",
+  "invocationKey": "design-system-repo:S000012:setup-publishing",
+  "status": "ok",
+  "result": {
+    "filesCreated": [
+      "README.md",
+      ".npmignore",
+      ".changeset/config.json",
+      "package.json (exports fixed)"
+    ],
+    "success": true
+  },
+  "startedAt": "2026-04-21T15:09:46.732Z",
+  "finishedAt": "2026-04-21T15:09:46.732Z",
+  "value": {
+    "filesCreated": [
+      "README.md",
+      ".npmignore",
+      ".changeset/config.json",
+      "package.json (exports fixed)"
+    ],
+    "success": true
+  }
+}

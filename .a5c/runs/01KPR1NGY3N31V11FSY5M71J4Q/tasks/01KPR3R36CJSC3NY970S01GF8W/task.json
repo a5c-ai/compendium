@@ -1,0 +1,78 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "filesCreated": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "packageName": "@a5c-ai/compendium",
+        "projectDir": "."
+      },
+      "instructions": [
+        "Set up changesets for versioning:",
+        "  npx changeset init",
+        "  Configure .changeset/config.json with correct settings",
+        "",
+        "Create/update README.md at project root (NOT in project/ dir):",
+        "  - Package name and one-line description",
+        "  - Install command: npm install @a5c-ai/compendium",
+        "  - Quick start code example showing import and usage",
+        "  - Subpath imports documentation:",
+        "    - @a5c-ai/compendium (everything)",
+        "    - @a5c-ai/compendium/react (components only)",
+        "    - @a5c-ai/compendium/tokens (design tokens)",
+        "    - @a5c-ai/compendium/icons (SVG icons)",
+        "    - @a5c-ai/compendium/css (CSS only, no JS)",
+        "  - Link to Storybook for full component docs",
+        "  - Development setup instructions (clone, install, npm run dev)",
+        "  - Contributing / changeset workflow",
+        "  - License (MIT)",
+        "",
+        "Create .npmignore:",
+        "  project/, .a5c/, .storybook/, examples/, *.stories.tsx, storybook-static/",
+        "",
+        "Verify package.json has correct publishConfig and files field.",
+        "",
+        "IMPORTANT: Actually create/modify all files."
+      ],
+      "outputFormat": "JSON",
+      "role": "Open source package publishing specialist",
+      "task": "Set up publishing configuration for @a5c-ai/compendium."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPR3R36CJSC3NY970S01GF8W/input.json",
+    "outputJsonPath": "tasks/01KPR3R36CJSC3NY970S01GF8W/output.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "docs",
+    "npm",
+    "publishing"
+  ],
+  "title": "Configure npm publishing, changesets, and documentation",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR3R36CJSC3NY970S01GF8W",
+  "taskId": "setup-publishing",
+  "invocationKey": "design-system-repo:S000012:setup-publishing",
+  "stepId": "S000012",
+  "inputs": {
+    "packageName": "@a5c-ai/compendium",
+    "projectDir": "."
+  }
+}

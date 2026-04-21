@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR3H8RM1QPF92BY5BJ8YH4G",
+  "taskId": "vite-build-verify",
+  "invocationKey": "design-system-repo:S000010:vite-build-verify",
+  "status": "ok",
+  "result": {
+    "exitCode": 0,
+    "output": "Vite build succeeded in 335ms. ES + CJS outputs with CSS code splitting."
+  },
+  "startedAt": "2026-04-21T13:26:54.934Z",
+  "finishedAt": "2026-04-21T13:26:54.934Z",
+  "value": {
+    "exitCode": 0,
+    "output": "Vite build succeeded in 335ms. ES + CJS outputs with CSS code splitting."
+  }
+}

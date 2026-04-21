@@ -1,0 +1,54 @@
+{
+  "autoApproval": {
+    "consecutiveApprovals": 0,
+    "reason": "No matching auto-approval rule",
+    "recommended": false
+  },
+  "kind": "breakpoint",
+  "metadata": {
+    "breakpointId": "breakpoint",
+    "label": "breakpoint",
+    "payload": {
+      "autoApproveAfterN": -1,
+      "breakpointId": "design-system.pre-final-review",
+      "expert": "owner",
+      "options": [
+        "Approve — run final verification",
+        "Request changes"
+      ],
+      "question": "Design system repo is scaffolded with components, Storybook, build, and publishing config. Review the work so far and approve to proceed to final verification?",
+      "tags": [
+        "approval-gate",
+        "design-system"
+      ],
+      "title": "Design System Review"
+    },
+    "requestedAt": "2026-04-21T15:10:12.756Z"
+  },
+  "title": "breakpoint",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR9F0RMTCZHJGDGQ1BD828W",
+  "taskId": "__sdk.breakpoint",
+  "invocationKey": "design-system-repo:S000013:__sdk.breakpoint",
+  "stepId": "S000013",
+  "inputs": {
+    "breakpointId": "breakpoint",
+    "label": "breakpoint",
+    "payload": {
+      "autoApproveAfterN": -1,
+      "breakpointId": "design-system.pre-final-review",
+      "expert": "owner",
+      "options": [
+        "Approve — run final verification",
+        "Request changes"
+      ],
+      "question": "Design system repo is scaffolded with components, Storybook, build, and publishing config. Review the work so far and approve to proceed to final verification?",
+      "tags": [
+        "approval-gate",
+        "design-system"
+      ],
+      "title": "Design System Review"
+    },
+    "requestedAt": "2026-04-21T15:10:12.756Z"
+  }
+}

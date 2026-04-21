@@ -1,0 +1,20 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T15:10:12.802Z",
+  "data": {
+    "effectId": "01KPR9F0RMTCZHJGDGQ1BD828W",
+    "invocationKey": "design-system-repo:S000013:__sdk.breakpoint",
+    "invocationHash": "196c083ad86b40b5826eccba21c946436ff4c362e8162c6985023f1a2f6d644c",
+    "stepId": "S000013",
+    "taskId": "__sdk.breakpoint",
+    "kind": "breakpoint",
+    "label": "breakpoint",
+    "taskDefRef": "tasks/01KPR9F0RMTCZHJGDGQ1BD828W/task.json",
+    "labels": [
+      "breakpoint"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "b6ce89f54cbf729a05e95a5b9f60313699e923df876e322893ed937eac604cdf"
+}

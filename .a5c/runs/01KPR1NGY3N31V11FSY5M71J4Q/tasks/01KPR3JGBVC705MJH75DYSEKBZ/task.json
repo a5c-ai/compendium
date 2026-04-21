@@ -1,0 +1,76 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "filesCreated": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "packageName": "@a5c-ai/compendium",
+        "projectDir": "."
+      },
+      "instructions": [
+        "Create examples/basic-usage/ with a small Vite React app:",
+        "",
+        "examples/basic-usage/",
+        "  package.json  — depends on the parent package via \"file:../../\"",
+        "  vite.config.ts",
+        "  tsconfig.json",
+        "  index.html",
+        "  src/",
+        "    main.tsx — entry",
+        "    App.tsx  — demo page showcasing:",
+        "      - Importing tokens/CSS",
+        "      - Using Button, Input, Toggle, Select, Modal components",
+        "      - Using icons (LogoWordmark, SealGatePassed)",
+        "      - Using both light (vellum) and dark (void) backgrounds",
+        "      - A realistic mini-form or dashboard layout",
+        "",
+        "The example should be a self-contained showcase that serves as both:",
+        "  - Developer documentation for how to consume the package",
+        "  - Visual proof that the components work correctly together",
+        "",
+        "Run `cd examples/basic-usage && npm install` to verify the link works.",
+        "",
+        "IMPORTANT: Read the actual src/ exports to know what components/icons exist.",
+        "IMPORTANT: Actually create ALL files and run npm install."
+      ],
+      "outputFormat": "JSON",
+      "role": "React developer creating example apps for design system documentation",
+      "task": "Create an example React app that demonstrates consuming the @a5c-ai/compendium design system."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPR3JGBVC705MJH75DYSEKBZ/input.json",
+    "outputJsonPath": "tasks/01KPR3JGBVC705MJH75DYSEKBZ/output.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "documentation",
+    "example"
+  ],
+  "title": "Create example consumer app",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR3JGBVC705MJH75DYSEKBZ",
+  "taskId": "create-example-app",
+  "invocationKey": "design-system-repo:S000011:create-example-app",
+  "stepId": "S000011",
+  "inputs": {
+    "packageName": "@a5c-ai/compendium",
+    "projectDir": "."
+  }
+}

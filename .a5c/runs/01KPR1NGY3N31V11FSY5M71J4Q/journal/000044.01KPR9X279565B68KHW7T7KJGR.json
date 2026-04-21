@@ -1,0 +1,10 @@
+{
+  "type": "RUN_COMPLETED",
+  "recordedAt": "2026-04-21T15:17:53.001Z",
+  "data": {
+    "outputRef": "state/output.json",
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "2dd73282ded6df2d51e11cf37b8e40c4f16fa4ee05302f018c233b2a0525507f"
+}

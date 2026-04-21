@@ -1,22 +1,76 @@
-# CODING AGENTS: READ THIS FIRST
+# @a5c-ai/compendium
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+The a5c.ai design system — Codex Seraphinianus-inspired React components, design tokens, and icons.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+## Install
 
-## What you should do — IMPORTANT
+```bash
+npm install @a5c-ai/compendium
+```
 
-**Find the primary design file under `a5c-ai-design-system/project/` and read it top to bottom.** Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+## Quick Start
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+```tsx
+// Import everything (components + tokens + icons + CSS)
+import { Button, Toggle, Modal } from '@a5c-ai/compendium';
 
-## About the design files
+// Or import specific subpaths for tree-shaking
+import { Button, Input, Select } from '@a5c-ai/compendium/react';
+import { colors, spacing } from '@a5c-ai/compendium/tokens';
+import { LogoWordmark, SealGatePassed } from '@a5c-ai/compendium/icons';
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+// CSS-only (no JS) — useful for non-React projects
+import '@a5c-ai/compendium/css';
+```
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+## Subpath Exports
 
-## Bundle contents
+| Import | Contents |
+|--------|----------|
+| `@a5c-ai/compendium` | Everything: components, tokens, icons, CSS |
+| `@a5c-ai/compendium/react` | React components only |
+| `@a5c-ai/compendium/tokens` | Design tokens (CSS variables + JS constants) |
+| `@a5c-ai/compendium/icons` | SVG icon React components |
+| `@a5c-ai/compendium/css` | CSS custom properties, reset, and base typography |
 
-- `a5c-ai-design-system/README.md` — this file
-- `a5c-ai-design-system/project/` — the `a5c.ai Design System` project files (HTML prototypes, assets, components)
+## Components
+
+**Controls:** Button, IconButton, Toggle, Checkbox, RadioGroup, Slider, RangeSlider, Stepper, Input, Textarea, Field, Tag, TagInput, InlineEdit, ColorPicker, Progress, Spinner, Skeleton
+
+**Layout:** Accordion, Tabs, DataTable, Pagination, Tree, Breadcrumbs, NavItem, Sidebar, SplitPane
+
+**Overlays:** Tooltip, Popover, Select, Combobox, DropdownMenu, ContextMenu, Modal, Drawer, CommandPalette, ToastProvider/useToasts
+
+**Icons:** LogoWordmark, LogoMonogram, LogoMonogramDark, SealGatePassed, GlyphDivider, GlyphModeInteractive, GlyphModePlan, GlyphModeYolo, GlyphModeForever, IllustrationConvergenceLoop, IllustrationQualityGates
+
+## Development
+
+```bash
+git clone <repo-url>
+cd compendium
+npm install
+npm run dev        # Start Storybook on port 6006
+npm run build      # Build the library
+npm run lint       # TypeScript type check
+npm run test       # Run tests
+```
+
+## Contributing
+
+This project uses [Changesets](https://github.com/changesets/changesets) for versioning.
+
+```bash
+npx changeset          # Create a new changeset
+npx changeset version  # Apply changesets to bump versions
+npm run release        # Publish to npm
+```
+
+## Design Language
+
+Warm vellum grounds vs. violet-black void. Serif display (Cormorant Garamond), serif body (EB Garamond), mono (JetBrains Mono). No emoji. No gradients. Elevation via plate offset shadows.
+
+See the [Storybook](./storybook-static/) for the full design token reference and component gallery.
+
+## License
+
+MIT — a5c.ai
