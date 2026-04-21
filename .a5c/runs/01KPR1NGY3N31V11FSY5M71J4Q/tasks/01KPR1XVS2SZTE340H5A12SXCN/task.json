@@ -1,0 +1,96 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "filesCreated": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "tokenCount": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "success",
+        "tokenCount"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "packageName": "@a5c-ai/compendium",
+        "projectDir": ".",
+        "sourceFiles": [
+          "project/colors_and_type.css — CSS custom properties for colors, typography, spacing",
+          "project/codex-ornate.css — ornate component styles (cartouches, brass plates, wax seals)",
+          "project/ornate.css — ornate styling variants",
+          "project/technical.css — technical/data styles",
+          "project/tk-controls.css — component control styles (buttons, inputs, toggles, etc.)"
+        ]
+      },
+      "instructions": [
+        "Read ALL the existing CSS files in project/ to understand the full token system.",
+        "",
+        "Create the following files in src/tokens/:",
+        "",
+        "1. src/tokens/variables.css — ALL CSS custom properties extracted and organized:",
+        "   - Colors (ground, ink, glyph, accent, semantic)",
+        "   - Typography (font families, sizes, weights, line heights)",
+        "   - Spacing scale",
+        "   - Borders, radii, shadows",
+        "   - Transitions/motion",
+        "   Group them with clear section comments.",
+        "",
+        "2. src/tokens/reset.css — minimal CSS reset/normalize for the design system",
+        "",
+        "3. src/tokens/base.css — base typography styles that apply the token variables",
+        "   (body font, heading scales, code/mono styling, link styling)",
+        "",
+        "4. src/tokens/index.css — imports all token CSS files in order",
+        "",
+        "5. src/tokens/index.ts — TypeScript file that:",
+        "   - Exports the token values as a JS object (for programmatic access)",
+        "   - Exports type definitions for token keys",
+        "   - import \"./index.css\" to ensure CSS is included",
+        "",
+        "The CSS custom properties should use the EXACT same names as in the source files",
+        "(--ground-vellum, --ink-pigment, --accent-cinnabar, etc.) for backward compatibility.",
+        "",
+        "IMPORTANT: Read every CSS file thoroughly before writing tokens.",
+        "IMPORTANT: Actually create all files. Do not just describe them."
+      ],
+      "outputFormat": "JSON",
+      "role": "Design systems engineer",
+      "task": "Extract CSS design tokens from the existing CSS files into the src/tokens/ directory for the @a5c-ai/compendium package."
+    }
+  },
+  "execution": {
+    "model": "claude-opus-4-6"
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPR1XVS2SZTE340H5A12SXCN/input.json",
+    "outputJsonPath": "tasks/01KPR1XVS2SZTE340H5A12SXCN/output.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "css",
+    "extraction",
+    "tokens"
+  ],
+  "title": "Extract design tokens from CSS into structured token files",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR1XVS2SZTE340H5A12SXCN",
+  "taskId": "extract-tokens",
+  "invocationKey": "design-system-repo:S000003:extract-tokens",
+  "stepId": "S000003",
+  "inputs": {
+    "packageName": "@a5c-ai/compendium",
+    "projectDir": "."
+  }
+}

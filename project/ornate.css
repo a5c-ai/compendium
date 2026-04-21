@@ -1,0 +1,250 @@
+/* ============================================================
+   a5c.ai Codex — Ornate Apparatus
+   Steampunk frames + diagrams + Burton crook
+   ============================================================ */
+
+/* ── BRASS FRAMES ────────────────────────────────────────── */
+
+/* A heavy brass casing with riveted corners. Apply to any panel
+   that should look "mounted on the wall of a chamber". */
+.brass-frame {
+  position: relative;
+  padding: 28px;
+  background:
+    linear-gradient(180deg, rgba(242,200,143,.16), rgba(0,0,0,0) 30%),
+    var(--mahogany);
+  border: 1px solid var(--brass-shadow);
+  box-shadow:
+    inset 0 0 0 6px var(--brass-deep),
+    inset 0 0 0 7px var(--brass),
+    inset 0 0 0 11px var(--brass-shadow),
+    inset 0 2px 0 rgba(255,220,170,.1),
+    0 14px 30px -10px rgba(0,0,0,.7);
+}
+
+/* Rivet corners — 4 studs at the inner border */
+.brass-frame::before,
+.brass-frame::after {
+  content: "";
+  position: absolute;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 30%, #F2D9A5 0%, #B98849 45%, #5A340F 100%);
+  box-shadow: 0 0 0 1px var(--brass-shadow), 0 1px 0 rgba(0,0,0,.6);
+}
+.brass-frame::before { top: 14px; left: 14px; }
+.brass-frame::after  { top: 14px; right: 14px; }
+
+.brass-frame .rivet-br,
+.brass-frame .rivet-bl {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 30%, #F2D9A5 0%, #B98849 45%, #5A340F 100%);
+  box-shadow: 0 0 0 1px var(--brass-shadow), 0 1px 0 rgba(0,0,0,.6);
+}
+.brass-frame .rivet-bl { bottom: 14px; left: 14px; }
+.brass-frame .rivet-br { bottom: 14px; right: 14px; }
+
+/* Vellum ground — a parchment page that lives inside a brass frame */
+.vellum-page {
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,220,170,.14), transparent 60%),
+    linear-gradient(180deg, #F2E7CE 0%, #E8D9B8 100%);
+  padding: 40px 44px;
+  color: var(--ink-pigment);
+}
+.vellum-page::before {
+  /* paper grain */
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.14 0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0.42 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: .2;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.vellum-page::after {
+  /* subtle darken at edges, like a well-thumbed page */
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(91,56,23,.18));
+  pointer-events: none;
+}
+.vellum-page > * { position: relative; }
+
+/* ── BRASS TABS (nav across frame top) ───────────────────── */
+.brass-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 0 24px;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 2;
+}
+.brass-tab {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 20px;
+  padding: 14px 28px 18px;
+  color: var(--glyph-fade);
+  background:
+    linear-gradient(180deg, var(--brass-deep) 0%, #6C3E15 100%);
+  border: 1px solid var(--brass-shadow);
+  border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+  box-shadow: inset 0 2px 0 rgba(242,200,143,.25);
+  cursor: pointer;
+  letter-spacing: -.005em;
+  transition: transform .15s ease, color .15s ease;
+  transform-origin: bottom center;
+}
+.brass-tab:hover { color: var(--glyph-bone); transform: translateY(-1px); }
+.brass-tab--active {
+  color: var(--mahogany);
+  background: linear-gradient(180deg, #F2C88F 0%, #D9A96A 50%, #B37E3E 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255,240,210,.5),
+    inset 0 -1px 0 rgba(91,56,23,.4);
+  transform: translateY(1px);
+}
+
+/* ── GEARS (background ornament) ─────────────────────────── */
+.gears-bg {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: .18;
+}
+.gears-bg svg { position: absolute; }
+@keyframes gear-turn-cw { to { transform: rotate(360deg); } }
+@keyframes gear-turn-ccw { to { transform: rotate(-360deg); } }
+.gear { animation: gear-turn-cw 60s linear infinite; transform-origin: center; }
+.gear--ccw { animation-name: gear-turn-ccw; }
+.gear--slow { animation-duration: 120s; }
+.gear--fast { animation-duration: 30s; }
+
+/* ── GEMSTONES ──────────────────────────────────────────── */
+/* Faceted cut-style gem using CSS. Use .gem.gem--cyan etc.
+   Size via style="--s: 48px" */
+.gem {
+  --s: 40px;
+  width: var(--s);
+  height: var(--s);
+  display: inline-block;
+  position: relative;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.4));
+}
+.gem svg { width: 100%; height: 100%; display: block; }
+
+/* ── WAX SEAL ───────────────────────────────────────────── */
+.wax-seal {
+  width: 108px; height: 108px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #D94835 0%, #8E2015 55%, #5A120B 100%);
+  color: #F8E9CC;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.1;
+  letter-spacing: .02em;
+  text-align: center;
+  position: relative;
+  transform: rotate(-6deg);
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,.18),
+    inset 0 -3px 6px rgba(0,0,0,.5),
+    0 4px 10px rgba(0,0,0,.35);
+}
+.wax-seal::before {
+  content: ""; position: absolute; inset: 8px; border-radius: 50%;
+  border: 1px dashed rgba(248,233,204,.4);
+}
+.wax-seal > * { position: relative; padding: 4px 8px; }
+.wax-seal--ruby { background: radial-gradient(circle at 32% 30%, #D94835 0%, #8E2015 55%, #5A120B 100%); }
+.wax-seal--emerald { background: radial-gradient(circle at 32% 30%, #5AAE82 0%, #2E6B4E 55%, #1A3F2D 100%); }
+.wax-seal--brass { background: radial-gradient(circle at 32% 30%, #F3D39B 0%, #C98A3E 50%, #5C3A14 100%); color: #2A1607; }
+.wax-seal--indigo { background: radial-gradient(circle at 32% 30%, #7C7BBB 0%, #2B2A6B 55%, #121238 100%); }
+
+/* ── SCROLL (inscribed strip) ───────────────────────────── */
+.scroll {
+  display: inline-flex; align-items: center; gap: 0;
+  position: relative;
+  background: linear-gradient(180deg, #F2E3C4 0%, #D9C290 100%);
+  color: var(--ink-pigment);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  padding: 12px 46px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    inset 0 -1px 0 rgba(91,56,23,.3),
+    0 2px 4px rgba(0,0,0,.2);
+  border-top: 1px solid #B99A65;
+  border-bottom: 1px solid #B99A65;
+}
+.scroll::before,
+.scroll::after {
+  content: "";
+  position: absolute;
+  width: 24px; height: calc(100% + 12px);
+  top: -6px;
+  background:
+    radial-gradient(ellipse at 50% 50%, #B98849 0%, #5A340F 100%);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px #5A340F, 0 2px 3px rgba(0,0,0,.3);
+}
+.scroll::before { left: -12px; }
+.scroll::after { right: -12px; }
+
+/* ── CHAMBER (dark stage with gears, for components showcase) ── */
+.chamber {
+  position: relative;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 35%, rgba(242,200,143,.1), transparent 60%),
+    linear-gradient(180deg, #1F110A 0%, #0E0704 100%);
+  color: var(--glyph-bone);
+  padding: 56px 40px;
+  overflow: hidden;
+  border: 1px solid var(--brass-shadow);
+  box-shadow: inset 0 0 0 5px var(--brass-deep), inset 0 0 0 6px var(--brass), inset 0 0 0 10px var(--brass-shadow);
+}
+
+/* ── CAPTION / FOLIO LABELS ─────────────────────────────── */
+.cap-tiny {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ink-ghost);
+}
+
+/* ── BURTONESQUE FLOURISHES ─────────────────────────────── */
+/* Slightly crooked, candle-flame-flicker. Sparing. */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  45% { opacity: .94; }
+  60% { opacity: 1; }
+}
+.flicker { animation: flicker 4.2s ease-in-out infinite; }
+.crook-1 { transform: rotate(-.5deg); }
+.crook-2 { transform: rotate(.8deg); }
+.crook-3 { transform: rotate(-1.2deg); }
+
+/* Spindly drop cap, ink-bleed at first letter */
+.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 5.8em;
+  line-height: .82;
+  float: left;
+  padding: 6px 10px 0 0;
+  color: var(--accent-cinnabar);
+  text-shadow: 0 1px 0 rgba(0,0,0,.18);
+}

@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T12:58:30.602Z",
+  "data": {
+    "effectId": "01KPR1XVS2SZTE340H5A12SXCN",
+    "invocationKey": "design-system-repo:S000003:extract-tokens",
+    "invocationHash": "f2eea02419cea87fa25901846568c2ae160960cc2e2e314221ca4616f5494bc6",
+    "stepId": "S000003",
+    "taskId": "extract-tokens",
+    "kind": "agent",
+    "label": "tokens",
+    "taskDefRef": "tasks/01KPR1XVS2SZTE340H5A12SXCN/task.json",
+    "labels": [
+      "tokens",
+      "css",
+      "extraction"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "70d7255fc8825865bd8f4c7f79b732b22f4d6beda808cac886bc58fc9ede1fdd"
+}

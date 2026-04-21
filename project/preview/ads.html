@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>a5c.ai — Standard display ads</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../technical.css" />
+<style>
+  html, body { margin:0; padding:0; background: #2A1607; font-family: var(--font-body); color: var(--tk-paper); }
+  .page { width: 1440px; margin: 0 auto; background: #2A1607; min-height: 100vh; padding: 40px 0 80px; }
+
+  .pagehead {
+    display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: 20px;
+    padding: 0 56px 24px;
+    border-bottom: 1px solid #C98A3E;
+    margin: 0 40px 40px;
+  }
+  .pagehead h1 {
+    font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: 42px;
+    color: #F2E3C4; margin: 0; letter-spacing: -.01em;
+  }
+  .pagehead h1 em { color: var(--gem-amber); font-style: normal; font-weight: 500; }
+  .pagehead .meta {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: #C98A3E;
+    text-align: right;
+  }
+
+  /* Slot */
+  .slot {
+    padding: 0 56px 28px;
+    display: grid; gap: 20px;
+  }
+  .slot h2 {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+    color: #C98A3E; margin: 0 0 4px; display: flex; align-items: baseline; gap: 14px;
+  }
+  .slot h2 .num {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 22px;
+    color: var(--gem-amber); letter-spacing: 0; text-transform: none;
+  }
+  .slot h2 .size {
+    font-family: var(--font-mono); color: #F2E3C4; font-size: 13px; letter-spacing: .15em;
+  }
+  .slot h2 .name {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; color: #F2E3C4;
+    font-size: 15px; letter-spacing: -.005em; text-transform: none;
+  }
+  .slot__row {
+    display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 40px;
+  }
+  .slot__stack { display: grid; gap: 16px; }
+  .slot__notes { padding-top: 6px; max-width: 44ch; }
+  .slot__notes p {
+    font-family: var(--font-body); font-style: italic; font-size: 13.5px; line-height: 1.55;
+    color: rgba(242,227,196,.68); margin: 0 0 .5em;
+  }
+  .slot__notes .specs {
+    margin-top: 10px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase; color: #C98A3E;
+    display: grid; grid-template-columns: auto 1fr; gap: 4px 14px;
+  }
+  .slot__notes .specs .k { color: rgba(242,227,196,.45); }
+
+  /* Ad container — placed on a "contact sheet" card */
+  .sheet {
+    padding: 14px;
+    background: #1B1208;
+    border: 1px solid #000;
+    box-shadow: 0 6px 0 rgba(0,0,0,.3);
+    display: inline-block;
+  }
+  .sheet__rule {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px;
+    margin-bottom: 8px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em; color: #C98A3E; text-transform: uppercase;
+  }
+  .sheet__rule .line { height: 1px; background: #C98A3E; opacity: .35; }
+  .sheet__label { color: rgba(242,227,196,.5); }
+
+  /* ════════════════════════════════════════════════════════════
+     AD BASE — shared by all sizes (scoped under .ad)
+     ════════════════════════════════════════════════════════════ */
+  .ad {
+    position: relative;
+    background: var(--tk-paper);
+    color: var(--tk-line);
+    font-family: var(--font-body);
+    border: 1.5px solid var(--tk-line);
+    overflow: hidden;
+    display: grid;
+  }
+  .ad * { box-sizing: border-box; }
+  .ad .corner {
+    position: absolute; width: 8px; height: 8px;
+    border: 1.5px solid var(--tk-line);
+    z-index: 2;
+    background: var(--tk-paper);
+  }
+  .ad .corner.tl { top: -1.5px; left: -1.5px; border-right: 0; border-bottom: 0; }
+  .ad .corner.tr { top: -1.5px; right: -1.5px; border-left: 0; border-bottom: 0; }
+  .ad .corner.bl { bottom: -1.5px; left: -1.5px; border-right: 0; border-top: 0; }
+  .ad .corner.br { bottom: -1.5px; right: -1.5px; border-left: 0; border-top: 0; }
+
+  .ad .folio {
+    position: absolute; top: 6px; left: 10px;
+    font-family: var(--font-mono); font-size: 7.5px; letter-spacing: .3em;
+    text-transform: uppercase; color: var(--tk-line-soft); z-index: 2;
+  }
+  .ad .ticker {
+    position: absolute; bottom: 6px; left: 10px; right: 10px;
+    display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 8px;
+    font-family: var(--font-mono); font-size: 7.5px; letter-spacing: .3em;
+    text-transform: uppercase; color: var(--tk-line-soft); z-index: 2;
+  }
+  .ad .wordmark {
+    font-family: var(--font-display); font-weight: 500; font-size: 14px;
+    letter-spacing: -.02em; color: var(--tk-line);
+    font-style: italic;
+  }
+  .ad .wordmark::after {
+    content: "."; color: var(--tk-cinnabar); font-style: normal; font-weight: 600;
+  }
+  .ad .cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em;
+    text-transform: uppercase; font-weight: 700;
+    color: var(--tk-paper); background: var(--tk-cinnabar);
+    padding: 6px 10px; border: 1.5px solid #5A120B;
+    box-shadow: 2px 2px 0 #5A120B;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .ad .cta .arr { margin-left: 2px; font-weight: 400; }
+  .ad .cta--ghost {
+    background: transparent; color: var(--tk-line); border-color: var(--tk-line);
+    box-shadow: 2px 2px 0 var(--tk-line);
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     300 × 250 — Medium rectangle
+     Chapter mark + headline + CTA + seal
+     ════════════════════════════════════════════════════════════ */
+  .ad-300x250 {
+    width: 300px; height: 250px;
+    grid-template-rows: auto 1fr auto;
+    padding: 18px 16px 14px;
+    background-image:
+      linear-gradient(rgba(27,22,17,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(27,22,17,.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .ad-300x250 .folio { top: 6px; left: 12px; }
+  .ad-300x250 .chap {
+    display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: baseline;
+    margin-top: 4px;
+  }
+  .ad-300x250 .chap .n {
+    font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 46px;
+    line-height: .85; color: var(--tk-cinnabar); letter-spacing: -.02em;
+  }
+  .ad-300x250 .chap .l {
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--tk-line-soft);
+    padding-top: 4px;
+  }
+  .ad-300x250 .chap .l .sub {
+    display: block;
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 12px;
+    color: var(--tk-line); letter-spacing: -.005em; text-transform: none; margin-top: 3px;
+  }
+  .ad-300x250 .headline {
+    font-family: var(--font-display); font-weight: 400; font-size: 26px;
+    line-height: 1.04; letter-spacing: -.015em; color: var(--tk-line);
+    text-wrap: balance;
+    align-self: center;
+    padding: 4px 0 0;
+  }
+  .ad-300x250 .headline em { font-style: italic; color: var(--tk-cinnabar); font-weight: 500; }
+  .ad-300x250 .bottom {
+    display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 10px;
+  }
+  .ad-300x250 .bottom .meta {
+    font-family: var(--font-mono); font-size: 8px; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--tk-line-soft);
+  }
+  .ad-300x250 .bottom .meta b {
+    display: block;
+    font-family: var(--font-display); font-style: italic; font-weight: 500;
+    letter-spacing: -.01em; text-transform: none; color: var(--tk-line);
+    font-size: 16px; margin-bottom: 2px;
+  }
+
+  /* Variant B: blueprint  */
+  .ad-300x250.v-bp {
+    background: var(--tk-blueprint); color: #E6F0F6;
+    border-color: var(--tk-bp-line);
+    background-image:
+      linear-gradient(rgba(127,215,255,.18) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127,215,255,.18) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  .ad-300x250.v-bp .corner { background: var(--tk-blueprint); border-color: var(--tk-bp-line); }
+  .ad-300x250.v-bp .folio, .ad-300x250.v-bp .chap .l, .ad-300x250.v-bp .bottom .meta { color: rgba(220,232,240,.55); }
+  .ad-300x250.v-bp .chap .n { color: #FFB47F; }
+  .ad-300x250.v-bp .chap .l .sub { color: #FFE1C4; }
+  .ad-300x250.v-bp .headline { color: #FFE1C4; }
+  .ad-300x250.v-bp .headline em { color: var(--tk-bp-line); }
+  .ad-300x250.v-bp .bottom .meta b { color: #FFE1C4; }
+  .ad-300x250.v-bp .cta { background: #FFE1C4; color: #0D2B3E; border-color: #0D2B3E; box-shadow: 2px 2px 0 #FFB47F; }
+
+  /* ════════════════════════════════════════════════════════════
+     728 × 90 — Leaderboard
+     Horizontal: big chapter + headline + CTA, with dim-line spine
+     ════════════════════════════════════════════════════════════ */
+  .ad-728x90 {
+    width: 728px; height: 90px;
+    grid-template-columns: 90px 1fr auto auto;
+    align-items: center;
+    padding: 0;
+    gap: 0;
+    background: var(--tk-paper);
+  }
+  .ad-728x90 .badge {
+    height: 100%;
+    background: var(--tk-line); color: var(--tk-paper);
+    display: grid; grid-template-rows: 1fr auto; align-items: end;
+    padding: 8px 10px 10px;
+    border-right: 1.5px solid var(--tk-line);
+    position: relative;
+  }
+  .ad-728x90 .badge .n {
+    font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 48px;
+    line-height: .85; color: var(--tk-paper); letter-spacing: -.02em;
+    align-self: end;
+  }
+  .ad-728x90 .badge .l {
+    font-family: var(--font-mono); font-size: 7.5px; letter-spacing: .28em;
+    text-transform: uppercase; color: rgba(246,242,230,.6);
+  }
+  .ad-728x90 .body {
+    padding: 0 20px; min-width: 0;
+    display: grid; grid-template-rows: auto auto; gap: 2px;
+  }
+  .ad-728x90 .kicker {
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--tk-line-soft);
+  }
+  .ad-728x90 .headline {
+    font-family: var(--font-display); font-weight: 400; font-size: 24px;
+    line-height: 1.05; letter-spacing: -.015em; color: var(--tk-line);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ad-728x90 .headline em { font-style: italic; color: var(--tk-cinnabar); font-weight: 500; }
+  .ad-728x90 .dim {
+    width: 1px; height: 56px; background: var(--tk-line); opacity: .4;
+    margin: 0 10px;
+  }
+  .ad-728x90 .ctaWrap {
+    padding: 0 18px 0 6px;
+    display: grid; gap: 6px; justify-items: end; align-items: center;
+  }
+  .ad-728x90 .ctaWrap .wordmark { font-size: 13px; }
+  .ad-728x90 .seal {
+    position: absolute; top: 4px; right: 4px;
+    font-family: var(--font-mono); font-size: 7px; letter-spacing: .2em; color: rgba(246,242,230,.55);
+  }
+
+  /* Variant B — amber background */
+  .ad-728x90.v-amber { background: #E9D8B4; }
+  .ad-728x90.v-amber .badge { background: var(--tk-cinnabar); color: #fff; border-right-color: #5A120B; }
+  .ad-728x90.v-amber .badge .n { color: #fff; }
+  .ad-728x90.v-amber .badge .l { color: rgba(255,255,255,.65); }
+  .ad-728x90.v-amber .cta { background: var(--tk-line); color: var(--tk-paper); border-color: #000; box-shadow: 2px 2px 0 #000; }
+
+  /* ════════════════════════════════════════════════════════════
+     160 × 600 — Wide skyscraper
+     Tall stack: chapter, vertical rule with tick marks, headline, CTA
+     ════════════════════════════════════════════════════════════ */
+  .ad-160x600 {
+    width: 160px; height: 600px;
+    padding: 20px 14px 16px;
+    grid-template-rows: auto 1fr auto auto;
+    gap: 16px;
+  }
+  .ad-160x600 .chap {
+    display: grid; gap: 4px;
+  }
+  .ad-160x600 .chap .n {
+    font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 60px;
+    line-height: .85; color: var(--tk-cinnabar); letter-spacing: -.02em;
+  }
+  .ad-160x600 .chap .l {
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--tk-line-soft);
+  }
+  .ad-160x600 .chap .sub {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 14px;
+    letter-spacing: -.005em; color: var(--tk-line); margin-top: 2px;
+  }
+  .ad-160x600 .spine {
+    display: grid; grid-template-columns: 12px 1fr; gap: 10px; align-items: start;
+    position: relative;
+  }
+  .ad-160x600 .spine .col {
+    position: relative;
+    border-left: 1px solid var(--tk-line);
+  }
+  .ad-160x600 .spine .col::before, .ad-160x600 .spine .col::after {
+    content: ""; position: absolute; left: -4px; width: 8px; height: 1px; background: var(--tk-line);
+  }
+  .ad-160x600 .spine .col::before { top: 0; }
+  .ad-160x600 .spine .col::after  { bottom: 0; }
+  .ad-160x600 .spine .tick {
+    position: absolute; left: -4px; width: 6px; height: 1px; background: var(--tk-line-soft);
+  }
+  .ad-160x600 .headline {
+    font-family: var(--font-display); font-weight: 400; font-size: 30px;
+    line-height: 1.0; letter-spacing: -.02em; color: var(--tk-line);
+    text-wrap: pretty;
+  }
+  .ad-160x600 .headline em { font-style: italic; color: var(--tk-cinnabar); font-weight: 500; }
+  .ad-160x600 .proof {
+    font-family: var(--font-body); font-style: italic; font-size: 12px; line-height: 1.4;
+    color: var(--tk-line-soft);
+  }
+  .ad-160x600 .ctaWrap { display: grid; gap: 8px; }
+  .ad-160x600 .ctaWrap .cta { justify-content: space-between; padding: 8px 10px; font-size: 9px; }
+  .ad-160x600 .foot {
+    border-top: 1px solid var(--tk-line);
+    padding-top: 8px;
+    display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 4px;
+  }
+  .ad-160x600 .foot .ln {
+    font-family: var(--font-mono); font-size: 7.5px; letter-spacing: .25em; text-transform: uppercase; color: var(--tk-line-soft);
+  }
+
+  /* Variant B — ink */
+  .ad-160x600.v-ink { background: #181108; color: #F2E3C4; border-color: #000; }
+  .ad-160x600.v-ink .corner { background: #181108; border-color: var(--gem-amber); }
+  .ad-160x600.v-ink .chap .n { color: var(--gem-amber); }
+  .ad-160x600.v-ink .chap .l, .ad-160x600.v-ink .ticker, .ad-160x600.v-ink .folio,
+  .ad-160x600.v-ink .proof, .ad-160x600.v-ink .foot .ln { color: rgba(242,227,196,.55); }
+  .ad-160x600.v-ink .chap .sub { color: #F2E3C4; }
+  .ad-160x600.v-ink .spine .col, .ad-160x600.v-ink .spine .col::before, .ad-160x600.v-ink .spine .col::after,
+  .ad-160x600.v-ink .spine .tick { border-color: var(--gem-amber); background: var(--gem-amber); }
+  .ad-160x600.v-ink .spine .col { border-left-color: var(--gem-amber); }
+  .ad-160x600.v-ink .headline { color: #F2E3C4; }
+  .ad-160x600.v-ink .headline em { color: var(--gem-amber); }
+  .ad-160x600.v-ink .foot { border-top-color: rgba(201,138,62,.4); }
+  .ad-160x600.v-ink .wordmark { color: #F2E3C4; }
+
+  /* ════════════════════════════════════════════════════════════
+     300 × 600 — Half-page, the poster
+     Title + chapter + diagram placeholder + 3-stanza + CTA
+     ════════════════════════════════════════════════════════════ */
+  .ad-300x600 {
+    width: 300px; height: 600px;
+    padding: 22px 18px 16px;
+    grid-template-rows: auto auto auto 1fr auto;
+    gap: 14px;
+  }
+  .ad-300x600 .chap {
+    display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start;
+    padding-bottom: 10px; border-bottom: 1px solid var(--tk-line);
+  }
+  .ad-300x600 .chap .n {
+    font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 56px;
+    line-height: .85; color: var(--tk-cinnabar); letter-spacing: -.02em;
+  }
+  .ad-300x600 .chap .label {
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--tk-line-soft); padding-top: 6px;
+  }
+  .ad-300x600 .chap .title {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 16px;
+    letter-spacing: -.005em; color: var(--tk-line); margin-top: 2px;
+  }
+  .ad-300x600 .headline {
+    font-family: var(--font-display); font-weight: 400; font-size: 36px;
+    line-height: .98; letter-spacing: -.02em; color: var(--tk-line);
+    text-wrap: balance;
+  }
+  .ad-300x600 .headline em { font-style: italic; color: var(--tk-cinnabar); font-weight: 500; }
+
+  .ad-300x600 .figure {
+    background: var(--tk-blueprint); border: 1px solid var(--tk-bp-line);
+    padding: 12px 12px 10px;
+    color: #E6F0F6;
+  }
+  .ad-300x600 .figure svg { width: 100%; height: auto; display: block; }
+  .ad-300x600 .figure .cap {
+    margin-top: 8px; padding-top: 6px; border-top: 1px dashed var(--tk-bp-line-soft);
+    font-family: var(--font-mono); font-size: 7.5px; letter-spacing: .24em; text-transform: uppercase;
+    color: rgba(220,232,240,.6);
+  }
+  .ad-300x600 .figure .cap b { color: #FFB47F; }
+
+  .ad-300x600 .stanzas {
+    display: grid; gap: 8px;
+    padding: 4px 0 4px;
+  }
+  .ad-300x600 .stanza {
+    display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: baseline;
+    padding: 4px 0;
+    border-top: 1px dashed color-mix(in oklab, var(--tk-line) 18%, transparent);
+  }
+  .ad-300x600 .stanza:first-child { border-top: 0; }
+  .ad-300x600 .stanza .tk-callout { background: transparent; }
+  .ad-300x600 .stanza .t {
+    font-family: var(--font-body); font-size: 13px; line-height: 1.45; color: var(--tk-line);
+  }
+  .ad-300x600 .stanza .t b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--tk-cinnabar); font-size: 14px; }
+
+  .ad-300x600 .bottom {
+    display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 10px;
+    padding-top: 10px; border-top: 1px solid var(--tk-line);
+  }
+  .ad-300x600 .bottom .meta {
+    font-family: var(--font-mono); font-size: 8px; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--tk-line-soft);
+  }
+  .ad-300x600 .bottom .meta b {
+    display: block;
+    font-family: var(--font-display); font-style: italic; font-weight: 500; color: var(--tk-line);
+    font-size: 15px; letter-spacing: -.005em; text-transform: none; margin-bottom: 2px;
+  }
+
+  /* Variant B — cinnabar ground */
+  .ad-300x600.v-cin {
+    background: var(--tk-cinnabar); color: #FFE1C4; border-color: #5A120B;
+  }
+  .ad-300x600.v-cin .corner { background: var(--tk-cinnabar); border-color: #FFE1C4; }
+  .ad-300x600.v-cin .folio, .ad-300x600.v-cin .ticker, .ad-300x600.v-cin .chap .label, .ad-300x600.v-cin .bottom .meta { color: rgba(255,225,196,.65); }
+  .ad-300x600.v-cin .chap { border-bottom-color: rgba(255,225,196,.5); }
+  .ad-300x600.v-cin .chap .n, .ad-300x600.v-cin .chap .title, .ad-300x600.v-cin .headline, .ad-300x600.v-cin .bottom .meta b, .ad-300x600.v-cin .wordmark { color: #FFE1C4; }
+  .ad-300x600.v-cin .wordmark::after { color: var(--gem-amber); }
+  .ad-300x600.v-cin .headline em { color: var(--gem-amber); font-style: italic; }
+  .ad-300x600.v-cin .stanzas .stanza { border-top-color: rgba(255,225,196,.25); }
+  .ad-300x600.v-cin .stanza .t { color: #FFE1C4; }
+  .ad-300x600.v-cin .stanza .t b { color: var(--gem-amber); }
+  .ad-300x600.v-cin .stanza .tk-callout { border-color: #FFE1C4; color: #FFE1C4; }
+  .ad-300x600.v-cin .bottom { border-top-color: rgba(255,225,196,.5); }
+  .ad-300x600.v-cin .cta { background: #FFE1C4; color: var(--tk-cinnabar); border-color: #5A120B; box-shadow: 2px 2px 0 #5A120B; }
+
+  /* Global wordmark override on dark variants */
+  .v-ink .wordmark, .v-cin .wordmark { color: inherit; }
+
+  /* Contact sheet caption */
+  .variant-label {
+    display: block; margin-top: 8px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+    color: rgba(242,227,196,.45); text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="pagehead">
+    <h1>Standard display &mdash; <em>ad set</em></h1>
+    <div></div>
+    <div class="meta">
+      Four IAB standard slots &middot; two variants each<br/>
+      Non-animated · legible at 100 %
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ 300 × 250 ═══════════════════════ -->
+  <section class="slot">
+    <h2><span class="num">I.</span> <span class="size">300 × 250</span> <span class="name">· medium rectangle</span></h2>
+    <div class="slot__row">
+      <div class="slot__stack">
+        <div class="sheet">
+          <div class="sheet__rule"><span class="sheet__label">Var. A · paper ground</span><span class="line"></span><span>300 × 250</span></div>
+          <!-- Ad -->
+          <div class="ad ad-300x250">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <span class="folio">Leaflet Nº I · mr-01</span>
+            <div class="chap">
+              <div class="n">03</div>
+              <div class="l">Chapter III<span class="sub">Gates &amp; verdicts</span></div>
+            </div>
+            <div class="headline">Every agent turn ends in a <em>written verdict</em>.</div>
+            <div class="bottom">
+              <div class="meta">
+                <b>a5c.ai</b>
+                The foundry<br/>for multi-agent work
+              </div>
+              <a class="cta">Request a demo <span class="arr">→</span></a>
+            </div>
+            <div class="ticker"><span>Ed. 4.2 · Aug 26</span><span>Vellum ground</span></div>
+          </div>
+          <span class="variant-label">Variant A · mr-01</span>
+        </div>
+        <div class="sheet">
+          <div class="sheet__rule"><span class="sheet__label">Var. B · blueprint ground</span><span class="line"></span><span>300 × 250</span></div>
+          <div class="ad ad-300x250 v-bp">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <span class="folio">Leaflet Nº I · mr-02</span>
+            <div class="chap">
+              <div class="n">03</div>
+              <div class="l">Chapter III<span class="sub">Gates &amp; verdicts</span></div>
+            </div>
+            <div class="headline">Two strangers, <em>same answer</em>. The rest is ornament.</div>
+            <div class="bottom">
+              <div class="meta">
+                <b>a5c.ai</b>
+                Convergence,<br/>in plain prose
+              </div>
+              <a class="cta">Read chapter III <span class="arr">→</span></a>
+            </div>
+            <div class="ticker"><span>Ed. 4.2 · Aug 26</span><span>Blueprint ground</span></div>
+          </div>
+          <span class="variant-label">Variant B · mr-02</span>
+        </div>
+      </div>
+      <div class="slot__notes">
+        <p>The medium rectangle carries the most weight in the set — it appears inline against article bodies. Chapter numeral earns its height; headline commits to a single thought; the wordmark sits bottom-left against a clear CTA.</p>
+        <p>Two grounds are supplied so the placement can match context — paper for editorial pages, blueprint for product/technical sites.</p>
+        <div class="specs">
+          <span class="k">Format</span><span>JPG · 40 KB ceiling</span>
+          <span class="k">Type stack</span><span>Cormorant · JetBrains Mono</span>
+          <span class="k">Safe area</span><span>10 px inset</span>
+          <span class="k">Click-through</span><span>a5c.ai/book-i</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 728 × 90 ═══════════════════════ -->
+  <section class="slot">
+    <h2><span class="num">II.</span> <span class="size">728 × 90</span> <span class="name">· leaderboard</span></h2>
+    <div class="slot__row">
+      <div class="slot__stack">
+        <div class="sheet">
+          <div class="sheet__rule"><span class="sheet__label">Var. A · ink badge</span><span class="line"></span><span>728 × 90</span></div>
+          <div class="ad ad-728x90">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <div class="badge">
+              <span class="seal">a5c · iv</span>
+              <div class="n">§ iii</div>
+              <div class="l">Chap. iii</div>
+            </div>
+            <div class="body">
+              <span class="kicker">Book I · Foundations</span>
+              <div class="headline">Every run ends in a <em>written verdict</em>. Not a score.</div>
+            </div>
+            <div class="dim"></div>
+            <div class="ctaWrap">
+              <span class="wordmark">a·5·c·ai</span>
+              <a class="cta">Open the foundry <span class="arr">→</span></a>
+            </div>
+          </div>
+          <span class="variant-label">Variant A · lb-01</span>
+        </div>
+        <div class="sheet">
+          <div class="sheet__rule"><span class="sheet__label">Var. B · cinnabar badge · amber ground</span><span class="line"></span><span>728 × 90</span></div>
+          <div class="ad ad-728x90 v-amber">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <div class="badge">
+              <span class="seal" style="color:rgba(255,255,255,.7);">a5c · iv</span>
+              <div class="n">§ v</div>
+              <div class="l">Chap. v</div>
+            </div>
+            <div class="body">
+              <span class="kicker">Book I · Telemetry &amp; cost</span>
+              <div class="headline">The <em>seat-pool</em> meter your finance team will actually read.</div>
+            </div>
+            <div class="dim"></div>
+            <div class="ctaWrap">
+              <span class="wordmark">a·5·c·ai</span>
+              <a class="cta">See the ledger <span class="arr">→</span></a>
+            </div>
+          </div>
+          <span class="variant-label">Variant B · lb-02</span>
+        </div>
+      </div>
+      <div class="slot__notes">
+        <p>A leaderboard lives at the top of pages — it must read in one glance. The chapter badge does the identity work on the left so the right-hand headline can be short and ornament-free; the vertical dim-line serves as an engineering-drawing separator to the CTA.</p>
+        <div class="specs">
+          <span class="k">Placement</span><span>Above fold, header</span>
+          <span class="k">Type stack</span><span>Cormorant · JetBrains Mono</span>
+          <span class="k">Copy cap</span><span>56 chars headline</span>
+          <span class="k">Click-through</span><span>a5c.ai</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 160 × 600 ═══════════════════════ -->
+  <section class="slot">
+    <h2><span class="num">III.</span> <span class="size">160 × 600</span> <span class="name">· wide skyscraper</span></h2>
+    <div class="slot__row">
+      <div class="slot__stack" style="grid-auto-flow: column; grid-auto-columns: max-content; gap: 30px;">
+        <div class="sheet">
+          <div class="sheet__rule"><span class="sheet__label">Var. A · paper</span><span class="line"></span><span>160 × 600</span></div>
+          <div class="ad ad-160x600">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <span class="folio">sky-01</span>
+            <div class="chap">
+              <div class="n">02</div>
+              <div class="l">Chapter II</div>
+              <div class="sub">Agents &amp; seats</div>
+            </div>
+            <div class="spine">
+              <div class="col" style="height: 260px;">
+                <span class="tick" style="top: 25%;"></span>
+                <span class="tick" style="top: 50%;"></span>
+                <span class="tick" style="top: 75%;"></span>
+              </div>
+              <div>
+                <div class="headline"><em>Seats</em>, not seats of software.</div>
+                <p class="proof" style="margin-top: 10px;">An agent is a seat in a room; the manifest is the chair that waits for it. Replay is how the room remembers.</p>
+              </div>
+            </div>
+            <div class="ctaWrap">
+              <a class="cta cta--ghost">Chapter II <span class="arr">→</span></a>
+              <a class="cta">Try a5c.ai <span class="arr">→</span></a>
+            </div>
+            <div class="foot">
+              <span class="wordmark">a·5·c·ai</span>
+              <span class="ln">Ed. 4·2</span>
+            </div>
+          </div>
+          <span class="variant-label">Variant A · sky-01</span>
+        </div>
+        <div class="sheet">
+          <div class="sheet__rule"><span class="sheet__label">Var. B · ink</span><span class="line"></span><span>160 × 600</span></div>
+          <div class="ad ad-160x600 v-ink">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <span class="folio" style="color: rgba(242,227,196,.55);">sky-02</span>
+            <div class="chap">
+              <div class="n">06</div>
+              <div class="l">Chapter VI</div>
+              <div class="sub">Safety &amp; seals</div>
+            </div>
+            <div class="spine">
+              <div class="col" style="height: 260px;">
+                <span class="tick" style="top: 20%;"></span>
+                <span class="tick" style="top: 45%;"></span>
+                <span class="tick" style="top: 70%;"></span>
+              </div>
+              <div>
+                <div class="headline">Least <em>scope</em>, by default. Expand on purpose.</div>
+                <p class="proof" style="margin-top: 10px;">Every tool an agent can reach was granted, in writing, by a human. Seals cascade; scope does not.</p>
+              </div>
+            </div>
+            <div class="ctaWrap">
+              <a class="cta cta--ghost" style="color:#F2E3C4; border-color:#F2E3C4; box-shadow: 2px 2px 0 #F2E3C4;">Chapter VI <span class="arr">→</span></a>
+              <a class="cta" style="background:var(--gem-amber); color:#181108; border-color:#000; box-shadow:2px 2px 0 #000;">See the seal <span class="arr">→</span></a>
+            </div>
+            <div class="foot">
+              <span class="wordmark">a·5·c·ai</span>
+              <span class="ln">Ed. 4·2</span>
+            </div>
+          </div>
+          <span class="variant-label">Variant B · sky-02</span>
+        </div>
+      </div>
+      <div class="slot__notes">
+        <p>The skyscraper rewards vertical architecture. The spine — a dimension line with tick marks — runs the length of the body as if the ad were a measured elevation of a chapter. Two CTAs are offered: the chapter link (ghost) and the commercial (filled).</p>
+        <div class="specs">
+          <span class="k">Placement</span><span>Right rail</span>
+          <span class="k">Headlines</span><span>≤ 8 words</span>
+          <span class="k">Dim scale</span><span>3 ticks (quarters)</span>
+          <span class="k">Click-through</span><span>a5c.ai/book-i/ch-2</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 300 × 600 ═══════════════════════ -->
+  <section class="slot">
+    <h2><span class="num">IV.</span> <span class="size">300 × 600</span> <span class="name">· half-page poster</span></h2>
+    <div class="slot__row">
+      <div class="slot__stack" style="grid-auto-flow: column; grid-auto-columns: max-content; gap: 30px;">
+        <div class="sheet">
+          <div class="sheet__rule"><span class="sheet__label">Var. A · paper · figure-driven</span><span class="line"></span><span>300 × 600</span></div>
+          <div class="ad ad-300x600">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <span class="folio">poster-01</span>
+            <div class="chap">
+              <div class="n">01</div>
+              <div>
+                <div class="label">Book I · Foundations</div>
+                <div class="title">A first acquaintance</div>
+              </div>
+            </div>
+            <div class="headline">The foundry, <em>in one page</em>.</div>
+            <div class="figure">
+              <svg viewBox="0 0 260 150" preserveAspectRatio="xMidYMid meet">
+                <line x1="20" y1="80" x2="240" y2="80" stroke="rgba(127,215,255,.55)" stroke-width="1"/>
+                <g>
+                  <circle cx="40" cy="80" r="12" fill="#0D2B3E" stroke="#FFB47F" stroke-width="1.2"/>
+                  <text x="40" y="84" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="12" fill="#FFB47F">e</text>
+                </g>
+                <rect x="108" y="68" width="28" height="24" fill="none" stroke="#7FD7FF"/>
+                <text x="122" y="85" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="11" fill="#7FD7FF">α</text>
+                <g>
+                  <circle cx="180" cy="80" r="12" fill="#0D2B3E" stroke="#7FE5B0" stroke-width="1.2"/>
+                  <text x="180" y="84" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="12" fill="#7FE5B0">v</text>
+                </g>
+                <g>
+                  <rect x="224" y="68" width="22" height="22" fill="#C03A2B" stroke="#FFE1C4" stroke-width="1.2"/>
+                  <text x="235" y="85" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-weight="600" font-size="12" fill="#FFE1C4">H</text>
+                </g>
+                <g stroke="rgba(127,215,255,.7)" fill="none" stroke-width="1">
+                  <path d="M52,80 L104,80" /><path d="M136,80 L168,80" /><path d="M192,80 L220,80" />
+                </g>
+                <g font-family="JetBrains Mono" font-size="7.5" letter-spacing=".18em" fill="rgba(220,232,240,.65)">
+                  <text x="40"  y="124" text-anchor="middle">EDITOR</text>
+                  <text x="122" y="124" text-anchor="middle">ARTEFACT</text>
+                  <text x="180" y="124" text-anchor="middle">VERIFIER</text>
+                  <text x="235" y="124" text-anchor="middle">HUMAN</text>
+                </g>
+              </svg>
+              <div class="cap"><b>FIG. A</b> editor → artefact → verifier → (sometimes) you</div>
+            </div>
+            <div class="stanzas">
+              <div class="stanza"><span class="tk-callout tk-callout--sm">1</span><div class="t"><b>Seat</b> &mdash; an agent, a manifest, a room.</div></div>
+              <div class="stanza"><span class="tk-callout tk-callout--sm">2</span><div class="t"><b>Verdict</b> &mdash; a written decision, by someone else.</div></div>
+              <div class="stanza"><span class="tk-callout tk-callout--sm">3</span><div class="t"><b>Seal</b> &mdash; a cinnabar mark, and a replay if it cracks.</div></div>
+            </div>
+            <div class="bottom">
+              <div class="meta"><b>a5c.ai</b>The foundry for<br/>multi-agent work</div>
+              <a class="cta">Request a demo <span class="arr">→</span></a>
+            </div>
+            <div class="ticker"><span>Ed. 4·2</span><span>Folio 01</span></div>
+          </div>
+          <span class="variant-label">Variant A · poster-01</span>
+        </div>
+        <div class="sheet">
+          <div class="sheet__rule"><span class="sheet__label">Var. B · cinnabar ground · type-driven</span><span class="line"></span><span>300 × 600</span></div>
+          <div class="ad ad-300x600 v-cin">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <span class="folio">poster-02</span>
+            <div class="chap">
+              <div class="n">03</div>
+              <div>
+                <div class="label">Book I · Chapter III</div>
+                <div class="title">Gates &amp; verdicts</div>
+              </div>
+            </div>
+            <div class="headline">Pass. Iterate. Fail. <em>Defer.</em></div>
+            <div class="figure" style="background: rgba(255,225,196,.08); border-color: rgba(255,225,196,.5);">
+              <svg viewBox="0 0 260 130" preserveAspectRatio="xMidYMid meet">
+                <g font-family="Cormorant Garamond" font-style="italic" font-weight="500" fill="#FFE1C4">
+                  <text x="20" y="44" font-size="28">pass</text>
+                  <text x="20" y="76" font-size="28">iterate</text>
+                  <text x="140" y="44" font-size="28">fail</text>
+                  <text x="140" y="76" font-size="28">defer</text>
+                </g>
+                <g stroke="rgba(255,225,196,.35)" stroke-width=".8">
+                  <line x1="20" y1="54" x2="115" y2="54"/>
+                  <line x1="140" y1="54" x2="240" y2="54"/>
+                  <line x1="128" y1="24" x2="128" y2="86"/>
+                </g>
+                <g font-family="JetBrains Mono" font-size="8" letter-spacing=".25em" fill="rgba(255,225,196,.75)">
+                  <text x="20" y="108">· four verdicts. one paragraph each ·</text>
+                </g>
+              </svg>
+              <div class="cap" style="color: rgba(255,225,196,.65); border-top-color: rgba(255,225,196,.25);"><b style="color: var(--gem-amber);">§ 3·2</b> the canonical gate</div>
+            </div>
+            <div class="stanzas">
+              <div class="stanza"><span class="tk-callout tk-callout--sm">i</span><div class="t"><b>Two strangers</b>, same answer.</div></div>
+              <div class="stanza"><span class="tk-callout tk-callout--sm">ii</span><div class="t"><b>One paragraph</b>, not a score.</div></div>
+              <div class="stanza"><span class="tk-callout tk-callout--sm">iii</span><div class="t"><b>Every seal</b>, a replay if it cracks.</div></div>
+            </div>
+            <div class="bottom">
+              <div class="meta"><b>a5c.ai</b>Read chapter III<br/>in the encyclopedia</div>
+              <a class="cta">Open chapter III <span class="arr">→</span></a>
+            </div>
+            <div class="ticker" style="color: rgba(255,225,196,.6);"><span>Ed. 4·2</span><span>Folio 51</span></div>
+          </div>
+          <span class="variant-label">Variant B · poster-02</span>
+        </div>
+      </div>
+      <div class="slot__notes">
+        <p>The half-page is the largest surface and the only one that can carry a three-stanza proof. Variant A is figure-driven (the same diagram that appears in the encyclopedia); variant B is type-driven, the four verdicts set as large italic words against a cinnabar ground.</p>
+        <div class="specs">
+          <span class="k">Placement</span><span>Right rail, editorial</span>
+          <span class="k">Stanzas</span><span>3 · iron law</span>
+          <span class="k">Motion</span><span>Static set (animatable later)</span>
+          <span class="k">Click-through</span><span>a5c.ai/book-i/ch-3</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

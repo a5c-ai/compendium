@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR2X94VZ0FXS3FEF9NY4KZF",
+  "taskId": "tsc-verify",
+  "invocationKey": "design-system-repo:S000005:tsc-verify",
+  "status": "ok",
+  "result": {
+    "exitCode": 0,
+    "output": "EXIT:0"
+  },
+  "startedAt": "2026-04-21T13:15:59.530Z",
+  "finishedAt": "2026-04-21T13:15:59.530Z",
+  "value": {
+    "exitCode": 0,
+    "output": "EXIT:0"
+  }
+}

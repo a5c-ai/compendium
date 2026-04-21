@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR1XVS2SZTE340H5A12SXCN",
+  "taskId": "extract-tokens",
+  "invocationKey": "design-system-repo:S000003:extract-tokens",
+  "status": "ok",
+  "result": {
+    "filesCreated": [
+      "src/tokens/variables.css",
+      "src/tokens/reset.css",
+      "src/tokens/base.css",
+      "src/tokens/index.css",
+      "src/tokens/index.ts"
+    ],
+    "success": true,
+    "tokenCount": 143
+  },
+  "startedAt": "2026-04-21T13:02:12.599Z",
+  "finishedAt": "2026-04-21T13:02:12.599Z",
+  "value": {
+    "filesCreated": [
+      "src/tokens/variables.css",
+      "src/tokens/reset.css",
+      "src/tokens/base.css",
+      "src/tokens/index.css",
+      "src/tokens/index.ts"
+    ],
+    "success": true,
+    "tokenCount": 143
+  }
+}

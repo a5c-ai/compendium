@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <g fill="none" stroke="#1B1611" stroke-width="1.8" stroke-linecap="round">
+    <circle cx="60" cy="60" r="52"></circle>
+    <circle cx="60" cy="60" r="42" stroke-dasharray="2 4"></circle>
+    
+    <path d="M36 86 L60 28 L84 86 M44 72 H76"></path>
+    
+    <circle cx="60" cy="60" r="3" fill="#C03A2B" stroke="none"></circle>
+  </g>
+  <g font-family="JetBrains Mono, monospace" font-size="7" fill="#5A4E3C" letter-spacing=".18em">
+    <text x="60" y="18" text-anchor="middle">a5c</text>
+    <text x="60" y="108" text-anchor="middle">.ai</text>
+  </g>
+</svg>

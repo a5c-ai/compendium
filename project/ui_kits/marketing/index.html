@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>a5c.ai — Reliable AI workflows for teams that ship</title>
+<link rel="stylesheet" href="../../colors_and_type.css"/>
+<link rel="stylesheet" href="../../codex-ornate.css"/>
+<style>
+  html, body { margin: 0; background: var(--ground-vellum); color: var(--ink-pigment); font-family: var(--font-body); }
+  body {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/></svg>"),
+      linear-gradient(180deg, var(--ground-vellum), var(--ground-parchment));
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+  /* Top rule */
+  .top-rule {
+    position: relative;
+    height: 28px;
+    border-bottom: 1px solid var(--edge-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+  }
+  .top-rule::before {
+    content: "";
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-cinnabar);
+    box-shadow: 0 0 10px rgba(192,58,43,.6);
+    margin-top: -16px;
+  }
+
+  /* Nav */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 0;
+  }
+  .nav__brand { display: flex; align-items: center; gap: 14px; }
+  .nav__mono { width: 44px; height: 44px; }
+  .nav__name { font-family: var(--font-display); font-size: 28px; font-weight: 600; line-height: 1; }
+  .nav__name .dot { color: var(--accent-cinnabar); }
+  .nav__tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-fade); display: block; margin-top: 2px; }
+  .nav__links { display: flex; gap: 28px; }
+  .nav__links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-fade); text-decoration: none; transition: color var(--dur-quick) var(--ease-codex); }
+  .nav__links a:hover { color: var(--accent-cinnabar); }
+  .nav__cta { display: flex; gap: 12px; align-items: center; }
+
+  /* Hero */
+  .hero { padding: 72px 0 64px; display: grid; grid-template-columns: 1.35fr 1fr; gap: 56px; align-items: start; }
+  .hero__eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-fade); display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .hero__eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--ink-fade); display: inline-block; }
+  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: 88px; line-height: .98; letter-spacing: -.02em; margin: 0 0 24px; }
+  .hero h1 .dot { color: var(--accent-cinnabar); }
+  .hero .lede { font-family: var(--font-body); font-size: 21px; line-height: 1.5; font-style: italic; color: var(--ink-pigment); max-width: 44ch; margin: 0 0 32px; }
+  .hero__cta { display: flex; gap: 14px; align-items: center; }
+  .hero__fig {
+    background: var(--ground-parchment);
+    border: 1px solid var(--edge-dark);
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 4px 4px 0 var(--ink-pigment);
+    position: relative;
+  }
+  .hero__fig img { width: 100%; display: block; }
+  .hero__fig-cap { font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-fade); padding-top: 10px; border-top: 1px solid var(--edge-dark); margin-top: 14px; display: flex; justify-content: space-between; }
+
+  /* Install band */
+  .install-band { padding: 40px 0 56px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center; border-top: 1px solid var(--edge-dark); border-bottom: 1px solid var(--edge-dark); }
+  .install-mono { display: flex; align-items: stretch; background: var(--ground-void); border: 1px solid var(--brass-dark); border-radius: 4px; overflow: hidden; grid-column: span 2; box-shadow: 3px 3px 0 var(--brass-dark); }
+  .install-mono__prompt { padding: 16px 20px; color: var(--glyph-bone); font-family: var(--font-mono); font-size: 14px; flex: 1; }
+  .install-mono__prompt .p { color: var(--accent-sulphur); }
+  .install-mono__copy { background: var(--brass); color: var(--ground-void); border: 0; padding: 0 24px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; border-left: 1px solid var(--brass-dark); }
+  .install-mono__copy:hover { background: var(--brass-light); }
+
+  .install-meta { display: flex; gap: 18px; flex-wrap: wrap; }
+  .install-meta .chip-pill { border-color: var(--edge-dark); }
+
+  /* Section headers */
+  section { padding: 96px 0; }
+  section.void {
+    background: var(--ground-void);
+    color: var(--glyph-bone);
+    margin: 0 -40px;
+    padding-left: 40px; padding-right: 40px;
+  }
+  section.void h2, section.void h3 { color: var(--glyph-bone); }
+  section.void .eyebrow { color: var(--glyph-fade); }
+  .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-fade); display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; opacity: .5; display: inline-block; }
+  h2.sec {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -.015em;
+    margin: 0 0 20px;
+    max-width: 22ch;
+  }
+  .sec-lede { font-family: var(--font-body); font-size: 18px; font-style: italic; color: var(--ink-fade); max-width: 52ch; margin: 0 0 48px; line-height: 1.55; }
+  section.void .sec-lede { color: var(--glyph-fade); }
+
+  /* Problem/Solution grid */
+  .ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .ps-col .ps-title { font-family: var(--font-display); font-size: 32px; font-weight: 600; margin: 0 0 20px; display: flex; align-items: center; gap: 14px; }
+  .ps-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 18px; }
+  .ps-col li { font-family: var(--font-body); font-size: 17px; line-height: 1.55; padding-left: 28px; position: relative; }
+  .ps-col li::before { content: ""; position: absolute; left: 0; top: 10px; width: 16px; height: 1px; background: currentColor; opacity: .4; }
+  .ps-col.problem { color: var(--accent-cinnabar); }
+  .ps-col.problem li { color: var(--ink-pigment); }
+  .ps-col.problem li strong { color: var(--accent-cinnabar); font-weight: 600; }
+  .ps-col.solution { color: var(--accent-viridian); }
+  .ps-col.solution li { color: var(--glyph-bone); }
+  .ps-col.solution li strong { color: var(--accent-viridian); font-weight: 600; }
+
+  /* Modes grid */
+  .modes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .mode-card {
+    display: flex; flex-direction: column; gap: 12px;
+    padding: 28px 24px;
+    background: var(--ground-vellum);
+    border: 1px solid var(--edge-dark);
+    border-radius: 4px;
+    box-shadow: 3px 3px 0 var(--ink-pigment);
+    transition: transform var(--dur-quick) var(--ease-codex), box-shadow var(--dur-quick) var(--ease-codex);
+    color: var(--ink-pigment);
+  }
+  .mode-card:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink-pigment); }
+  .mode-card .glyph { width: 44px; height: 44px; }
+  .mode-card .mname { font-family: var(--font-display); font-size: 26px; font-weight: 600; line-height: 1; }
+  .mode-card .cmd { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; color: var(--ink-fade); }
+  .mode-card p { font-family: var(--font-body); font-size: 15px; line-height: 1.55; margin: 4px 0 0; }
+
+  /* Workflow */
+  .workflow {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .workflow__illus {
+    background: var(--ground-ink);
+    border: 1px solid var(--brass-dark);
+    border-radius: 6px;
+    padding: 24px;
+    box-shadow: 4px 4px 0 var(--brass-dark);
+  }
+  .workflow__illus svg { width: 100%; display: block; }
+  .steps { display: grid; gap: 32px; }
+  .step { display: grid; grid-template-columns: 64px 1fr; gap: 20px; align-items: start; }
+  .step .num { font-family: var(--font-display); font-size: 48px; font-weight: 500; line-height: 1; color: var(--accent-cinnabar); }
+  .step h4 { font-family: var(--font-display); font-weight: 600; font-size: 24px; margin: 0 0 6px; }
+  .step p { font-family: var(--font-body); font-size: 16px; line-height: 1.55; margin: 0; color: var(--glyph-fade); max-width: 48ch; }
+
+  /* Gauges */
+  .gauges-row { display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; margin-top: 40px; }
+
+  /* Quote */
+  .quote-block {
+    border-top: 1px solid var(--edge-dark);
+    border-bottom: 1px solid var(--edge-dark);
+    padding: 64px 0;
+    display: grid; grid-template-columns: 120px 1fr 120px; gap: 40px; align-items: center;
+  }
+  .quote-block blockquote {
+    font-family: var(--font-display); font-style: italic; font-size: 36px; line-height: 1.25;
+    margin: 0; max-width: 32ch; color: var(--ink-pigment);
+  }
+  .quote-block cite { display: block; font-style: normal; font-family: var(--font-mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-fade); margin-top: 18px; }
+
+  /* CTA footer band */
+  .cta-band {
+    background: var(--ground-void);
+    color: var(--glyph-bone);
+    border-radius: 6px;
+    padding: 72px 56px;
+    text-align: center;
+    margin: 72px 0 48px;
+    border: 1px solid var(--brass-dark);
+    box-shadow: 4px 4px 0 var(--brass-dark);
+    position: relative;
+  }
+  .cta-band h2 { font-family: var(--font-display); font-size: 72px; font-weight: 500; margin: 0 0 14px; color: var(--glyph-bone); line-height: 1; letter-spacing: -.02em; }
+  .cta-band .dot { color: var(--accent-cinnabar); }
+  .cta-band p { font-family: var(--font-body); font-size: 20px; font-style: italic; color: var(--glyph-fade); max-width: 44ch; margin: 0 auto 32px; }
+  .cta-band__row { display: flex; gap: 16px; justify-content: center; align-items: center; }
+  .cta-band::before, .cta-band::after {
+    content: "⟡ ◊ ⟡";
+    position: absolute;
+    font-family: var(--font-mono); letter-spacing: .4em;
+    color: var(--glyph-fade);
+    font-size: 12px;
+  }
+  .cta-band::before { top: 20px; left: 50%; transform: translateX(-50%); }
+  .cta-band::after { bottom: 20px; left: 50%; transform: translateX(-50%); }
+
+  /* Footer */
+  footer {
+    padding: 40px 0 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-fade);
+    border-top: 1px solid var(--edge-dark);
+  }
+  footer .f-links { display: flex; gap: 24px; }
+  footer a { color: inherit; text-decoration: none; }
+  footer a:hover { color: var(--accent-cinnabar); }
+</style>
+</head>
+<body>
+
+<div class="top-rule">
+  <span>a5c.ai · codex · of · reliable · autonomy · mmxxvi</span>
+</div>
+
+<div class="wrap">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__brand">
+      <svg class="nav__mono" viewBox="0 0 120 120"><g fill="none" stroke="#1B1611" stroke-width="1.8" stroke-linecap="round"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="42" stroke-dasharray="2 4"/><path d="M36 86 L60 28 L84 86 M44 72 H76"/><circle cx="60" cy="60" r="3" fill="#C03A2B" stroke="none"/></g></svg>
+      <div>
+        <div class="nav__name">a5c<span class="dot">.</span>ai</div>
+        <div class="nav__tag">codex of reliable autonomy</div>
+      </div>
+    </div>
+    <div class="nav__links">
+      <a>Product</a><a>Enterprise</a><a>Hall of Fame</a><a>Docs</a><a>Discord</a>
+    </div>
+    <div class="nav__cta">
+      <span class="chip-pill">v0.12 · mit</span>
+      <button class="brass-plate" style="font-size:13px; padding: 8px 16px;">Install + Star</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="padding-top: 72px; padding-bottom: 64px;">
+    <div>
+      <div class="hero__eyebrow">fol. i · the problem of the agent</div>
+      <h1>Reliable AI workflows for teams that ship<span class="dot">.</span></h1>
+      <p class="lede">Babysitter wraps any coding agent in convergent loops and cryptographic proof. You define what <em>done</em> means. The gates enforce it. The seal proves it.</p>
+      <div class="hero__cta">
+        <button class="brass-plate">Install + Star</button>
+        <button style="font-family:var(--font-display); font-size:15px; padding: 10px 18px; background: transparent; border: 1px solid var(--ink-pigment); color: var(--ink-pigment); border-radius:0; box-shadow: 3px 3px 0 var(--ink-pigment); cursor:pointer;">See the workflow →</button>
+      </div>
+      <div style="margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap;">
+        <span class="chip-pill">claude code · native</span>
+        <span class="chip-pill">opencode</span>
+        <span class="chip-pill">gemini</span>
+        <span class="chip-pill">codex</span>
+        <span class="chip-pill">+ litellm</span>
+      </div>
+    </div>
+    <div class="hero__fig">
+      <img src="../../assets/illustration-convergence-loop.svg" alt="The convergence loop"/>
+      <div class="hero__fig-cap">
+        <span>fig · i — the convergence loop</span>
+        <span>fol · iii</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALL BAND -->
+  <div class="install-band">
+    <div class="install-mono">
+      <div class="install-mono__prompt"><span class="p">$</span> npm i -g @a5c/babysitter &amp;&amp; babysitter init</div>
+      <button class="install-mono__copy">Copy</button>
+    </div>
+    <div class="install-meta">
+      <span class="chip-pill">mit · licensed</span>
+      <span class="chip-pill">zero telemetry</span>
+      <span class="chip-pill">5 min setup</span>
+      <span class="chip-pill pass">✓ agent-agnostic</span>
+    </div>
+  </div>
+
+  <!-- PROBLEM / SOLUTION -->
+  <section>
+    <div class="eyebrow">fol. ii · the problem, the remedy</div>
+    <h2 class="sec">No developer ships code by approving their own PR.</h2>
+    <p class="sec-lede">Why should an agent certify its own completion? Babysitter separates the <em>doer</em> from the <em>verifier</em>. Every task passes through the gate before it passes into your history.</p>
+
+    <div class="ps-grid">
+      <div class="ps-col problem">
+        <h3 class="ps-title">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="24" cy="24" r="16"/><path d="M16 16 L32 32 M32 16 L16 32"/></svg>
+          Without a keeper
+        </h3>
+        <ul>
+          <li><strong>Results vary</strong> run to run. The same prompt, a new answer, a worse answer.</li>
+          <li><strong>Quality degrades</strong> the longer the agent runs unsupervised.</li>
+          <li><strong>“Almost done”</strong> stays almost done — the final 10% is the whole problem.</li>
+          <li><strong>Confidence without evidence.</strong> The agent says it’s done. No one verifies it.</li>
+        </ul>
+      </div>
+      <div class="ps-col solution" style="color: var(--accent-viridian);">
+        <h3 class="ps-title">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="16"/><path d="M15 24 L22 31 L33 18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"/></svg>
+          With Babysitter
+        </h3>
+        <ul style="color: var(--ink-pigment);">
+          <li><strong>Tasks converge.</strong> The loop iterates until every gate reports passed.</li>
+          <li><strong>Quality holds.</strong> Gates are explicit, versioned, and re-run every iteration.</li>
+          <li><strong>Done means done.</strong> No verdict without a struck seal.</li>
+          <li><strong>Cryptographic proof</strong> accompanies every merged PR.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Gauges -->
+    <div class="gauges-row">
+      <div class="gauge"><div class="gauge__value">2,000+</div><div class="gauge__label">built · in · processes</div></div>
+      <div class="gauge"><div class="gauge__value">5 min</div><div class="gauge__label">setup · time</div></div>
+      <div class="gauge"><div class="gauge__value">0</div><div class="gauge__label">telemetry · bytes</div></div>
+      <div class="gauge"><div class="gauge__value">MIT</div><div class="gauge__label">license</div></div>
+      <div class="gauge"><div class="gauge__value">any</div><div class="gauge__label">agent · heart</div></div>
+    </div>
+  </section>
+
+  <!-- MODES -->
+  <section>
+    <div class="eyebrow">fol. iii · four modes of dispatch</div>
+    <h2 class="sec">Pick your leash length.</h2>
+    <p class="sec-lede">Same agents. Same gates. Four registers — from step-by-step review to a daemon that converges forever.</p>
+
+    <div class="modes">
+      <div class="mode-card">
+        <svg class="glyph" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="24" cy="24" r="18"/><path d="M14 24 H34"/><path d="M24 14 V34"/><circle cx="24" cy="24" r="3" fill="currentColor"/></g></svg>
+        <div class="mname">Interactive</div>
+        <div class="cmd">/babysitter:call</div>
+        <p>Step-by-step. You review each gate. Ideal for high-stakes changes.</p>
+      </div>
+      <div class="mode-card">
+        <svg class="glyph" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M10 10 H38 V38 H10 Z"/><path d="M10 18 H38 M18 18 V38"/><path d="M22 24 H34 M22 30 H30"/><circle cx="14" cy="14" r="1.5" fill="currentColor"/></g></svg>
+        <div class="mname">Plan First</div>
+        <div class="cmd">/babysitter:plan</div>
+        <p>Write the plan. Then dispatch. The plan itself becomes a gate.</p>
+      </div>
+      <div class="mode-card">
+        <svg class="glyph" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 34 L24 10 L36 34 Z"/><path d="M18 28 H30"/><circle cx="24" cy="22" r="2" fill="#C03A2B" stroke="none"/></g></svg>
+        <div class="mname">YOLO</div>
+        <div class="cmd">/babysitter:yolo</div>
+        <p>Full autonomy within hard gates. You get the verdict and the proof.</p>
+      </div>
+      <div class="mode-card">
+        <svg class="glyph" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M16 24 A6 6 0 1 1 22 30 L26 18 A6 6 0 1 1 32 24 A6 6 0 1 1 26 30 L22 18 A6 6 0 1 1 16 24 Z"/></g></svg>
+        <div class="mname">Forever</div>
+        <div class="cmd">/babysitter:forever</div>
+        <p>A daemon. Converges continuously. The agent never sleeps.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW on VOID -->
+  <section class="void">
+    <div class="wrap" style="padding: 0; margin: 0;">
+      <div class="eyebrow">fol. iv · the workflow</div>
+      <h2 class="sec">The gate opens once. The seal is struck once.</h2>
+      <p class="sec-lede">Four stations between intent and merge. Every station is a gate — lint, test, audit, seal. Convergence is the only exit.</p>
+
+      <div class="workflow">
+        <div class="workflow__illus">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
+            <style>
+              .e  { stroke: #F0E6D1; stroke-width: 1; fill: none; }
+              .e2 { stroke: #F0E6D1; stroke-width: 1.4; fill: none; }
+              .cap { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #A89980; letter-spacing: .2em; text-transform: uppercase; }
+              .serif { font-family: 'EB Garamond', serif; font-size: 13px; fill: #F0E6D1; font-style: italic; }
+            </style>
+            <g class="e">
+              <path d="M8 8 h10 M8 8 v10"/><path d="M592 8 h-10 M592 8 v10"/>
+              <path d="M8 392 h10 M8 392 v-10"/><path d="M592 392 h-10 M592 392 v-10"/>
+            </g>
+            <text x="300" y="32" text-anchor="middle" class="cap">fig · ii · the · quality · gates</text>
+            <g transform="translate(80,180)">
+              <path d="M-30 -40 L30 -40 L10 0 L-10 0 Z" class="e2"/>
+              <text text-anchor="middle" y="20" class="serif">the task</text>
+              <text text-anchor="middle" y="38" class="cap">input</text>
+            </g>
+            <g class="e2"><path d="M120 200 H160"/><path d="M240 200 H280"/><path d="M360 200 H400"/><path d="M480 200 H520"/></g>
+            <g transform="translate(200,200)"><circle r="28" class="e2"/><circle r="22" class="e" stroke-dasharray="1 3"/><text text-anchor="middle" y="4" class="serif">lint</text><text text-anchor="middle" y="-40" class="cap">gate · i</text></g>
+            <g transform="translate(320,200)"><circle r="28" class="e2"/><circle r="22" class="e" stroke-dasharray="1 3"/><text text-anchor="middle" y="4" class="serif">test</text><text text-anchor="middle" y="-40" class="cap">gate · ii</text></g>
+            <g transform="translate(440,200)"><circle r="28" class="e2"/><circle r="22" class="e" stroke-dasharray="1 3"/><text text-anchor="middle" y="4" class="serif">audit</text><text text-anchor="middle" y="-40" class="cap">gate · iii</text></g>
+            <g transform="translate(550,200)"><circle r="24" fill="none" stroke="#C03A2B" stroke-width="1.4"/><path d="M-10 0 L-3 7 L12 -8" stroke="#C03A2B" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text text-anchor="middle" y="40" class="cap" fill="#C03A2B">sealed</text></g>
+            <text x="300" y="340" text-anchor="middle" class="serif">each gate must be passed, else the loop converges anew</text>
+            <text x="300" y="362" text-anchor="middle" class="cap">∴ · convergence · is · the · only · exit</text>
+          </svg>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="num">I</div><div><h4>Dispatch the task</h4><p>You describe the outcome in plain English. Babysitter routes it to the agent of your choice under the mode of your choice.</p></div></div>
+          <div class="step"><div class="num">II</div><div><h4>Run the gates</h4><p>Lint, tests, security audit, custom gates. Each one versioned. Each one mandatory. Each one rerun on every iteration.</p></div></div>
+          <div class="step"><div class="num">III</div><div><h4>Converge</h4><p>If any gate reports failed, the loop plans a revision and tries again. Up to N iterations, configurable per process.</p></div></div>
+          <div class="step"><div class="num">IV</div><div><h4>Strike the seal</h4><p>A cryptographic proof-of-done is emitted and attached to the PR. The record is now complete, and auditable.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <div class="wrap">
+    <div class="quote-block">
+      <img src="../../assets/seal-gate-passed.svg" style="width: 120px;" alt=""/>
+      <div>
+        <blockquote>The recipes are more valuable than the kitchen. AI models change. Proven workflows don’t.</blockquote>
+        <cite>— yaniv · ceo · co-founder, a5c.ai</cite>
+      </div>
+      <div style="text-align:right; font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; color: var(--ink-fade); text-transform: uppercase; line-height: 1.6;">
+        fol<br/>vii<br/><br/>·<br/>·<br/>·
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BAND -->
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Done means done<span class="dot">.</span></h2>
+      <p>Five minutes to install. Zero telemetry. Open source, MIT-licensed, agent-agnostic.</p>
+      <div class="cta-band__row">
+        <button class="brass-plate">Install + Star on GitHub</button>
+        <button style="font-family:var(--font-display); font-size:15px; padding: 10px 18px; background: transparent; border: 1px solid var(--glyph-bone); color: var(--glyph-bone); border-radius:0; box-shadow: 3px 3px 0 var(--glyph-bone); cursor:pointer;">Join the Discord →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>a5c.ai · codex mmxxvi · fol. xxiv</div>
+    <div class="f-links">
+      <a>Product</a>
+      <a>Enterprise</a>
+      <a>Hall of Fame</a>
+      <a>GitHub</a>
+      <a>Discord</a>
+      <a>MIT</a>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

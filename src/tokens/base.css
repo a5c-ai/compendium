@@ -1,0 +1,172 @@
+/* ============================================================
+   @a5c-ai/compendium Design Tokens — base.css
+   Base typography styles for the Codex design system.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+/* ==========================================================
+   Body — EB Garamond
+   ========================================================== */
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-prose);
+  color: var(--fg);
+  text-wrap: pretty;
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-prose);
+  max-width: var(--measure-body);
+  margin: 0 0 var(--s-4);
+  color: var(--fg);
+}
+
+/* ==========================================================
+   Headings — Cormorant Garamond
+   ========================================================== */
+h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  margin: 0 0 var(--s-5);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  margin: var(--s-8) 0 var(--s-4);
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  margin: var(--s-6) 0 var(--s-3);
+}
+
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  margin: var(--s-5) 0 var(--s-3);
+}
+
+h5 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-h5);
+  line-height: var(--lh-snug);
+  margin: var(--s-4) 0 var(--s-2);
+}
+
+h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  margin: var(--s-4) 0 var(--s-2);
+}
+
+/* ==========================================================
+   Code / Mono — JetBrains Mono
+   ========================================================== */
+code,
+kbd,
+samp {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: color-mix(in oklab, var(--fg) 8%, transparent);
+  padding: 2px 6px;
+  border-radius: var(--r-1);
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  padding: var(--s-5);
+  background: var(--ground-void);
+  color: var(--glyph-bone);
+  border-radius: var(--r-1);
+  overflow-x: auto;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ==========================================================
+   Links — cinnabar accent on hover
+   ========================================================== */
+a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--fg-2);
+  transition: opacity var(--dur-quick) var(--ease-codex),
+              text-decoration-color var(--dur-quick) var(--ease-codex);
+}
+
+a:hover {
+  opacity: 0.78;
+  text-decoration-color: var(--accent-cinnabar);
+}
+
+/* ==========================================================
+   Captions & small text
+   ========================================================== */
+figcaption,
+.caption {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: var(--fs-caption);
+  color: var(--fg-2);
+  max-width: var(--measure-caption);
+  line-height: var(--lh-normal);
+}
+
+small {
+  font-size: var(--fs-small);
+}
+
+/* ==========================================================
+   Blockquotes
+   ========================================================== */
+blockquote {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  color: var(--fg);
+  padding: var(--s-5) 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin: var(--s-7) 0;
+  max-width: var(--measure-body);
+}
+
+/* ==========================================================
+   Horizontal rules
+   ========================================================== */
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: var(--s-7) 0;
+}

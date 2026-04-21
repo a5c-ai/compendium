@@ -1,0 +1,16 @@
+{
+  "type": "STOP_HOOK_INVOKED",
+  "recordedAt": "2026-04-21T12:58:20.313Z",
+  "data": {
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464",
+    "iteration": 2,
+    "decision": "block",
+    "reason": "continue_loop",
+    "runState": "created",
+    "pendingKinds": "",
+    "hasPromise": false,
+    "timestamp": "2026-04-21T12:58:20.312Z",
+    "harness": "claude-code"
+  },
+  "checksum": "11efacee72e1049e170b175f16f368e3f6223731c601de8ef53928e85e626860"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T12:57:50.773Z",
+  "data": {
+    "effectId": "01KPR1WMWC9CGYMMEX5NQW7WAG",
+    "invocationKey": "design-system-repo:S000002:verify-scaffold",
+    "invocationHash": "86b440d1f99e80201450e8d8b6f36bc19c6214accea8991327c914f4d474b01e",
+    "stepId": "S000002",
+    "taskId": "verify-scaffold",
+    "kind": "shell",
+    "label": "verify",
+    "taskDefRef": "tasks/01KPR1WMWC9CGYMMEX5NQW7WAG/task.json",
+    "labels": [
+      "verify",
+      "scaffold"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "10c04f07ce653bfa5b8f87a8c98dcb727ea3ce689b85a82180da7f67a9a9a59b"
+}

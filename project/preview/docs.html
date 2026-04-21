@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>a5c.ai · Encyclopedia — Gates & Verdicts</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../technical.css" />
+<style>
+  html, body { margin:0; padding:0; background: #2A1607; }
+  body { font-family: var(--font-body); color: var(--tk-line); min-height: 100vh; }
+
+  /* ══ Encyclopedia shell ═══════════════════════════════ */
+  .book {
+    width: 1440px; margin: 0 auto;
+    background: var(--tk-paper);
+    min-height: 100vh;
+    box-shadow: 0 0 0 1px #000, 0 20px 80px rgba(0,0,0,.6);
+    display: grid;
+    grid-template-columns: 280px 1fr 260px;
+  }
+
+  /* ── Running head (full width) ──────────────────────── */
+  .running {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end; gap: 20px;
+    padding: 14px 28px 10px;
+    border-bottom: var(--tk-rule-strong);
+    background: var(--tk-paper);
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--tk-line-soft);
+    min-width: 0;
+  }
+  .running > * { min-width: 0; }
+  .running .right { white-space: nowrap; }
+  .running .left { display: flex; align-items: baseline; gap: 14px; }
+  .running .left .folio {
+    font-family: var(--font-display); font-style: italic; font-size: 22px;
+    letter-spacing: 0; text-transform: none; color: var(--tk-cinnabar); font-weight: 500;
+  }
+  .running .center {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 18px;
+    letter-spacing: .02em; text-transform: none; color: var(--tk-line);
+  }
+  .running .center .sep { color: var(--tk-line-hair); margin: 0 8px; }
+  .running .right { justify-self: end; display: flex; gap: 14px; align-items: baseline; }
+
+  /* ── Left: TOC / chapter nav ────────────────────────── */
+  .toc {
+    border-right: var(--tk-rule-strong);
+    padding: 24px 22px 40px;
+    background: var(--tk-paper-2);
+  }
+  .toc__search {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--tk-paper); border: var(--tk-rule-strong); padding: 7px 10px;
+    font-family: var(--font-body); font-style: italic; color: var(--tk-line-soft); font-size: 13px;
+    margin-bottom: 22px;
+  }
+  .toc__search .kbd { font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; padding: 1px 5px; border: 1px solid var(--tk-line-soft); color: var(--tk-line-soft); margin-left: auto; }
+  .toc__title {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--tk-line-soft); margin: 0 0 8px;
+  }
+  .toc__book-title {
+    font-family: var(--font-display); font-weight: 500; font-style: italic;
+    font-size: 26px; color: var(--tk-line); margin: 0 0 18px; line-height: 1.08; letter-spacing: -.01em;
+  }
+  .chap {
+    border-top: 1px solid color-mix(in oklab, var(--tk-line) 20%, transparent);
+    padding: 10px 0 14px;
+  }
+  .chap__hd {
+    display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: baseline;
+    cursor: pointer;
+  }
+  .chap__num {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 18px;
+    color: var(--tk-cinnabar); line-height: 1;
+  }
+  .chap__t {
+    font-family: var(--font-display); font-weight: 500; font-size: 16px; color: var(--tk-line);
+    line-height: 1.2;
+  }
+  .chap__pp {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .2em; color: var(--tk-line-hair); text-transform: uppercase;
+  }
+  .chap ol { list-style: none; padding: 8px 0 0 38px; margin: 0; }
+  .chap ol li {
+    display: grid; grid-template-columns: 1fr auto; gap: 8px;
+    padding: 4px 0;
+    font-family: var(--font-body); font-size: 14px; color: var(--tk-line-soft);
+    border-bottom: 1px dotted color-mix(in oklab, var(--tk-line) 12%, transparent);
+    align-items: baseline;
+  }
+  .chap ol li a { color: inherit; text-decoration: none; font-style: italic; }
+  .chap ol li a:hover { color: var(--tk-cinnabar); }
+  .chap ol li .p { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .12em; color: var(--tk-line-hair); font-feature-settings:"tnum" 1; font-style: normal; }
+  .chap.current .chap__t { color: var(--tk-cinnabar); }
+  .chap.current ol li.current { color: var(--tk-line); }
+  .chap.current ol li.current::before { content:"▸ "; color: var(--tk-cinnabar); font-weight: 700; }
+
+  /* ── Centre: article body ───────────────────────────── */
+  .article {
+    padding: 32px 56px 64px;
+    max-width: none;
+    column-count: 1;
+    min-width: 0;   /* grid min-content fix — allow 1fr to actually shrink */
+    overflow: hidden;
+  }
+  .article > * { min-width: 0; }
+  pre.tk-code { white-space: pre-wrap; word-break: break-word; }
+
+  /* chapter mark */
+  .chap-mark {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center;
+    margin-bottom: 20px; padding-bottom: 14px; border-bottom: var(--tk-rule-strong);
+  }
+  .chap-mark .num {
+    font-family: var(--font-display); font-weight: 400; font-style: italic;
+    font-size: 56px; line-height: .9; color: var(--tk-cinnabar); letter-spacing: -.02em;
+  }
+  .chap-mark .kind {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--tk-line-soft);
+  }
+  .chap-mark .part {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 16px; color: var(--tk-line-soft);
+    margin-top: 2px; letter-spacing: -.005em;
+  }
+
+  h1.title {
+    font-family: var(--font-display); font-weight: 400; font-size: 64px;
+    line-height: 1.02; letter-spacing: -.02em; margin: 0 0 4px;
+    color: var(--tk-line);
+    text-wrap: balance;
+  }
+  h1.title em { font-style: italic; color: var(--tk-cinnabar); font-weight: 500; }
+  .subtitle {
+    font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 22px;
+    line-height: 1.25; color: var(--tk-line-soft); margin: 0 0 14px; max-width: 58ch;
+    text-wrap: pretty;
+  }
+  .meta-row {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 14px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--tk-line-soft);
+    padding: 8px 0 18px; border-bottom: 1px solid color-mix(in oklab, var(--tk-line) 15%, transparent);
+  }
+  .meta-row .tag {
+    display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px;
+    border: 1px solid var(--tk-line-soft); color: var(--tk-line);
+  }
+  .meta-row .tag.stable { color: var(--tk-emerald); border-color: var(--tk-emerald); }
+  .meta-row .tag.stable::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .meta-row .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--tk-line-hair); }
+
+  /* Two-column body */
+  .cols {
+    column-count: 2; column-gap: 40px; column-rule: 1px solid color-mix(in oklab, var(--tk-line) 12%, transparent);
+    padding-top: 22px;
+    font-feature-settings: "onum" 1, "liga" 1;
+  }
+  .cols p, .cols ol, .cols ul, .cols blockquote, .cols h2, .cols h3, .cols .pull, .cols .figure, .cols .defbox, .cols .rule {
+    break-inside: avoid;
+  }
+
+  /* Drop cap */
+  .cols > p:first-of-type::first-letter {
+    font-family: var(--font-display); font-weight: 500; font-style: italic;
+    float: left; font-size: 5.4em; line-height: .84; padding: .05em .08em 0 0;
+    color: var(--tk-cinnabar);
+  }
+  .cols p {
+    margin: 0 0 .85em;
+    font-family: var(--font-body); font-size: 15.5px; line-height: 1.62;
+    color: var(--tk-line); text-align: justify; hyphens: auto; text-wrap: pretty;
+  }
+  .cols p + p { text-indent: 1.4em; }
+  .cols p.lead { font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: 20px; line-height: 1.42; color: var(--tk-line); text-align: left; text-indent: 0; }
+  .cols p.lead + p { text-indent: 0; }
+
+  .cols h2 {
+    font-family: var(--font-display); font-weight: 500; font-size: 28px; line-height: 1.1;
+    letter-spacing: -.01em; color: var(--tk-line);
+    margin: 24px 0 8px;
+    display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: baseline;
+  }
+  .cols h2 .num {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 22px;
+    color: var(--tk-cinnabar);
+  }
+  .cols h3 {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase;
+    color: var(--tk-line-soft); font-weight: 500;
+    margin: 18px 0 6px;
+  }
+  .cols ol { margin: 0 0 .85em; padding-left: 22px; }
+  .cols ol li { font-size: 15.5px; line-height: 1.62; color: var(--tk-line); margin-bottom: .35em; padding-left: 4px; }
+  .cols ol li::marker { color: var(--tk-cinnabar); font-family: var(--font-mono); font-size: .85em; letter-spacing: .1em; }
+
+  .cols code {
+    font-family: var(--font-mono); font-size: 12.5px; background: var(--tk-paper-2);
+    padding: 1px 5px; border: 1px solid color-mix(in oklab, var(--tk-line) 12%, transparent);
+    color: var(--tk-line);
+  }
+  .cols a { color: var(--tk-cinnabar); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2.5px; text-decoration-color: color-mix(in oklab, var(--tk-cinnabar) 60%, transparent); }
+
+  /* Block quote */
+  .cols blockquote {
+    margin: 14px 0 18px; padding: 0 0 0 18px;
+    border-left: 2px solid var(--tk-cinnabar);
+    font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 19px;
+    line-height: 1.42; color: var(--tk-line);
+  }
+  .cols blockquote cite {
+    display: block; margin-top: 8px;
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase;
+    color: var(--tk-line-soft); font-style: normal;
+  }
+
+  /* Definition box */
+  .defbox {
+    margin: 14px 0 18px; padding: 14px 16px;
+    background: var(--tk-paper-2); border: 1px solid var(--tk-line-soft); position: relative;
+  }
+  .defbox::before {
+    content: "DEFINITION";
+    position: absolute; top: -8px; left: 12px;
+    background: var(--tk-paper-2); padding: 0 8px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; color: var(--tk-line-soft);
+  }
+  .defbox dt {
+    font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 17px;
+    color: var(--tk-line); margin-bottom: 2px;
+  }
+  .defbox dt::before { content: "§ "; color: var(--tk-cinnabar); font-style: normal; }
+  .defbox dd {
+    margin: 0 0 10px; font-family: var(--font-body); font-size: 14px; line-height: 1.55; color: var(--tk-line);
+  }
+  .defbox dd:last-child { margin-bottom: 0; }
+
+  /* Pull quote (marginal gloss) */
+  .pull {
+    margin: 14px 0 18px; padding: 10px 0;
+    border-top: 1.5px solid var(--tk-line); border-bottom: 1.5px solid var(--tk-line);
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 22px;
+    line-height: 1.25; color: var(--tk-line); text-align: center;
+  }
+  .pull small {
+    display: block; margin-top: 8px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--tk-line-soft); font-style: normal; font-weight: 500;
+  }
+
+  /* Figure with technical diagram */
+  .figure {
+    margin: 14px 0 20px;
+    border: 1.5px solid var(--tk-line);
+    background: var(--tk-blueprint);
+    padding: 0;
+  }
+  .figure__img { padding: 14px 16px; }
+  .figure__cap {
+    padding: 8px 14px; background: var(--tk-bp-2); border-top: 1px solid var(--tk-bp-line-soft);
+    color: rgba(220,232,240,.8);
+    font-family: var(--font-body); font-style: italic; font-size: 12.5px;
+  }
+  .figure__cap .fig { font-family: var(--font-mono); font-style: normal; font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: #FFB47F; margin-right: 8px; }
+
+  /* Signpost / callout bar */
+  .signpost {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center;
+    padding: 12px 16px; margin: 10px 0 16px;
+    background: var(--tk-paper);
+    border: 1.5px solid var(--tk-line);
+    box-shadow: 3px 3px 0 var(--tk-line);
+  }
+  .signpost .tk-callout { background: transparent; }
+  .signpost .t { font-family: var(--font-display); font-weight: 500; font-size: 16px; color: var(--tk-line); letter-spacing: -.005em;}
+  .signpost .s { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--tk-line-soft); }
+  .signpost .go {
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--tk-cinnabar); font-weight: 700; text-decoration: none;
+    border: 1px solid var(--tk-cinnabar); padding: 5px 10px;
+  }
+
+  /* Page foot (article) */
+  .pagefoot {
+    grid-column: 1 / -1;
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center;
+    padding: 22px 56px 28px;
+    border-top: var(--tk-rule-strong);
+    background: var(--tk-paper-2);
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--tk-line-soft);
+  }
+  .prev-next {
+    display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center;
+    padding: 10px 14px; background: var(--tk-paper); border: var(--tk-rule-strong); text-decoration: none;
+  }
+  .prev-next .tk-callout { background: transparent; }
+  .prev-next .label { font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; color: var(--tk-line-hair); }
+  .prev-next .t { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 15px; color: var(--tk-line); letter-spacing: -.005em; text-transform: none; }
+  .pagefoot .seal {
+    width: 42px; height: 42px; border: 1.5px double var(--tk-cinnabar); color: var(--tk-cinnabar);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 20px;
+  }
+
+  /* ── Right: per-page apparatus ──────────────────────── */
+  .apparatus {
+    border-left: var(--tk-rule-strong);
+    padding: 24px 22px 40px;
+    background: var(--tk-paper);
+  }
+  .ap-label {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--tk-line-soft); margin: 0 0 10px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .ap-toc { display: grid; gap: 4px; margin-bottom: 26px; }
+  .ap-toc a {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: baseline;
+    padding: 3px 0; text-decoration: none;
+    font-family: var(--font-body); font-size: 13.5px; color: var(--tk-line-soft);
+    border-bottom: 1px dotted color-mix(in oklab, var(--tk-line) 12%, transparent);
+  }
+  .ap-toc a .n { font-family: var(--font-mono); font-size: 10px; color: var(--tk-line-hair); letter-spacing: .1em; }
+  .ap-toc a .p { font-family: var(--font-mono); font-size: 9.5px; color: var(--tk-line-hair); letter-spacing: .12em; }
+  .ap-toc a:hover { color: var(--tk-cinnabar); }
+  .ap-toc a.current { color: var(--tk-cinnabar); }
+  .ap-toc a.current .n { color: var(--tk-cinnabar); }
+
+  .ap-block { padding: 14px 0; border-top: 1px solid color-mix(in oklab, var(--tk-line) 20%, transparent); }
+  .ap-see { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+  .ap-see li {
+    display: grid; grid-template-columns: 24px 1fr auto; gap: 8px; align-items: baseline;
+    padding: 5px 0;
+    font-family: var(--font-body); font-size: 13.5px; color: var(--tk-line);
+    border-bottom: 1px dotted color-mix(in oklab, var(--tk-line) 12%, transparent);
+  }
+  .ap-see li .tk-callout { background: transparent; }
+  .ap-see li em { font-style: italic; color: var(--tk-line); }
+  .ap-see li .p { font-family: var(--font-mono); font-size: 9.5px; color: var(--tk-line-hair); letter-spacing: .12em; }
+
+  .ap-gloss {
+    padding: 8px 10px; background: var(--tk-paper-2); border: 1px dashed var(--tk-line-soft);
+    margin-bottom: 6px;
+  }
+  .ap-gloss dt { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 15px; color: var(--tk-line); margin-bottom: 1px; }
+  .ap-gloss dt::after { content:" ·"; color: var(--tk-cinnabar); }
+  .ap-gloss dd { margin: 0; font-family: var(--font-body); font-size: 12.5px; line-height: 1.5; color: var(--tk-line-soft); }
+
+  .revbox {
+    padding: 10px 12px; background: var(--tk-paper-2); border: 1px solid var(--tk-line-soft);
+    font-family: var(--font-mono); font-size: 10.5px; color: var(--tk-line); display: grid; gap: 4px;
+  }
+  .revbox .k { color: var(--tk-line-soft); letter-spacing: .18em; text-transform: uppercase; font-size: 9px; }
+
+  /* Inline code inside article */
+  .cols .k-key {
+    font-family: var(--font-mono); font-size: 12.5px; padding: 1px 6px;
+    border: 1px solid var(--tk-line); background: var(--tk-paper);
+    color: var(--tk-line); border-radius: 2px; box-shadow: 1px 1px 0 var(--tk-line);
+  }
+
+  /* Code block */
+  pre.tk-code {
+    background: var(--tk-blueprint); color: #E6F0F6;
+    margin: 12px 0 16px; padding: 12px 14px;
+    font-family: var(--font-mono); font-size: 12.5px; line-height: 1.6;
+    border: 1px solid var(--tk-bp-line-soft);
+    overflow: hidden;
+    position: relative;
+  }
+  pre.tk-code::before {
+    content: attr(data-lang);
+    position: absolute; top: 6px; right: 10px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em;
+    color: rgba(220,232,240,.5);
+  }
+  pre.tk-code .k { color: #FFB47F; }
+  pre.tk-code .s { color: #7FE5B0; }
+  pre.tk-code .c { color: rgba(220,232,240,.45); font-style: italic; }
+  pre.tk-code .n { color: #7FD7FF; }
+
+</style>
+</head>
+<body>
+
+<div class="book">
+
+  <!-- Running head -->
+  <header class="running">
+    <div class="left">
+      <span class="folio">xii</span>
+      <span>Book I &middot; Foundations</span>
+    </div>
+    <div class="center">
+      Encyclopedia <span class="sep">§</span> <em>of the foundry and its rites</em>
+    </div>
+    <div class="right">
+      <span>Edition 4.2 &middot; August 2026</span>
+      <span>a5c.ai</span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════ TOC ═══════════════════════ -->
+  <aside class="toc">
+    <div class="toc__search">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="5" cy="5" r="3"/><path d="M7.5 7.5 L10.5 10.5"/></svg>
+      Search the encyclopedia…
+      <span class="kbd">/</span>
+    </div>
+
+    <p class="toc__title">Book I · Foundations</p>
+    <h2 class="toc__book-title">Of the Foundry and its Rites</h2>
+
+    <div class="chap">
+      <div class="chap__hd">
+        <span class="chap__num">I.</span>
+        <span class="chap__t">A first acquaintance</span>
+        <span class="chap__pp">pp. 3 – 18</span>
+      </div>
+      <ol>
+        <li><a>What you will find herein</a> <span class="p">3</span></li>
+        <li><a>Mental model · a foundry in miniature</a> <span class="p">7</span></li>
+        <li><a>Installing the toolchain</a> <span class="p">11</span></li>
+        <li><a>Your first run, walked end to end</a> <span class="p">14</span></li>
+      </ol>
+    </div>
+
+    <div class="chap">
+      <div class="chap__hd">
+        <span class="chap__num">II.</span>
+        <span class="chap__t">Agents &amp; seats</span>
+        <span class="chap__pp">pp. 19 – 44</span>
+      </div>
+      <ol>
+        <li><a>Definition of an agent</a> <span class="p">19</span></li>
+        <li><a>The seat-pool abstraction</a> <span class="p">24</span></li>
+        <li><a>Authoring a role manifest</a> <span class="p">31</span></li>
+        <li><a>Reseat &amp; replay</a> <span class="p">38</span></li>
+      </ol>
+    </div>
+
+    <div class="chap current">
+      <div class="chap__hd">
+        <span class="chap__num">III.</span>
+        <span class="chap__t">Gates &amp; verdicts</span>
+        <span class="chap__pp">pp. 45 – 82</span>
+      </div>
+      <ol>
+        <li><a>The grammar of a gate</a> <span class="p">45</span></li>
+        <li class="current"><a>Convergence · the canonical gate</a> <span class="p">51</span></li>
+        <li><a>Authoring a custom verdict</a> <span class="p">63</span></li>
+        <li><a>Sealing, unsealing, replay</a> <span class="p">71</span></li>
+        <li><a>Error conditions &amp; recovery</a> <span class="p">78</span></li>
+      </ol>
+    </div>
+
+    <div class="chap">
+      <div class="chap__hd">
+        <span class="chap__num">IV.</span>
+        <span class="chap__t">The run ledger</span>
+        <span class="chap__pp">pp. 83 – 112</span>
+      </div>
+      <ol>
+        <li><a>Rows, verdicts, provenance</a> <span class="p">83</span></li>
+        <li><a>Querying the ledger</a> <span class="p">92</span></li>
+        <li><a>Reconciliation &amp; audit</a> <span class="p">101</span></li>
+      </ol>
+    </div>
+
+    <div class="chap">
+      <div class="chap__hd">
+        <span class="chap__num">V.</span>
+        <span class="chap__t">Telemetry &amp; cost</span>
+        <span class="chap__pp">pp. 113 – 140</span>
+      </div>
+      <ol>
+        <li><a>Seat-hours, meters, reconciliation</a> <span class="p">113</span></li>
+        <li><a>Budgets &amp; soft-caps</a> <span class="p">124</span></li>
+      </ol>
+    </div>
+
+    <div class="chap">
+      <div class="chap__hd">
+        <span class="chap__num">VI.</span>
+        <span class="chap__t">Safety &amp; seals</span>
+        <span class="chap__pp">pp. 141 – 168</span>
+      </div>
+      <ol>
+        <li><a>The principle of least scope</a> <span class="p">141</span></li>
+        <li><a>The cinnabar seal, in practice</a> <span class="p">152</span></li>
+      </ol>
+    </div>
+
+    <p class="toc__title" style="margin-top: 22px;">Apparatus</p>
+    <div class="chap" style="border-top: 0; padding-top: 4px;">
+      <ol style="padding-left: 0;">
+        <li><a>Glossary</a> <span class="p">A-1</span></li>
+        <li><a>Index of agents</a> <span class="p">B-1</span></li>
+        <li><a>Index of gates</a> <span class="p">C-1</span></li>
+        <li><a>Change log</a> <span class="p">D-1</span></li>
+        <li><a>Colophon</a> <span class="p">E-1</span></li>
+      </ol>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════ ARTICLE ═══════════════════════ -->
+  <article class="article">
+
+    <div class="chap-mark">
+      <div class="num">III.</div>
+      <div>
+        <div class="kind">Chapter III · Section 2</div>
+        <div class="part">Book I · Foundations &middot; Gates &amp; verdicts</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="kind">Reading · 14 min</div>
+        <div class="kind" style="color:var(--tk-cinnabar); margin-top:4px;">Folio 51</div>
+      </div>
+    </div>
+
+    <h1 class="title">Convergence &mdash; <em>the canonical gate</em></h1>
+    <p class="subtitle">A decision, in writing, about whether a run of agents has produced something worth sealing — and the machinery that renders it impossible to skip.</p>
+
+    <div class="meta-row">
+      <span class="tag stable">Stable since 3.0</span>
+      <span class="tag">API Reference</span>
+      <span class="tag">Tutorial</span>
+      <span class="dot"></span>
+      <span>Last revised &middot; 2026-08-12</span>
+      <span class="dot"></span>
+      <span>Contributors &middot; 7</span>
+      <span class="dot"></span>
+      <span style="color:var(--tk-cinnabar);">Cited in 14 runbooks</span>
+    </div>
+
+    <!-- Body columns -->
+    <div class="cols">
+
+      <p class="lead">Every run the foundry produces ends with a written verdict. The <em>convergence gate</em> is the one you will meet first and live with longest; it is the canonical shape against which every other gate is measured, and in many teams, the only gate that ever needs to be customised.</p>
+
+      <p>Before going further: a gate is not a check. Checks are cheap things an agent does to itself &mdash; a lint, a schema validation, a self-critique. A <em>gate</em> is a separate verdict, written by a separate agent, that refuses to acknowledge the first one. When the two agents disagree, a third is seated; when the third cannot settle it, the run is handed to a human. This shape &mdash; two minds, then three, then yours &mdash; is the foundry in miniature, and convergence is the gate that formalises it.</p>
+
+      <h2><span class="num">§ 1</span>The shape of a convergence gate</h2>
+
+      <p>A convergence gate takes three inputs: the <em>artefact</em> produced by the run (anything from a sentence to a pull request), the <em>criteria</em> written into the role manifest, and the <em>history</em> of prior iterations on this particular artefact. It emits one of four verdicts, and nothing else.</p>
+
+      <dl class="defbox">
+        <dt>Convergence, n.</dt>
+        <dd>A written statement, by an agent not party to the production of an artefact, that the artefact is indistinguishable in its salient properties from what a second, independent agent would have produced. Short form: <em>two strangers, same answer</em>.</dd>
+
+        <dt>Verdict, n.</dt>
+        <dd>One of <code>pass</code>, <code>iterate</code>, <code>fail</code>, or <code>defer</code>; written in prose, with a one-paragraph justification and, where applicable, a bounded list of required changes. See §&nbsp;2.</dd>
+      </dl>
+
+      <p>Every verdict is prose, and every verdict is signed. There is no numerical confidence, no probability, no heat-map &mdash; the foundry treats those as performance, not meaning. A convergence gate that cannot be written in one paragraph is a gate that is not yet understood.</p>
+
+      <div class="pull">
+        &ldquo;Two strangers, same answer. Everything else is ornament.&rdquo;
+        <small>Praxis Foundry handbook, 2024</small>
+      </div>
+
+      <h2><span class="num">§ 2</span>The four verdicts, in order of appetite</h2>
+
+      <p>The verdicts are not scores, they are commitments about what happens next. Reading them in order:</p>
+
+      <ol>
+        <li><strong>Pass.</strong> The verifier has read the artefact, compared it to the criteria, and will put their name to it. The run is sealed; the ledger updates; downstream seals cascade. Nothing further happens automatically.</li>
+        <li><strong>Iterate.</strong> The verifier can name, in one paragraph, what would need to change for a pass. The run is returned to the editing agent with the paragraph attached. Iteration is budgeted (see Chapter V &middot; <em>soft-caps</em>); unbounded iteration becomes <code>fail</code>.</li>
+        <li><strong>Fail.</strong> The artefact is not of the kind the criteria describe. This is not a gentler form of <em>iterate</em>; it is a refusal to iterate. A <code>fail</code> verdict always names the misalignment and stops the run cold.</li>
+        <li><strong>Defer.</strong> The verifier declines to issue a verdict &mdash; typically because the criteria are silent on the question at hand. A human is summoned. Defer is the only verdict that tolerates ambiguity; <code>iterate</code> and <code>fail</code> must be confident.</li>
+      </ol>
+
+      <div class="figure">
+        <div class="figure__img">
+          <svg viewBox="0 0 560 200" style="width:100%;height:auto;display:block;">
+            <!-- rail -->
+            <line x1="40" y1="100" x2="520" y2="100" stroke="rgba(127,215,255,.55)" stroke-width="1"/>
+            <g font-family="JetBrains Mono" font-size="9" letter-spacing=".2em" fill="rgba(220,232,240,.6)">
+              <text x="40" y="130">T=0</text>
+              <text x="520" y="130" text-anchor="end">T=SEAL</text>
+            </g>
+            <!-- editor -->
+            <g>
+              <circle cx="80" cy="100" r="16" fill="#0D2B3E" stroke="#FFB47F" stroke-width="1.3"/>
+              <text x="80" y="104" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="16" fill="#FFB47F">e</text>
+              <text x="80" y="156" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing=".22em" fill="rgba(220,232,240,.8)">EDITOR</text>
+              <text x="80" y="168" text-anchor="middle" font-family="JetBrains Mono" font-size="8" letter-spacing=".18em" fill="rgba(220,232,240,.5)">writes</text>
+            </g>
+            <!-- artefact -->
+            <g>
+              <rect x="180" y="84" width="40" height="32" fill="none" stroke="#7FD7FF" stroke-width="1"/>
+              <text x="200" y="104" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="13" fill="#7FD7FF">α</text>
+              <text x="200" y="156" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing=".22em" fill="rgba(220,232,240,.8)">ARTEFACT</text>
+            </g>
+            <!-- verifier -->
+            <g>
+              <circle cx="300" cy="100" r="16" fill="#0D2B3E" stroke="#7FE5B0" stroke-width="1.3"/>
+              <text x="300" y="104" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="16" fill="#7FE5B0">v</text>
+              <text x="300" y="156" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing=".22em" fill="rgba(220,232,240,.8)">VERIFIER</text>
+              <text x="300" y="168" text-anchor="middle" font-family="JetBrains Mono" font-size="8" letter-spacing=".18em" fill="rgba(220,232,240,.5)">writes verdict</text>
+            </g>
+            <!-- third -->
+            <g>
+              <circle cx="400" cy="60" r="12" fill="#0D2B3E" stroke="rgba(127,215,255,.6)" stroke-width="1" stroke-dasharray="2 2"/>
+              <text x="400" y="64" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="12" fill="rgba(127,215,255,.8)">w</text>
+              <text x="400" y="46" text-anchor="middle" font-family="JetBrains Mono" font-size="8" letter-spacing=".22em" fill="rgba(220,232,240,.55)">THIRD · IF DISAGREES</text>
+            </g>
+            <!-- human -->
+            <g>
+              <rect x="480" y="86" width="30" height="28" fill="#C03A2B" stroke="#FFE1C4" stroke-width="1.5"/>
+              <text x="495" y="106" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-weight="600" font-size="15" fill="#FFE1C4">H</text>
+              <text x="495" y="156" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing=".22em" fill="rgba(220,232,240,.8)">HUMAN</text>
+              <text x="495" y="168" text-anchor="middle" font-family="JetBrains Mono" font-size="8" letter-spacing=".18em" fill="rgba(220,232,240,.5)">if deferred</text>
+            </g>
+            <!-- arrows -->
+            <g stroke="rgba(127,215,255,.7)" fill="none" stroke-width="1">
+              <path d="M96,100 L176,100" marker-end="url(#ar)"/>
+              <path d="M220,100 L284,100" marker-end="url(#ar)"/>
+              <path d="M316,100 L474,100" marker-end="url(#ar)"/>
+              <path d="M316,92 C360,68 380,62 388,62" marker-end="url(#ar)"/>
+              <path d="M412,62 C440,80 460,90 478,96" marker-end="url(#ar)"/>
+            </g>
+            <defs>
+              <marker id="ar" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#7FD7FF"/>
+              </marker>
+            </defs>
+            <!-- callouts -->
+            <g font-family="JetBrains Mono" font-size="8.5" letter-spacing=".18em" fill="#FFB47F">
+              <text x="138" y="92">ITERATION</text>
+              <path d="M240 102 L240 140" stroke="#FFB47F" stroke-width=".6" stroke-dasharray="2 2"/>
+              <text x="244" y="144">iterate · loop back to editor</text>
+            </g>
+          </svg>
+        </div>
+        <div class="figure__cap">
+          <span class="fig">FIG. 3-2</span>
+          An idealised convergence gate. Editor produces; verifier writes a verdict; a third agent is seated only if the first two disagree; a human is summoned only on deferral. Arrows are blocking.
+        </div>
+      </div>
+
+      <h2><span class="num">§ 3</span>Authoring a verdict, by hand</h2>
+
+      <p>The fastest way to understand the gate is to write a verdict yourself, for a run that has already happened. Open any run in the ledger, press <span class="k-key">⌥ V</span>, and the verdict composer opens with the artefact and the criteria side by side. The composer enforces four fields:</p>
+
+      <pre class="tk-code" data-lang="yaml · verdict"><span class="c"># A convergence verdict is plain YAML, signed by its author.</span>
+<span class="k">verdict</span>:   pass            <span class="c"># one of: pass | iterate | fail | defer</span>
+<span class="k">criterion</span>: §4.2-tariff     <span class="c"># which rule in the manifest you applied</span>
+<span class="k">paragraph</span>: |
+  I reconciled each line item against the published tariff for the
+  shipment date. The six flagged rows fall outside §4.2 in the
+  specific ways noted in <span class="n">CLM-10412 .. CLM-10602</span>. All other rows
+  are internally consistent. I recommend <span class="s">PASS</span> on the batch and a
+  follow-up for the carrier on the six.
+<span class="k">author</span>:    verifier-03     <span class="c"># the seat that issued the verdict</span>
+<span class="k">sealed_at</span>: 2026-08-14T14:22:51Z</pre>
+
+      <p>The composer will refuse to submit a verdict whose <code>paragraph</code> is shorter than two full sentences, whose <code>author</code> is the same seat that produced the artefact, or whose <code>criterion</code> is not present in the manifest. These are not style suggestions &mdash; they are the minimum conditions under which a verdict counts as a verdict at all.</p>
+
+      <div class="signpost">
+        <span class="tk-callout">!</span>
+        <div>
+          <div class="t">If the manifest is silent on the question, defer.</div>
+          <div class="s">Agents that guess past their criteria are a form of drift. See Chapter VI, <em>The principle of least scope</em>.</div>
+        </div>
+        <a class="go" href="#">Chap. VI →</a>
+      </div>
+
+      <h2><span class="num">§ 4</span>What the gate refuses to do</h2>
+
+      <p>A convergence gate does not rank, does not score, and does not &ldquo;mostly agree.&rdquo; It does not average verdicts from an ensemble and call that a verdict. It does not inherit trust from prior runs &mdash; a verifier that passed a hundred runs in a row is not thereby licensed to pass the hundred-and-first without reading it. The gate is written in such a way that these failure modes are syntactically unavailable, not merely discouraged.</p>
+
+      <p>This is the single design decision that makes the foundry boring, and it is the decision most teams want to undo first. Resist. A noisy, readable gate is cheaper, over a year, than a clever one that drifts. If you find yourself wanting a numerical threshold, what you want is probably a <em>check</em> &mdash; promote it to the editor, not the verifier.</p>
+
+      <blockquote>
+        The difference between an audit and a theatre is that an audit can say <em>no</em>, and a theatre cannot.
+        <cite>Ida Leclerc &middot; a5c field notes, §12</cite>
+      </blockquote>
+
+      <h2><span class="num">§ 5</span>Replay &amp; the seal</h2>
+
+      <p>Every convergence verdict is sealed with a cinnabar mark, which in practice is a signed commit pointing at the artefact&rsquo;s content hash and the verifier&rsquo;s role manifest at the moment of verdict. Unsealing is possible but expensive: the run moves to the <em>replay worktree</em>, the verdict is retracted in the ledger (with a visible strike-through rather than a delete), and any downstream seals that depended on it are marked <em>provisional</em> until they are re-run.</p>
+
+      <p>The replay worktree is not a rollback &mdash; the foundry does not believe in rollback. It is a parallel workspace in which the original verdict is preserved, a new verdict is rendered, and the two are placed side by side in the ledger. Auditors read both. See Chapter IV, §&nbsp;3 for the full walk-through, including the audit trail that survives any future disagreement about what was decided and by whom.</p>
+
+    </div>
+
+  </article>
+
+  <!-- ═══════════════════════ APPARATUS ═══════════════════════ -->
+  <aside class="apparatus">
+    <p class="ap-label">On this page <span style="color:var(--tk-cinnabar);">5 sections</span></p>
+    <nav class="ap-toc">
+      <a href="#"><span class="n">§ 1</span><span>The shape of a convergence gate</span><span class="p">51</span></a>
+      <a href="#" class="current"><span class="n">§ 2</span><span>The four verdicts, in order of appetite</span><span class="p">54</span></a>
+      <a href="#"><span class="n">§ 3</span><span>Authoring a verdict, by hand</span><span class="p">57</span></a>
+      <a href="#"><span class="n">§ 4</span><span>What the gate refuses to do</span><span class="p">59</span></a>
+      <a href="#"><span class="n">§ 5</span><span>Replay &amp; the seal</span><span class="p">61</span></a>
+    </nav>
+
+    <div class="ap-block">
+      <p class="ap-label">Marginal gloss</p>
+      <dl class="ap-gloss">
+        <dt>Cinnabar seal</dt>
+        <dd>The vermilion mark a verifier affixes to a sealed verdict. Originally a wet stamp; now a signed content hash. Not revocable without a replay.</dd>
+      </dl>
+      <dl class="ap-gloss">
+        <dt>Role manifest</dt>
+        <dd>A plain-text description of an agent&rsquo;s seat, tools, and criteria. The gate is a subset of the manifest.</dd>
+      </dl>
+      <dl class="ap-gloss">
+        <dt>Replay worktree</dt>
+        <dd>A parallel workspace in which a retracted verdict is re-rendered without destroying the original. See also <em>rollback, refusal of</em>.</dd>
+      </dl>
+    </div>
+
+    <div class="ap-block">
+      <p class="ap-label">See also</p>
+      <ul class="ap-see">
+        <li><span class="tk-callout tk-callout--sm">a</span><em>The grammar of a gate</em><span class="p">45</span></li>
+        <li><span class="tk-callout tk-callout--sm">b</span><em>Authoring a role manifest</em><span class="p">31</span></li>
+        <li><span class="tk-callout tk-callout--sm">c</span><em>Reconciliation &amp; audit</em><span class="p">101</span></li>
+        <li><span class="tk-callout tk-callout--sm">d</span><em>The principle of least scope</em><span class="p">141</span></li>
+        <li><span class="tk-callout tk-callout--sm">e</span><em>Handbook of verdicts</em> (app.)<span class="p">A-17</span></li>
+      </ul>
+    </div>
+
+    <div class="ap-block">
+      <p class="ap-label">This page is cited in</p>
+      <ul class="ap-see">
+        <li><span class="tk-callout tk-callout--sm">1</span><em>Runbook: freight claims</em><span class="p">rb-04</span></li>
+        <li><span class="tk-callout tk-callout--sm">2</span><em>Runbook: SOC-2 evidence</em><span class="p">rb-11</span></li>
+        <li><span class="tk-callout tk-callout--sm">3</span><em>Runbook: safety incidents</em><span class="p">rb-13</span></li>
+      </ul>
+    </div>
+
+    <div class="ap-block">
+      <p class="ap-label">Revisions</p>
+      <div class="revbox">
+        <span class="k">Revision</span>
+        <span style="font-family:var(--font-display); font-style:italic; font-size:18px; color:var(--tk-cinnabar); line-height:1;">4.2 — 12 Aug 2026</span>
+        <span class="k" style="margin-top:6px;">Author</span>
+        <span>Ida Leclerc &middot; editor-in-chief</span>
+        <span class="k" style="margin-top:6px;">Summary</span>
+        <span>Rewrote § 4; added Fig. 3-2; moved tutorial to § 3.</span>
+        <a href="#" style="display:inline-block; margin-top:8px; font-size:9.5px; letter-spacing:.22em; color:var(--tk-cinnabar);">⤳ View diff</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Page foot: prev/next/seal -->
+  <footer class="pagefoot">
+    <a class="prev-next" href="#">
+      <span class="tk-callout">‹</span>
+      <div>
+        <div class="label">Previous · § 1</div>
+        <div class="t">The grammar of a gate</div>
+      </div>
+    </a>
+    <div style="display:flex; align-items:center; gap: 14px;">
+      <span class="seal">✓</span>
+      <div style="font-family:var(--font-mono); font-size: 9.5px; letter-spacing:.22em; text-transform: uppercase; color:var(--tk-line-soft);">
+        Signed by Ida Leclerc<br/>
+        <span style="color:var(--tk-line-hair);">Folio 51 · &lt;/ 82 in chapter</span>
+      </div>
+    </div>
+    <a class="prev-next" href="#" style="grid-template-columns: 1fr auto; text-align: right;">
+      <div>
+        <div class="label">Next · § 3</div>
+        <div class="t">Authoring a verdict, by hand</div>
+      </div>
+      <span class="tk-callout">›</span>
+    </a>
+  </footer>
+
+</div>
+
+</body>
+</html>

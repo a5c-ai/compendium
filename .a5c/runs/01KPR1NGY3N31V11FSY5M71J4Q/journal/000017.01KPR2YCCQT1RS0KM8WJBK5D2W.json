@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T13:16:16.151Z",
+  "data": {
+    "effectId": "01KPR2YCB1D8XFAXW6B37T5F41",
+    "invocationKey": "design-system-repo:S000006:convert-icons",
+    "invocationHash": "56990b4373059c7e2739a3b9edeb1e797fa8b2b3b558f823a5b239a69e969f8d",
+    "stepId": "S000006",
+    "taskId": "convert-icons",
+    "kind": "agent",
+    "label": "icons",
+    "taskDefRef": "tasks/01KPR2YCB1D8XFAXW6B37T5F41/task.json",
+    "labels": [
+      "icons",
+      "svg",
+      "conversion"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "10581e956a3e8075e16c26be359c58967d8f0cae64dd8ec6f4b8ba6bd50e7084"
+}

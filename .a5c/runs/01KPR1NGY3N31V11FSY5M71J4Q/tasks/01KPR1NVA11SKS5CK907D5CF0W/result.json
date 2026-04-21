@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR1NVA11SKS5CK907D5CF0W",
+  "taskId": "scaffold-project",
+  "invocationKey": "design-system-repo:S000001:scaffold-project",
+  "status": "ok",
+  "result": {
+    "filesCreated": [
+      "package.json",
+      "tsconfig.json",
+      "vite.config.ts",
+      "LICENSE",
+      ".gitignore",
+      "src/index.ts",
+      "src/react.ts",
+      "src/tokens.ts",
+      "src/icons.ts",
+      "src/components/",
+      "src/tokens/",
+      "src/icons/"
+    ],
+    "success": true
+  },
+  "startedAt": "2026-04-21T12:57:32.632Z",
+  "finishedAt": "2026-04-21T12:57:32.632Z",
+  "value": {
+    "filesCreated": [
+      "package.json",
+      "tsconfig.json",
+      "vite.config.ts",
+      "LICENSE",
+      ".gitignore",
+      "src/index.ts",
+      "src/react.ts",
+      "src/tokens.ts",
+      "src/icons.ts",
+      "src/components/",
+      "src/tokens/",
+      "src/icons/"
+    ],
+    "success": true
+  }
+}

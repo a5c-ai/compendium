@@ -1,0 +1,64 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  
+  
+
+  
+  <g class="engrave-thin">
+    <path d="M8 8 h10 M8 8 v10"></path>
+    <path d="M592 8 h-10 M592 8 v10"></path>
+    <path d="M8 392 h10 M8 392 v-10"></path>
+    <path d="M592 392 h-10 M592 392 v-10"></path>
+  </g>
+
+  
+  <g class="engrave">
+    <ellipse cx="300" cy="200" rx="220" ry="130"></ellipse>
+    <ellipse cx="300" cy="200" rx="210" ry="120" stroke-dasharray="2 4"></ellipse>
+  </g>
+
+  
+  <g transform="translate(120, 200)">
+    <circle r="42" class="engrave"></circle>
+    <circle r="36" class="engrave" stroke-dasharray="1 2"></circle>
+    <text text-anchor="middle" y="-50" class="cap">FIG · A</text>
+    <text text-anchor="middle" y="4" class="serif">the agent</text>
+    <text text-anchor="middle" y="20" class="cap" style="font-size:8px">runs · the · task</text>
+  </g>
+
+  
+  <g transform="translate(480, 200)">
+    <rect x="-46" y="-46" width="92" height="92" class="engrave"></rect>
+    <rect x="-40" y="-40" width="80" height="80" class="engrave" stroke-dasharray="1 2"></rect>
+    <text text-anchor="middle" y="-60" class="cap">FIG · B</text>
+    <text text-anchor="middle" y="0" class="serif">the gate</text>
+    <text text-anchor="middle" y="18" class="cap" style="font-size:8px">verifies · done</text>
+    <circle cx="0" cy="-80" r="4" class="seal"></circle>
+  </g>
+
+  
+  <g class="engrave" stroke-width="1.2">
+    <path d="M160 165 Q300 90 440 165" marker-end="url(#arr)"></path>
+    <path d="M440 235 Q300 310 160 235" marker-end="url(#arr)"></path>
+  </g>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1B1611"></path>
+    </marker>
+  </defs>
+
+  
+  <text x="300" y="105" text-anchor="middle" class="serif">output →</text>
+  <text x="300" y="305" text-anchor="middle" class="serif">← verdict</text>
+
+  
+  <g transform="translate(300, 200)" class="engrave">
+    <circle r="22"></circle>
+    <path d="M-10 0 H10 M0 -10 V10"></path>
+    <circle cx="0" cy="0" r="2" fill="#C03A2B" stroke="none"></circle>
+  </g>
+  <text x="300" y="245" text-anchor="middle" class="cap">the · loop</text>
+
+  
+  <text x="300" y="380" text-anchor="middle" class="cap">fol · iii · the · convergence</text>
+</svg>

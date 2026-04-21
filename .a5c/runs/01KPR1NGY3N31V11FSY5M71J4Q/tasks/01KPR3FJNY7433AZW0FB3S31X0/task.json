@@ -1,0 +1,25 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPR3FJNY7433AZW0FB3S31X0/input.json",
+    "outputJsonPath": "tasks/01KPR3FJNY7433AZW0FB3S31X0/output.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "storybook",
+    "verify"
+  ],
+  "shell": {
+    "command": "cd \".\" && npx storybook build --quiet 2>&1; echo \"EXIT:$?\"",
+    "expectedExitCode": 0,
+    "timeout": 300000
+  },
+  "title": "Verify Storybook builds",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR3FJNY7433AZW0FB3S31X0",
+  "taskId": "storybook-build-verify",
+  "invocationKey": "design-system-repo:S000009:storybook-build-verify",
+  "stepId": "S000009",
+  "inputs": {
+    "projectDir": "."
+  }
+}

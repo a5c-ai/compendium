@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>a5c.ai — Atelier (chat)</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../technical.css" />
+<style>
+  html, body { margin: 0; padding: 0; background: #2A1607; }
+  body { font-family: var(--font-body); color: var(--tk-line); min-height: 100vh; }
+
+  .app {
+    width: 1440px; margin: 0 auto; min-height: 100vh;
+    display: grid;
+    grid-template-columns: 260px 1fr 340px;
+    background: var(--tk-paper);
+    box-shadow: 0 0 0 1px #000, 0 20px 80px rgba(0,0,0,.6);
+  }
+
+  /* ── Conversation rail (left) ─────────────────────────── */
+  .rail { background: #1F1912; color: #E8D9B8; display: flex; flex-direction: column; }
+  .rail__head {
+    padding: 16px 18px;
+    border-bottom: 1px solid #3E2E1A;
+    display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center;
+  }
+  .rail__head .name { font-family: var(--font-display); font-weight: 500; font-size: 20px; color: #F2E3C4; letter-spacing: -.015em; }
+  .rail__head .name .dot { color: var(--tk-cinnabar); }
+  .rail__head .plus { width: 26px; height: 26px; border: 1px solid #8A7B64; color: #F2E3C4; background: transparent; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+
+  .rail__search {
+    margin: 14px 14px 8px; padding: 8px 10px;
+    background: #14100A; border: 1px solid #3E2E1A;
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--font-body); font-style: italic; color: #8A7B64; font-size: 13px;
+  }
+  .rail__search .kbd { font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; padding: 1px 5px; border: 1px solid #3E2E1A; color: #8A7B64; margin-left: auto; }
+
+  .rail__section { padding: 14px 18px 4px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: #8A7B64; display: flex; justify-content: space-between; align-items: baseline;}
+  .rail__item {
+    padding: 9px 18px;
+    display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: start;
+    border-left: 2px solid transparent; cursor: pointer;
+    border-bottom: 1px dashed rgba(232,217,184,.06);
+  }
+  .rail__item .tk-callout { background: transparent; color: #8A7B64; border-color: #8A7B64; margin-top: 2px; }
+  .rail__item .title {
+    font-family: var(--font-display); font-weight: 500; font-size: 14.5px; line-height: 1.2; color: rgba(232,217,184,.88);
+    overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
+  }
+  .rail__item .preview {
+    font-family: var(--font-body); font-style: italic; font-size: 12px; color: #8A7B64; margin-top: 2px; line-height: 1.3;
+    overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  }
+  .rail__item .when {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #6A5E4C; align-self: start; padding-top: 4px;
+  }
+  .rail__item:hover { background: rgba(242,227,196,.04); }
+  .rail__item.current {
+    background: linear-gradient(90deg, rgba(192,58,43,.14), transparent 70%);
+    border-left-color: var(--tk-cinnabar);
+  }
+  .rail__item.current .title { color: #F2E3C4; }
+  .rail__item.current .tk-callout { border-color: var(--tk-cinnabar); color: var(--tk-cinnabar); }
+  .rail__item .badge {
+    display: inline-block; min-width: 16px; text-align: center;
+    font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+    background: var(--tk-cinnabar); color: #fff; border-radius: 2px; padding: 1px 4px;
+    margin-left: 6px;
+  }
+  .rail__foot {
+    margin-top: auto; padding: 14px 18px;
+    border-top: 1px solid #3E2E1A;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .rail__foot .info { display: grid; line-height: 1.2; }
+  .rail__foot .info .n { font-family: var(--font-display); font-weight:500; font-size:14px; color:#F2E3C4; }
+  .rail__foot .info .r { font-family: var(--font-mono); font-size: 9px; letter-spacing:.18em; color:#8A7B64; text-transform: uppercase; }
+  .rail__foot .bal { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: #F2E3C4; text-align: right; }
+  .rail__foot .bal .v { font-family: var(--font-display); font-style: italic; font-size: 16px; color: #E0A63A; }
+
+  /* ── Central: the working wall ────────────────────────── */
+  .wall { position: relative; display: flex; flex-direction: column; background: var(--tk-paper); }
+
+  /* Top bar of the conversation */
+  .wall__bar {
+    padding: 14px 24px; border-bottom: var(--tk-rule-strong);
+    display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center;
+    background: var(--tk-paper-2);
+  }
+  .wall__bar .title {
+    font-family: var(--font-display); font-weight: 500; font-size: 22px; letter-spacing: -.01em;
+    color: var(--tk-line); margin: 0;
+  }
+  .wall__bar .title em { font-style: italic; color: var(--tk-cinnabar); }
+  .wall__bar .crumbs {
+    margin-top: 2px;
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--tk-line-soft);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .wall__bar .crumbs .sep { color: var(--tk-line-hair); }
+  .wall__bar .tools { display: flex; gap: 8px; align-items: center; }
+
+  /* Conversation stream */
+  .stream { padding: 28px 24px 24px; display: grid; gap: 22px; }
+
+  /* a single turn */
+  .turn { display: grid; grid-template-columns: 64px 1fr; gap: 14px; position: relative; }
+  .turn__gutter {
+    display: grid; gap: 6px; justify-items: center; padding-top: 2px;
+  }
+  .turn__role {
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--tk-line-soft); text-align: center; line-height: 1.3;
+  }
+  .turn__role .num { color: var(--tk-line-hair); display: block; margin-top: 2px;}
+  .turn__body {}
+
+  /* User turn */
+  .turn--user .turn__body {
+    background: var(--tk-paper-2);
+    border: 1px solid var(--tk-line-soft);
+    border-left: 3px solid var(--tk-line);
+    padding: 14px 18px;
+    font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--tk-line);
+  }
+  .turn--user .turn__body p { margin: 0; }
+  .turn--user .turn__body p + p { margin-top: .6em; }
+
+  /* Agent turn — blueprint memo */
+  .memo {
+    position: relative;
+    background: var(--tk-blueprint);
+    color: #E6F0F6;
+    border: 1.5px solid var(--tk-bp-line);
+    padding: 0;
+    font-family: var(--font-body);
+  }
+  .memo::before, .memo::after, .memo > .c-bl, .memo > .c-br {
+    content: ""; position: absolute; width: 10px; height: 10px; border: 1.5px solid var(--tk-bp-line);
+  }
+  .memo::before { top: -1.5px; left: -1.5px; border-right: 0; border-bottom: 0; }
+  .memo::after  { top: -1.5px; right: -1.5px; border-left: 0; border-bottom: 0; }
+  .memo > .c-bl { bottom: -1.5px; left: -1.5px; border-right: 0; border-top: 0; }
+  .memo > .c-br { bottom: -1.5px; right: -1.5px; border-left: 0; border-top: 0; }
+
+  .memo__head {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 14px;
+    align-items: center; padding: 8px 14px;
+    background: var(--tk-bp-2); border-bottom: 1px solid var(--tk-bp-line-soft);
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--tk-bp-line);
+  }
+  .memo__head .who {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 16px;
+    letter-spacing: 0; text-transform: none; color: #FFB47F;
+  }
+  .memo__head .who small { font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(220,232,240,.55); margin-left: 6px; }
+  .memo__head .meta { color: rgba(220,232,240,.6); }
+  .memo__head .time { color: rgba(220,232,240,.55); }
+  .memo__body { padding: 16px 18px 4px; }
+  .memo__body p { margin: 0 0 .75em; font-size: 15.5px; line-height: 1.55; color: #E6F0F6; }
+  .memo__body p code { font-family: var(--font-mono); font-size: 13px; background: rgba(255,255,255,.06); padding: 1px 5px; border: 1px solid rgba(127,215,255,.3); color: #FFB47F; }
+  .memo__body strong { color: #FFB47F; font-weight: 600; }
+  .memo__body em { color: #FFE1C4; }
+  .memo__body ol, .memo__body ul { margin: 0 0 .75em; padding-left: 22px; font-size: 15.5px; line-height: 1.6; color: #E6F0F6; }
+  .memo__body ol li::marker { color: rgba(127,215,255,.75); font-family: var(--font-mono); font-size: .85em; letter-spacing: .1em; }
+  .memo__body h4 {
+    font-family: var(--font-display); font-weight: 500; font-style: italic;
+    font-size: 18px; letter-spacing: -.005em; color: #FFE1C4;
+    margin: 10px 0 6px; display: flex; align-items: center; gap: 10px;
+  }
+  .memo__body h4 .tk-callout { background: transparent; border-color: #FFE1C4; color: #FFE1C4; }
+
+  .memo__foot {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px;
+    padding: 10px 14px; border-top: 1px dashed var(--tk-bp-line-soft);
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(220,232,240,.6);
+  }
+  .memo__stamp {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 2px 10px 2px 8px; color: #7FE5B0; border: 1px solid #7FE5B0; border-radius: 999px;
+  }
+  .memo__stamp::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .memo__actions { display: flex; gap: 6px; }
+  .memo__actions button {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+    background: transparent; border: 1px solid rgba(220,232,240,.35); color: rgba(220,232,240,.7);
+    padding: 3px 8px; cursor: pointer; font-weight: 700;
+  }
+  .memo__actions button:hover { color: var(--tk-bp-line); border-color: var(--tk-bp-line); }
+
+  /* Tool card inside memo */
+  .tool {
+    margin: 10px 0 14px; background: rgba(255,255,255,.04);
+    border: 1px dashed var(--tk-bp-line-soft);
+    padding: 0;
+  }
+  .tool__head {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center;
+    padding: 6px 12px; border-bottom: 1px dashed var(--tk-bp-line-soft);
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(220,232,240,.7);
+  }
+  .tool__head .k { color: #FFB47F; }
+  .tool__body { padding: 10px 12px; font-family: var(--font-mono); font-size: 12px; color: rgba(220,232,240,.85); line-height: 1.5; }
+  .tool__body .dim { color: rgba(220,232,240,.45); }
+
+  /* Inline diagram */
+  .diagram {
+    margin: 8px 0 14px;
+    background: rgba(13,43,62,.7);
+    border: 1px solid var(--tk-bp-line-soft);
+    padding: 14px;
+  }
+  .diagram svg { display: block; width: 100%; height: auto; }
+  .diagram__cap {
+    margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--tk-bp-line-soft);
+    font-family: var(--font-body); font-style: italic; font-size: 12.5px; color: rgba(220,232,240,.7);
+    display: flex; gap: 10px; align-items: baseline;
+  }
+  .diagram__cap .fig {
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: #FFB47F;
+  }
+
+  /* Pending/typing indicator */
+  .typing {
+    display: inline-flex; gap: 3px; align-items: center;
+    padding: 2px 8px;
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; color: var(--tk-bp-line);
+    text-transform: uppercase;
+  }
+  .typing i { width: 4px; height: 4px; border-radius: 50%; background: var(--tk-bp-line); opacity: .4; }
+  .typing i:nth-child(2) { opacity: .7; }
+  .typing i:nth-child(3) { opacity: 1; }
+
+  /* Composer */
+  .composer {
+    position: sticky; bottom: 0;
+    border-top: var(--tk-rule-strong);
+    padding: 14px 24px 18px;
+    background: var(--tk-paper);
+    display: grid; gap: 10px;
+  }
+  .composer__chips {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--tk-line-soft);
+  }
+  .composer__chips .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 8px 3px 6px; background: var(--tk-paper-2);
+    border: 1px dashed var(--tk-line-soft); color: var(--tk-line);
+  }
+  .composer__chips .chip .x { color: var(--tk-cinnabar); cursor: pointer; }
+  .composer__box {
+    position: relative;
+    border: var(--tk-rule-strong);
+    background: var(--tk-paper);
+    padding: 14px 16px 52px;
+    min-height: 110px;
+    box-shadow: 3px 3px 0 var(--tk-line);
+  }
+  .composer__box[contenteditable]:focus-within { outline: 0; border-color: var(--tk-cinnabar); box-shadow: 3px 3px 0 var(--tk-cinnabar); }
+  .composer__text {
+    font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--tk-line);
+    min-height: 48px; outline: 0;
+  }
+  .composer__placeholder { color: var(--tk-line-hair); font-style: italic; }
+  .composer__bar {
+    position: absolute; left: 12px; right: 12px; bottom: 10px;
+    display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center;
+  }
+  .composer__bar .left { display: flex; gap: 6px; align-items: center; }
+  .icon-btn {
+    width: 28px; height: 28px; border: 1px solid var(--tk-line-soft); background: var(--tk-paper);
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 2px;
+    color: var(--tk-line);
+  }
+  .icon-btn:hover { background: var(--tk-paper-2); }
+  .composer__bar .send-grp { display: flex; gap: 0; }
+  .composer__bar .send-grp > button {
+    border-radius: 0;
+  }
+  .composer__bar .send-grp > button + button { border-left: 0; }
+  .composer__bar .meta {
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; color: var(--tk-line-soft);
+    text-transform: uppercase;
+  }
+
+  /* ── Right context panel ──────────────────────────────── */
+  .context {
+    background: var(--tk-paper-2);
+    border-left: var(--tk-rule-strong);
+    display: flex; flex-direction: column;
+  }
+  .context__head {
+    padding: 14px 18px; border-bottom: var(--tk-rule-strong);
+    display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center;
+    background: var(--tk-paper);
+  }
+  .context__head .tk-callout { background: transparent; }
+  .context__head h3 { margin: 0; font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 18px; color: var(--tk-line); letter-spacing: -.01em; }
+  .context__head .x { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; color: var(--tk-line-soft); cursor: pointer; border: 1px solid var(--tk-line-soft);}
+
+  .ctx-block { padding: 14px 18px; border-bottom: 1px dashed var(--tk-line-soft); }
+  .ctx-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--tk-line-soft); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: baseline;}
+  .ctx-label .act { color: var(--tk-cinnabar); cursor: pointer; font-weight: 700; }
+
+  .seat-card {
+    background: var(--tk-paper);
+    border: 1px solid var(--tk-line-soft);
+    padding: 12px;
+    display: grid; grid-template-columns: 40px 1fr auto; gap: 10px; align-items: center;
+  }
+  .seat-card .monogram {
+    width: 40px; height: 40px; border: 1.5px solid var(--tk-line);
+    background: #EAD8B8;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 20px; color: var(--tk-line);
+  }
+  .seat-card .n { font-family: var(--font-display); font-weight: 500; font-size: 16px; color: var(--tk-line); }
+  .seat-card .r { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--tk-line-soft); }
+  .seat-card .pill { font-family: var(--font-mono); font-size: 9px; padding: 2px 6px; color: var(--tk-emerald); border: 1px solid var(--tk-emerald); letter-spacing: .18em; text-transform: uppercase; }
+
+  .ctx-tools { display: grid; gap: 6px; }
+  .ctx-tool {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center;
+    padding: 7px 8px; background: var(--tk-paper); border: 1px solid var(--tk-line-soft); border-radius: 2px;
+  }
+  .ctx-tool .tk-callout { background: transparent; }
+  .ctx-tool .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--tk-line); letter-spacing: .04em; }
+  .ctx-tool .onoff { font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--tk-emerald); }
+  .ctx-tool .onoff.off { color: var(--tk-line-hair); }
+
+  .ctx-file {
+    display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: center;
+    padding: 8px 10px; background: var(--tk-paper); border: 1px dashed var(--tk-line-soft);
+    margin-bottom: 6px;
+  }
+  .ctx-file .ic {
+    width: 28px; height: 28px; border: 1px solid var(--tk-line-soft);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 8px; letter-spacing: .15em; color: var(--tk-line-soft);
+    background: var(--tk-paper-2);
+  }
+  .ctx-file .n { font-family: var(--font-mono); font-size: 12px; color: var(--tk-line); }
+  .ctx-file .s { font-family: var(--font-body); font-style: italic; font-size: 11.5px; color: var(--tk-line-soft); }
+  .ctx-file .x { font-family: var(--font-mono); font-size: 10px; color: var(--tk-line-hair); }
+
+  .ctx-cite {
+    display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 10px 0; border-top: 1px dashed color-mix(in oklab, var(--tk-line) 14%, transparent);
+  }
+  .ctx-cite:first-of-type { border-top: 0; }
+  .ctx-cite .tk-callout { background: transparent; }
+  .ctx-cite .t {
+    font-family: var(--font-body); font-size: 13.5px; line-height: 1.5; color: var(--tk-line);
+  }
+  .ctx-cite .s {
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--tk-line-soft); margin-top: 4px;
+  }
+
+  .cost {
+    display: grid; grid-template-columns: 1fr auto; gap: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--tk-line);
+    padding: 3px 0; border-bottom: 1px dashed color-mix(in oklab, var(--tk-line) 14%, transparent);
+  }
+  .cost:last-child { border-bottom: 0; }
+  .cost .v { font-feature-settings: "tnum" 1; }
+
+  .foot-stamp {
+    margin-top: auto; padding: 14px 18px;
+    border-top: var(--tk-rule-strong); background: var(--tk-paper);
+    display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--tk-line-soft);
+  }
+  .foot-stamp .seal {
+    width: 32px; height: 32px; border: 1.5px double var(--tk-cinnabar); color: var(--tk-cinnabar);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-style: italic; font-size: 16px; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══════════════════════ CONVERSATION RAIL ═══════════════════════ -->
+  <aside class="rail">
+    <div class="rail__head">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="14" fill="none" stroke="#F2E3C4" stroke-width="1.5"/>
+        <circle cx="16" cy="16" r="10" fill="none" stroke="#C03A2B" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="16" y="20" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="14" fill="#F2E3C4">a5c</text>
+      </svg>
+      <div class="name">Atelier<span class="dot">.</span></div>
+      <button class="plus" title="New conversation">＋</button>
+    </div>
+
+    <div class="rail__search">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="5" cy="5" r="3"/><path d="M7.5 7.5 L10.5 10.5"/></svg>
+      Search conversations…
+      <span class="kbd">⌘K</span>
+    </div>
+
+    <div class="rail__section">Pinned <span style="color:#6A5E4C;">2</span></div>
+    <div class="rail__item current">
+      <span class="tk-callout tk-callout--sm">★</span>
+      <div>
+        <div class="title">Freight claims · Oct batch review</div>
+        <div class="preview">archivist: Six claims flagged against carrier tariff §4.2. Two contested, four compliant…</div>
+      </div>
+      <span class="when">14:32</span>
+    </div>
+    <div class="rail__item">
+      <span class="tk-callout tk-callout--sm">★</span>
+      <div>
+        <div class="title">Draft: SOC-2 evidence narrative</div>
+        <div class="preview">scribe-04: Section 3 expanded with gate-verdict citations…</div>
+      </div>
+      <span class="when">yest.</span>
+    </div>
+
+    <div class="rail__section">Today <span style="color:#6A5E4C;">5</span></div>
+    <div class="rail__item">
+      <span class="tk-callout tk-callout--sm">1</span>
+      <div>
+        <div class="title">Customer escalation r-8840 <span class="badge">2</span></div>
+        <div class="preview">concierge-02: Refund exceeds soft-cap; requires policy review…</div>
+      </div>
+      <span class="when">14:17</span>
+    </div>
+    <div class="rail__item">
+      <span class="tk-callout tk-callout--sm">2</span>
+      <div>
+        <div class="title">Nightly hygiene FAIL · janitor-01</div>
+        <div class="preview">auditor-02: Write occurred on protected table prod.customer_events…</div>
+      </div>
+      <span class="when">14:09</span>
+    </div>
+    <div class="rail__item">
+      <span class="tk-callout tk-callout--sm">3</span>
+      <div>
+        <div class="title">Q3 pitch synthesis · scribe-04</div>
+        <div class="preview">editor-11: Reduced length from 412 → 287 words; voice diff…</div>
+      </div>
+      <span class="when">14:02</span>
+    </div>
+    <div class="rail__item">
+      <span class="tk-callout tk-callout--sm">4</span>
+      <div>
+        <div class="title">Regression hunt · checkout v3.4</div>
+        <div class="preview">bench-09: Six candidate regressions; three confirmed via replay…</div>
+      </div>
+      <span class="when">13:51</span>
+    </div>
+    <div class="rail__item">
+      <span class="tk-callout tk-callout--sm">5</span>
+      <div>
+        <div class="title">Tenant onboarding · Praxis Co.</div>
+        <div class="preview">ops-11: Seat pool provisioned; keys pending tenant confirmation…</div>
+      </div>
+      <span class="when">11:20</span>
+    </div>
+
+    <div class="rail__section">Earlier this week</div>
+    <div class="rail__item">
+      <span class="tk-callout tk-callout--sm">6</span>
+      <div>
+        <div class="title">Agent roster audit</div>
+        <div class="preview">auditor-02: 12 agents; 4 underutilised, 1 orphaned…</div>
+      </div>
+      <span class="when">MON</span>
+    </div>
+    <div class="rail__item">
+      <span class="tk-callout tk-callout--sm">7</span>
+      <div>
+        <div class="title">Replay: r-8612 &mdash; incident forensics</div>
+        <div class="preview">verifier-03: Walked the seven-step sequence; isolated decision at step 4…</div>
+      </div>
+      <span class="when">MON</span>
+    </div>
+
+    <div class="rail__foot">
+      <div class="tk-avatar">E</div>
+      <div class="info">
+        <span class="n">Elena Varga</span>
+        <span class="r">Praxis · Ops</span>
+      </div>
+      <div class="bal">
+        <div class="v">$42.18</div>
+        <div>Budget &middot; 71%</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════ WALL ═══════════════════════ -->
+  <section class="wall">
+    <div class="wall__bar">
+      <div>
+        <h1 class="title">Freight claims &mdash; <em>Oct batch review</em></h1>
+        <div class="crumbs">
+          Workflow r-8841 <span class="sep">›</span> Iteration 5 of 5 <span class="sep">›</span> <span style="color:var(--tk-cinnabar);">Gate: quality · pending</span>
+        </div>
+      </div>
+      <div></div>
+      <div class="tools">
+        <span class="tk-tag">3 agents seated</span>
+        <button class="tk-btn tk-btn--ghost tk-btn--sm">Replay</button>
+        <button class="tk-btn tk-btn--ghost tk-btn--sm">Branch ⌥↵</button>
+        <button class="tk-btn tk-btn--sm">Seal verdict</button>
+      </div>
+    </div>
+
+    <div class="stream">
+
+      <!-- Turn: user -->
+      <div class="turn turn--user">
+        <div class="turn__gutter">
+          <div class="tk-avatar">E</div>
+          <div class="turn__role">Principal<span class="num">14:01</span></div>
+        </div>
+        <div class="turn__body">
+          <p>Walk the October freight-claims batch. Flag anything that looks inconsistent with carrier tariff §4.2 (weight-adjusted fuel surcharge). I don't need the raw ledger — give me a short memo I can send to the carrier, and if anything is obviously wrong, write a draft response for the contested ones.</p>
+          <p>Cite the specific claim IDs. Don't make up numbers.</p>
+        </div>
+      </div>
+
+      <!-- Turn: agent memo -->
+      <div class="turn">
+        <div class="turn__gutter">
+          <div class="tk-avatar" style="background: linear-gradient(180deg,#BFB3D7,#2B2A6B); color:#1A183A;">A</div>
+          <div class="turn__role">archivist<span class="num">14:02</span></div>
+        </div>
+        <div class="turn__body">
+          <div class="memo">
+            <span class="c-bl"></span><span class="c-br"></span>
+
+            <div class="memo__head">
+              <span>MEMO &middot; 01</span>
+              <div>
+                <span class="who">archivist <small>ledger-reconciler · seat 03</small></span>
+              </div>
+              <span class="time">14:02:11 UTC</span>
+            </div>
+
+            <div class="memo__body">
+              <p>I walked the 42 October freight claims against carrier tariff §4.2 and our own manifest records. Here is the short of it, in the form you asked for.</p>
+
+              <h4><span class="tk-callout">1</span> Batch shape</h4>
+              <p>Of <strong>42 claims</strong>, <strong>36</strong> are internally consistent — weight, zone, and fuel surcharge all agree with the tariff table. <strong>6 are not</strong>; I treat those individually below. Median claim is <code>$412.80</code>; total batch is <code>$24,117.06</code>.</p>
+
+              <div class="diagram">
+                <svg viewBox="0 0 640 180" preserveAspectRatio="xMidYMid meet">
+                  <!-- axes -->
+                  <g stroke="rgba(127,215,255,.55)" stroke-width=".7">
+                    <line x1="40" y1="150" x2="620" y2="150"/>
+                    <line x1="40" y1="20"  x2="40"  y2="150"/>
+                  </g>
+                  <!-- guide -->
+                  <line x1="40" y1="90" x2="620" y2="90" stroke="rgba(127,215,255,.22)" stroke-dasharray="3 3"/>
+                  <text x="36" y="94" text-anchor="end" font-family="JetBrains Mono" font-size="9" fill="rgba(220,232,240,.55)">$500</text>
+                  <text x="36" y="154" text-anchor="end" font-family="JetBrains Mono" font-size="9" fill="rgba(220,232,240,.55)">$0</text>
+                  <text x="36" y="24" text-anchor="end" font-family="JetBrains Mono" font-size="9" fill="rgba(220,232,240,.55)">$1k</text>
+                  <!-- consistent claims — short bars, emerald -->
+                  <g fill="rgba(62,166,118,.65)" stroke="#3EA676">
+                    <rect x="54"  y="102" width="8" height="48"/><rect x="66"  y="110" width="8" height="40"/>
+                    <rect x="78"  y="96"  width="8" height="54"/><rect x="90"  y="104" width="8" height="46"/>
+                    <rect x="102" y="108" width="8" height="42"/><rect x="114" y="112" width="8" height="38"/>
+                    <rect x="126" y="98"  width="8" height="52"/><rect x="138" y="100" width="8" height="50"/>
+                    <rect x="150" y="106" width="8" height="44"/><rect x="162" y="114" width="8" height="36"/>
+                    <rect x="174" y="104" width="8" height="46"/><rect x="186" y="108" width="8" height="42"/>
+                    <rect x="198" y="100" width="8" height="50"/><rect x="210" y="112" width="8" height="38"/>
+                    <rect x="222" y="104" width="8" height="46"/><rect x="234" y="108" width="8" height="42"/>
+                    <rect x="246" y="100" width="8" height="50"/><rect x="258" y="106" width="8" height="44"/>
+                    <rect x="270" y="112" width="8" height="38"/><rect x="282" y="102" width="8" height="48"/>
+                    <rect x="294" y="110" width="8" height="40"/><rect x="306" y="100" width="8" height="50"/>
+                    <rect x="318" y="98"  width="8" height="52"/><rect x="330" y="108" width="8" height="42"/>
+                    <rect x="342" y="106" width="8" height="44"/><rect x="354" y="100" width="8" height="50"/>
+                    <rect x="366" y="112" width="8" height="38"/><rect x="378" y="104" width="8" height="46"/>
+                    <rect x="390" y="108" width="8" height="42"/><rect x="402" y="102" width="8" height="48"/>
+                    <rect x="414" y="112" width="8" height="38"/><rect x="426" y="100" width="8" height="50"/>
+                    <rect x="438" y="106" width="8" height="44"/><rect x="450" y="110" width="8" height="40"/>
+                    <rect x="462" y="104" width="8" height="46"/><rect x="474" y="108" width="8" height="42"/>
+                  </g>
+                  <!-- flagged: taller, ruby -->
+                  <g fill="rgba(216,31,61,.55)" stroke="#FF7788">
+                    <rect x="486" y="60" width="8" height="90"/>
+                    <rect x="498" y="42" width="8" height="108"/>
+                    <rect x="510" y="70" width="8" height="80"/>
+                    <rect x="522" y="30" width="8" height="120"/>
+                    <rect x="534" y="54" width="8" height="96"/>
+                    <rect x="546" y="48" width="8" height="102"/>
+                  </g>
+                  <!-- callouts -->
+                  <g font-family="JetBrains Mono" font-size="9" letter-spacing=".18em" fill="#FFB47F">
+                    <line x1="516" y1="20" x2="516" y2="54" stroke="#FFB47F" stroke-width=".8"/>
+                    <text x="518" y="22">6 FLAGGED · RIGHT TAIL</text>
+                    <text x="220" y="22" fill="rgba(220,232,240,.55)">36 CONSISTENT CLAIMS</text>
+                  </g>
+                  <text x="40" y="170" font-family="JetBrains Mono" font-size="9" fill="rgba(220,232,240,.55)" letter-spacing=".2em">CLAIM Nº · LOW → HIGH</text>
+                </svg>
+                <div class="diagram__cap">
+                  <span class="fig">FIG. 01</span>
+                  <span>Distribution of the 42 October claims by invoiced amount. The six right-hand bars fall outside tariff §4.2 and are treated individually in <em>§ 2</em>.</span>
+                </div>
+              </div>
+
+              <h4><span class="tk-callout">2</span> The six flagged claims</h4>
+              <p>I checked each against (a) manifest weight, (b) zone, (c) published surcharge for the shipment date. The failure mode is noted in the right column.</p>
+
+              <div class="tool">
+                <div class="tool__head">
+                  <span class="k">TOOL</span>
+                  <span>ledger.query · rows=6 · took 412ms</span>
+                  <span>↓ expand</span>
+                </div>
+                <div class="tool__body">
+                  <span style="color:#FFB47F;">CLM-10412</span>  &nbsp;$812.40  &nbsp;overcharge &nbsp;<span class="dim">· fuel surcharge 18.2% vs tariff 14.0%</span><br/>
+                  <span style="color:#FFB47F;">CLM-10477</span>  &nbsp;$964.10  &nbsp;overcharge &nbsp;<span class="dim">· weight rounded up one bracket</span><br/>
+                  <span style="color:#FFB47F;">CLM-10503</span>  &nbsp;$731.00  &nbsp;overcharge &nbsp;<span class="dim">· zone-4 applied; manifest is zone-3</span><br/>
+                  <span style="color:#FFB47F;">CLM-10544</span>  &nbsp;$1,104.60 overcharge &nbsp;<span class="dim">· duplicate line item</span><br/>
+                  <span style="color:#FFB47F;">CLM-10591</span>  &nbsp;$842.25  &nbsp;<span style="color:#7FE5B0;">undercharge</span> &nbsp;<span class="dim">· in carrier's favour; leave it</span><br/>
+                  <span style="color:#FFB47F;">CLM-10602</span>  &nbsp;$898.80  &nbsp;overcharge &nbsp;<span class="dim">· fuel surcharge applied twice</span>
+                </div>
+              </div>
+
+              <p>Aggregate carrier overcharge: <strong>$4,511.05</strong>. I have drafted a concise reply for each contested claim — kept to three sentences apiece, referencing the manifest row and the tariff clause — and left them in <em>Drafts › Oct-freight-replies</em>. If you open any draft I'll sit next to you in the editor.</p>
+
+              <h4><span class="tk-callout">3</span> What I did <em>not</em> do</h4>
+              <p>I did not send anything. I did not alter the ledger. I did not accept the tariff on faith — where a carrier-side attachment contradicted the published table I flagged both sources and deferred to you.</p>
+            </div>
+
+            <div class="memo__foot">
+              <span class="memo__stamp">SEAT 03 · 1.42 s · &cent;3.8</span>
+              <div class="memo__actions">
+                <button>↩ Reply</button>
+                <button>⎘ Copy</button>
+                <button>✎ Branch</button>
+                <button>⚑ Flag</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Turn: user follow-up -->
+      <div class="turn turn--user">
+        <div class="turn__gutter">
+          <div class="tk-avatar">E</div>
+          <div class="turn__role">Principal<span class="num">14:14</span></div>
+        </div>
+        <div class="turn__body">
+          <p>Good. Pull CLM-10544 into the editor — I want to see the duplicate line before we send. And loop in <em>verifier-03</em> to check tariff math before you seal.</p>
+        </div>
+      </div>
+
+      <!-- Turn: agent memo 2 — concise -->
+      <div class="turn">
+        <div class="turn__gutter">
+          <div class="tk-avatar" style="background: linear-gradient(180deg,#BFB3D7,#2B2A6B); color:#1A183A;">A</div>
+          <div class="turn__role">archivist<span class="num">14:15</span></div>
+        </div>
+        <div class="turn__body">
+          <div class="memo">
+            <span class="c-bl"></span><span class="c-br"></span>
+            <div class="memo__head">
+              <span>MEMO &middot; 02</span>
+              <div><span class="who">archivist <small>seat 03</small></span></div>
+              <span class="time">14:15:03 UTC</span>
+            </div>
+            <div class="memo__body">
+              <p>Opening <code>CLM-10544</code> in the editor now. The duplicate line is row&nbsp;4 (fuel surcharge repeated at zone&nbsp;3 and zone&nbsp;4 rates). I've pinged <em>verifier-03</em> — she's reseating from the audit pool.</p>
+              <div class="tool">
+                <div class="tool__head">
+                  <span class="k">TOOL</span>
+                  <span>editor.open · CLM-10544</span>
+                  <span class="typing"><i></i><i></i><i></i> DRAWING</span>
+                </div>
+                <div class="tool__body"><span class="dim">Opening split-view in the workbench &mdash; the draft will materialise on your right-hand panel in a moment.</span></div>
+              </div>
+              <p>One caveat: the manifest timestamp is 03:14 UTC; the carrier's tariff bump took effect at 06:00. I want <em>verifier-03</em> to confirm that the zone-3 rate applies for the entire day before we sign anything.</p>
+            </div>
+            <div class="memo__foot">
+              <span class="memo__stamp">SEAT 03 · 0.38 s · &cent;1.1</span>
+              <div class="memo__actions">
+                <button>↩ Reply</button>
+                <button>⎘ Copy</button>
+                <button>✎ Branch</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing indicator for verifier -->
+      <div class="turn">
+        <div class="turn__gutter">
+          <div class="tk-avatar" style="background: linear-gradient(180deg,#A7D7C8,#2F6F5E); color:#0E2E26;">V</div>
+          <div class="turn__role">verifier-03<span class="num">seating…</span></div>
+        </div>
+        <div class="turn__body">
+          <div style="display:flex; align-items:center; gap:14px; padding:12px 14px; background: var(--tk-paper-2); border: 1px dashed var(--tk-line-soft);">
+            <span class="typing" style="color:var(--tk-line-soft);"><i style="background: var(--tk-line-soft);"></i><i style="background: var(--tk-line-soft);"></i><i style="background: var(--tk-line-soft);"></i></span>
+            <span style="font-family:var(--font-body); font-style:italic; font-size:14px; color:var(--tk-line-soft);"><em style="color:var(--tk-cinnabar); font-style: normal;">verifier-03</em> is reading the tariff table &amp; reconciling claim rows. ETA ~4 s.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Composer -->
+    <div class="composer">
+      <div class="composer__chips">
+        <span>attached</span>
+        <span class="chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="1.5" width="7" height="7"/><path d="M3 4 L7 4 M3 6 L5 6"/></svg> Oct-freight-manifest.csv <span class="x">×</span></span>
+        <span class="chip"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 2 L8 2 L8 8 L2 8 Z M2 5 L8 5"/></svg> tariff-2026-Q3.pdf <span class="x">×</span></span>
+        <span class="chip" style="border-style:solid; border-color:var(--tk-cinnabar); color:var(--tk-cinnabar);">+ Attach</span>
+        <span style="margin-left:auto; color: var(--tk-line-hair);">CTX 4,812 / 32k tokens</span>
+      </div>
+      <div class="composer__box">
+        <div class="composer__text" contenteditable="true" spellcheck="false">
+          <span class="composer__placeholder">Ask archivist something, or @verifier-03 / describe a new gate…</span>
+        </div>
+        <div class="composer__bar">
+          <div class="left">
+            <button class="icon-btn" title="Attach">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 3 L4 8 A2 2 0 0 0 7 11 L12 6"/></svg>
+            </button>
+            <button class="icon-btn" title="Mention agent">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5"/><circle cx="7" cy="7" r="2"/><path d="M12 7 L12 10 A2 2 0 0 0 14 10"/></svg>
+            </button>
+            <button class="icon-btn" title="Tool">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 7 L7 2 L12 7 L7 12 Z M7 4 L7 7"/></svg>
+            </button>
+            <button class="icon-btn" title="Replay">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 7 A4 4 0 1 0 7 3 L10 3"/><path d="M10 3 L10 6"/></svg>
+            </button>
+            <span class="meta" style="margin-left:6px;">seated · archivist · verifier-03</span>
+          </div>
+          <div style="display:flex; gap: 8px; align-items:center;">
+            <span class="meta">⏎ send · ⇧⏎ newline</span>
+            <div class="send-grp">
+              <button class="tk-btn tk-btn--sm">Draft</button>
+              <button class="tk-btn tk-btn--cinnabar tk-btn--sm">Send ⏎</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ CONTEXT PANEL ═══════════════════════ -->
+  <aside class="context">
+    <div class="context__head">
+      <span class="tk-callout">i</span>
+      <h3>Worktree &middot; context</h3>
+      <span class="x" role="button">×</span>
+    </div>
+
+    <div class="ctx-block">
+      <div class="ctx-label">Seated agents <span class="act">Manage</span></div>
+      <div style="display:grid; gap:8px;">
+        <div class="seat-card">
+          <div class="monogram">A</div>
+          <div>
+            <div class="n">archivist</div>
+            <div class="r">Ledger · seat 03</div>
+          </div>
+          <span class="pill">Active</span>
+        </div>
+        <div class="seat-card">
+          <div class="monogram" style="background:#C9DFD5;">V</div>
+          <div>
+            <div class="n">verifier-03</div>
+            <div class="r">Audit · seat 07</div>
+          </div>
+          <span class="pill" style="color:var(--tk-amber); border-color:var(--tk-amber);">Seating…</span>
+        </div>
+        <div class="seat-card">
+          <div class="monogram" style="background:#D7D0E8;">R</div>
+          <div>
+            <div class="n">editor-11</div>
+            <div class="r">Scribe · seat 02</div>
+          </div>
+          <span class="pill" style="color:var(--tk-line-hair); border-color:var(--tk-line-hair);">Idle</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctx-block">
+      <div class="ctx-label">Tools in scope <span class="act">Edit</span></div>
+      <div class="ctx-tools">
+        <div class="ctx-tool">
+          <span class="tk-callout tk-callout--sm">1</span>
+          <span class="lbl">ledger.query</span>
+          <span class="onoff">ON</span>
+        </div>
+        <div class="ctx-tool">
+          <span class="tk-callout tk-callout--sm">2</span>
+          <span class="lbl">editor.open · write</span>
+          <span class="onoff">ON</span>
+        </div>
+        <div class="ctx-tool">
+          <span class="tk-callout tk-callout--sm">3</span>
+          <span class="lbl">carrier.api · tariff read</span>
+          <span class="onoff">ON</span>
+        </div>
+        <div class="ctx-tool">
+          <span class="tk-callout tk-callout--sm">4</span>
+          <span class="lbl">mail.send · outbound</span>
+          <span class="onoff off">OFF · requires seal</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctx-block">
+      <div class="ctx-label">Pinned files <span class="act">+ Add</span></div>
+      <div class="ctx-file">
+        <span class="ic">CSV</span>
+        <div><div class="n">Oct-freight-manifest.csv</div><div class="s">42 rows · 18 KB · read-only</div></div>
+        <span class="x">×</span>
+      </div>
+      <div class="ctx-file">
+        <span class="ic">PDF</span>
+        <div><div class="n">tariff-2026-Q3.pdf</div><div class="s">pp. 12, 14, 17 cited</div></div>
+        <span class="x">×</span>
+      </div>
+      <div class="ctx-file">
+        <span class="ic">MD</span>
+        <div><div class="n">policy/refund-softcap.md</div><div class="s">added by concierge-02</div></div>
+        <span class="x">×</span>
+      </div>
+    </div>
+
+    <div class="ctx-block">
+      <div class="ctx-label">Citations (memo 01)</div>
+      <div class="ctx-cite">
+        <span class="tk-callout tk-callout--sm">a</span>
+        <div>
+          <div class="t">Tariff table §4.2, “weight-adjusted fuel surcharge applies per consignment,&nbsp;not per line item.”</div>
+          <div class="s">tariff-2026-Q3.pdf · p.&nbsp;14</div>
+        </div>
+      </div>
+      <div class="ctx-cite">
+        <span class="tk-callout tk-callout--sm">b</span>
+        <div>
+          <div class="t">Manifest row 4 for CLM-10544 lists a single consignment at 812 kg, zone 3, departing 03:14 UTC.</div>
+          <div class="s">Oct-freight-manifest.csv · row 4</div>
+        </div>
+      </div>
+      <div class="ctx-cite">
+        <span class="tk-callout tk-callout--sm">c</span>
+        <div>
+          <div class="t">Carrier's tariff bump for 2026-Q4 takes effect 06:00 UTC on Oct 1; the manifest predates it.</div>
+          <div class="s">carrier.api · /tariff/effective</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctx-block">
+      <div class="ctx-label">Run cost</div>
+      <div style="padding-top: 2px;">
+        <div class="cost"><span>Tokens · input</span><span class="v">8,412</span></div>
+        <div class="cost"><span>Tokens · output</span><span class="v">2,901</span></div>
+        <div class="cost"><span>Tool calls</span><span class="v">4</span></div>
+        <div class="cost"><span>Seat-seconds</span><span class="v">1.80</span></div>
+        <div class="cost" style="font-family:var(--font-display); font-style:italic; font-size:16px; color:var(--tk-cinnabar); border-bottom:0; margin-top:4px;"><span>Subtotal</span><span class="v">$0.049</span></div>
+      </div>
+    </div>
+
+    <div class="foot-stamp">
+      <span class="seal">✓</span>
+      <div>
+        Not yet sealed · verdict pending<br/>
+        <span style="color:var(--tk-line-hair);">gate: quality · last edit 14:15:03</span>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+</body>
+</html>

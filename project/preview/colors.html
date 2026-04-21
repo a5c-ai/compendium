@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Pigments — a5c.ai Codex</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  :root {
+    --ink: #1B1611;
+    --ink-soft: #3E342A;
+    --ink-quiet: #8A7B64;
+    --rule-q: color-mix(in oklab, var(--ink) 18%, transparent);
+    --rule-m: color-mix(in oklab, var(--ink) 36%, transparent);
+    --cinnabar: #C03A2B;
+  }
+  html, body { margin: 0; background: #0C0805; }
+  body {
+    padding: 32px 20px 80px; min-height: 100vh;
+    background: radial-gradient(1400px 700px at 50% -5%, rgba(212,168,75,.12), transparent 55%), #0C0805;
+    font-family: var(--font-body); color: var(--glyph-bone);
+  }
+  .shell { max-width: 1200px; margin: 0 auto; position: relative; }
+
+  .tabs-row { display: flex; justify-content: center; gap: 4px; padding: 0 40px; position: relative; z-index: 3; }
+  .tab {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 19px;
+    padding: 14px 32px 22px; color: rgba(240,230,209,.65); text-decoration: none;
+    background: linear-gradient(180deg, #6C3E15 0%, #4A2808 100%);
+    border: 1px solid #3E1E0E; border-bottom: 0; border-radius: 18px 18px 0 0;
+    box-shadow: inset 0 2px 0 rgba(242,200,143,.18);
+    cursor: pointer; margin-bottom: -8px; transition: color .15s;
+  }
+  .tab:hover { color: #F2E3C4; }
+  .tab--active {
+    color: #2A1607;
+    background: linear-gradient(180deg, #F2C88F 0%, #D9A96A 48%, #B37E3E 100%);
+    box-shadow: inset 0 2px 0 rgba(255,240,210,.55), inset 0 -1px 0 rgba(91,56,23,.35);
+    padding-bottom: 24px; margin-bottom: -10px;
+  }
+
+  .casing {
+    position: relative;
+    background: linear-gradient(180deg, #8E5A26 0%, #6C3E15 45%, #4A2808 100%);
+    border: 1px solid #2E1607; border-radius: 6px; padding: 14px;
+    box-shadow: inset 0 2px 0 rgba(255,220,170,.35), inset 0 -2px 0 rgba(0,0,0,.5), 0 30px 80px -20px rgba(0,0,0,.85);
+  }
+  .casing::before, .casing::after, .casing .rb, .casing .rbr {
+    content: ""; position: absolute; width: 14px; height: 14px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #F5E3BA 0%, #B98849 40%, #5A340F 100%);
+    box-shadow: 0 0 0 1px #2E1607, inset 0 -1px 1px rgba(0,0,0,.5); z-index: 4;
+  }
+  .casing::before { top: 10px; left: 10px; }
+  .casing::after { top: 10px; right: 10px; }
+  .casing .rb { bottom: 10px; left: 10px; }
+  .casing .rbr { bottom: 10px; right: 10px; }
+
+  .page {
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,220,170,.14), transparent 60%),
+      linear-gradient(180deg, #F2E7CE 0%, #E8D9B8 100%);
+    padding: 60px 64px 80px; color: var(--ink);
+    border: 1px solid #8E5A26; border-radius: 3px; overflow: hidden;
+  }
+  .page::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.14 0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: .2; mix-blend-mode: multiply; pointer-events: none;
+  }
+  .page > * { position: relative; }
+  .gears { position: absolute; inset: -40px -40px 0 -40px; pointer-events: none; opacity: .08; overflow: hidden; }
+  @keyframes spin-cw { to { transform: rotate(360deg); } }
+  @keyframes spin-ccw { to { transform: rotate(-360deg); } }
+
+  .codex-head { text-align: center; padding-bottom: 24px; border-bottom: 1px solid var(--ink); margin-bottom: 40px; }
+  .codex-head::after { content: ""; display: block; height: 3px; background: var(--ink); margin-top: 3px; }
+  .codex-vol { font-family: var(--font-mono); font-size: 10px; letter-spacing: .38em; text-transform: uppercase; color: var(--ink-quiet); margin-bottom: 8px; display: flex; justify-content: center; align-items: center; gap: 12px; }
+  .codex-vol .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cinnabar); }
+  .codex-head h1 { font-family: var(--font-display); font-weight: 500; font-size: 58px; line-height: 1; letter-spacing: -.02em; margin: 0; }
+  .codex-head h1 em { font-style: italic; color: var(--ink-quiet); font-weight: 400; }
+  .codex-head .kicker { font-family: var(--font-body); font-style: italic; font-size: 17px; color: var(--ink-soft); margin-top: 8px; }
+
+  .chapter { margin-top: 72px; }
+  .chapter:first-of-type { margin-top: 24px; }
+  .chapter-head { display: grid; grid-template-columns: 90px 1fr auto; gap: 24px; align-items: center; margin-bottom: 32px; padding-bottom: 18px; border-bottom: 1px dashed var(--rule-m); }
+  .chapter-num { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 56px; color: var(--cinnabar); line-height: 1; text-align: right; padding-right: 16px; border-right: 1px solid var(--rule-m); }
+  .chapter-title h2 { font-family: var(--font-display); font-weight: 500; font-size: 38px; line-height: 1.05; letter-spacing: -.01em; margin: 0 0 6px; }
+  .chapter-title .desc { font-family: var(--font-body); font-style: italic; font-size: 16px; color: var(--ink-soft); margin: 0; max-width: 56ch; }
+  .chapter-glyph { width: 64px; height: 64px; color: var(--ink); opacity: .65; }
+
+  .plate { background: linear-gradient(180deg, rgba(91,56,23,.07), transparent 40%), #EDE1C2; padding: 40px 32px; position: relative; border: 1px solid color-mix(in oklab, var(--ink) 20%, transparent); box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
+  .plate--dark { background: linear-gradient(180deg, #1F110A 0%, #140905 100%); color: var(--glyph-bone); border-color: #3E1E0E; }
+  .plate-cap { position: absolute; top: 10px; left: 14px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); }
+  .plate--dark .plate-cap { color: rgba(240,230,209,.45); }
+  .br-corner { position: absolute; width: 16px; height: 16px; border: 1px solid var(--ink-quiet); }
+  .plate .br-corner.tl { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
+  .plate .br-corner.tr { top: 6px; right: 6px; border-left: 0; border-bottom: 0; }
+  .plate .br-corner.bl { bottom: 6px; left: 6px; border-right: 0; border-top: 0; }
+  .plate .br-corner.br { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
+  .plate--dark .br-corner { border-color: rgba(240,230,209,.3); }
+
+  /* ── Ground tiles ── */
+  .grounds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .ground {
+    position: relative; aspect-ratio: 1; border: 1px solid var(--ink); padding: 16px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 0 1px 0 rgba(91,56,23,.2);
+  }
+  .ground--vellum { background: #EDE3CF; color: var(--ink); }
+  .ground--parchment { background: #D9CBAE; color: var(--ink); }
+  .ground--void { background: #0B0A0F; color: #F0E6D1; border-color: #000; }
+  .ground--ink { background: #181624; color: #F0E6D1; border-color: #000; }
+  .ground__name { font-family: var(--font-display); font-size: 28px; font-weight: 500; line-height: 1; letter-spacing: -.01em; }
+  .ground__note { font-family: var(--font-body); font-style: italic; font-size: 12.5px; line-height: 1.4; opacity: .75; max-width: 22ch; }
+  .ground__hex { font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; opacity: .65; }
+
+  /* ── Ink ladder ── */
+  .ladder { display: grid; grid-template-columns: 200px 1fr 140px; align-items: center; gap: 20px; padding: 10px 0; border-bottom: 1px dashed var(--rule-q); }
+  .ladder:last-child { border-bottom: 0; }
+  .ladder__swatch {
+    height: 56px; border: 1px solid var(--ink-soft);
+    position: relative;
+  }
+  .ladder__swatch::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 92%, rgba(0,0,0,.15)); }
+  .ladder__name { font-family: var(--font-display); font-weight: 500; font-size: 22px; color: var(--ink); }
+  .ladder__role { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--ink-soft); }
+  .ladder__hex { font-family: var(--font-mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); text-align: right; }
+
+  /* ── Gemstones ── */
+  .gem-shelf { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+  .gem-cell { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 22px 14px; background: linear-gradient(180deg, #1F110A, #0E0704); border: 1px solid #3E1E0E; border-radius: 8px; color: var(--glyph-bone); box-shadow: inset 0 1px 0 rgba(242,200,143,.15); position: relative; }
+  .gem-cell::before { content: ""; position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #F5E3BA 0%, #B98849 50%, #5A340F 100%); box-shadow: 0 0 0 1px #2E1607; }
+  .gem-cell svg { width: 72px; height: 72px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.5)); }
+  .gem-cell__name { font-family: var(--font-display); font-size: 20px; font-weight: 500; letter-spacing: -.005em; }
+  .gem-cell__role { font-family: var(--font-body); font-style: italic; font-size: 12.5px; color: rgba(240,230,209,.65); text-align: center; line-height: 1.4; }
+  .gem-cell__hex { font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: #E6C06A; }
+
+  /* ── Brass register ── */
+  .brass-row { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid #2E1607; }
+  .brass-step { height: 110px; display: flex; flex-direction: column; justify-content: flex-end; padding: 12px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(0,0,0,.55); }
+  .brass-row .bs1 { background: linear-gradient(180deg, #FBE9C3, #F2C88F); color: #5A340F; }
+  .brass-row .bs2 { background: linear-gradient(180deg, #F2C88F, #D9A96A); color: #5A340F; }
+  .brass-row .bs3 { background: linear-gradient(180deg, #D9A96A, #B37E3E); color: #2E1607; }
+  .brass-row .bs4 { background: linear-gradient(180deg, #B37E3E, #8E5A26); color: #F2E3C4; }
+  .brass-row .bs5 { background: linear-gradient(180deg, #5B3817, #3E1E0E); color: #F2E3C4; }
+  .brass-row .bs6 { background: linear-gradient(180deg, #2A1607, #1A0A02); color: #F2E3C4; }
+
+  /* ── Usage demos ── */
+  .usage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .usage {
+    padding: 32px; border: 1px solid var(--ink); position: relative;
+  }
+  .usage--light { background: linear-gradient(180deg, #F2E7CE, #E0CFA8); color: var(--ink); }
+  .usage--dark { background: linear-gradient(180deg, #0B0A0F, #181624); color: #F0E6D1; border-color: #000; }
+  .usage__cap { position: absolute; top: 10px; left: 14px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; opacity: .5; }
+  .usage h4 { font-family: var(--font-display); font-weight: 500; font-size: 32px; line-height: 1.05; letter-spacing: -.01em; margin: 20px 0 8px; }
+  .usage p { font-family: var(--font-body); font-size: 14px; line-height: 1.55; margin: 0 0 14px; opacity: .85; }
+  .usage__row { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+  .mini-btn {
+    font-family: var(--font-display); font-weight: 600; font-size: 13px;
+    padding: 8px 16px; border-radius: 4px; border: 0; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .mini-btn--brass { background: linear-gradient(180deg, #F2C88F, #8E5A26); color: #2A1607; border: 1px solid #5B3817; box-shadow: inset 0 1px 0 rgba(255,240,210,.5), 0 2px 0 #2A1607; }
+  .mini-btn--seal { background: var(--cinnabar); color: #fff; border: 1px solid #5A120B; box-shadow: 0 2px 0 #5A120B; }
+  .mini-chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border: 1px solid currentColor; border-radius: 999px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; }
+
+  /* ── Semantic verdict strip ── */
+  .verdicts { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--ink); }
+  .verdict { padding: 22px 18px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid var(--rule-m); }
+  .verdict:last-child { border-right: 0; }
+  .verdict__dot { width: 14px; height: 14px; border-radius: 50%; }
+  .verdict__name { font-family: var(--font-display); font-weight: 500; font-size: 20px; letter-spacing: -.005em; }
+  .verdict__use { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
+  .verdict__hex { font-family: var(--font-mono); font-size: 9px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-quiet); margin-top: 4px; }
+
+  .specs { display: grid; grid-template-columns: 180px 1fr; gap: 12px 28px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--rule-q); font-family: var(--font-body); font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
+  .specs dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-quiet); padding-top: 3px; }
+  .specs dd { margin: 0; }
+  .specs code { font-family: var(--font-mono); font-size: 12px; color: var(--ink); background: rgba(27,22,17,.08); padding: 1px 6px; border-radius: 2px; }
+
+  .colophon { margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--ink); display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); }
+  .colophon .diamond { font-size: 14px; color: var(--cinnabar); letter-spacing: .4em; }
+  .colophon .right { text-align: right; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="tabs-row">
+    <a class="tab" href="brand.html">Philosophy</a>
+    <a class="tab" href="components.html">UI Components</a>
+    <a class="tab" href="type.html">Type</a>
+    <a class="tab tab--active" href="colors.html">Pigments</a>
+    <a class="tab" href="spacing.html">Measure</a>
+  </nav>
+
+  <div class="casing">
+    <span class="rb"></span><span class="rbr"></span>
+    <div class="page">
+      <div class="gears">
+        <svg viewBox="0 0 200 200" width="340" height="340" style="position:absolute; top: -60px; left: -80px; animation: spin-cw 90s linear infinite;">
+          <g fill="none" stroke="#2A1607" stroke-width="1.4">
+            <circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="54"/>
+            <rect x="96" y="20" width="8" height="16"/><rect x="96" y="164" width="8" height="16"/>
+            <rect x="20" y="96" width="16" height="8"/><rect x="164" y="96" width="16" height="8"/>
+            <circle cx="100" cy="100" r="14"/>
+          </g>
+        </svg>
+        <svg viewBox="0 0 200 200" width="260" height="260" style="position:absolute; bottom: -60px; right: -60px; animation: spin-ccw 70s linear infinite;">
+          <g fill="none" stroke="#2A1607" stroke-width="1.4"><circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="50"/><circle cx="100" cy="100" r="16"/></g>
+        </svg>
+      </div>
+
+      <div class="codex-head">
+        <div class="codex-vol"><span class="dot"></span>a5c · codex · vol. i · folio iv<span class="dot"></span></div>
+        <h1>Pigments <em>&amp;</em> Grounds</h1>
+        <div class="kicker">four surfaces, one ink, seven jewels</div>
+      </div>
+
+      <!-- I · GROUNDS -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">I</div>
+          <div class="chapter-title">
+            <h2>The Four Grounds</h2>
+            <p class="desc">Vellum is the marketing surface. Parchment, its quiet companion. Void and Ink are for product &amp; technical canvases — the workshop at night.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="4" width="18" height="18"/><rect x="26" y="4" width="18" height="18"/><rect x="4" y="26" width="18" height="18"/><rect x="26" y="26" width="18" height="18"/></svg>
+        </div>
+        <div class="plate" style="padding: 32px;">
+          <span class="plate-cap">grounds · α</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="grounds">
+            <div class="ground ground--vellum">
+              <div class="ground__name">Vellum</div>
+              <div>
+                <div class="ground__note">The default marketing surface. Warm ground, rests the eye.</div>
+                <div class="ground__hex" style="margin-top: 10px;">#EDE3CF · ground · base</div>
+              </div>
+            </div>
+            <div class="ground ground--parchment">
+              <div class="ground__name">Parchment</div>
+              <div>
+                <div class="ground__note">The deeper leaf. Used beneath Vellum for section breaks and cards.</div>
+                <div class="ground__hex" style="margin-top: 10px;">#D9CBAE · ground · alt</div>
+              </div>
+            </div>
+            <div class="ground ground--void">
+              <div class="ground__name">Void</div>
+              <div>
+                <div class="ground__note">The workshop at midnight. Product shell, code, and technical reference.</div>
+                <div class="ground__hex" style="margin-top: 10px;">#0B0A0F · ground · deep</div>
+              </div>
+            </div>
+            <div class="ground ground--ink">
+              <div class="ground__name">Ink</div>
+              <div>
+                <div class="ground__note">A shade warmer than Void. Sits beneath Void for layered panels.</div>
+                <div class="ground__hex" style="margin-top: 10px;">#181624 · ground · layer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <dl class="specs">
+          <dt>Rule of two</dt><dd>Any page uses at most two grounds: Vellum + Parchment, or Void + Ink. Never mix registers.</dd>
+          <dt>Contrast</dt><dd>Ink on Vellum: <code>AAA</code>. Bone on Void: <code>AAA</code>. Fade registers meet <code>AA</code> only.</dd>
+        </dl>
+      </div>
+
+      <!-- II · INK LADDER -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">II</div>
+          <div class="chapter-title">
+            <h2>The Ink Ladder</h2>
+            <p class="desc">Three registers of text on Vellum; two on Void. Every caption, label, and body copy comes from this ladder — no free-styling.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 12 H40 M8 20 H30 M8 28 H36 M8 36 H22"/></svg>
+        </div>
+        <div class="plate" style="padding: 28px 32px;">
+          <span class="plate-cap">ink · ladder</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div style="font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); margin-bottom: 6px;">on vellum</div>
+          <div class="ladder">
+            <div>
+              <div class="ladder__name">Pigment</div>
+              <div class="ladder__role">body, headings — the voice</div>
+            </div>
+            <div class="ladder__swatch" style="background:#1B1611;"></div>
+            <div class="ladder__hex">#1B1611</div>
+          </div>
+          <div class="ladder">
+            <div>
+              <div class="ladder__name">Fade</div>
+              <div class="ladder__role">captions, marginalia, hints</div>
+            </div>
+            <div class="ladder__swatch" style="background:#5A4E3C;"></div>
+            <div class="ladder__hex">#5A4E3C</div>
+          </div>
+          <div class="ladder">
+            <div>
+              <div class="ladder__name">Ghost</div>
+              <div class="ladder__role">folio numbers, hairline labels</div>
+            </div>
+            <div class="ladder__swatch" style="background:#8C7E65;"></div>
+            <div class="ladder__hex">#8C7E65</div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); margin: 20px 0 6px;">on void</div>
+          <div class="ladder">
+            <div>
+              <div class="ladder__name">Bone</div>
+              <div class="ladder__role">body, headings — against dark</div>
+            </div>
+            <div class="ladder__swatch" style="background:#F0E6D1;"></div>
+            <div class="ladder__hex">#F0E6D1</div>
+          </div>
+          <div class="ladder">
+            <div>
+              <div class="ladder__name">Fade (dark)</div>
+              <div class="ladder__role">captions on dark surfaces</div>
+            </div>
+            <div class="ladder__swatch" style="background:#A89980;"></div>
+            <div class="ladder__hex">#A89980</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- III · BRASS REGISTER -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">III</div>
+          <div class="chapter-title">
+            <h2>The Brass Register</h2>
+            <p class="desc">A six-step metal gradient used for casings, rivets, and primary buttons. Never as a text color. Never as a fill for plates.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg>
+        </div>
+        <div class="plate" style="padding: 32px;">
+          <span class="plate-cap">brass · ring</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="brass-row">
+            <div class="brass-step bs1">light · #F2C88F</div>
+            <div class="brass-step bs2">gilt · #D9A96A</div>
+            <div class="brass-step bs3">brass · #B37E3E</div>
+            <div class="brass-step bs4">deep · #8E5A26</div>
+            <div class="brass-step bs5">leather · #5B3817</div>
+            <div class="brass-step bs6">mahogany · #2A1607</div>
+          </div>
+        </div>
+        <dl class="specs">
+          <dt>Use</dt><dd>Casings, navigation, primary buttons, rivets, compass rings, watch dials.</dd>
+          <dt>Never</dt><dd>Gradients on text. Gradients on plate fills. Brass as decorative fill with no metal structure.</dd>
+        </dl>
+      </div>
+
+      <!-- IV · GEMSTONES -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">IV</div>
+          <div class="chapter-title">
+            <h2>The Seven Gemstones</h2>
+            <p class="desc">Semantic color. Each stone has exactly one meaning. Never decorative, never chromed.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="24,6 38,18 32,40 16,40 10,18"/><path d="M10 18 H38 M24 6 V40"/></svg>
+        </div>
+        <div class="plate plate--dark" style="padding: 40px 28px;">
+          <span class="plate-cap">gemstones · α</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="gem-shelf">
+            <div class="gem-cell">
+              <svg viewBox="0 0 80 80"><defs><linearGradient id="cin" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#E8725F"/><stop offset="1" stop-color="#5A120B"/></linearGradient></defs>
+                <polygon points="40,8 64,24 56,56 24,56 16,24" fill="url(#cin)" stroke="#3E0904" stroke-width="1"/>
+                <polygon points="40,8 40,56 64,24" fill="#D04A36" opacity=".5"/>
+                <path d="M16 24 L40 32 L64 24 M40 32 V56" stroke="#3E0904" stroke-width=".8" fill="none"/>
+              </svg>
+              <div class="gem-cell__name">Cinnabar</div>
+              <div class="gem-cell__role">the seal · brand · failure verdict</div>
+              <div class="gem-cell__hex">#C03A2B</div>
+            </div>
+            <div class="gem-cell">
+              <svg viewBox="0 0 80 80"><defs><linearGradient id="em" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7ADDAE"/><stop offset="1" stop-color="#1F5E40"/></linearGradient></defs>
+                <polygon points="40,8 64,24 56,56 24,56 16,24" fill="url(#em)" stroke="#0F3A25" stroke-width="1"/>
+                <polygon points="40,8 40,56 64,24" fill="#5CC68F" opacity=".5"/>
+                <path d="M16 24 L40 32 L64 24 M40 32 V56" stroke="#0F3A25" stroke-width=".8" fill="none"/>
+              </svg>
+              <div class="gem-cell__name">Emerald</div>
+              <div class="gem-cell__role">gate passed · verdict · healthy</div>
+              <div class="gem-cell__hex">#3EA676</div>
+            </div>
+            <div class="gem-cell">
+              <svg viewBox="0 0 80 80"><defs><linearGradient id="rb" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF8896"/><stop offset="1" stop-color="#70101E"/></linearGradient></defs>
+                <polygon points="40,8 64,24 56,56 24,56 16,24" fill="url(#rb)" stroke="#3E0914" stroke-width="1"/>
+                <polygon points="40,8 40,56 64,24" fill="#E85064" opacity=".5"/>
+                <path d="M16 24 L40 32 L64 24 M40 32 V56" stroke="#3E0914" stroke-width=".8" fill="none"/>
+              </svg>
+              <div class="gem-cell__name">Ruby</div>
+              <div class="gem-cell__role">halt · terminal error · unrecoverable</div>
+              <div class="gem-cell__hex">#D81F3D</div>
+            </div>
+            <div class="gem-cell">
+              <svg viewBox="0 0 80 80"><defs><linearGradient id="am" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFD67A"/><stop offset="1" stop-color="#7E5826"/></linearGradient></defs>
+                <polygon points="40,8 64,24 56,56 24,56 16,24" fill="url(#am)" stroke="#4E3710" stroke-width="1"/>
+                <polygon points="40,8 40,56 64,24" fill="#F0BB5A" opacity=".5"/>
+                <path d="M16 24 L40 32 L64 24 M40 32 V56" stroke="#4E3710" stroke-width=".8" fill="none"/>
+              </svg>
+              <div class="gem-cell__name">Amber</div>
+              <div class="gem-cell__role">pending · advisory · warning</div>
+              <div class="gem-cell__hex">#E0A63A</div>
+            </div>
+            <div class="gem-cell">
+              <svg viewBox="0 0 80 80"><defs><linearGradient id="tp" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8AF2FF"/><stop offset="1" stop-color="#0E5868"/></linearGradient></defs>
+                <polygon points="40,8 64,24 56,56 24,56 16,24" fill="url(#tp)" stroke="#072E38" stroke-width="1"/>
+                <polygon points="40,8 40,56 64,24" fill="#5ACFDF" opacity=".5"/>
+                <path d="M16 24 L40 32 L64 24 M40 32 V56" stroke="#072E38" stroke-width=".8" fill="none"/>
+              </svg>
+              <div class="gem-cell__name">Topaz</div>
+              <div class="gem-cell__role">iterating · in-flight · progress</div>
+              <div class="gem-cell__hex">#16D7E6</div>
+            </div>
+            <div class="gem-cell">
+              <svg viewBox="0 0 80 80"><defs><linearGradient id="amy" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF9DE6"/><stop offset="1" stop-color="#4E143E"/></linearGradient></defs>
+                <polygon points="40,8 64,24 56,56 24,56 16,24" fill="url(#amy)" stroke="#2A0722" stroke-width="1"/>
+                <polygon points="40,8 40,56 64,24" fill="#E070C4" opacity=".5"/>
+                <path d="M16 24 L40 32 L64 24 M40 32 V56" stroke="#2A0722" stroke-width=".8" fill="none"/>
+              </svg>
+              <div class="gem-cell__name">Amethyst</div>
+              <div class="gem-cell__role">annotation · marginalia · human note</div>
+              <div class="gem-cell__hex">#E23FB4</div>
+            </div>
+            <div class="gem-cell">
+              <svg viewBox="0 0 80 80"><defs><linearGradient id="sp" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8B93FF"/><stop offset="1" stop-color="#181646"/></linearGradient></defs>
+                <polygon points="40,8 64,24 56,56 24,56 16,24" fill="url(#sp)" stroke="#0C0A28" stroke-width="1"/>
+                <polygon points="40,8 40,56 64,24" fill="#5D66DC" opacity=".5"/>
+                <path d="M16 24 L40 32 L64 24 M40 32 V56" stroke="#0C0A28" stroke-width=".8" fill="none"/>
+              </svg>
+              <div class="gem-cell__name">Sapphire</div>
+              <div class="gem-cell__role">diagrammatic · cold reference · linkage</div>
+              <div class="gem-cell__hex">#2B2A6B</div>
+            </div>
+          </div>
+        </div>
+        <dl class="specs">
+          <dt>Rule</dt><dd>A gemstone only appears when it <em>means</em> something. Emerald decorates nothing — it verifies.</dd>
+          <dt>Density</dt><dd>No more than three distinct gems per surface. More than three and the page becomes candy.</dd>
+        </dl>
+      </div>
+
+      <!-- V · VERDICTS -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">V</div>
+          <div class="chapter-title">
+            <h2>Verdict Colors in Context</h2>
+            <p class="desc">How each gem shows up in chips, banners, and gate strips. The dot leads; the word follows.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 24 H44 M12 16 V32 M24 16 V32 M36 16 V32"/></svg>
+        </div>
+        <div class="plate" style="padding: 0;">
+          <span class="plate-cap" style="top: -18px;">verdicts · strip</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="verdicts">
+            <div class="verdict">
+              <div class="verdict__dot" style="background: #3EA676;"></div>
+              <div class="verdict__name">Passed</div>
+              <div class="verdict__use">Emerald. Gate has cleared; proof will be issued.</div>
+              <div class="verdict__hex">#3EA676 · emerald</div>
+            </div>
+            <div class="verdict">
+              <div class="verdict__dot" style="background: #D81F3D;"></div>
+              <div class="verdict__name">Halted</div>
+              <div class="verdict__use">Ruby. The run has stopped; human review required.</div>
+              <div class="verdict__hex">#D81F3D · ruby</div>
+            </div>
+            <div class="verdict">
+              <div class="verdict__dot" style="background: #E0A63A;"></div>
+              <div class="verdict__name">Pending</div>
+              <div class="verdict__use">Amber. Advisory; the loop is adjusting.</div>
+              <div class="verdict__hex">#E0A63A · amber</div>
+            </div>
+            <div class="verdict">
+              <div class="verdict__dot" style="background: #16D7E6;"></div>
+              <div class="verdict__name">Iterating</div>
+              <div class="verdict__use">Topaz. In-flight; next gate incoming.</div>
+              <div class="verdict__hex">#16D7E6 · topaz</div>
+            </div>
+            <div class="verdict">
+              <div class="verdict__dot" style="background: #C03A2B;"></div>
+              <div class="verdict__name">Sealed</div>
+              <div class="verdict__use">Cinnabar. The seal has been struck. Run complete.</div>
+              <div class="verdict__hex">#C03A2B · cinnabar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VI · TWO SURFACES -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">VI</div>
+          <div class="chapter-title">
+            <h2>Two surfaces, one palette</h2>
+            <p class="desc">The same gemstones and the same brass on Vellum and on Void. Same meaning, different voltage.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="4" width="20" height="40"/><rect x="24" y="4" width="20" height="40" fill="currentColor" opacity=".9"/></svg>
+        </div>
+        <div class="usage-grid">
+          <div class="usage usage--light">
+            <span class="usage__cap">vellum · marketing</span>
+            <span class="mini-chip" style="color: #3EA676;">● gate · passed</span>
+            <h4>Done means done.</h4>
+            <p>Warm ground, dark ink, cinnabar only where it matters. The brass button is the one shout on the page.</p>
+            <div class="usage__row">
+              <button class="mini-btn mini-btn--brass">Install →</button>
+              <button class="mini-btn mini-btn--seal">⟡ Seal</button>
+            </div>
+          </div>
+          <div class="usage usage--dark">
+            <span class="usage__cap">void · product</span>
+            <span class="mini-chip" style="color: #16D7E6;">● iterating · 2/4</span>
+            <h4 style="color: #F0E6D1;">The loop closes.</h4>
+            <p style="color: #A89980;">Reverse register. Neon glyphs against black. Same rules, deeper contrast. Gems glow — they do not fluoresce.</p>
+            <div class="usage__row">
+              <button class="mini-btn mini-btn--brass">Dispatch →</button>
+              <button class="mini-btn" style="background: transparent; color: #F0E6D1; border: 1px solid #F0E6D1;">Docs</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="colophon">
+        <span>a5c.ai · design · codex</span>
+        <span class="diamond">✦ ✦ ✦</span>
+        <span class="right">fol · iv of viii</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR33KHEF9EZ8YVJRBR83TPE",
+  "taskId": "setup-exports",
+  "invocationKey": "design-system-repo:S000007:setup-exports",
+  "status": "ok",
+  "result": {
+    "entryPoints": [
+      "src/index.ts",
+      "src/react.ts",
+      "src/tokens.ts",
+      "src/icons.ts"
+    ],
+    "success": true
+  },
+  "startedAt": "2026-04-21T13:20:06.895Z",
+  "finishedAt": "2026-04-21T13:20:06.895Z",
+  "value": {
+    "entryPoints": [
+      "src/index.ts",
+      "src/react.ts",
+      "src/tokens.ts",
+      "src/icons.ts"
+    ],
+    "success": true
+  }
+}

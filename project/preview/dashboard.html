@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>a5c.ai — Foundry Dashboard</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../technical.css" />
+<style>
+  html, body { margin: 0; padding: 0; background: #2A1607; }
+  body {
+    font-family: var(--font-body);
+    color: var(--tk-line);
+    min-height: 100vh;
+  }
+
+  /* ── App shell ─────────────────────────────────────────── */
+  .app {
+    width: 1440px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+    background: var(--tk-paper);
+    box-shadow: 0 0 0 1px #000, 0 20px 80px rgba(0,0,0,.6);
+  }
+
+  /* Sidebar */
+  aside.side { position: relative; }
+  .side::after {
+    /* brass strip between side and main */
+    content: ""; position: absolute; right: -4px; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--brass-light) 0%, var(--brass) 50%, var(--brass-deep) 100%);
+    box-shadow: inset 0 0 0 1px #000;
+  }
+
+  /* Main */
+  main.main { display: grid; grid-template-rows: auto auto 1fr; min-width: 0; }
+
+  /* ── Hero strip: KPI + title ──────────────────────────── */
+  .hero {
+    padding: 20px 28px 18px;
+    border-bottom: var(--tk-rule-strong);
+    background:
+      linear-gradient(180deg, var(--tk-paper) 0%, var(--tk-paper-2) 100%);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px; align-items: end;
+  }
+  .hero__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 1.02;
+    letter-spacing: -.02em;
+    color: var(--tk-line);
+    margin: 0;
+  }
+  .hero__title em { font-style: italic; color: var(--tk-cinnabar); font-weight: 500; }
+  .hero__sub {
+    font-family: var(--font-body); font-style: italic;
+    color: var(--tk-line-soft); font-size: 14px;
+    margin: 4px 0 0; max-width: 64ch;
+  }
+  .hero__meta {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--tk-line-soft);
+  }
+  .hero__meta .stamp {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--tk-cinnabar); border: 1.5px solid var(--tk-cinnabar);
+    padding: 3px 10px; border-radius: 2px;
+  }
+  .hero__meta .stamp::before {
+    content: ""; width: 6px; height: 6px; background: var(--tk-cinnabar); border-radius: 50%;
+  }
+
+  /* ── Toolbar ─────────────────────────────────────────── */
+  .tools {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 12px;
+    align-items: center;
+    padding: 10px 28px;
+    background: var(--tk-paper);
+    border-bottom: var(--tk-rule-strong);
+  }
+  .tools__segs { display: inline-flex; border: var(--tk-rule-strong); background: var(--tk-paper); }
+  .tools__segs button {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    font-weight: 700; padding: 7px 12px; background: transparent; color: var(--tk-line-soft);
+    border: 0; border-right: 1px solid var(--tk-line-soft); cursor: pointer;
+  }
+  .tools__segs button:last-child { border-right: 0; }
+  .tools__segs button.on { background: var(--tk-line); color: var(--tk-paper); }
+  .tools__filters { display: flex; gap: 8px; align-items: center; }
+  .filter-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 10px; background: var(--tk-paper); border: 1px dashed var(--tk-line-soft);
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--tk-line);
+  }
+  .filter-pill .x { color: var(--tk-cinnabar); font-weight: 700; cursor: pointer; }
+  .tools__right { display: flex; align-items: center; gap: 10px; }
+  .tools__search {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--tk-paper-2); border: var(--tk-rule-strong);
+    padding: 6px 10px; min-width: 280px;
+  }
+  .tools__search input {
+    border: 0; background: transparent; outline: 0; width: 100%;
+    font-family: var(--font-body); font-size: 14px; font-style: italic; color: var(--tk-line);
+  }
+  .tools__search .kbd {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em;
+    padding: 1px 6px; border: 1px solid var(--tk-line-soft); color: var(--tk-line-soft);
+  }
+
+  /* ── Body grid ─────────────────────────────────────────── */
+  .body {
+    padding: 22px 28px 40px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 22px;
+  }
+  .col--main { display: grid; gap: 22px; min-width: 0; }
+  .col--side { display: grid; gap: 22px; align-content: start; }
+
+  /* KPI row */
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: var(--tk-rule-strong); background: var(--tk-paper); }
+  .kpis > .tk-spark { border: 0; border-right: var(--tk-rule-strong); padding: 14px 16px 16px; }
+  .kpis > .tk-spark:last-child { border-right: 0; }
+  .kpis > .tk-spark::after {
+    content: attr(data-num);
+    position: absolute; top: 10px; right: 12px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .2em;
+    color: var(--tk-line-hair);
+  }
+
+  /* Chart panel */
+  .chart {
+    background: var(--tk-paper);
+    border: var(--tk-rule-strong);
+    position: relative;
+  }
+  .chart__head {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 14px;
+    align-items: center; padding: 12px 16px;
+    border-bottom: var(--tk-rule-strong);
+    background: var(--tk-paper-2);
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: .22em; text-transform: uppercase;
+  }
+  .chart__head .num {
+    font-family: var(--font-display); font-style: italic; font-size: 18px;
+    color: var(--tk-cinnabar); letter-spacing: 0; text-transform: none; line-height: 1;
+  }
+  .chart__head .meta { color: var(--tk-line-soft); }
+  .chart__head .actions { display: flex; gap: 6px; }
+  .chart__head .actions button {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em;
+    text-transform: uppercase; font-weight: 700; padding: 3px 8px;
+    background: transparent; border: 1px solid var(--tk-line-soft); color: var(--tk-line-soft);
+    cursor: pointer;
+  }
+  .chart__head .actions button.on { background: var(--tk-line); color: var(--tk-paper); border-color: var(--tk-line); }
+  .chart__body { padding: 20px 16px 16px; position: relative; }
+
+  /* Blueprint chart variant */
+  .chart--bp { background: var(--tk-blueprint); color: #DCE8F0; border-color: #0A2030; }
+  .chart--bp .chart__head { background: var(--tk-bp-2); border-bottom-color: #0A2030; color: var(--tk-bp-line); }
+  .chart--bp .chart__head .num { color: #FFB47F; }
+  .chart--bp .chart__head .meta { color: rgba(220,232,240,.55); }
+  .chart--bp .chart__head .actions button { color: var(--tk-bp-line); border-color: rgba(127,215,255,.4); }
+  .chart--bp .chart__head .actions button.on { background: var(--tk-bp-line); color: var(--tk-blueprint); border-color: var(--tk-bp-line); }
+
+  /* Ledger panel */
+  .ledger-panel { background: var(--tk-paper); border: var(--tk-rule-strong); position: relative; overflow: hidden; }
+  .ledger-panel__head {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center;
+    padding: 12px 16px; border-bottom: var(--tk-rule-strong); background: var(--tk-paper-2);
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  }
+  .ledger-panel__head .num {
+    font-family: var(--font-display); font-style: italic; font-size: 18px; color: var(--tk-cinnabar);
+    letter-spacing: 0; text-transform: none; line-height: 1;
+  }
+  .ledger-panel__foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 16px; border-top: var(--tk-rule-strong); background: var(--tk-paper-2);
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--tk-line-soft);
+  }
+  .pager { display: inline-flex; gap: 0; border: 1px solid var(--tk-line-soft); }
+  .pager button {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; font-weight: 700;
+    padding: 4px 10px; background: transparent; border: 0; border-right: 1px solid var(--tk-line-soft);
+    color: var(--tk-line-soft); cursor: pointer;
+  }
+  .pager button:last-child { border-right: 0; }
+  .pager button.on { background: var(--tk-line); color: var(--tk-paper); }
+
+  /* Activity feed */
+  .feed { display: grid; gap: 0; }
+  .feed__item {
+    display: grid; grid-template-columns: 32px 1fr auto; gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px dashed color-mix(in oklab, var(--tk-line) 14%, transparent);
+  }
+  .feed__item:last-child { border-bottom: 0; }
+  .feed__num { font-family: var(--font-mono); font-size: 10px; color: var(--tk-line-hair); padding-top: 4px; font-feature-settings:"tnum" 1; }
+  .feed__body .t { font-family: var(--font-body); font-size: 14px; color: var(--tk-line); line-height: 1.45; }
+  .feed__body .t .who { font-family: var(--font-display); font-style: italic; font-weight: 500; color: var(--tk-cinnabar); }
+  .feed__body .t code { font-family: var(--font-mono); font-size: 12px; background: var(--tk-paper-2); padding: 0 4px; border: 1px solid color-mix(in oklab, var(--tk-line) 14%, transparent); }
+  .feed__body .s { font-family: var(--font-body); font-style: italic; font-size: 12px; color: var(--tk-line-soft); margin-top: 2px; }
+  .feed__when { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; color: var(--tk-line-hair); text-transform: uppercase; align-self: start; padding-top: 4px; }
+
+  /* Gauge cluster */
+  .gauges { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: var(--tk-rule-strong); background: var(--tk-paper); }
+  .gauge { padding: 14px 16px; border-right: var(--tk-rule-strong); border-bottom: var(--tk-rule-strong); position: relative; }
+  .gauge:nth-child(2n) { border-right: 0; }
+  .gauge:nth-last-child(-n+2) { border-bottom: 0; }
+  .gauge__label { font-family: var(--font-mono); font-size: 9px; letter-spacing: .24em; text-transform: uppercase; color: var(--tk-line-soft); }
+  .gauge__value { font-family: var(--font-display); font-weight: 500; font-size: 26px; line-height: 1; margin-top: 6px; font-feature-settings:"onum" 1; }
+  .gauge__bar { margin-top: 10px; height: 6px; background: var(--tk-paper-2); border: 1px solid var(--tk-line-soft); position: relative; overflow: hidden; }
+  .gauge__bar > i { display: block; height: 100%; background: var(--tk-line); }
+  .gauge__bar > i.warn { background: var(--tk-amber); }
+  .gauge__bar > i.ok { background: var(--tk-emerald); }
+  .gauge__bar > i.crit { background: var(--tk-ruby); }
+  .gauge__bar::after {
+    /* tick marks at 25/50/75 */
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(90deg, transparent 24%, rgba(27,22,17,.35) 24%, rgba(27,22,17,.35) 25%, transparent 25%, transparent 49%, rgba(27,22,17,.35) 49%, rgba(27,22,17,.35) 50%, transparent 50%, transparent 74%, rgba(27,22,17,.35) 74%, rgba(27,22,17,.35) 75%, transparent 75%);
+    pointer-events: none;
+  }
+
+  /* Command palette (mocked open) */
+  .cmd {
+    position: relative;
+    background: #1F1912; color: #E8D9B8;
+    border: 1px solid #000;
+    box-shadow: 0 20px 0 rgba(0,0,0,.08), 0 0 0 4px var(--brass-deep), 0 0 0 5px #000;
+  }
+  .cmd__head {
+    padding: 12px 14px; display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center;
+    border-bottom: 1px solid #3E2E1A;
+  }
+  .cmd__head input {
+    border: 0; background: transparent; color: #F2E3C4; width: 100%;
+    font-family: var(--font-body); font-style: italic; font-size: 16px; outline: 0;
+  }
+  .cmd__head .kbd { font-family: var(--font-mono); font-size: 9px; color: #8A7B64; border: 1px solid #3E2E1A; padding: 2px 5px; }
+  .cmd__list { max-height: 220px; overflow: auto; }
+  .cmd__item { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; padding: 8px 14px; align-items: center; font-size: 13.5px; }
+  .cmd__item.current { background: linear-gradient(90deg, rgba(192,58,43,.18), transparent 70%); border-left: 2px solid var(--tk-cinnabar); padding-left: 12px; }
+  .cmd__item .tk-callout { background: transparent; border-color: #8A7B64; color: #8A7B64; }
+  .cmd__item.current .tk-callout { border-color: #F2E3C4; color: #F2E3C4; }
+  .cmd__item .hint { font-family: var(--font-mono); font-size: 10px; letter-spacing: .18em; color: #8A7B64; text-transform: uppercase; }
+  .cmd__group { font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: #8A7B64; padding: 8px 14px 4px; }
+
+  /* Toast stack */
+  .toasts { display: grid; gap: 10px; }
+
+  /* Colophon foot */
+  .colophon {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    padding: 16px 28px;
+    border-top: var(--tk-rule-strong);
+    background: var(--tk-paper-2);
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--tk-line-soft);
+  }
+  .colophon__seal { display: flex; align-items: center; gap: 10px; justify-content: center; color: var(--tk-line); }
+  .colophon__seal .mark { width: 28px; height: 28px; border: 1.5px double var(--tk-cinnabar); color: var(--tk-cinnabar); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-display); font-style: italic; font-size: 14px; }
+  .colophon__right { text-align: right; }
+
+  /* Dimension line strip in hero */
+  .hero__dim { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; margin-top: 16px; }
+  .hero__dim .line { height: 1px; background: var(--tk-line); position: relative; }
+  .hero__dim .line::before, .hero__dim .line::after { content: ""; position: absolute; top: -4px; width: 1px; height: 9px; background: var(--tk-line); }
+  .hero__dim .line::before { left: 0; }
+  .hero__dim .line::after { right: 0; }
+  .hero__dim .label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--tk-line-soft); }
+
+  /* Empty state mini */
+  .empty {
+    padding: 28px 20px; text-align: center;
+    border: 1px dashed var(--tk-line-soft);
+    background: color-mix(in oklab, var(--tk-paper-2) 60%, transparent);
+  }
+  .empty .mark {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: 50%; border: 1.5px double var(--tk-line);
+    font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--tk-line-soft);
+    margin-bottom: 8px;
+  }
+  .empty h4 { font-family: var(--font-display); font-weight: 500; font-size: 18px; margin: 4px 0 2px; color: var(--tk-line); letter-spacing: -.005em; }
+  .empty p { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--tk-line-soft); margin: 0 auto; max-width: 38ch; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+  <aside class="tk-side side">
+    <div class="tk-side__brand">
+      <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="14" fill="none" stroke="#F2E3C4" stroke-width="1.5"/>
+        <circle cx="16" cy="16" r="10" fill="none" stroke="#C03A2B" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="16" y="20" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="14" fill="#F2E3C4">a5c</text>
+      </svg>
+      <div class="name">a<span class="dot">·</span>5<span class="dot">·</span>c<span class="dot">·</span>ai</div>
+    </div>
+
+    <div class="tk-side__section">Foundry</div>
+    <a class="tk-side__item current" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="5" height="5"/><rect x="9" y="2" width="5" height="5"/><rect x="2" y="9" width="5" height="5"/><rect x="9" y="9" width="5" height="5"/></svg>
+      Overview <span class="kbd">G O</span>
+    </a>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 12 L6 8 L9 10 L14 4"/><path d="M14 4 L14 8 M14 4 L10 4" /></svg>
+      Runs &amp; Telemetry <span class="kbd">G R</span>
+    </a>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="10"/><path d="M2 6 L14 6 M5 3 L5 13 M9 3 L9 13"/></svg>
+      Ledger <span class="kbd">G L</span>
+    </a>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 4 L8 8 L11 10"/></svg>
+      Gates &amp; Verdicts
+    </a>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8 A6 6 0 1 0 8 2"/><path d="M8 2 L11 2 L11 5"/></svg>
+      Replay Worktree
+    </a>
+
+    <div class="tk-side__section">Agents</div>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="6" r="3"/><path d="M3 14 C3 11 5 10 8 10 C11 10 13 11 13 14"/></svg>
+      Roster <span class="kbd">12</span>
+    </a>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="4" width="12" height="9"/><path d="M2 7 L14 7 M5 4 L5 2 M11 4 L11 2"/></svg>
+      Seat Pool
+    </a>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 2 L12 2 L14 6 L14 14 L2 14 L2 6 Z"/><path d="M2 6 L14 6"/></svg>
+      Tools &amp; MCP
+    </a>
+
+    <div class="tk-side__section">Workbench</div>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 5 L13 5 L13 13 L3 13 Z"/><path d="M5 5 L5 3 L11 3 L11 5"/></svg>
+      Workflows
+    </a>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4 L14 4 L14 12 L2 12 Z"/><path d="M5 8 L11 8"/></svg>
+      Terminals <span class="kbd">T</span>
+    </a>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="5"/><path d="M8 3 L8 8 L11 11"/></svg>
+      Schedules
+    </a>
+
+    <div class="tk-side__section">Admin</div>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="3"/><path d="M8 1 L8 3 M8 13 L8 15 M1 8 L3 8 M13 8 L15 8 M3 3 L4.5 4.5 M11.5 11.5 L13 13 M3 13 L4.5 11.5 M11.5 4.5 L13 3"/></svg>
+      Settings
+    </a>
+    <a class="tk-side__item" href="#">
+      <svg class="tk-side__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 13 L3 6 L8 2 L13 6 L13 13 Z"/><rect x="6" y="9" width="4" height="4"/></svg>
+      Tenants &amp; Keys
+    </a>
+
+    <div style="margin-top:auto; padding: 14px 18px; border-top: 1px solid #3E2E1A; display: flex; align-items: center; gap: 10px;">
+      <div class="tk-avatar">E</div>
+      <div style="display: grid; line-height: 1.2;">
+        <span style="font-family: var(--font-display); font-weight:500; font-size:14px; color:#F2E3C4;">Elena Varga</span>
+        <span style="font-family: var(--font-mono); font-size: 9px; letter-spacing:.18em; color:#8A7B64; text-transform: uppercase;">Foundry · Ops</span>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#8A7B64" stroke-width="1.3" style="margin-left:auto;"><path d="M3 5 L6 8 L9 5"/></svg>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════ MAIN ═══════════════════════ -->
+  <main class="main">
+
+    <!-- ─── HERO ─── -->
+    <section class="hero">
+      <div>
+        <div class="tk-topbar__crumbs" style="margin-bottom:12px;">
+          Foundry <span class="sep">›</span> Tenancy &mdash; Praxis Collective <span class="sep">›</span> <span class="current">Overview</span>
+        </div>
+        <h1 class="hero__title">Overview of <em>yesterday&rsquo;s convergence</em></h1>
+        <p class="hero__sub">A plain-spoken ledger of every agent conversation, gate verdict, and replay in the last twenty-four hours. All values reconciled against seat-pool telemetry; no estimates.</p>
+        <div class="hero__dim">
+          <div class="line"></div>
+          <div class="label">14 AUG 2026 · 00:00 → 23:59 · UTC</div>
+          <div class="line"></div>
+        </div>
+      </div>
+      <div class="hero__meta" style="flex-direction:column; align-items:flex-end; gap: 10px;">
+        <div class="stamp">LIVE · RECONCILED 14:32 UTC</div>
+        <div style="display:flex; gap:10px;">
+          <button class="tk-btn tk-btn--ghost tk-btn--sm">Export</button>
+          <button class="tk-btn tk-btn--sm">Reconcile</button>
+          <button class="tk-btn tk-btn--cinnabar tk-btn--sm">New run</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── TOOLBAR ─── -->
+    <section class="tools">
+      <div class="tools__segs">
+        <button class="on">24 hr</button>
+        <button>7 d</button>
+        <button>30 d</button>
+        <button>Custom</button>
+      </div>
+      <div class="tools__filters">
+        <span class="filter-pill">Tenant: Praxis Co. <span class="x">×</span></span>
+        <span class="filter-pill">Gate: Convergence <span class="x">×</span></span>
+        <span class="filter-pill">Verdict: Any <span class="x">×</span></span>
+        <span class="filter-pill" style="border-style: solid; color: var(--tk-cinnabar); border-color: var(--tk-cinnabar);">+ Add filter</span>
+      </div>
+      <div class="tools__right">
+        <div class="tools__search">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="5.5" cy="5.5" r="3.5"/><path d="M8 8 L11.5 11.5"/></svg>
+          <input placeholder="Search runs, agents, gates…"/>
+          <span class="kbd">⌘K</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── BODY ─── -->
+    <section class="body">
+
+      <!-- ===== MAIN COLUMN ===== -->
+      <div class="col--main">
+
+        <!-- KPI row -->
+        <div class="kpis">
+          <div class="tk-spark" data-num="Nº 01">
+            <div class="tk-spark__label">Convergence rate</div>
+            <div class="tk-spark__value">94.2%<span class="delta delta--up">▲ 2.4</span></div>
+            <svg viewBox="0 0 120 36" preserveAspectRatio="none">
+              <polyline fill="none" stroke="#1B1611" stroke-width="1.5" points="0,28 12,24 24,26 36,20 48,22 60,14 72,18 84,12 96,8 108,10 120,4"/>
+              <line x1="0" y1="32" x2="120" y2="32" stroke="#1B1611" stroke-width=".5" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <div class="tk-spark" data-num="Nº 02">
+            <div class="tk-spark__label">Gate verdicts issued</div>
+            <div class="tk-spark__value">1,284<span class="delta delta--up">▲ 18</span></div>
+            <svg viewBox="0 0 120 36" preserveAspectRatio="none">
+              <g stroke="#1B1611" stroke-width="2">
+              <line x1="4" y1="30" x2="4" y2="20"/><line x1="14" y1="30" x2="14" y2="12"/><line x1="24" y1="30" x2="24" y2="18"/><line x1="34" y1="30" x2="34" y2="22"/><line x1="44" y1="30" x2="44" y2="10"/><line x1="54" y1="30" x2="54" y2="16"/><line x1="64" y1="30" x2="64" y2="8"/><line x1="74" y1="30" x2="74" y2="14"/><line x1="84" y1="30" x2="84" y2="6"/><line x1="94" y1="30" x2="94" y2="12"/><line x1="104" y1="30" x2="104" y2="4"/><line x1="114" y1="30" x2="114" y2="10"/>
+              </g>
+            </svg>
+          </div>
+          <div class="tk-spark" data-num="Nº 03">
+            <div class="tk-spark__label">Seat-hours consumed</div>
+            <div class="tk-spark__value">318.7<span class="delta delta--down">▼ 4.1</span></div>
+            <svg viewBox="0 0 120 36" preserveAspectRatio="none">
+              <path d="M0,30 C20,24 30,26 50,18 C70,10 80,20 100,14 L120,10 L120,36 L0,36 Z" fill="rgba(27,22,17,.08)"/>
+              <polyline fill="none" stroke="#1B1611" stroke-width="1.5" points="0,30 20,24 30,26 50,18 70,10 80,20 100,14 120,10"/>
+            </svg>
+          </div>
+          <div class="tk-spark" data-num="Nº 04">
+            <div class="tk-spark__label">Median cost / run</div>
+            <div class="tk-spark__value">$0.47<span class="delta delta--down">▼ 0.11</span></div>
+            <svg viewBox="0 0 120 36" preserveAspectRatio="none">
+              <polyline fill="none" stroke="#1B1611" stroke-width="1.5" points="0,8 15,14 30,12 45,18 60,22 75,18 90,24 105,22 120,28"/>
+              <line x1="0" y1="32" x2="120" y2="32" stroke="#1B1611" stroke-width=".5" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Primary chart -->
+        <div class="chart chart--bp">
+          <div class="chart__head">
+            <div class="num">I.</div>
+            <div>
+              <div style="display: flex; gap: 10px; align-items: baseline;">
+                <span style="color:#F2E3C4;">Run timeline &amp; gate verdicts</span>
+                <span class="meta">stacked · 24h</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="on">Volume</button>
+              <button>Cost</button>
+              <button>Latency</button>
+              <button>Verdicts</button>
+            </div>
+          </div>
+          <div class="chart__body" style="height: 280px; padding: 18px 22px;">
+            <!-- Blueprint chart -->
+            <svg viewBox="0 0 900 260" style="width:100%; height:100%; display:block; overflow: visible;">
+              <!-- grid -->
+              <g stroke="rgba(127,215,255,.22)" stroke-width=".5">
+                <line x1="0" x2="900" y1="0"   y2="0"/>
+                <line x1="0" x2="900" y1="65"  y2="65"/>
+                <line x1="0" x2="900" y1="130" y2="130"/>
+                <line x1="0" x2="900" y1="195" y2="195"/>
+                <line x1="0" x2="900" y1="260" y2="260"/>
+              </g>
+              <g stroke="rgba(127,215,255,.55)" stroke-width=".6">
+                <line x1="0"   y1="0" x2="0"   y2="260"/>
+                <line x1="225" y1="0" x2="225" y2="260"/>
+                <line x1="450" y1="0" x2="450" y2="260"/>
+                <line x1="675" y1="0" x2="675" y2="260"/>
+                <line x1="900" y1="0" x2="900" y2="260"/>
+              </g>
+              <!-- y-axis labels -->
+              <g font-family="JetBrains Mono" font-size="9" fill="rgba(220,232,240,.55)" letter-spacing=".15em">
+                <text x="-6" y="4" text-anchor="end">120</text>
+                <text x="-6" y="69" text-anchor="end">90</text>
+                <text x="-6" y="134" text-anchor="end">60</text>
+                <text x="-6" y="199" text-anchor="end">30</text>
+                <text x="-6" y="264" text-anchor="end">0</text>
+              </g>
+              <g font-family="JetBrains Mono" font-size="9" fill="rgba(220,232,240,.55)" letter-spacing=".2em">
+                <text x="0"   y="278">00:00</text>
+                <text x="225" y="278" text-anchor="middle">06:00</text>
+                <text x="450" y="278" text-anchor="middle">12:00</text>
+                <text x="675" y="278" text-anchor="middle">18:00</text>
+                <text x="900" y="278" text-anchor="end">24:00</text>
+              </g>
+              <!-- stacked area: PASS (emerald) + ITER (cyan) + FAIL (ruby) -->
+              <path d="M0,240 L40,230 L80,220 L120,210 L160,200 L200,170 L240,150 L280,140 L320,150 L360,130 L400,110 L440,100 L480,90 L520,95 L560,85 L600,100 L640,120 L680,130 L720,140 L760,150 L800,160 L840,170 L880,180 L900,185 L900,260 L0,260 Z"
+                    fill="rgba(62,166,118,.38)" stroke="rgba(62,166,118,.9)" stroke-width="1"/>
+              <path d="M0,220 L40,210 L80,200 L120,180 L160,170 L200,140 L240,115 L280,105 L320,115 L360,90 L400,70 L440,55 L480,45 L520,55 L560,40 L600,60 L640,85 L680,100 L720,110 L760,125 L800,140 L840,150 L880,160 L900,165 L900,185 L880,180 L840,170 L800,160 L760,150 L720,140 L680,130 L640,120 L600,100 L560,85 L520,95 L480,90 L440,100 L400,110 L360,130 L320,150 L280,140 L240,150 L200,170 L160,200 L120,210 L80,220 L40,230 L0,240 Z"
+                    fill="rgba(127,215,255,.28)" stroke="rgba(127,215,255,.9)" stroke-width="1"/>
+              <path d="M0,212 L40,204 L80,196 L120,174 L160,164 L200,132 L240,108 L280,100 L320,110 L360,84 L400,64 L440,48 L480,38 L520,48 L560,34 L600,54 L640,78 L680,92 L720,104 L760,118 L800,134 L840,144 L880,154 L900,160"
+                    fill="none" stroke="#FF7788" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <!-- gate seal marker -->
+              <g transform="translate(480, 45)">
+                <circle r="8" fill="#0D2B3E" stroke="#C03A2B" stroke-width="1.5"/>
+                <text y="3" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="10" fill="#C03A2B">v</text>
+              </g>
+              <text x="495" y="44" font-family="Cormorant Garamond" font-style="italic" font-size="13" fill="#FFB47F">Peak convergence · 11:48</text>
+              <!-- dashed now -->
+              <line x1="540" y1="-6" x2="540" y2="266" stroke="#FFB47F" stroke-width="1" stroke-dasharray="3 3"/>
+              <text x="544" y="-6" font-family="JetBrains Mono" font-size="9" fill="#FFB47F" letter-spacing=".2em">NOW · 14:32</text>
+              <!-- legend -->
+              <g transform="translate(10, -24)" font-family="JetBrains Mono" font-size="9" letter-spacing=".18em" fill="rgba(220,232,240,.75)">
+                <g><rect width="10" height="10" fill="rgba(62,166,118,.8)"/><text x="14" y="9">PASS</text></g>
+                <g transform="translate(70, 0)"><rect width="10" height="10" fill="rgba(127,215,255,.8)"/><text x="14" y="9">ITERATE</text></g>
+                <g transform="translate(150, 0)"><line x1="0" y1="5" x2="10" y2="5" stroke="#FF7788" stroke-width="1.5" stroke-dasharray="3 2"/><text x="14" y="9">FAIL RATE</text></g>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Ledger -->
+        <div class="ledger-panel">
+          <div class="ledger-panel__head">
+            <span class="num">II.</span>
+            <div>
+              <span style="color: var(--tk-line);">Recent runs &mdash; ledger</span>
+              <span style="color: var(--tk-line-soft);"> · &nbsp;sorted by verdict sealed at</span>
+            </div>
+            <div class="actions" style="display:flex; gap:6px;">
+              <button class="tk-btn tk-btn--ghost tk-btn--sm">Columns</button>
+              <button class="tk-btn tk-btn--ghost tk-btn--sm">Group</button>
+              <button class="tk-btn tk-btn--sm">Export</button>
+            </div>
+          </div>
+          <table class="tk-ledger">
+            <thead>
+              <tr>
+                <th style="width:72px;">Nº</th>
+                <th style="min-width:260px;">Workflow</th>
+                <th style="width:96px;">Agents</th>
+                <th style="width:160px;">Gate / verdict</th>
+                <th class="num" style="width:56px;">Iters</th>
+                <th class="num" style="width:62px;">Seat · h</th>
+                <th class="num" style="width:60px;">Cost</th>
+                <th style="width:90px;">Sealed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ref">r-8842</td>
+                <td>
+                  <div style="font-weight:500;">Invoice reconciliation · Oct batch</div>
+                  <div style="font-family:var(--font-body); font-style:italic; font-size:12px; color:var(--tk-line-soft);">filed by <span style="color:var(--tk-cinnabar);">ledger-03</span></div>
+                </td>
+                <td><span class="tk-avatar-stack"><span class="tk-avatar tk-avatar--sm">L</span><span class="tk-avatar tk-avatar--sm tk-avatar--sage">V</span><span class="tk-avatar tk-avatar--sm tk-avatar--lilac">R</span></span></td>
+                <td><span class="tk-stamp tk-stamp--pass">Convergence · pass</span></td>
+                <td class="num">3</td>
+                <td class="num">2.41</td>
+                <td class="num">$0.38</td>
+                <td class="ref">14:28:04</td>
+              </tr>
+              <tr>
+                <td class="ref">r-8841</td>
+                <td><div style="font-weight:500;">Procurement triage · freight claims</div>
+                  <div style="font-family:var(--font-body); font-style:italic; font-size:12px; color:var(--tk-line-soft);">filed by <span style="color:var(--tk-cinnabar);">ops-11</span></div></td>
+                <td><span class="tk-avatar-stack"><span class="tk-avatar tk-avatar--sm">O</span></span></td>
+                <td><span class="tk-stamp tk-stamp--iter">Quality · iterate</span></td>
+                <td class="num">5</td>
+                <td class="num">4.12</td>
+                <td class="num">$0.64</td>
+                <td class="ref">14:22:51</td>
+              </tr>
+              <tr>
+                <td class="ref">r-8840</td>
+                <td><div style="font-weight:500;">Customer escalation &mdash; tier 2</div>
+                  <div style="font-family:var(--font-body); font-style:italic; font-size:12px; color:var(--tk-line-soft);">filed by <span style="color:var(--tk-cinnabar);">concierge-02</span></div></td>
+                <td><span class="tk-avatar-stack"><span class="tk-avatar tk-avatar--sm">C</span><span class="tk-avatar tk-avatar--sm tk-avatar--rose">R</span></span></td>
+                <td><span class="tk-stamp tk-stamp--sealed">Policy · sealed</span></td>
+                <td class="num">2</td>
+                <td class="num">1.08</td>
+                <td class="num">$0.19</td>
+                <td class="ref">14:17:30</td>
+              </tr>
+              <tr>
+                <td class="ref">r-8839</td>
+                <td><div style="font-weight:500;">Nightly data hygiene · warehouse</div>
+                  <div style="font-family:var(--font-body); font-style:italic; font-size:12px; color:var(--tk-line-soft);">filed by <span style="color:var(--tk-cinnabar);">janitor-01</span></div></td>
+                <td><span class="tk-avatar-stack"><span class="tk-avatar tk-avatar--sm tk-avatar--lilac">J</span></span></td>
+                <td><span class="tk-stamp tk-stamp--fail">Safety · fail</span></td>
+                <td class="num">7</td>
+                <td class="num">6.72</td>
+                <td class="num">$1.04</td>
+                <td class="ref">14:09:12</td>
+              </tr>
+              <tr>
+                <td class="ref">r-8838</td>
+                <td><div style="font-weight:500;">Outbound pitch synthesis</div>
+                  <div style="font-family:var(--font-body); font-style:italic; font-size:12px; color:var(--tk-line-soft);">filed by <span style="color:var(--tk-cinnabar);">scribe-04</span></div></td>
+                <td><span class="tk-avatar-stack"><span class="tk-avatar tk-avatar--sm">S</span><span class="tk-avatar tk-avatar--sm tk-avatar--oat">E</span></span></td>
+                <td><span class="tk-stamp tk-stamp--pass">Voice · pass</span></td>
+                <td class="num">4</td>
+                <td class="num">3.02</td>
+                <td class="num">$0.52</td>
+                <td class="ref">14:02:44</td>
+              </tr>
+              <tr>
+                <td class="ref">r-8837</td>
+                <td><div style="font-weight:500;">Regression hunt · checkout flow</div>
+                  <div style="font-family:var(--font-body); font-style:italic; font-size:12px; color:var(--tk-line-soft);">filed by <span style="color:var(--tk-cinnabar);">bench-09</span></div></td>
+                <td><span class="tk-avatar-stack"><span class="tk-avatar tk-avatar--sm tk-avatar--sage">B</span><span class="tk-avatar tk-avatar--sm">V</span></span></td>
+                <td><span class="tk-stamp tk-stamp--pend">Review · pending</span></td>
+                <td class="num">6</td>
+                <td class="num">5.88</td>
+                <td class="num">$0.91</td>
+                <td class="ref">13:51:07</td>
+              </tr>
+              <tr>
+                <td class="ref">r-8836</td>
+                <td><div style="font-weight:500;">SOC-2 evidence collection</div>
+                  <div style="font-family:var(--font-body); font-style:italic; font-size:12px; color:var(--tk-line-soft);">filed by <span style="color:var(--tk-cinnabar);">auditor-02</span></div></td>
+                <td><span class="tk-avatar-stack"><span class="tk-avatar tk-avatar--sm tk-avatar--rose">A</span></span></td>
+                <td><span class="tk-stamp tk-stamp--sealed">Audit · sealed</span></td>
+                <td class="num">2</td>
+                <td class="num">1.42</td>
+                <td class="num">$0.27</td>
+                <td class="ref">13:42:19</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="ledger-panel__foot">
+            <span>Showing 1 &ndash; 7 of 1,284</span>
+            <div class="pager">
+              <button>‹ Prev</button>
+              <button class="on">1</button>
+              <button>2</button>
+              <button>3</button>
+              <button>…</button>
+              <button>184</button>
+              <button>Next ›</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== SIDE COLUMN ===== -->
+      <div class="col--side">
+
+        <!-- Gauges -->
+        <div class="tk-panel tk-panel--ticks">
+          <span class="tk-tick-bl"></span><span class="tk-tick-br"></span>
+          <div class="tk-panel__head">
+            <span class="tk-panel__num">III.</span>
+            <span>Seat pool · utilisation</span>
+            <span class="tk-panel__meta">Nº-04</span>
+          </div>
+          <div class="gauges">
+            <div class="gauge">
+              <div class="gauge__label">Editor</div>
+              <div class="gauge__value">72%</div>
+              <div class="gauge__bar"><i style="width:72%"></i></div>
+            </div>
+            <div class="gauge">
+              <div class="gauge__label">Verifier</div>
+              <div class="gauge__value">48%</div>
+              <div class="gauge__bar"><i class="ok" style="width:48%"></i></div>
+            </div>
+            <div class="gauge">
+              <div class="gauge__label">Runner</div>
+              <div class="gauge__value">91%</div>
+              <div class="gauge__bar"><i class="warn" style="width:91%"></i></div>
+            </div>
+            <div class="gauge">
+              <div class="gauge__label">Scribe</div>
+              <div class="gauge__value">24%</div>
+              <div class="gauge__bar"><i class="ok" style="width:24%"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity feed -->
+        <div class="tk-panel">
+          <div class="tk-panel__head">
+            <span class="tk-panel__num">IV.</span>
+            <span>Activity &mdash; last hour</span>
+            <span class="tk-panel__meta">Live</span>
+          </div>
+          <div class="feed">
+            <div class="feed__item">
+              <div class="feed__num">01</div>
+              <div class="feed__body">
+                <div class="t"><span class="who">verifier-03</span> sealed <code>r-8842</code> with <span style="color:var(--tk-emerald);">PASS</span>.</div>
+                <div class="s">“Reconciled against three ledgers; no deltas.”</div>
+              </div>
+              <div class="feed__when">14:28</div>
+            </div>
+            <div class="feed__item">
+              <div class="feed__num">02</div>
+              <div class="feed__body">
+                <div class="t"><span class="who">editor-11</span> pushed iteration 5 of <code>r-8841</code>.</div>
+                <div class="s">Rewrote freight-claim template; voice diff +4.</div>
+              </div>
+              <div class="feed__when">14:23</div>
+            </div>
+            <div class="feed__item">
+              <div class="feed__num">03</div>
+              <div class="feed__body">
+                <div class="t"><span class="who">concierge-02</span> escalated <code>r-8840</code> to policy.</div>
+                <div class="s">Refund request exceeded &dollar;500 soft-cap.</div>
+              </div>
+              <div class="feed__when">14:17</div>
+            </div>
+            <div class="feed__item">
+              <div class="feed__num">04</div>
+              <div class="feed__body">
+                <div class="t"><span class="who">janitor-01</span> flagged <code>r-8839</code> &mdash; safety <span style="color:var(--tk-ruby);">FAIL</span>.</div>
+                <div class="s">Wrote to schema <code>prod.customer_events</code>.</div>
+              </div>
+              <div class="feed__when">14:09</div>
+            </div>
+            <div class="feed__item">
+              <div class="feed__num">05</div>
+              <div class="feed__body">
+                <div class="t"><span class="who">Elena Varga</span> approved replay <code>rep-118</code>.</div>
+              </div>
+              <div class="feed__when">14:01</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Command palette mock -->
+        <div class="cmd">
+          <div class="cmd__head">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#F2E3C4" stroke-width="1.3"><circle cx="6" cy="6" r="4"/><path d="M9 9 L12.5 12.5"/></svg>
+            <input value="reseat janitor-01" />
+            <span class="kbd">⌘K</span>
+          </div>
+          <div class="cmd__group">Suggestions · based on run r-8839</div>
+          <div class="cmd__list">
+            <div class="cmd__item current">
+              <span class="tk-callout tk-callout--sm">1</span>
+              <span><em style="color:#F2E3C4;">Reseat</em> janitor-01 with read-only warehouse key</span>
+              <span class="hint">↵</span>
+            </div>
+            <div class="cmd__item">
+              <span class="tk-callout tk-callout--sm">2</span>
+              <span>Open replay worktree for r-8839</span>
+              <span class="hint">⇧↵</span>
+            </div>
+            <div class="cmd__item">
+              <span class="tk-callout tk-callout--sm">3</span>
+              <span>Disable janitor-01 · write scope (15 min)</span>
+              <span class="hint">⌘D</span>
+            </div>
+            <div class="cmd__item">
+              <span class="tk-callout tk-callout--sm">4</span>
+              <span>Escalate to on-call: Priya K.</span>
+              <span class="hint">⌘E</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toasts -->
+        <div class="toasts">
+          <div class="tk-toast">
+            <span class="tk-callout tk-callout--cinnabar tk-toast__num">!</span>
+            <div class="tk-toast__body">
+              <div class="t">Safety gate tripped on <code style="font-family:var(--font-mono); font-size:12px;">r-8839</code></div>
+              <div class="s">janitor-01 wrote to <code>prod.customer_events</code>. Replay locked.</div>
+            </div>
+            <button class="tk-toast__close">×</button>
+          </div>
+          <div class="tk-toast" style="box-shadow: 3px 3px 0 var(--tk-emerald); border-color: var(--tk-emerald);">
+            <span class="tk-callout tk-toast__num" style="border-color: var(--tk-emerald); color: var(--tk-emerald);">✓</span>
+            <div class="tk-toast__body">
+              <div class="t">318 verdicts reconciled overnight</div>
+              <div class="s">No drift detected against seat-pool telemetry.</div>
+            </div>
+            <button class="tk-toast__close">×</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── COLOPHON ── -->
+      <footer class="colophon">
+        <span>a5c.ai · Foundry · v 4.2.1</span>
+        <span class="colophon__seal"><span class="mark">5</span> Reconciled against seat-pool telemetry</span>
+        <span class="colophon__right">Technical register · rendered 14:32:07 UTC · 1,440 × 1,024</span>
+      </footer>
+
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>

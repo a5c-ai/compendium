@@ -1,0 +1,79 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "iconCount": {
+          "type": "number"
+        },
+        "icons": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "iconCount"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "packageName": "@a5c-ai/compendium",
+        "projectDir": ".",
+        "svgFiles": [
+          "project/assets/glyph-divider.svg",
+          "project/assets/glyph-mode-forever.svg",
+          "project/assets/glyph-mode-interactive.svg",
+          "project/assets/glyph-mode-plan.svg",
+          "project/assets/glyph-mode-yolo.svg",
+          "project/assets/illustration-convergence-loop.svg",
+          "project/assets/illustration-quality-gates.svg",
+          "project/assets/logo-monogram.svg",
+          "project/assets/logo-monogram-dark.svg",
+          "project/assets/logo-wordmark.svg",
+          "project/assets/seal-gate-passed.svg"
+        ]
+      },
+      "instructions": [
+        "Read each SVG file in project/assets/.",
+        "For each SVG, create a React component in src/icons/:",
+        "  - Convert SVG to JSX (className instead of class, camelCase attrs)",
+        "  - Accept standard SVG props (width, height, className, etc.)",
+        "  - Use currentColor for fill/stroke where appropriate",
+        "  - Name components in PascalCase (e.g., GlyphDivider, LogoWordmark)",
+        "",
+        "Create src/icons/index.ts barrel export.",
+        "IMPORTANT: Actually read and convert ALL SVG files."
+      ],
+      "outputFormat": "JSON",
+      "role": "React component developer",
+      "task": "Convert SVG assets from project/assets/ into React TypeScript icon components in src/icons/."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPR2YCB1D8XFAXW6B37T5F41/input.json",
+    "outputJsonPath": "tasks/01KPR2YCB1D8XFAXW6B37T5F41/output.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "conversion",
+    "icons",
+    "svg"
+  ],
+  "title": "Convert SVG assets to React icon components",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR2YCB1D8XFAXW6B37T5F41",
+  "taskId": "convert-icons",
+  "invocationKey": "design-system-repo:S000006:convert-icons",
+  "stepId": "S000006",
+  "inputs": {
+    "packageName": "@a5c-ai/compendium",
+    "projectDir": "."
+  }
+}

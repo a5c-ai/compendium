@@ -1,0 +1,17 @@
+{
+  "type": "RUN_CREATED",
+  "recordedAt": "2026-04-21T12:53:57.430Z",
+  "data": {
+    "runId": "01KPR1NGY3N31V11FSY5M71J4Q",
+    "processId": "design-system-repo",
+    "entrypoint": {
+      "importPath": "../../processes/design-system-repo.js",
+      "exportName": "process"
+    },
+    "harness": "claude-code",
+    "inputsRef": "inputs.json",
+    "prompt": "Transform the a5c.ai design handoff into a publishable React design system package @a5c-ai/compendium with TypeScript, Vite library mode, Storybook, examples, subpath exports, and npm publishing configuration.",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "130724222d4711dc79b133be07170541f39a9fb0852a464bf913d667656da89e"
+}

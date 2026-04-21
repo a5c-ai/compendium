@@ -1,0 +1,21 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T13:19:07.347Z",
+  "data": {
+    "effectId": "01KPR33KHEF9EZ8YVJRBR83TPE",
+    "invocationKey": "design-system-repo:S000007:setup-exports",
+    "invocationHash": "d43e166181c94ef8647695a9070ada6f75684075b3656513914a4b9bb5735291",
+    "stepId": "S000007",
+    "taskId": "setup-exports",
+    "kind": "agent",
+    "label": "exports",
+    "taskDefRef": "tasks/01KPR33KHEF9EZ8YVJRBR83TPE/task.json",
+    "labels": [
+      "exports",
+      "package"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "eece55ebe18611e26a80d8abaa7bc60f82824a6369a2a49b479ca730c59a146a"
+}

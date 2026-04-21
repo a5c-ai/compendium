@@ -1,0 +1,97 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "stories": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "storyCount": {
+          "type": "number"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "storyCount"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "packageName": "@a5c-ai/compendium",
+        "projectDir": "."
+      },
+      "instructions": [
+        "Initialize Storybook 8 for React + Vite:",
+        "  npx storybook@latest init --type react --builder @storybook/builder-vite --skip-install",
+        "  Then npm install if needed.",
+        "",
+        "Configure .storybook/main.ts:",
+        "  - stories: [\"../src/**/*.stories.@(ts|tsx)\"]",
+        "  - framework: @storybook/react-vite",
+        "  - addons: essentials, a11y",
+        "",
+        "Configure .storybook/preview.ts:",
+        "  - Import the design system CSS tokens (../src/tokens/index.css)",
+        "  - Import the component CSS (../src/components/**/*.css) — or a global CSS import",
+        "  - Set up a decorator that wraps stories in the design system theme context if needed",
+        "  - Configure backgrounds: vellum (#EDE3CF) and void (#0B0A0F)",
+        "  - Set default viewport",
+        "",
+        "Create stories for KEY components (not every single one, but a solid representative set):",
+        "  - src/components/Button/Button.stories.tsx — all variants, sizes, states",
+        "  - src/components/Toggle/Toggle.stories.tsx",
+        "  - src/components/Input/Input.stories.tsx — Input, Textarea, Field",
+        "  - src/components/Select/Select.stories.tsx",
+        "  - src/components/Modal/Modal.stories.tsx",
+        "  - src/components/Accordion/Accordion.stories.tsx",
+        "  - src/components/Tabs/Tabs.stories.tsx",
+        "  - src/components/Toast/Toast.stories.tsx",
+        "  - src/components/Table/Table.stories.tsx",
+        "  - src/icons/Icons.stories.tsx — showcase all icons",
+        "  - src/tokens/Tokens.stories.tsx — color palette, typography, spacing showcase",
+        "",
+        "Each story should:",
+        "  - Use CSF3 format (satisfies Meta<typeof Component>)",
+        "  - Include args/controls for interactive prop exploration",
+        "  - Show multiple variants as separate story exports",
+        "  - Include a brief docs description",
+        "",
+        "IMPORTANT: Read the actual converted component files in src/ before writing stories.",
+        "IMPORTANT: Make sure the storybook builds: npx storybook build"
+      ],
+      "outputFormat": "JSON",
+      "role": "Storybook specialist for React component libraries",
+      "task": "Set up Storybook 8 for the @a5c-ai/compendium design system with stories for all components."
+    }
+  },
+  "execution": {
+    "model": "claude-opus-4-6"
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPR35Z52597Z7C21M7VET6W2/input.json",
+    "outputJsonPath": "tasks/01KPR35Z52597Z7C21M7VET6W2/output.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "docs",
+    "stories",
+    "storybook"
+  ],
+  "title": "Set up Storybook 8 with component stories",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR35Z52597Z7C21M7VET6W2",
+  "taskId": "setup-storybook",
+  "invocationKey": "design-system-repo:S000008:setup-storybook",
+  "stepId": "S000008",
+  "inputs": {
+    "packageName": "@a5c-ai/compendium",
+    "projectDir": "."
+  }
+}

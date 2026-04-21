@@ -1,0 +1,26 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPR3H8RM1QPF92BY5BJ8YH4G/input.json",
+    "outputJsonPath": "tasks/01KPR3H8RM1QPF92BY5BJ8YH4G/output.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "build",
+    "verify",
+    "vite"
+  ],
+  "shell": {
+    "command": "cd \".\" && npx vite build 2>&1; echo \"EXIT:$?\"",
+    "expectedExitCode": 0,
+    "timeout": 120000
+  },
+  "title": "Verify Vite library build",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR3H8RM1QPF92BY5BJ8YH4G",
+  "taskId": "vite-build-verify",
+  "invocationKey": "design-system-repo:S000010:vite-build-verify",
+  "stepId": "S000010",
+  "inputs": {
+    "projectDir": "."
+  }
+}

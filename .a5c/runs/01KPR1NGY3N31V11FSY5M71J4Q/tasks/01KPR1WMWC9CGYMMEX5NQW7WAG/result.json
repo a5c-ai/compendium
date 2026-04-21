@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR1WMWC9CGYMMEX5NQW7WAG",
+  "taskId": "verify-scaffold",
+  "invocationKey": "design-system-repo:S000002:verify-scaffold",
+  "status": "ok",
+  "result": {
+    "exitCode": 0,
+    "output": "Scaffold verified"
+  },
+  "stdoutRef": "tasks/01KPR1WMWC9CGYMMEX5NQW7WAG/stdout.log",
+  "startedAt": "2026-04-21T12:58:13.030Z",
+  "finishedAt": "2026-04-21T12:58:13.030Z",
+  "value": {
+    "exitCode": 0,
+    "output": "Scaffold verified"
+  }
+}

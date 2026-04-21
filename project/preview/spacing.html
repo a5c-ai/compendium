@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Measure — a5c.ai Codex</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  :root {
+    --ink: #1B1611;
+    --ink-soft: #3E342A;
+    --ink-quiet: #8A7B64;
+    --rule-q: color-mix(in oklab, var(--ink) 18%, transparent);
+    --rule-m: color-mix(in oklab, var(--ink) 36%, transparent);
+    --cinnabar: #C03A2B;
+  }
+  html, body { margin: 0; background: #0C0805; }
+  body {
+    padding: 32px 20px 80px; min-height: 100vh;
+    background: radial-gradient(1400px 700px at 50% -5%, rgba(212,168,75,.12), transparent 55%), #0C0805;
+    font-family: var(--font-body); color: var(--glyph-bone);
+  }
+  .shell { max-width: 1200px; margin: 0 auto; position: relative; }
+
+  .tabs-row { display: flex; justify-content: center; gap: 4px; padding: 0 40px; position: relative; z-index: 3; }
+  .tab {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 19px;
+    padding: 14px 32px 22px; color: rgba(240,230,209,.65); text-decoration: none;
+    background: linear-gradient(180deg, #6C3E15 0%, #4A2808 100%);
+    border: 1px solid #3E1E0E; border-bottom: 0; border-radius: 18px 18px 0 0;
+    box-shadow: inset 0 2px 0 rgba(242,200,143,.18);
+    cursor: pointer; margin-bottom: -8px; transition: color .15s;
+  }
+  .tab:hover { color: #F2E3C4; }
+  .tab--active {
+    color: #2A1607;
+    background: linear-gradient(180deg, #F2C88F 0%, #D9A96A 48%, #B37E3E 100%);
+    box-shadow: inset 0 2px 0 rgba(255,240,210,.55), inset 0 -1px 0 rgba(91,56,23,.35);
+    padding-bottom: 24px; margin-bottom: -10px;
+  }
+
+  .casing {
+    position: relative;
+    background: linear-gradient(180deg, #8E5A26 0%, #6C3E15 45%, #4A2808 100%);
+    border: 1px solid #2E1607; border-radius: 6px; padding: 14px;
+    box-shadow: inset 0 2px 0 rgba(255,220,170,.35), inset 0 -2px 0 rgba(0,0,0,.5), 0 30px 80px -20px rgba(0,0,0,.85);
+  }
+  .casing::before, .casing::after, .casing .rb, .casing .rbr {
+    content: ""; position: absolute; width: 14px; height: 14px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #F5E3BA 0%, #B98849 40%, #5A340F 100%);
+    box-shadow: 0 0 0 1px #2E1607, inset 0 -1px 1px rgba(0,0,0,.5); z-index: 4;
+  }
+  .casing::before { top: 10px; left: 10px; }
+  .casing::after { top: 10px; right: 10px; }
+  .casing .rb { bottom: 10px; left: 10px; }
+  .casing .rbr { bottom: 10px; right: 10px; }
+
+  .page {
+    position: relative;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,220,170,.14), transparent 60%),
+      linear-gradient(180deg, #F2E7CE 0%, #E8D9B8 100%);
+    padding: 60px 64px 80px; color: var(--ink);
+    border: 1px solid #8E5A26; border-radius: 3px; overflow: hidden;
+  }
+  .page::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.14 0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: .2; mix-blend-mode: multiply; pointer-events: none;
+  }
+  .page > * { position: relative; }
+  .gears { position: absolute; inset: -40px -40px 0 -40px; pointer-events: none; opacity: .08; overflow: hidden; }
+  @keyframes spin-cw { to { transform: rotate(360deg); } }
+  @keyframes spin-ccw { to { transform: rotate(-360deg); } }
+
+  .codex-head { text-align: center; padding-bottom: 24px; border-bottom: 1px solid var(--ink); margin-bottom: 40px; }
+  .codex-head::after { content: ""; display: block; height: 3px; background: var(--ink); margin-top: 3px; }
+  .codex-vol { font-family: var(--font-mono); font-size: 10px; letter-spacing: .38em; text-transform: uppercase; color: var(--ink-quiet); margin-bottom: 8px; display: flex; justify-content: center; align-items: center; gap: 12px; }
+  .codex-vol .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cinnabar); }
+  .codex-head h1 { font-family: var(--font-display); font-weight: 500; font-size: 58px; line-height: 1; letter-spacing: -.02em; margin: 0; }
+  .codex-head h1 em { font-style: italic; color: var(--ink-quiet); font-weight: 400; }
+  .codex-head .kicker { font-family: var(--font-body); font-style: italic; font-size: 17px; color: var(--ink-soft); margin-top: 8px; }
+
+  .chapter { margin-top: 72px; }
+  .chapter:first-of-type { margin-top: 24px; }
+  .chapter-head { display: grid; grid-template-columns: 90px 1fr auto; gap: 24px; align-items: center; margin-bottom: 32px; padding-bottom: 18px; border-bottom: 1px dashed var(--rule-m); }
+  .chapter-num { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 56px; color: var(--cinnabar); line-height: 1; text-align: right; padding-right: 16px; border-right: 1px solid var(--rule-m); }
+  .chapter-title h2 { font-family: var(--font-display); font-weight: 500; font-size: 38px; line-height: 1.05; letter-spacing: -.01em; margin: 0 0 6px; }
+  .chapter-title .desc { font-family: var(--font-body); font-style: italic; font-size: 16px; color: var(--ink-soft); margin: 0; max-width: 56ch; }
+  .chapter-glyph { width: 64px; height: 64px; color: var(--ink); opacity: .65; }
+
+  .plate { background: linear-gradient(180deg, rgba(91,56,23,.07), transparent 40%), #EDE1C2; padding: 40px 32px; position: relative; border: 1px solid color-mix(in oklab, var(--ink) 20%, transparent); box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
+  .plate-cap { position: absolute; top: 10px; left: 14px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); }
+  .br-corner { position: absolute; width: 16px; height: 16px; border: 1px solid var(--ink-quiet); }
+  .plate .br-corner.tl { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
+  .plate .br-corner.tr { top: 6px; right: 6px; border-left: 0; border-bottom: 0; }
+  .plate .br-corner.bl { bottom: 6px; left: 6px; border-right: 0; border-top: 0; }
+  .plate .br-corner.br { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
+
+  /* ── Ruler rows ── */
+  .ruler-row { display: grid; grid-template-columns: 120px 1fr 200px; align-items: center; gap: 20px; padding: 14px 0; border-bottom: 1px dashed var(--rule-q); }
+  .ruler-row:last-child { border-bottom: 0; }
+  .ruler-name { font-family: var(--font-display); font-weight: 500; font-size: 28px; color: var(--ink); letter-spacing: -.005em; }
+  .ruler-token { font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-quiet); margin-top: 2px; }
+
+  .ruler-track {
+    position: relative; height: 48px;
+    background:
+      repeating-linear-gradient(90deg, transparent 0, transparent 7px, rgba(91,56,23,.18) 7px, rgba(91,56,23,.18) 8px),
+      repeating-linear-gradient(90deg, transparent 0, transparent 39px, rgba(91,56,23,.45) 39px, rgba(91,56,23,.45) 40px);
+    border-top: 1px solid var(--ink);
+  }
+  .ruler-track::before, .ruler-track::after {
+    content: ""; position: absolute; width: 2px; top: -1px; bottom: 0; background: var(--ink);
+  }
+  .ruler-track::before { left: 0; }
+  .ruler-bar {
+    position: absolute; top: 8px; height: 26px;
+    background: linear-gradient(180deg, #F2C88F, #D9A96A 55%, #B37E3E);
+    border: 1px solid #5B3817;
+    box-shadow: inset 0 1px 0 rgba(255,240,210,.55), inset 0 -1px 0 rgba(91,56,23,.4);
+  }
+  .ruler-bar::after { content: ""; position: absolute; top: 0; right: -1px; width: 2px; height: 100%; background: var(--ink); }
+  .ruler-px { font-family: var(--font-mono); font-size: 13px; color: var(--ink); text-align: right; }
+  .ruler-note { font-family: var(--font-body); font-style: italic; font-size: 12.5px; color: var(--ink-soft); line-height: 1.4; margin-top: 2px; text-align: right; }
+
+  /* ── Measure demo ── */
+  .measure-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .measure-cell { background: linear-gradient(180deg, #F2E7CE, #E8D9B8); border: 1px solid var(--rule-m); padding: 22px 20px; position: relative; }
+  .measure-cell__cap { font-family: var(--font-mono); font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--ink-quiet); margin-bottom: 6px; }
+  .measure-cell__num { font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--cinnabar); }
+  .measure-cell__text { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--ink); margin-top: 10px; }
+
+  /* ── Radii ── */
+  .radii { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .radius-cell { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .radius-swatch { width: 100%; aspect-ratio: 1.4/1; background: linear-gradient(180deg, #F2C88F, #8E5A26); border: 1px solid #5B3817; box-shadow: inset 0 1px 0 rgba(255,240,210,.55), inset 0 -1px 0 rgba(91,56,23,.4); }
+  .radius-name { font-family: var(--font-display); font-weight: 500; font-size: 20px; color: var(--ink); }
+  .radius-spec { font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-quiet); }
+
+  /* ── Elevation (brass offset) ── */
+  .elev-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; padding: 32px 0; }
+  .elev-cell { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .elev-plate {
+    width: 100%; aspect-ratio: 1.25/1;
+    background: linear-gradient(180deg, #F2E7CE, #E0CFA8);
+    border: 1px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 500; font-size: 28px; color: var(--ink); letter-spacing: -.005em;
+  }
+  .elev-plate.e0 { box-shadow: none; }
+  .elev-plate.e1 { box-shadow: 0 2px 0 var(--ink); }
+  .elev-plate.e2 { box-shadow: 0 4px 0 var(--ink); }
+  .elev-plate.e3 { box-shadow: 0 6px 0 var(--ink); }
+  .elev-name { font-family: var(--font-display); font-weight: 500; font-size: 22px; color: var(--ink); }
+  .elev-spec { font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-quiet); text-align: center; max-width: 20ch; line-height: 1.4; }
+
+  /* ── Grid diagram ── */
+  .grid-diagram {
+    position: relative; background: #F2E7CE; border: 1px solid var(--rule-m); padding: 48px 32px 40px;
+    background-image:
+      linear-gradient(90deg, rgba(27,22,17,.06) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(27,22,17,.04) 1px, transparent 1px);
+    background-size: 96px 96px, 24px 24px;
+  }
+  .gd-row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .gd-col { background: linear-gradient(180deg, rgba(192,58,43,.25), rgba(192,58,43,.08)); border: 1px solid rgba(192,58,43,.5); height: 48px; }
+  .gd-labels { display: flex; justify-content: space-between; margin-top: 14px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-quiet); }
+  .gd-demo-content { margin-top: 24px; display: grid; grid-template-columns: 4fr 8fr; gap: 16px; }
+  .gd-demo-content > div { background: linear-gradient(180deg, #E8D9B8, #D9CBAE); border: 1px solid var(--rule-m); padding: 16px; font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--ink); letter-spacing: -.005em; }
+
+  /* ── Rhythm scale ── */
+  .rhythm {
+    background: repeating-linear-gradient(180deg, transparent 0, transparent 23px, rgba(192,58,43,.2) 23px, rgba(192,58,43,.2) 24px);
+    padding: 32px 48px; border: 1px solid var(--rule-m); background-color: #F2E7CE;
+    position: relative;
+  }
+  .rhythm h3 { font-family: var(--font-display); font-weight: 500; font-size: 36px; line-height: 1.33; margin: 0 0 24px; color: var(--ink); letter-spacing: -.01em; }
+  .rhythm p { font-family: var(--font-body); font-size: 16px; line-height: 1.5; margin: 0 0 24px; color: var(--ink); max-width: 58ch; }
+  .rhythm .lbl { position: absolute; right: 16px; top: 16px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--ink-quiet); }
+
+  .specs { display: grid; grid-template-columns: 180px 1fr; gap: 12px 28px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--rule-q); font-family: var(--font-body); font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
+  .specs dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-quiet); padding-top: 3px; }
+  .specs dd { margin: 0; }
+  .specs code { font-family: var(--font-mono); font-size: 12px; color: var(--ink); background: rgba(27,22,17,.08); padding: 1px 6px; border-radius: 2px; }
+
+  .colophon { margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--ink); display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); }
+  .colophon .diamond { font-size: 14px; color: var(--cinnabar); letter-spacing: .4em; }
+  .colophon .right { text-align: right; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="tabs-row">
+    <a class="tab" href="brand.html">Philosophy</a>
+    <a class="tab" href="components.html">UI Components</a>
+    <a class="tab" href="type.html">Type</a>
+    <a class="tab" href="colors.html">Pigments</a>
+    <a class="tab tab--active" href="spacing.html">Measure</a>
+  </nav>
+
+  <div class="casing">
+    <span class="rb"></span><span class="rbr"></span>
+    <div class="page">
+      <div class="gears">
+        <svg viewBox="0 0 200 200" width="340" height="340" style="position:absolute; top: -60px; left: -80px; animation: spin-cw 90s linear infinite;">
+          <g fill="none" stroke="#2A1607" stroke-width="1.4">
+            <circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="54"/>
+            <rect x="96" y="20" width="8" height="16"/><rect x="96" y="164" width="8" height="16"/>
+            <rect x="20" y="96" width="16" height="8"/><rect x="164" y="96" width="16" height="8"/>
+            <circle cx="100" cy="100" r="14"/>
+          </g>
+        </svg>
+        <svg viewBox="0 0 200 200" width="260" height="260" style="position:absolute; bottom: -60px; right: -60px; animation: spin-ccw 70s linear infinite;">
+          <g fill="none" stroke="#2A1607" stroke-width="1.4"><circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="50"/><circle cx="100" cy="100" r="16"/></g>
+        </svg>
+      </div>
+
+      <div class="codex-head">
+        <div class="codex-vol"><span class="dot"></span>a5c · codex · vol. i · folio v<span class="dot"></span></div>
+        <h1>Measure <em>&amp;</em> Rule</h1>
+        <div class="kicker">spacing, radii, elevation — the engraver's bench</div>
+      </div>
+
+      <!-- I · SPACING LADDER -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">I</div>
+          <div class="chapter-title">
+            <h2>The Spacing Ladder</h2>
+            <p class="desc">Ten steps, measured in brass. Use the smallest step that still reads as separation. Add <code style="font-family:var(--font-mono);">s-5</code> before thinking of <code style="font-family:var(--font-mono);">s-6</code>.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 40 H42 M10 40 V32 M16 40 V28 M22 40 V22 M28 40 V14 M34 40 V8 M40 40 V12"/></svg>
+        </div>
+        <div class="plate" style="padding: 22px 36px;">
+          <span class="plate-cap">ruler · Σ</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-1</div><div class="ruler-token">hair</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 4px;"></div></div>
+            <div><div class="ruler-px">4 px</div><div class="ruler-note">chip interior, icon offset</div></div>
+          </div>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-2</div><div class="ruler-token">fine</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 8px;"></div></div>
+            <div><div class="ruler-px">8 px</div><div class="ruler-note">inline gap, gem-to-label</div></div>
+          </div>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-3</div><div class="ruler-token">short</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 12px;"></div></div>
+            <div><div class="ruler-px">12 px</div><div class="ruler-note">form rows, chip padding</div></div>
+          </div>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-4</div><div class="ruler-token">step</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 16px;"></div></div>
+            <div><div class="ruler-px">16 px</div><div class="ruler-note">default padding, gutters</div></div>
+          </div>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-5</div><div class="ruler-token">line</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 24px;"></div></div>
+            <div><div class="ruler-px">24 px</div><div class="ruler-note">paragraphs, card interiors</div></div>
+          </div>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-6</div><div class="ruler-token">rule</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 32px;"></div></div>
+            <div><div class="ruler-px">32 px</div><div class="ruler-note">plate padding, section stacks</div></div>
+          </div>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-7</div><div class="ruler-token">stride</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 48px;"></div></div>
+            <div><div class="ruler-px">48 px</div><div class="ruler-note">page gutters, block breaks</div></div>
+          </div>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-8</div><div class="ruler-token">span</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 64px;"></div></div>
+            <div><div class="ruler-px">64 px</div><div class="ruler-note">between chapters on a page</div></div>
+          </div>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-9</div><div class="ruler-token">hall</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 96px;"></div></div>
+            <div><div class="ruler-px">96 px</div><div class="ruler-note">hero margins, major rests</div></div>
+          </div>
+          <div class="ruler-row">
+            <div><div class="ruler-name">s-10</div><div class="ruler-token">gate</div></div>
+            <div class="ruler-track"><div class="ruler-bar" style="width: 128px;"></div></div>
+            <div><div class="ruler-px">128 px</div><div class="ruler-note">top of hero; rarely below</div></div>
+          </div>
+        </div>
+        <dl class="specs">
+          <dt>Base unit</dt><dd>4 px. Every value on the ladder is a multiple. No <code>5px</code>, no <code>15px</code>, no <code>20px</code>.</dd>
+          <dt>Rhythm</dt><dd>Vertical stacks prefer <code>s-4</code> → <code>s-5</code> → <code>s-6</code>. Never skip two steps.</dd>
+        </dl>
+      </div>
+
+      <!-- II · MEASURE -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">II</div>
+          <div class="chapter-title">
+            <h2>The Measure — column widths</h2>
+            <p class="desc">A column of type is legible at <em>58 characters</em>. Below 45, it chatters. Above 75, it loses the reader between lines.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 12 H20 M6 20 H20 M6 28 H20 M6 36 H20 M28 12 H42 M28 20 H42 M28 28 H42 M28 36 H42"/></svg>
+        </div>
+        <div class="plate" style="padding: 32px;">
+          <span class="plate-cap">measure · ξ</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="measure-grid">
+            <div class="measure-cell">
+              <div class="measure-cell__cap">too narrow · 32ch</div>
+              <div class="measure-cell__num">i</div>
+              <div class="measure-cell__text" style="max-width: 32ch;">Babysitter wraps any coding agent in a convergent loop. Short measure chatters.</div>
+            </div>
+            <div class="measure-cell" style="border: 2px solid var(--gem-emerald);">
+              <div class="measure-cell__cap" style="color: var(--gem-emerald);">just right · 58ch</div>
+              <div class="measure-cell__num" style="color: var(--gem-emerald);">ii</div>
+              <div class="measure-cell__text" style="max-width: 58ch;">Babysitter wraps any coding agent in a convergent loop. The measure breathes; the eye returns to the left edge without searching.</div>
+            </div>
+            <div class="measure-cell">
+              <div class="measure-cell__cap">too wide · 88ch</div>
+              <div class="measure-cell__num">iii</div>
+              <div class="measure-cell__text" style="max-width: 88ch;">Babysitter wraps any coding agent in a convergent loop. Wide measure is a trap — the eye loses the next line. Resist; constrain prose columns. Very often designers allow prose to stretch past 75ch and readability collapses.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- III · RADII -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">III</div>
+          <div class="chapter-title">
+            <h2>Radii — the corners</h2>
+            <p class="desc">Mostly sharp. The codex prefers right angles; soft corners are for pills and gems only.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 40 V14 A6 6 0 0 1 14 8 H40"/></svg>
+        </div>
+        <div class="plate" style="padding: 36px 28px;">
+          <span class="plate-cap">radii · ρ</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="radii">
+            <div class="radius-cell">
+              <div class="radius-swatch" style="border-radius: 0;"></div>
+              <div class="radius-name">r-0</div>
+              <div class="radius-spec">0 · plates</div>
+            </div>
+            <div class="radius-cell">
+              <div class="radius-swatch" style="border-radius: 2px;"></div>
+              <div class="radius-name">r-1</div>
+              <div class="radius-spec">2 · code, inputs</div>
+            </div>
+            <div class="radius-cell">
+              <div class="radius-swatch" style="border-radius: 6px;"></div>
+              <div class="radius-name">r-2</div>
+              <div class="radius-spec">6 · buttons</div>
+            </div>
+            <div class="radius-cell">
+              <div class="radius-swatch" style="border-radius: 12px;"></div>
+              <div class="radius-name">r-3</div>
+              <div class="radius-spec">12 · cartouches</div>
+            </div>
+            <div class="radius-cell">
+              <div class="radius-swatch" style="border-radius: 999px;"></div>
+              <div class="radius-name">r-∞</div>
+              <div class="radius-spec">pill · chips, gems</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IV · ELEVATION -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">IV</div>
+          <div class="chapter-title">
+            <h2>Elevation — plate offsets</h2>
+            <p class="desc">We do not diffuse shadows. We offset the plate downward with a hard line, like a card resting on a table. Four registers.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="8" y="12" width="28" height="18"/><path d="M8 34 H36"/></svg>
+        </div>
+        <div class="plate" style="padding: 20px 32px;">
+          <span class="plate-cap">elev · Δ</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="elev-row">
+            <div class="elev-cell">
+              <div class="elev-plate e0">—</div>
+              <div class="elev-name">e-0</div>
+              <div class="elev-spec">inline · no offset</div>
+            </div>
+            <div class="elev-cell">
+              <div class="elev-plate e1">i</div>
+              <div class="elev-name">e-1</div>
+              <div class="elev-spec">card · 0 2px 0 ink</div>
+            </div>
+            <div class="elev-cell">
+              <div class="elev-plate e2">ii</div>
+              <div class="elev-name">e-2</div>
+              <div class="elev-spec">button · 0 4px 0 ink</div>
+            </div>
+            <div class="elev-cell">
+              <div class="elev-plate e3">iii</div>
+              <div class="elev-name">e-3</div>
+              <div class="elev-spec">panel · 0 6px 0 ink</div>
+            </div>
+          </div>
+        </div>
+        <dl class="specs">
+          <dt>Rule</dt><dd>No <code>box-shadow: 0 20px 40px rgba(0,0,0,.1)</code>. Diffuse shadows are web-chrome slop. Use a hard offset in <code>ink</code>.</dd>
+          <dt>Hover</dt><dd>Increment by one register on hover: <code>e-1 → e-2</code>. Never invert.</dd>
+        </dl>
+      </div>
+
+      <!-- V · GRID -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">V</div>
+          <div class="chapter-title">
+            <h2>The 12-Column Grid</h2>
+            <p class="desc">Max width 1200. Twelve columns, 16px gutters. Type aligns to a 24px baseline — the cinnabar hairline below.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 6 V42 M18 6 V42 M30 6 V42 M42 6 V42 M6 12 H42 M6 24 H42 M6 36 H42"/></svg>
+        </div>
+        <div class="plate" style="padding: 32px;">
+          <span class="plate-cap">grid · 12</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="grid-diagram">
+            <div class="gd-row">
+              <div class="gd-col"></div><div class="gd-col"></div><div class="gd-col"></div><div class="gd-col"></div>
+              <div class="gd-col"></div><div class="gd-col"></div><div class="gd-col"></div><div class="gd-col"></div>
+              <div class="gd-col"></div><div class="gd-col"></div><div class="gd-col"></div><div class="gd-col"></div>
+            </div>
+            <div class="gd-labels">
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+            </div>
+            <div class="gd-demo-content">
+              <div>4 col · rail</div>
+              <div>8 col · body</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VI · VERTICAL RHYTHM -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">VI</div>
+          <div class="chapter-title">
+            <h2>Vertical Rhythm — 24px baseline</h2>
+            <p class="desc">Every line of type lands on a cinnabar ruling. Headings, body, and captions share one grid.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 8 H42 M6 16 H42 M6 24 H42 M6 32 H42 M6 40 H42"/></svg>
+        </div>
+        <div class="rhythm">
+          <span class="lbl">baseline · 24px</span>
+          <h3>The recipe, not the kitchen.</h3>
+          <p>AI models change &mdash; proven workflows do not. Babysitter makes the recipe a first-class artifact: plan, execute, verify, seal. The rhythm is not decorative; it is what lets an editor read three pages without noticing.</p>
+          <p>Every heading sits on the 24px ruling. Body copy sits on it. Captions sit on it. When a measurement disagrees, the measurement is wrong, not the grid.</p>
+        </div>
+      </div>
+
+      <div class="colophon">
+        <span>a5c.ai · design · codex</span>
+        <span class="diamond">✦ ✦ ✦</span>
+        <span class="right">fol · v of viii</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T13:25:39.683Z",
+  "data": {
+    "effectId": "01KPR3FJNY7433AZW0FB3S31X0",
+    "invocationKey": "design-system-repo:S000009:storybook-build-verify",
+    "invocationHash": "58fed264b8a804087a1649726b9cc4c0e958032c591dd756070b93c4ec5bf635",
+    "stepId": "S000009",
+    "taskId": "storybook-build-verify",
+    "kind": "shell",
+    "label": "verify",
+    "taskDefRef": "tasks/01KPR3FJNY7433AZW0FB3S31X0/task.json",
+    "labels": [
+      "verify",
+      "storybook"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "4ccb28154adcd81249a237535266cea2f7bb56066e2b6f4f53bdb0b3f4e4506f"
+}

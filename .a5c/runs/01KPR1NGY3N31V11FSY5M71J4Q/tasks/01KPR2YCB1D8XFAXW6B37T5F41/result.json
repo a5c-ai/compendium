@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPR2YCB1D8XFAXW6B37T5F41",
+  "taskId": "convert-icons",
+  "invocationKey": "design-system-repo:S000006:convert-icons",
+  "status": "ok",
+  "result": {
+    "iconCount": 11,
+    "icons": [
+      "GlyphDivider",
+      "GlyphModeForever",
+      "GlyphModeInteractive",
+      "GlyphModePlan",
+      "GlyphModeYolo",
+      "IllustrationConvergenceLoop",
+      "IllustrationQualityGates",
+      "LogoMonogram",
+      "LogoMonogramDark",
+      "LogoWordmark",
+      "SealGatePassed"
+    ],
+    "success": true
+  },
+  "startedAt": "2026-04-21T13:18:50.724Z",
+  "finishedAt": "2026-04-21T13:18:50.724Z",
+  "value": {
+    "iconCount": 11,
+    "icons": [
+      "GlyphDivider",
+      "GlyphModeForever",
+      "GlyphModeInteractive",
+      "GlyphModePlan",
+      "GlyphModeYolo",
+      "IllustrationConvergenceLoop",
+      "IllustrationQualityGates",
+      "LogoMonogram",
+      "LogoMonogramDark",
+      "LogoWordmark",
+      "SealGatePassed"
+    ],
+    "success": true
+  }
+}

@@ -1,0 +1,249 @@
+/* ============================================================
+   @a5c-ai/compendium Design Tokens — variables.css
+   All CSS custom properties for the Codex design system.
+   ============================================================ */
+
+:root {
+  /* ==========================================================
+     COLORS: Grounds
+     ========================================================== */
+  --ground-vellum:    #EDE3CF;
+  --ground-parchment: #D9CBAE;
+  --ground-void:      #0B0A0F;
+  --ground-ink:       #181624;
+
+  /* ==========================================================
+     COLORS: Ink (text on light / vellum)
+     ========================================================== */
+  --ink-pigment: #1B1611;
+  --ink-fade:    #5A4E3C;
+  --ink-ghost:   #8C7E65;
+
+  /* ==========================================================
+     COLORS: Glyph (text on dark / void)
+     ========================================================== */
+  --glyph-bone: #F0E6D1;
+  --glyph-fade: #A89980;
+
+  /* ==========================================================
+     COLORS: Accents — used like illuminations, sparingly
+     ========================================================== */
+  --accent-cinnabar: #C03A2B;
+  --accent-indigo:   #2B2A6B;
+  --accent-viridian: #2F6F5E;
+  --accent-sulphur:  #D4A84B;
+
+  /* ==========================================================
+     COLORS: Gemstones — jewels embedded on brass
+     ========================================================== */
+  --gem-cyan:    #16D7E6;
+  --gem-magenta: #E23FB4;
+  --gem-ruby:    #D81F3D;
+  --gem-emerald: #3EA676;
+  --gem-amber:   #E0A63A;
+  --gem-deep:    #4A2518;
+  --gem-bronze:  #C98A3E;
+  --gem-bronze-dk: #7C4E1F;
+
+  /* ==========================================================
+     COLORS: Brass registers
+     ========================================================== */
+  --brass-light:  #F2C88F;
+  --brass:        #C98A3E;
+  --brass-deep:   #8E5A26;
+  --brass-dark:   #5C3A14;
+  --brass-shadow: #3E1E0E;
+  --leather:      #5B3817;
+  --mahogany:     #2A1607;
+
+  /* ==========================================================
+     COLORS: Paper edges (ornate)
+     ========================================================== */
+  --edge-dark: #6B4A22;
+  --edge-fade: #A88557;
+
+  /* ==========================================================
+     COLORS: Semantic
+     ========================================================== */
+  --gate-pass: var(--accent-viridian);
+  --gate-fail: var(--accent-cinnabar);
+  --info:      var(--accent-indigo);
+  --warn:      var(--accent-sulphur);
+
+  /* ==========================================================
+     COLORS: Foreground / Background aliases (light mode default)
+     ========================================================== */
+  --bg:   var(--ground-vellum);
+  --bg-2: var(--ground-parchment);
+  --fg:   var(--ink-pigment);
+  --fg-2: var(--ink-fade);
+  --fg-3: var(--ink-ghost);
+  --rule: color-mix(in oklab, var(--ink-fade) 45%, transparent);
+
+  /* ==========================================================
+     COLORS: Technical grounds
+     ========================================================== */
+  --tk-paper:        #F6F2E6;
+  --tk-paper-2:      #EBE4D1;
+  --tk-graph:        #E4DCC3;
+  --tk-blueprint:    #0D2B3E;
+  --tk-bp-2:         #123649;
+  --tk-line:         #1B1611;
+  --tk-line-soft:    #5A4E3C;
+  --tk-line-hair:    #A89277;
+  --tk-bp-line:      #7FD7FF;
+  --tk-bp-line-soft: rgba(127,215,255,.55);
+  --tk-bp-line-hair: rgba(127,215,255,.22);
+
+  /* ==========================================================
+     COLORS: Technical accents
+     ========================================================== */
+  --tk-cinnabar: #C03A2B;
+  --tk-brass:    #B37E3E;
+  --tk-cyan:     #16D7E6;
+  --tk-emerald:  #3EA676;
+  --tk-amber:    #E0A63A;
+  --tk-ruby:     #D81F3D;
+  --tk-magenta:  #E23FB4;
+
+  /* ==========================================================
+     COLORS: Control surface palette
+     ========================================================== */
+  --tkc-paper:         #F0E6D1;
+  --tkc-paper-2:       #E8DCC3;
+  --tkc-paper-3:       #DCCEB0;
+  --tkc-ink:           #1B1611;
+  --tkc-ink-soft:      #3E342A;
+  --tkc-ink-quiet:     #8A7B64;
+  --tkc-rule:          #5B3817;
+  --tkc-rule-q:        color-mix(in oklab, var(--tkc-ink) 18%, transparent);
+  --tkc-rule-m:        color-mix(in oklab, var(--tkc-ink) 36%, transparent);
+  --tkc-cinnabar:      #C03A2B;
+  --tkc-cinnabar-dark: #8A2519;
+  --tkc-emerald:       #2F6F5E;
+  --tkc-ruby:          #8E1B1B;
+  --tkc-amber:         #B37E3E;
+  --tkc-cyan:          #2E7C8A;
+  --tkc-lapis:         #2B2A6B;
+  --tkc-brass-light:   #E8C98A;
+  --tkc-brass:         #B37E3E;
+  --tkc-brass-deep:    #6C3E15;
+
+  /* ==========================================================
+     TYPOGRAPHY: Font families
+     ========================================================== */
+  --font-display: 'Cormorant Garamond', 'Cormorant', 'Garamond', 'Didot', serif;
+  --font-body:    'EB Garamond', 'Garamond', Georgia, 'Times New Roman', serif;
+  --font-mono:    'JetBrains Mono', 'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* ==========================================================
+     TYPOGRAPHY: Font sizes (fluid-ish, desktop primary)
+     ========================================================== */
+  --fs-hairline: 11px;
+  --fs-caption:  13px;
+  --fs-small:    14px;
+  --fs-body:     17px;
+  --fs-lead:     20px;
+  --fs-h5:       22px;
+  --fs-h4:       28px;
+  --fs-h3:       36px;
+  --fs-h2:       52px;
+  --fs-h1:       84px;
+  --fs-display:  120px;
+
+  /* ==========================================================
+     TYPOGRAPHY: Line heights
+     ========================================================== */
+  --lh-tight:  1.02;
+  --lh-snug:   1.18;
+  --lh-normal: 1.45;
+  --lh-prose:  1.62;
+
+  /* ==========================================================
+     TYPOGRAPHY: Letter spacing
+     ========================================================== */
+  --ls-display: -0.02em;
+  --ls-tight:   -0.01em;
+  --ls-normal:  0;
+  --ls-label:   0.14em;
+  --ls-glyph:   0.28em;
+
+  /* ==========================================================
+     SPACING: 4px base scale
+     ========================================================== */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
+
+  /* ==========================================================
+     SPACING: Technical spacing (tighter than codex)
+     ========================================================== */
+  --tk-pad-sm: 8px;
+  --tk-pad-md: 14px;
+  --tk-pad-lg: 20px;
+  --tk-pad-xl: 32px;
+
+  /* ==========================================================
+     SPACING: Measure (column widths)
+     ========================================================== */
+  --measure-body:    58ch;
+  --measure-caption: 42ch;
+
+  /* ==========================================================
+     BORDERS & RADII
+     ========================================================== */
+  --r-0:    0;
+  --r-1:    2px;
+  --r-pill: 999px;
+
+  /* ==========================================================
+     BORDERS: Technical hairlines
+     ========================================================== */
+  --tk-hair:        1px solid color-mix(in oklab, var(--tk-line) 22%, transparent);
+  --tk-rule:        1px solid color-mix(in oklab, var(--tk-line) 42%, transparent);
+  --tk-rule-strong: 1px solid var(--tk-line);
+  --tk-bp-hair:     1px solid var(--tk-bp-line-hair);
+  --tk-bp-rule:     1px solid var(--tk-bp-line-soft);
+
+  /* ==========================================================
+     SHADOWS
+     ========================================================== */
+  --shadow-plate:      3px 3px 0 var(--ink-pigment);
+  --shadow-plate-dark: 3px 3px 0 var(--glyph-bone);
+  --shadow-stamp:      0 0 0 1px var(--accent-cinnabar);
+  --shadow-fold:       inset 0 1px 0 rgba(0,0,0,.08);
+
+  /* ==========================================================
+     MOTION: Easing & Durations
+     ========================================================== */
+  --ease-codex:    cubic-bezier(.2,.7,.2,1);
+  --dur-quick:     160ms;
+  --dur-base:      320ms;
+  --dur-slow:      520ms;
+
+  /* Control surface motion */
+  --tkc-ease:      cubic-bezier(.32,.72,.28,1);
+  --tkc-ease-out:  cubic-bezier(.2,.8,.2,1);
+  --tkc-dur-fast:  120ms;
+  --tkc-dur:       180ms;
+  --tkc-dur-slow:  320ms;
+}
+
+/* ==========================================================
+   DARK MODE / VOID CONTEXTS
+   ========================================================== */
+.void, [data-theme="void"] {
+  --bg:   var(--ground-void);
+  --bg-2: var(--ground-ink);
+  --fg:   var(--glyph-bone);
+  --fg-2: var(--glyph-fade);
+  --fg-3: color-mix(in oklab, var(--glyph-fade) 70%, transparent);
+  --rule: color-mix(in oklab, var(--glyph-fade) 40%, transparent);
+}

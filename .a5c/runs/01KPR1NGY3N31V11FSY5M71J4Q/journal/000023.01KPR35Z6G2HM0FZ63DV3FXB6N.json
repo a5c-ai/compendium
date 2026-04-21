@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T13:20:24.784Z",
+  "data": {
+    "effectId": "01KPR35Z52597Z7C21M7VET6W2",
+    "invocationKey": "design-system-repo:S000008:setup-storybook",
+    "invocationHash": "1ee259f015138d332ebed4e74ed2e7b2138fc218b1f38729fc7644b5f198ebb0",
+    "stepId": "S000008",
+    "taskId": "setup-storybook",
+    "kind": "agent",
+    "label": "storybook",
+    "taskDefRef": "tasks/01KPR35Z52597Z7C21M7VET6W2/task.json",
+    "labels": [
+      "storybook",
+      "stories",
+      "docs"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "ef75f783711293d8c447d2b1e9338b554ed3753105812e5c70a79b040bde55a9"
+}

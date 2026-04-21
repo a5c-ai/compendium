@@ -1,0 +1,104 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "filesCreated": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "filesCreated"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "existingFiles": "project/ directory contains CSS token files, JSX prototype components, SVG assets. These should NOT be deleted — the conversion happens in later phases.",
+        "packageName": "@a5c-ai/compendium",
+        "projectDir": "."
+      },
+      "instructions": [
+        "Create the following project structure (do NOT delete existing project/ directory):",
+        "",
+        "src/",
+        "  tokens/      — will hold extracted CSS token files",
+        "  components/  — will hold converted TypeScript React components",
+        "  icons/       — will hold SVG icon React components",
+        "  index.ts     — placeholder barrel export",
+        "",
+        "Create package.json with:",
+        "  - name: @a5c-ai/compendium",
+        "  - type: \"module\"",
+        "  - main: \"./dist/index.cjs\"",
+        "  - module: \"./dist/index.js\"",
+        "  - types: \"./dist/index.d.ts\"",
+        "  - exports map with subpaths: \".\", \"./tokens\", \"./react\", \"./icons\", \"./css\"",
+        "  - files: [\"dist\", \"README.md\", \"LICENSE\"]",
+        "  - peerDependencies: react ^18 || ^19, react-dom ^18 || ^19",
+        "  - devDependencies: typescript, @types/react, @types/react-dom, vite, @vitejs/plugin-react, storybook + addons (latest v8), vitest, @storybook/react-vite, @storybook/addon-essentials, @changesets/cli",
+        "  - scripts: dev (storybook), build (vite build), build-storybook, lint (tsc --noEmit), test (vitest), prepublishOnly (npm run build), changeset, release",
+        "  - sideEffects: [\"**/*.css\"]",
+        "  - version: \"0.1.0\"",
+        "",
+        "Create tsconfig.json:",
+        "  - target: ES2020, module: ESNext, moduleResolution: bundler",
+        "  - jsx: react-jsx",
+        "  - declaration: true, declarationDir: dist",
+        "  - outDir: dist",
+        "  - strict: true",
+        "  - include: [\"src\"]",
+        "  - exclude: [\"node_modules\", \"dist\", \"**/*.stories.tsx\", \"examples\"]",
+        "",
+        "Create vite.config.ts:",
+        "  - Library mode targeting src/index.ts",
+        "  - Output formats: es and cjs",
+        "  - External: react, react-dom, react/jsx-runtime",
+        "  - CSS is NOT extracted to a single file — each component CSS is importable separately",
+        "  - Plugin: @vitejs/plugin-react",
+        "  - rollupOptions.output.preserveModules: true for tree-shaking",
+        "  - rollupOptions.output.assetFileNames for CSS",
+        "",
+        "Create .gitignore (add dist/, node_modules/, storybook-static/)",
+        "Create LICENSE (MIT, copyright a5c.ai)",
+        "",
+        "Run npm install after creating package.json.",
+        "",
+        "IMPORTANT: Do NOT modify or delete anything in the project/ directory.",
+        "IMPORTANT: Actually create ALL files listed above and run npm install."
+      ],
+      "outputFormat": "JSON",
+      "role": "Senior frontend architect specializing in React component libraries",
+      "task": "Scaffold the project structure for a publishable React design system package called \"@a5c-ai/compendium\"."
+    }
+  },
+  "execution": {
+    "model": "claude-opus-4-6"
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPR1NVA11SKS5CK907D5CF0W/input.json",
+    "outputJsonPath": "tasks/01KPR1NVA11SKS5CK907D5CF0W/output.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "scaffold",
+    "setup"
+  ],
+  "title": "Scaffold design system project structure",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR1NVA11SKS5CK907D5CF0W",
+  "taskId": "scaffold-project",
+  "invocationKey": "design-system-repo:S000001:scaffold-project",
+  "stepId": "S000001",
+  "inputs": {
+    "packageName": "@a5c-ai/compendium",
+    "projectDir": "."
+  }
+}

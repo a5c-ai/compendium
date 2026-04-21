@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>a5c.ai · Codex Deck</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<link rel="stylesheet" href="../codex-ornate.css"/>
+<style>
+  html, body { margin: 0; background: #000; }
+
+  /* Slide shared */
+  section.slide {
+    background: var(--ground-vellum);
+    color: var(--ink-pigment);
+    font-family: var(--font-body);
+    padding: 100px 120px;
+    position: relative;
+    overflow: hidden;
+  }
+  section.slide.void { background: var(--ground-void); color: var(--glyph-bone); }
+  section.slide.void .folio { color: var(--glyph-fade); }
+
+  section.slide::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: .07;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  section.slide.void::after { mix-blend-mode: screen; opacity: .08; }
+
+  /* Slide chrome: top rule + folio */
+  .slide .top-rule {
+    position: absolute; top: 40px; left: 120px; right: 120px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-fade);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 18px;
+  }
+  .slide.void .top-rule { color: var(--glyph-fade); }
+  .slide .top-rule .brand { display: flex; align-items: center; gap: 10px; }
+  .slide .top-rule .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-cinnabar); display: inline-block; }
+
+  .slide .folio {
+    position: absolute; bottom: 50px; right: 120px;
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-fade);
+  }
+  .slide .figcap {
+    position: absolute; bottom: 50px; left: 120px;
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-fade);
+  }
+  .slide.void .figcap { color: var(--glyph-fade); }
+
+  /* Content */
+  .slide h1 { font-family: var(--font-display); font-weight: 500; font-size: 180px; line-height: .95; letter-spacing: -.02em; margin: 0; }
+  .slide h1 .dot { color: var(--accent-cinnabar); }
+  .slide h2 { font-family: var(--font-display); font-weight: 500; font-size: 120px; line-height: 1.0; letter-spacing: -.02em; margin: 0 0 40px; max-width: 22ch; }
+  .slide h3 { font-family: var(--font-display); font-weight: 600; font-size: 64px; line-height: 1.05; margin: 0 0 24px; }
+  .slide .lede { font-family: var(--font-body); font-style: italic; font-size: 36px; line-height: 1.4; color: var(--ink-pigment); max-width: 36ch; }
+  .slide.void .lede { color: var(--glyph-bone); }
+  .slide p { font-family: var(--font-body); font-size: 28px; line-height: 1.5; max-width: 44ch; }
+  .slide .eyebrow { font-family: var(--font-mono); font-size: 18px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-fade); margin-bottom: 40px; display: flex; align-items: center; gap: 16px; }
+  .slide.void .eyebrow { color: var(--glyph-fade); }
+  .slide .eyebrow::before { content: ""; width: 48px; height: 1px; background: currentColor; opacity: .5; }
+
+  /* Layouts */
+  .slide-content { position: absolute; inset: 140px 120px 120px 120px; display: flex; flex-direction: column; justify-content: center; }
+  .slide.layout-split .slide-content { flex-direction: row; gap: 80px; align-items: center; }
+  .slide.layout-split .col { flex: 1; }
+
+  /* Title slide (ornate) */
+  .title-slide-wrap {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100%;
+    text-align: center;
+    gap: 40px;
+  }
+  .title-slide-wrap .tag { font-family: var(--font-mono); font-size: 20px; letter-spacing: .4em; text-transform: uppercase; color: var(--ink-fade); }
+  .title-slide-wrap h1 { font-size: 260px; }
+  .title-slide-wrap .subtitle { font-family: var(--font-body); font-style: italic; font-size: 42px; color: var(--ink-fade); max-width: 28ch; }
+  .title-slide-wrap .glyph-line { font-family: var(--font-mono); font-size: 32px; letter-spacing: .4em; color: var(--edge-dark); }
+
+  /* Modes grid */
+  .modes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+  .modes-grid .mc {
+    background: var(--ground-vellum);
+    border: 2px solid var(--edge-dark);
+    padding: 48px 40px;
+    box-shadow: 8px 8px 0 var(--ink-pigment);
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .slide.void .modes-grid .mc { background: var(--ground-ink); border-color: var(--glyph-fade); box-shadow: 8px 8px 0 var(--glyph-fade); color: var(--glyph-bone); }
+  .modes-grid .mc .glyph { width: 72px; height: 72px; color: currentColor; }
+  .modes-grid .mc .mname { font-family: var(--font-display); font-size: 48px; font-weight: 600; line-height: 1; }
+  .modes-grid .mc .cmd { font-family: var(--font-mono); font-size: 20px; color: var(--ink-fade); letter-spacing: .1em; }
+  .slide.void .modes-grid .mc .cmd { color: var(--glyph-fade); }
+  .modes-grid .mc p { font-family: var(--font-body); font-size: 24px; line-height: 1.45; margin: 0; }
+
+  /* Gauges giant */
+  .big-gauges { display: flex; gap: 60px; justify-content: center; flex-wrap: wrap; margin-top: 60px; }
+  .big-gauges .gauge { width: 220px; height: 220px; }
+  .big-gauges .gauge__value { font-size: 52px; }
+  .big-gauges .gauge__label { font-size: 14px; max-width: 160px; }
+
+  /* Problem / solution */
+  .ps-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+  .ps-split .col { }
+  .ps-split h4 { font-family: var(--font-display); font-size: 52px; font-weight: 600; margin: 0 0 32px; display: flex; align-items: center; gap: 20px; }
+  .ps-split ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 24px; }
+  .ps-split li { font-family: var(--font-body); font-size: 26px; line-height: 1.4; padding-left: 36px; position: relative; }
+  .ps-split li::before { content: ""; position: absolute; left: 0; top: 18px; width: 20px; height: 1px; background: currentColor; opacity: .45; }
+  .ps-split .problem h4 { color: var(--accent-cinnabar); }
+  .ps-split .solution h4 { color: var(--accent-viridian); }
+
+  /* Quote slide */
+  .quote-layout {
+    display: grid; grid-template-columns: 1fr 2.4fr; gap: 80px; align-items: center; height: 100%;
+  }
+  .quote-layout img { width: 320px; }
+  .quote-layout blockquote { font-family: var(--font-display); font-style: italic; font-size: 88px; line-height: 1.12; margin: 0; letter-spacing: -.01em; }
+  .quote-layout cite { display: block; font-family: var(--font-mono); font-size: 22px; letter-spacing: .28em; text-transform: uppercase; color: var(--ink-fade); margin-top: 40px; font-style: normal; }
+  .slide.void .quote-layout cite { color: var(--glyph-fade); }
+
+  /* Workflow slide */
+  .workflow-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; height: 100%; }
+  .workflow-layout .illus { background: var(--ground-ink); border: 2px solid var(--brass-dark); padding: 32px; box-shadow: 8px 8px 0 var(--brass-dark); }
+  .workflow-layout .illus svg { width: 100%; display: block; }
+  .workflow-layout .steps { display: grid; gap: 32px; }
+  .workflow-layout .step { display: grid; grid-template-columns: 100px 1fr; gap: 30px; align-items: start; }
+  .workflow-layout .step .num { font-family: var(--font-display); font-size: 88px; font-weight: 500; line-height: .95; color: var(--accent-cinnabar); }
+  .workflow-layout .step h5 { font-family: var(--font-display); font-weight: 600; font-size: 36px; margin: 0 0 8px; }
+  .workflow-layout .step p { font-family: var(--font-body); font-size: 22px; line-height: 1.45; margin: 0; color: var(--glyph-fade); }
+  .slide:not(.void) .workflow-layout .step p { color: var(--ink-pigment); opacity: .8; }
+
+  /* CTA final */
+  .cta-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 40px; }
+  .cta-wrap h1 { font-size: 240px; }
+  .cta-wrap .sub { font-family: var(--font-body); font-style: italic; font-size: 42px; color: var(--glyph-fade); max-width: 30ch; }
+  .cta-wrap .plates { display: flex; gap: 24px; }
+  .cta-wrap .brass-plate { font-size: 26px; padding: 18px 32px; }
+  .cta-wrap .out-btn { font-family: var(--font-display); font-size: 26px; padding: 18px 32px; background: transparent; border: 2px solid var(--glyph-bone); color: var(--glyph-bone); box-shadow: 6px 6px 0 var(--glyph-bone); cursor: pointer; border-radius: 0; }
+
+  /* Decorations */
+  .reg-marks::before, .reg-marks::after {
+    content: ""; position: absolute; width: 20px; height: 20px;
+    background:
+      linear-gradient(currentColor, currentColor) 50% 0/2px 100% no-repeat,
+      linear-gradient(currentColor, currentColor) 0 50%/100% 2px no-repeat;
+  }
+  .reg-marks::before { top: 80px; left: 80px; }
+  .reg-marks::after { bottom: 80px; right: 80px; }
+</style>
+<script type="application/json" id="speaker-notes">
+["", "", "", "", "", "", "", ""]
+</script>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- 1: TITLE -->
+  <section class="slide" data-label="Title">
+    <div class="top-rule">
+      <span class="brand"><span class="dot"></span> a5c<span style="color: var(--accent-cinnabar)">.</span>ai · codex</span>
+      <span>vol. i · mmxxvi</span>
+    </div>
+    <div class="title-slide-wrap">
+      <div class="tag">codex of reliable autonomy</div>
+      <h1>a5c<span class="dot">.</span>ai</h1>
+      <div class="subtitle">Reliable AI workflows for teams that ship.</div>
+      <div class="glyph-line">⟡ ◊ ⟡ · ∴ · ⟡ ◊ ⟡</div>
+    </div>
+    <div class="figcap">fig · i · the title plate</div>
+    <div class="folio">fol · i</div>
+  </section>
+
+  <!-- 2: THESIS -->
+  <section class="slide" data-label="Thesis">
+    <div class="top-rule">
+      <span class="brand"><span class="dot"></span> a5c.ai · codex</span>
+      <span>fol · ii</span>
+    </div>
+    <div class="slide-content">
+      <div class="eyebrow">thesis</div>
+      <h2>Tasks converge. PRs get merged. Done means done.</h2>
+      <p class="lede" style="font-size:32px; max-width:40ch;">Babysitter wraps any coding agent in convergent loops and cryptographic proof. Same agents — better outcomes.</p>
+    </div>
+    <div class="figcap">fig · ii · the thesis</div>
+    <div class="folio">fol · ii</div>
+  </section>
+
+  <!-- 3: PROBLEM / SOLUTION -->
+  <section class="slide" data-label="Problem & Solution">
+    <div class="top-rule"><span class="brand"><span class="dot"></span> a5c.ai · codex</span><span>fol · iii</span></div>
+    <div class="slide-content">
+      <div class="eyebrow">the problem · the remedy</div>
+      <div class="ps-split">
+        <div class="col problem">
+          <h4>
+            <svg width="56" height="56" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="16"/><path d="M16 16 L32 32 M32 16 L16 32"/></svg>
+            Without a keeper
+          </h4>
+          <ul style="color: var(--ink-pigment);">
+            <li>Results vary run to run.</li>
+            <li>Quality degrades without supervision.</li>
+            <li>“Almost done” stays almost done.</li>
+            <li>Confidence without evidence.</li>
+          </ul>
+        </div>
+        <div class="col solution">
+          <h4>
+            <svg width="56" height="56" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="24" cy="24" r="16"/><path d="M15 24 L22 31 L33 18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"/></svg>
+            With Babysitter
+          </h4>
+          <ul style="color: var(--ink-pigment);">
+            <li>Tasks converge — the loop iterates until the gates pass.</li>
+            <li>Gates are explicit, versioned, re-run each iteration.</li>
+            <li>Done means done: the seal is struck once.</li>
+            <li>Cryptographic proof on every merged PR.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="figcap">fig · iii · diagnosis &amp; treatment</div>
+    <div class="folio">fol · iii</div>
+  </section>
+
+  <!-- 4: FOUR MODES -->
+  <section class="slide void" data-label="Four Modes">
+    <div class="top-rule"><span class="brand"><span class="dot"></span> a5c.ai · codex</span><span>fol · iv</span></div>
+    <div class="slide-content">
+      <div class="eyebrow">four modes of dispatch</div>
+      <h2 style="color: var(--glyph-bone);">Pick your leash length.</h2>
+      <div class="modes-grid" style="margin-top: 20px;">
+        <div class="mc">
+          <svg class="glyph" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="24" cy="24" r="18"/><path d="M14 24 H34"/><path d="M24 14 V34"/><circle cx="24" cy="24" r="3" fill="currentColor"/></g></svg>
+          <div class="mname">Interactive</div>
+          <div class="cmd">/babysitter:call</div>
+          <p>Step-by-step. You review each gate.</p>
+        </div>
+        <div class="mc">
+          <svg class="glyph" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M10 10 H38 V38 H10 Z"/><path d="M10 18 H38 M18 18 V38"/><path d="M22 24 H34 M22 30 H30"/><circle cx="14" cy="14" r="1.5" fill="currentColor"/></g></svg>
+          <div class="mname">Plan First</div>
+          <div class="cmd">/babysitter:plan</div>
+          <p>Plan the plan. Then dispatch.</p>
+        </div>
+        <div class="mc">
+          <svg class="glyph" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 34 L24 10 L36 34 Z"/><path d="M18 28 H30"/><circle cx="24" cy="22" r="2" fill="#C03A2B" stroke="none"/></g></svg>
+          <div class="mname">YOLO</div>
+          <div class="cmd">/babysitter:yolo</div>
+          <p>Autonomy within hard gates.</p>
+        </div>
+        <div class="mc">
+          <svg class="glyph" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M16 24 A6 6 0 1 1 22 30 L26 18 A6 6 0 1 1 32 24 A6 6 0 1 1 26 30 L22 18 A6 6 0 1 1 16 24 Z"/></g></svg>
+          <div class="mname">Forever</div>
+          <div class="cmd">/babysitter:forever</div>
+          <p>A daemon. Converges continuously.</p>
+        </div>
+      </div>
+    </div>
+    <div class="figcap">fig · iv · registers of dispatch</div>
+    <div class="folio">fol · iv</div>
+  </section>
+
+  <!-- 5: WORKFLOW -->
+  <section class="slide void" data-label="Workflow">
+    <div class="top-rule"><span class="brand"><span class="dot"></span> a5c.ai · codex</span><span>fol · v</span></div>
+    <div class="slide-content" style="inset: 120px;">
+      <div class="eyebrow">the workflow</div>
+      <div class="workflow-layout">
+        <div class="illus">
+          <svg viewBox="0 0 600 400">
+            <g stroke="#F0E6D1" stroke-width="1" fill="none">
+              <path d="M8 8 h12 M8 8 v12"/><path d="M592 8 h-12 M592 8 v12"/>
+              <path d="M8 392 h12 M8 392 v-12"/><path d="M592 392 h-12 M592 392 v-12"/>
+            </g>
+            <text x="300" y="34" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#A89980" letter-spacing=".22em" style="text-transform:uppercase">fig · v · the · quality · gates</text>
+            <g transform="translate(80,200)"><path d="M-32 -42 L32 -42 L12 0 L-12 0 Z" stroke="#F0E6D1" stroke-width="1.6" fill="none"/><text text-anchor="middle" y="22" font-family="EB Garamond, serif" font-style="italic" font-size="15" fill="#F0E6D1">the task</text></g>
+            <g stroke="#F0E6D1" stroke-width="1.6" fill="none"><path d="M120 200 H160"/><path d="M240 200 H280"/><path d="M360 200 H400"/><path d="M480 200 H520"/></g>
+            <g transform="translate(200,200)"><circle r="32" stroke="#F0E6D1" stroke-width="1.6" fill="none"/><circle r="26" stroke="#F0E6D1" stroke-width="1" fill="none" stroke-dasharray="1 3"/><text text-anchor="middle" y="5" font-family="EB Garamond, serif" font-style="italic" font-size="15" fill="#F0E6D1">lint</text><text text-anchor="middle" y="-46" font-family="JetBrains Mono, monospace" font-size="10" fill="#A89980" letter-spacing=".22em">gate · i</text></g>
+            <g transform="translate(320,200)"><circle r="32" stroke="#F0E6D1" stroke-width="1.6" fill="none"/><circle r="26" stroke="#F0E6D1" stroke-width="1" fill="none" stroke-dasharray="1 3"/><text text-anchor="middle" y="5" font-family="EB Garamond, serif" font-style="italic" font-size="15" fill="#F0E6D1">test</text><text text-anchor="middle" y="-46" font-family="JetBrains Mono, monospace" font-size="10" fill="#A89980" letter-spacing=".22em">gate · ii</text></g>
+            <g transform="translate(440,200)"><circle r="32" stroke="#F0E6D1" stroke-width="1.6" fill="none"/><circle r="26" stroke="#F0E6D1" stroke-width="1" fill="none" stroke-dasharray="1 3"/><text text-anchor="middle" y="5" font-family="EB Garamond, serif" font-style="italic" font-size="15" fill="#F0E6D1">audit</text><text text-anchor="middle" y="-46" font-family="JetBrains Mono, monospace" font-size="10" fill="#A89980" letter-spacing=".22em">gate · iii</text></g>
+            <g transform="translate(552,200)"><circle r="28" stroke="#C03A2B" stroke-width="1.8" fill="none"/><path d="M-12 0 L-3 9 L14 -10" stroke="#C03A2B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text text-anchor="middle" y="46" font-family="JetBrains Mono, monospace" font-size="10" fill="#C03A2B" letter-spacing=".22em">sealed</text></g>
+            <text x="300" y="340" text-anchor="middle" font-family="EB Garamond, serif" font-style="italic" font-size="16" fill="#F0E6D1">each gate must be passed, else the loop converges anew</text>
+            <text x="300" y="364" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#A89980" letter-spacing=".22em" style="text-transform:uppercase">∴ · convergence · is · the · only · exit</text>
+          </svg>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="num">I</div><div><h5>Dispatch</h5><p>You describe the outcome. Babysitter routes to the agent of your choice.</p></div></div>
+          <div class="step"><div class="num">II</div><div><h5>Run the gates</h5><p>Lint, test, audit, custom — every gate, every iteration.</p></div></div>
+          <div class="step"><div class="num">III</div><div><h5>Converge</h5><p>If any gate fails, the loop plans a revision and tries again.</p></div></div>
+          <div class="step"><div class="num">IV</div><div><h5>Strike the seal</h5><p>Cryptographic proof-of-done attached to every merged PR.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="figcap">fig · v · the workflow</div>
+    <div class="folio">fol · v</div>
+  </section>
+
+  <!-- 6: STATS -->
+  <section class="slide" data-label="Stats">
+    <div class="top-rule"><span class="brand"><span class="dot"></span> a5c.ai · codex</span><span>fol · vi</span></div>
+    <div class="slide-content">
+      <div class="eyebrow">at a glance</div>
+      <h2>The kitchen is rented. The recipes are ours.</h2>
+      <div class="big-gauges">
+        <div class="gauge"><div class="gauge__value">2,000+</div><div class="gauge__label">built · in · processes</div></div>
+        <div class="gauge"><div class="gauge__value">5 min</div><div class="gauge__label">setup · time</div></div>
+        <div class="gauge"><div class="gauge__value">0</div><div class="gauge__label">telemetry · bytes</div></div>
+        <div class="gauge"><div class="gauge__value">MIT</div><div class="gauge__label">license</div></div>
+        <div class="gauge"><div class="gauge__value">any</div><div class="gauge__label">agent · heart</div></div>
+      </div>
+    </div>
+    <div class="figcap">fig · vi · the gauges</div>
+    <div class="folio">fol · vi</div>
+  </section>
+
+  <!-- 7: QUOTE -->
+  <section class="slide" data-label="Quote">
+    <div class="top-rule"><span class="brand"><span class="dot"></span> a5c.ai · codex</span><span>fol · vii</span></div>
+    <div class="slide-content" style="inset: 120px;">
+      <div class="quote-layout">
+        <img src="../assets/seal-gate-passed.svg" alt=""/>
+        <div>
+          <blockquote>“The recipes are more valuable than the kitchen. AI models change. Proven workflows don’t.”</blockquote>
+          <cite>— yaniv · ceo · co-founder, a5c.ai</cite>
+        </div>
+      </div>
+    </div>
+    <div class="figcap">fig · vii · the manifesto</div>
+    <div class="folio">fol · vii</div>
+  </section>
+
+  <!-- 8: CTA -->
+  <section class="slide void" data-label="Install">
+    <div class="top-rule"><span class="brand"><span class="dot"></span> a5c.ai · codex</span><span>fol · viii</span></div>
+    <div class="cta-wrap">
+      <div class="eyebrow">the dispatch</div>
+      <h1>Done means done<span class="dot">.</span></h1>
+      <div class="sub">Five minutes to install. Zero telemetry. MIT-licensed, agent-agnostic.</div>
+      <div class="plates">
+        <button class="brass-plate">Install + Star</button>
+        <button class="out-btn">Join the Discord →</button>
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 18px; letter-spacing: .4em; color: var(--glyph-fade); margin-top: 12px;">⟡ ◊ ⟡ · a5c · ai · ⟡ ◊ ⟡</div>
+    </div>
+    <div class="figcap">fig · viii · the call</div>
+    <div class="folio">fol · viii</div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>

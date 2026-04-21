@@ -1,0 +1,21 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T13:15:40.100Z",
+  "data": {
+    "effectId": "01KPR2X94VZ0FXS3FEF9NY4KZF",
+    "invocationKey": "design-system-repo:S000005:tsc-verify",
+    "invocationHash": "b5590b1283bda4ffd8350599b1c1e06d178d17c8075790ae86f442dca1df4ac2",
+    "stepId": "S000005",
+    "taskId": "tsc-verify",
+    "kind": "shell",
+    "label": "verify",
+    "taskDefRef": "tasks/01KPR2X94VZ0FXS3FEF9NY4KZF/task.json",
+    "labels": [
+      "verify",
+      "typescript"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "8909442ee150f9ef842377ebbfd3f1d86fc855eac5a896072f0b83a89f65d460"
+}

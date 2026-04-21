@@ -1,0 +1,25 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPR1WMWC9CGYMMEX5NQW7WAG/input.json",
+    "outputJsonPath": "tasks/01KPR1WMWC9CGYMMEX5NQW7WAG/output.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "scaffold",
+    "verify"
+  ],
+  "shell": {
+    "command": "cd \".\" && test -f package.json && test -f tsconfig.json && test -f vite.config.ts && test -d src && test -d node_modules && echo \"Scaffold verified\"",
+    "expectedExitCode": 0,
+    "timeout": 15000
+  },
+  "title": "Verify project scaffolding",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR1WMWC9CGYMMEX5NQW7WAG",
+  "taskId": "verify-scaffold",
+  "invocationKey": "design-system-repo:S000002:verify-scaffold",
+  "stepId": "S000002",
+  "inputs": {
+    "projectDir": "."
+  }
+}

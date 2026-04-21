@@ -1,0 +1,21 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T12:54:07.975Z",
+  "data": {
+    "effectId": "01KPR1NVA11SKS5CK907D5CF0W",
+    "invocationKey": "design-system-repo:S000001:scaffold-project",
+    "invocationHash": "6cb4be67d9fe1984e435fdcfb586e90a00a17e7828727005a0c8e13a80474357",
+    "stepId": "S000001",
+    "taskId": "scaffold-project",
+    "kind": "agent",
+    "label": "scaffold",
+    "taskDefRef": "tasks/01KPR1NVA11SKS5CK907D5CF0W/task.json",
+    "labels": [
+      "scaffold",
+      "setup"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "2de0a01aea0ca0aa4f87982f4c94fec0e3f7528cd3efb71226454869a78d206a"
+}

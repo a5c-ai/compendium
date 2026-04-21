@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T13:02:42.307Z",
+  "data": {
+    "effectId": "01KPR25HJR5K2VE2M30F8RDB2G",
+    "invocationKey": "design-system-repo:S000004:convert-components",
+    "invocationHash": "468d09ab5b26110e1939dd6e370a33c04a93d3ba900314385c8927518f110795",
+    "stepId": "S000004",
+    "taskId": "convert-components",
+    "kind": "agent",
+    "label": "components",
+    "taskDefRef": "tasks/01KPR25HJR5K2VE2M30F8RDB2G/task.json",
+    "labels": [
+      "components",
+      "typescript",
+      "conversion"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "615214a8e3731cded3fa77f0cac4b45637eb76edb58924c9f0b8725f36425870"
+}

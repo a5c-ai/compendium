@@ -1,0 +1,131 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "componentCount": {
+          "type": "number"
+        },
+        "componentsConverted": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "filesCreated": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "componentCount"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "packageName": "@a5c-ai/compendium",
+        "projectDir": ".",
+        "sourceFiles": [
+          "project/tk-react-base.jsx — utility hooks (cx, useId, useOutside, useKey, useCtrl) and Icon component",
+          "project/tk-react-controls.jsx — Button, IconButton, Toggle, Checkbox, Radio, Slider, RangeSlider, Stepper, Input, Textarea, Field, Tag, InlineEdit, ColorPicker, Progress, Spinner, Skeleton",
+          "project/tk-react-layout.jsx — Accordion, Tabs, Table, Pagination, DataGrid, Nav/NavItem, Sidebar, Breadcrumb, SplitPane",
+          "project/tk-react-overlays.jsx — Tooltip, Popover, Select, Combobox, DropdownMenu, Modal, Drawer, CommandPalette, ContextMenu, Toast/useToasts",
+          "project/tk-controls.css — all component styles"
+        ]
+      },
+      "instructions": [
+        "Read ALL the source JSX files in project/ THOROUGHLY before starting conversion.",
+        "",
+        "CONVERSION RULES:",
+        "1. Each component gets its own file: src/components/ComponentName/ComponentName.tsx",
+        "2. Each component file also gets a CSS module or CSS file: src/components/ComponentName/ComponentName.css (using the existing class names from tk-controls.css)",
+        "3. Each component directory gets an index.ts barrel export",
+        "",
+        "Create src/components/ structure:",
+        "",
+        "  src/components/",
+        "    hooks/           — shared hooks (useOutside, useKey, useCtrl, etc.)",
+        "      index.ts",
+        "      useOutside.ts",
+        "      useKey.ts",
+        "      useCtrl.ts",
+        "    utils/            — shared utils (cx, roman numeral helper, etc.)",
+        "      index.ts",
+        "      cx.ts",
+        "    Icon/             — Icon component",
+        "    Button/           — Button + IconButton",
+        "    Toggle/",
+        "    Checkbox/",
+        "    Radio/",
+        "    Slider/           — Slider + RangeSlider",
+        "    Stepper/",
+        "    Input/            — Input + Textarea + Field",
+        "    Tag/",
+        "    InlineEdit/",
+        "    ColorPicker/",
+        "    Progress/         — Progress + Spinner + Skeleton",
+        "    Accordion/",
+        "    Tabs/",
+        "    Table/            — Table + DataGrid + Pagination",
+        "    Nav/              — Nav + NavItem + Sidebar + Breadcrumb",
+        "    SplitPane/",
+        "    Tooltip/",
+        "    Popover/",
+        "    Select/           — Select + Combobox",
+        "    DropdownMenu/     — DropdownMenu + ContextMenu",
+        "    Modal/            — Modal + Drawer",
+        "    CommandPalette/",
+        "    Toast/            — Toast + useToasts",
+        "    index.ts          — barrel export all components",
+        "",
+        "FOR EACH COMPONENT:",
+        "- Define a proper Props interface with TypeScript types",
+        "- Use React.forwardRef where the component renders a DOM element",
+        "- Replace window-attached globals with proper imports",
+        "- Replace global React.* with named imports from \"react\"",
+        "- Keep the exact same visual behavior and CSS class names",
+        "- Export the component as a named export",
+        "- Extract relevant CSS from tk-controls.css into the component CSS file",
+        "",
+        "Create src/components/index.ts that re-exports everything.",
+        "",
+        "IMPORTANT: Read the source files FIRST. Match the behavior exactly.",
+        "IMPORTANT: Actually create ALL component files. Do not skip any.",
+        "IMPORTANT: The CSS class names must match tk-controls.css exactly (tkc-btn, tkc-toggle, etc.)"
+      ],
+      "outputFormat": "JSON",
+      "role": "Senior React/TypeScript developer specializing in component library development",
+      "task": "Convert the prototype JSX components from project/ into proper TypeScript React components in src/components/ for the @a5c-ai/compendium package."
+    }
+  },
+  "execution": {
+    "model": "claude-opus-4-6"
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPR25HJR5K2VE2M30F8RDB2G/input.json",
+    "outputJsonPath": "tasks/01KPR25HJR5K2VE2M30F8RDB2G/output.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "components",
+    "conversion",
+    "typescript"
+  ],
+  "title": "Convert JSX prototype components to TypeScript ES modules",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR25HJR5K2VE2M30F8RDB2G",
+  "taskId": "convert-components",
+  "invocationKey": "design-system-repo:S000004:convert-components",
+  "stepId": "S000004",
+  "inputs": {
+    "packageName": "@a5c-ai/compendium",
+    "projectDir": "."
+  }
+}

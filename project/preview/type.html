@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Type — a5c.ai Codex</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  :root {
+    --ink: #1B1611;
+    --ink-soft: #3E342A;
+    --ink-quiet: #8A7B64;
+    --rule-q: color-mix(in oklab, var(--ink) 18%, transparent);
+    --rule-m: color-mix(in oklab, var(--ink) 36%, transparent);
+    --cinnabar: #C03A2B;
+  }
+  html, body { margin: 0; background: #0C0805; }
+  body {
+    padding: 32px 20px 80px;
+    min-height: 100vh;
+    background: radial-gradient(1400px 700px at 50% -5%, rgba(212,168,75,.12), transparent 55%), #0C0805;
+    font-family: var(--font-body);
+    color: var(--glyph-bone);
+  }
+  .shell { max-width: 1200px; margin: 0 auto; position: relative; }
+
+  /* Tabs */
+  .tabs-row { display: flex; justify-content: center; gap: 4px; padding: 0 40px; position: relative; z-index: 3; }
+  .tab {
+    font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 19px;
+    padding: 14px 32px 22px; color: rgba(240,230,209,.65);
+    background: linear-gradient(180deg, #6C3E15 0%, #4A2808 100%);
+    border: 1px solid #3E1E0E; border-bottom: 0; border-radius: 18px 18px 0 0;
+    box-shadow: inset 0 2px 0 rgba(242,200,143,.18);
+    cursor: pointer; margin-bottom: -8px; transition: color .15s;
+  }
+  .tab:hover { color: #F2E3C4; }
+  .tab--active {
+    color: #2A1607;
+    background: linear-gradient(180deg, #F2C88F 0%, #D9A96A 48%, #B37E3E 100%);
+    box-shadow: inset 0 2px 0 rgba(255,240,210,.55), inset 0 -1px 0 rgba(91,56,23,.35);
+    padding-bottom: 24px; margin-bottom: -10px;
+  }
+
+  /* Casing */
+  .casing {
+    position: relative;
+    background: linear-gradient(180deg, #8E5A26 0%, #6C3E15 45%, #4A2808 100%);
+    border: 1px solid #2E1607; border-radius: 6px; padding: 14px;
+    box-shadow:
+      inset 0 2px 0 rgba(255,220,170,.35),
+      inset 0 -2px 0 rgba(0,0,0,.5),
+      inset 0 0 0 1px rgba(255,220,170,.1),
+      0 30px 80px -20px rgba(0,0,0,.85);
+  }
+  .casing::before, .casing::after, .casing .rb, .casing .rbr {
+    content: ""; position: absolute; width: 14px; height: 14px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #F5E3BA 0%, #B98849 40%, #5A340F 100%);
+    box-shadow: 0 0 0 1px #2E1607, inset 0 -1px 1px rgba(0,0,0,.5); z-index: 4;
+  }
+  .casing::before { top: 10px; left: 10px; }
+  .casing::after { top: 10px; right: 10px; }
+  .casing .rb { bottom: 10px; left: 10px; }
+  .casing .rbr { bottom: 10px; right: 10px; }
+
+  .page {
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,220,170,.14), transparent 60%),
+      linear-gradient(180deg, #F2E7CE 0%, #E8D9B8 100%);
+    padding: 60px 64px 80px; color: var(--ink);
+    border: 1px solid #8E5A26; border-radius: 3px; overflow: hidden;
+  }
+  .page::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.14 0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: .2; mix-blend-mode: multiply; pointer-events: none;
+  }
+  .page > * { position: relative; }
+
+  .gears { position: absolute; inset: -40px -40px 0 -40px; pointer-events: none; opacity: .08; overflow: hidden; }
+  @keyframes spin-cw { to { transform: rotate(360deg); } }
+  @keyframes spin-ccw { to { transform: rotate(-360deg); } }
+
+  /* Head */
+  .codex-head { text-align: center; padding-bottom: 24px; border-bottom: 1px solid var(--ink); margin-bottom: 40px; }
+  .codex-head::after { content: ""; display: block; height: 3px; background: var(--ink); margin-top: 3px; }
+  .codex-vol {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .38em; text-transform: uppercase;
+    color: var(--ink-quiet); margin-bottom: 8px;
+    display: flex; justify-content: center; align-items: center; gap: 12px;
+  }
+  .codex-vol .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cinnabar); }
+  .codex-head h1 { font-family: var(--font-display); font-weight: 500; font-size: 58px; line-height: 1; letter-spacing: -.02em; margin: 0; }
+  .codex-head h1 em { font-style: italic; color: var(--ink-quiet); font-weight: 400; }
+  .codex-head .kicker { font-family: var(--font-body); font-style: italic; font-size: 17px; color: var(--ink-soft); margin-top: 8px; }
+
+  /* Chapters */
+  .chapter { margin-top: 72px; }
+  .chapter:first-of-type { margin-top: 24px; }
+  .chapter-head {
+    display: grid; grid-template-columns: 90px 1fr auto; gap: 24px; align-items: center;
+    margin-bottom: 32px; padding-bottom: 18px; border-bottom: 1px dashed var(--rule-m);
+  }
+  .chapter-num {
+    font-family: var(--font-display); font-style: italic; font-weight: 500;
+    font-size: 56px; color: var(--cinnabar); line-height: 1;
+    text-align: right; padding-right: 16px; border-right: 1px solid var(--rule-m);
+  }
+  .chapter-title h2 { font-family: var(--font-display); font-weight: 500; font-size: 38px; line-height: 1.05; letter-spacing: -.01em; margin: 0 0 6px; }
+  .chapter-title .desc { font-family: var(--font-body); font-style: italic; font-size: 16px; color: var(--ink-soft); margin: 0; max-width: 56ch; }
+  .chapter-glyph { width: 64px; height: 64px; color: var(--ink); opacity: .65; }
+
+  .plate {
+    background: linear-gradient(180deg, rgba(91,56,23,.07), transparent 40%), #EDE1C2;
+    padding: 40px 32px; position: relative;
+    border: 1px solid color-mix(in oklab, var(--ink) 20%, transparent);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.3), 0 1px 0 rgba(91,56,23,.15);
+  }
+  .plate--dark { background: linear-gradient(180deg, #1F110A 0%, #140905 100%); color: var(--glyph-bone); border-color: #3E1E0E; }
+  .plate-cap { position: absolute; top: 10px; left: 14px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); }
+  .plate--dark .plate-cap { color: rgba(240,230,209,.45); }
+  .br-corner { position: absolute; width: 16px; height: 16px; border: 1px solid var(--ink-quiet); }
+  .plate .br-corner.tl { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
+  .plate .br-corner.tr { top: 6px; right: 6px; border-left: 0; border-bottom: 0; }
+  .plate .br-corner.bl { bottom: 6px; left: 6px; border-right: 0; border-top: 0; }
+  .plate .br-corner.br { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
+  .plate--dark .br-corner { border-color: rgba(240,230,209,.3); }
+
+  /* ── Type specimens ── */
+  .display-hero {
+    font-family: var(--font-display); font-weight: 500; font-size: 140px; line-height: .95;
+    letter-spacing: -.025em; color: var(--ink); margin: 0; text-align: center; text-wrap: balance;
+  }
+  .display-hero em { font-style: italic; color: var(--cinnabar); font-weight: 400; }
+  .display-hero .amp { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; color: var(--ink-quiet); font-size: 140px; padding: 0 16px; }
+  .alphabet {
+    font-family: var(--font-display); font-size: 36px; font-weight: 500;
+    color: var(--ink-soft); letter-spacing: .05em; text-align: center; margin-top: 28px;
+    line-height: 1.4;
+  }
+  .numerals {
+    font-family: var(--font-display); font-weight: 500; font-size: 32px;
+    color: var(--ink); text-align: center; margin-top: 10px;
+    font-feature-settings: "onum" 1; letter-spacing: .08em;
+  }
+
+  /* Scale table */
+  .scale-table { width: 100%; border-collapse: collapse; }
+  .scale-table tr { border-bottom: 1px dashed var(--rule-q); }
+  .scale-table tr:last-child { border-bottom: 0; }
+  .scale-table td { padding: 22px 8px; vertical-align: baseline; }
+  .scale-table td:first-child { width: 110px; }
+  .scale-table td:last-child { width: 160px; text-align: right; }
+  .scale-sample { color: var(--ink); line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
+  .scale-token { font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-quiet); }
+  .scale-specs { font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+
+  /* Prose demo */
+  .prose-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .prose-col h3 { font-family: var(--font-display); font-size: 32px; font-weight: 500; margin: 0 0 8px; color: var(--ink); letter-spacing: -.005em; }
+  .prose-col .lede { font-family: var(--font-body); font-style: italic; font-size: 18px; color: var(--ink-soft); margin: 0 0 18px; }
+  .prose-col p { font-family: var(--font-body); font-size: 17px; line-height: 1.65; color: var(--ink); margin: 0 0 14px; text-wrap: pretty; }
+  .dropcap::first-letter {
+    font-family: var(--font-display); font-weight: 500; font-style: italic;
+    font-size: 78px; line-height: .85; float: left;
+    padding: 6px 10px 0 0; color: var(--cinnabar);
+  }
+
+  /* Mono terminal strip */
+  .mono-strip {
+    background: linear-gradient(180deg, #1F110A, #0E0704); color: var(--glyph-bone);
+    padding: 22px 26px; border: 1px solid #3E1E0E; border-radius: 10px;
+    font-family: var(--font-mono); font-size: 14px; line-height: 1.8;
+    box-shadow: 0 0 0 6px var(--brass), 0 0 0 7px var(--brass-shadow), 0 10px 24px -8px rgba(0,0,0,.7);
+  }
+  .mono-strip .pr { color: #E6C06A; }
+  .mono-strip .muted { color: rgba(240,230,209,.5); }
+
+  /* Label atlas */
+  .atlas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .atlas-item { display: flex; flex-direction: column; gap: 10px; padding: 18px 20px; border: 1px dashed var(--rule-m); background: rgba(255,255,255,.25); }
+  .atlas-name { font-family: var(--font-mono); font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--ink-quiet); }
+  .atlas-demo { color: var(--ink); }
+  .a-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--ink-soft); }
+  .a-folio { font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); }
+  .a-caption { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--ink-soft); }
+  .a-glyph { font-family: var(--font-mono); letter-spacing: .3em; color: var(--ink-soft); }
+
+  /* Pairings */
+  .pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  }
+  .pair > div {
+    padding: 26px 24px; border: 1px solid color-mix(in oklab, var(--ink) 20%, transparent);
+    background: linear-gradient(180deg, #F2E7CE, #E8D9B8);
+  }
+  .pair .tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); margin-bottom: 10px; }
+  .pair h4 { font-family: var(--font-display); font-weight: 500; font-size: 30px; margin: 0 0 6px; line-height: 1.05; }
+  .pair p { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+
+  /* Specs */
+  .specs { display: grid; grid-template-columns: 180px 1fr; gap: 12px 28px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--rule-q); font-family: var(--font-body); font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
+  .specs dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-quiet); padding-top: 3px; }
+  .specs dd { margin: 0; }
+  .specs code { font-family: var(--font-mono); font-size: 12px; color: var(--ink); background: rgba(27,22,17,.08); padding: 1px 6px; border-radius: 2px; }
+
+  .colophon {
+    margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--ink);
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet);
+  }
+  .colophon .diamond { font-size: 14px; color: var(--cinnabar); letter-spacing: .4em; }
+  .colophon .right { text-align: right; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="tabs-row">
+    <a class="tab" href="brand.html">Philosophy</a>
+    <a class="tab" href="components.html">UI Components</a>
+    <a class="tab tab--active" href="type.html">Type</a>
+    <a class="tab" href="colors.html">Pigments</a>
+    <a class="tab" href="spacing.html">Measure</a>
+  </nav>
+
+  <div class="casing">
+    <span class="rb"></span><span class="rbr"></span>
+    <div class="page">
+      <div class="gears">
+        <svg viewBox="0 0 200 200" width="340" height="340" style="position:absolute; top: -60px; left: -80px; animation: spin-cw 90s linear infinite;">
+          <g fill="none" stroke="#2A1607" stroke-width="1.4">
+            <circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="54"/>
+            <rect x="96" y="20" width="8" height="16"/><rect x="96" y="164" width="8" height="16"/>
+            <rect x="20" y="96" width="16" height="8"/><rect x="164" y="96" width="16" height="8"/>
+            <circle cx="100" cy="100" r="14"/>
+          </g>
+        </svg>
+        <svg viewBox="0 0 200 200" width="260" height="260" style="position:absolute; bottom: -60px; right: -60px; animation: spin-ccw 70s linear infinite;">
+          <g fill="none" stroke="#2A1607" stroke-width="1.4">
+            <circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="50"/><circle cx="100" cy="100" r="16"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="codex-head">
+        <div class="codex-vol"><span class="dot"></span>a5c · codex · vol. i · folio iii<span class="dot"></span></div>
+        <h1>Type <em>&amp;</em> Specimen</h1>
+        <div class="kicker">three voices, one register</div>
+      </div>
+
+      <!-- I · HERO SPECIMEN -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">I</div>
+          <div class="chapter-title">
+            <h2>Cormorant Garamond — the voice</h2>
+            <p class="desc">Display and headline register. Italic is reserved for emphasis and utterance, not decoration.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 40 L24 8 L36 40 M18 30 H30"/></svg>
+        </div>
+        <div class="plate" style="padding: 56px 32px;">
+          <span class="plate-cap">specimen · a</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <h2 class="display-hero">Done <em>means</em> done.</h2>
+          <div class="alphabet">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
+          <div class="alphabet" style="font-style: italic; color: var(--cinnabar); font-size: 30px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
+          <div class="numerals">0  1  2  3  4  5  6  7  8  9 &nbsp; · &nbsp; &amp; &nbsp; &amp;&nbsp; &nbsp; ¶ &nbsp; † &nbsp; ‡</div>
+        </div>
+        <dl class="specs">
+          <dt>Family</dt><dd><code>Cormorant Garamond</code> · weights 400, 500, 600 · italic 400, 500</dd>
+          <dt>Use</dt><dd>Headlines, display, pull quotes, section titles. Never below 20px — its details vanish.</dd>
+          <dt>Tracking</dt><dd>Display <code>-.02em</code>. Headings <code>-.01em</code>. Never letter-space the display weight.</dd>
+        </dl>
+      </div>
+
+      <!-- II · SCALE -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">II</div>
+          <div class="chapter-title">
+            <h2>The Scale</h2>
+            <p class="desc">A modular register — each tier has a job. Use the smallest tier that still holds the meaning.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 40 H42 M10 40 V30 M16 40 V24 M22 40 V18 M28 40 V12 M34 40 V6"/></svg>
+        </div>
+        <div class="plate" style="padding: 20px 36px;">
+          <span class="plate-cap">scale · Σ</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <table class="scale-table">
+            <tr>
+              <td><span class="scale-token">display</span></td>
+              <td><div class="scale-sample" style="font-family: var(--font-display); font-weight: 500; font-size: 96px;">Proof of done</div></td>
+              <td><div class="scale-specs">96 / 1.0 · −.02em</div></td>
+            </tr>
+            <tr>
+              <td><span class="scale-token">h1</span></td>
+              <td><div class="scale-sample" style="font-family: var(--font-display); font-weight: 500; font-size: 72px;">The loop closes</div></td>
+              <td><div class="scale-specs">72 / 1.02 · −.02em</div></td>
+            </tr>
+            <tr>
+              <td><span class="scale-token">h2</span></td>
+              <td><div class="scale-sample" style="font-family: var(--font-display); font-weight: 500; font-size: 48px;">Reliable workflows ship</div></td>
+              <td><div class="scale-specs">48 / 1.1 · −.01em</div></td>
+            </tr>
+            <tr>
+              <td><span class="scale-token">h3</span></td>
+              <td><div class="scale-sample" style="font-family: var(--font-display); font-weight: 600; font-size: 32px;">Gates hold the line</div></td>
+              <td><div class="scale-specs">32 / 1.15 · 0</div></td>
+            </tr>
+            <tr>
+              <td><span class="scale-token">h4</span></td>
+              <td><div class="scale-sample" style="font-family: var(--font-display); font-weight: 600; font-size: 24px;">Convergence is a promise</div></td>
+              <td><div class="scale-specs">24 / 1.2 · 0</div></td>
+            </tr>
+            <tr>
+              <td><span class="scale-token">lede</span></td>
+              <td><div class="scale-sample" style="font-family: var(--font-body); font-style: italic; font-size: 22px; color: var(--ink-soft);">Run it, prove it, seal it — the marginalia of craft.</div></td>
+              <td><div class="scale-specs">22 / 1.35 italic</div></td>
+            </tr>
+            <tr>
+              <td><span class="scale-token">body</span></td>
+              <td><div class="scale-sample" style="font-family: var(--font-body); font-size: 17px; line-height: 1.62; color: var(--ink); max-width: 58ch;">Babysitter wraps any coding agent in a convergent loop. You define what done means; the apparatus enforces it until the gates pass and the seal is struck.</div></td>
+              <td><div class="scale-specs">17 / 1.62</div></td>
+            </tr>
+            <tr>
+              <td><span class="scale-token">caption</span></td>
+              <td><div class="scale-sample" style="font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--ink-soft);">fig. iv — the gate registry, with sulphur warning set at left margin.</div></td>
+              <td><div class="scale-specs">13 / 1.45 italic</div></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- III · PROSE -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">III</div>
+          <div class="chapter-title">
+            <h2>EB Garamond — the body</h2>
+            <p class="desc">Every long passage lives here. Wide measure, generous leading, pretty wrap, old-style figures.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 12 H40 M8 20 H40 M8 28 H32 M8 36 H36"/></svg>
+        </div>
+        <div class="plate" style="padding: 40px 44px;">
+          <span class="plate-cap">prose · β</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="prose-demo">
+            <div class="prose-col">
+              <h3>The recipe, not the kitchen</h3>
+              <div class="lede">A manifesto, in three paragraphs.</div>
+              <p class="dropcap">AI models change &mdash; the ones we trust today will be replaced, likely within the year. Proven workflows do not. The useful thing to own is the recipe, stamped and sealed, portable across whatever oven the industry hands you next.</p>
+              <p>Babysitter was written to make those recipes first-class. Every agent call is wrapped in a convergent loop: plan, execute, verify, repeat. When the gates pass, a proof is issued &mdash; a receipt you can paste into a PR.</p>
+              <p>The alternative is a demo. A reel. A vibe. Our alternative is the <em>seal</em>.</p>
+            </div>
+            <div class="prose-col">
+              <h3>Three things are never negotiable</h3>
+              <div class="lede">— gates, determinism, the seal.</div>
+              <p>Gates are hard. A failed lint is not a suggestion. A red test is not "close enough." The system retries until convergence or it halts with a ruby verdict. No silent partial credit.</p>
+              <p>Determinism is cultural. Same agent, same plan, same gates &mdash; same outcome, or a written reason why not. Variance is a bug and we file it as one.</p>
+              <p>The seal, finally, is issued exactly once per task. It carries the commit, the gate log, the agent ID, the timestamp. Anything less is theater.</p>
+            </div>
+          </div>
+        </div>
+        <dl class="specs">
+          <dt>Family</dt><dd><code>EB Garamond</code> · 400, 500, italic 400</dd>
+          <dt>Measure</dt><dd>Target 58ch. Never below 45ch, never above 75ch.</dd>
+          <dt>Leading</dt><dd><code>1.62</code> at 17px. Increase to <code>1.7</code> for long-form reading.</dd>
+          <dt>Figures</dt><dd>Old-style figures on by default via <code>font-feature-settings: "onum" 1</code>.</dd>
+        </dl>
+      </div>
+
+      <!-- IV · MONO -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">IV</div>
+          <div class="chapter-title">
+            <h2>JetBrains Mono — the apparatus</h2>
+            <p class="desc">Commands, gate names, folio numbers, timestamps. The mechanical tongue.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="10" width="36" height="28" rx="3"/><path d="M12 20 L18 24 L12 28 M22 30 H36"/></svg>
+        </div>
+        <div class="plate plate--dark" style="padding: 32px;">
+          <span class="plate-cap">mono · ⧉</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="mono-strip">
+            <div><span class="pr">$</span> <span>babysitter call "add OAuth to /login"</span></div>
+            <div><span class="muted">↻ planning · iteration 1 of 4 …</span></div>
+            <div><span style="color: var(--gem-emerald);">✓</span> gate · lint <span class="muted">— 0 issues</span></div>
+            <div><span style="color: var(--gem-emerald);">✓</span> gate · test <span class="muted">— 24 / 24 passing</span></div>
+            <div><span style="color: var(--gem-amber);">⚠</span> gate · audit <span class="muted">— advisory, revising</span></div>
+            <div style="color:#E6C06A; font-family: var(--font-display); font-style: italic; font-size: 17px; margin-top: 6px;">⟡ the seal is struck — proof-of-done issued</div>
+          </div>
+        </div>
+        <dl class="specs">
+          <dt>Family</dt><dd><code>JetBrains Mono</code> · 400, 500, 700</dd>
+          <dt>Use</dt><dd>Code, commands, gate chips, folio numbers, figure labels — anything that should feel mechanical.</dd>
+          <dt>Tracking</dt><dd>Labels <code>.24em</code> to <code>.3em</code> uppercase. Code 0.</dd>
+        </dl>
+      </div>
+
+      <!-- V · ATLAS -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">V</div>
+          <div class="chapter-title">
+            <h2>An Atlas of Small Type</h2>
+            <p class="desc">The marginalia — eyebrows, folio numbers, captions, glyph strings. Their job is to not be noticed, then to be exact.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="6" width="14" height="14"/><rect x="28" y="6" width="14" height="14"/><rect x="6" y="28" width="14" height="14"/><rect x="28" y="28" width="14" height="14"/></svg>
+        </div>
+        <div class="plate" style="padding: 36px 32px;">
+          <span class="plate-cap">atlas · μ</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div class="atlas">
+            <div class="atlas-item">
+              <span class="atlas-name">eyebrow</span>
+              <div class="atlas-demo"><span class="a-eyebrow">Vol. i · Chapter iii</span></div>
+              <div class="a-caption">JetBrains Mono · 11 · .28em · uppercase</div>
+            </div>
+            <div class="atlas-item">
+              <span class="atlas-name">folio</span>
+              <div class="atlas-demo"><span class="a-folio">fol. iii / viii</span></div>
+              <div class="a-caption">JetBrains Mono · 10 · .3em · uppercase</div>
+            </div>
+            <div class="atlas-item">
+              <span class="atlas-name">caption</span>
+              <div class="atlas-demo"><span class="a-caption">fig. iv — the ruby halts all further iteration.</span></div>
+              <div class="a-caption">EB Garamond italic · 13 · 1.45</div>
+            </div>
+            <div class="atlas-item">
+              <span class="atlas-name">glyph · string</span>
+              <div class="atlas-demo"><span class="a-glyph">⟡ ✦ ✧ ◊ ✦ ⟡</span></div>
+              <div class="a-caption">JetBrains Mono · .3em · decorative rule</div>
+            </div>
+            <div class="atlas-item">
+              <span class="atlas-name">code · inline</span>
+              <div class="atlas-demo" style="font-family: var(--font-body); font-size: 14px;">Run <code style="font-family: var(--font-mono); background: rgba(27,22,17,.08); padding: 1px 6px; border-radius: 2px; font-size: 12.5px;">babysitter init</code> to begin.</div>
+              <div class="a-caption">JetBrains Mono · .92em inherit</div>
+            </div>
+            <div class="atlas-item">
+              <span class="atlas-name">chip · label</span>
+              <div class="atlas-demo"><span style="display:inline-block; padding: 3px 10px; border: 1px solid var(--gem-emerald); color: var(--gem-emerald); border-radius: 999px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase;">gate · passed</span></div>
+              <div class="a-caption">JetBrains Mono 10 · .22em · uppercase</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VI · PAIRINGS -->
+      <div class="chapter">
+        <div class="chapter-head">
+          <div class="chapter-num">VI</div>
+          <div class="chapter-title">
+            <h2>The Three Correct Pairings</h2>
+            <p class="desc">How the voices sit beside each other. There is no fourth pairing worth discussing.</p>
+          </div>
+          <svg class="chapter-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 12 V36 M36 12 V36 M12 24 H36"/></svg>
+        </div>
+        <div class="plate" style="padding: 32px;">
+          <span class="plate-cap">pair · τ</span>
+          <span class="br-corner tl"></span><span class="br-corner tr"></span><span class="br-corner bl"></span><span class="br-corner br"></span>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="pair">
+              <div>
+                <div class="tag">display · over · body</div>
+                <h4>The recipes are more valuable than the kitchen.</h4>
+                <p>A short paragraph in EB Garamond sits beneath a Cormorant display. The italic of one answers the upright of the other. Leading 1.5 on 15px holds the measure.</p>
+              </div>
+              <div>
+                <div class="tag">display · over · mono</div>
+                <h4>Proof of done</h4>
+                <p style="font-family: var(--font-mono); font-size: 13px; line-height: 1.7;"><span style="color: var(--cinnabar);">$</span> babysitter seal<br/><span style="color: var(--ink-quiet);">// receipt issued · 2048-bit · archive</span></p>
+              </div>
+            </div>
+            <div class="pair">
+              <div style="grid-column: span 2;">
+                <div class="tag">eyebrow · over · display</div>
+                <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-quiet); margin-bottom: 4px;">chapter iv · convergence</div>
+                <h4 style="font-size: 38px;">The loop is the product.</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="colophon">
+        <span>a5c.ai · design · codex</span>
+        <span class="diamond">✦ ✦ ✦</span>
+        <span class="right">fol · iii of viii</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T13:26:35.067Z",
+  "data": {
+    "effectId": "01KPR3H8RM1QPF92BY5BJ8YH4G",
+    "invocationKey": "design-system-repo:S000010:vite-build-verify",
+    "invocationHash": "9b80d229fa64c95fbfff3801312f467724512f308b3e870d5ccbb53ab9ad3134",
+    "stepId": "S000010",
+    "taskId": "vite-build-verify",
+    "kind": "shell",
+    "label": "verify",
+    "taskDefRef": "tasks/01KPR3H8RM1QPF92BY5BJ8YH4G/task.json",
+    "labels": [
+      "verify",
+      "build",
+      "vite"
+    ],
+    "harness": "claude-code",
+    "sessionId": "97be9ff3-6f5b-4a8f-856a-47f110405464"
+  },
+  "checksum": "418ccb065a637866100123239f553bb9e1383440a1743e51fbd9be5f7c83aefa"
+}

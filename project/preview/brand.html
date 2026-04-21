@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Brand — a5c.ai Codex</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  :root {
+    --page: #F0E6D1;
+    --page-deep: #E8DCC3;
+    --page-dark: #1A120A;
+    --ink: #1B1611;
+    --ink-soft: #3E342A;
+    --ink-quiet: #8A7B64;
+    --rule-q: color-mix(in oklab, var(--ink) 18%, transparent);
+    --rule-m: color-mix(in oklab, var(--ink) 36%, transparent);
+    --cinnabar: #C03A2B;
+    --brass: #C98A3E;
+    --viridian: #2F6F5E;
+  }
+
+  html, body { margin: 0; background: #0C0805; color: var(--ink); }
+  body {
+    padding: 56px 24px 96px;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    background:
+      radial-gradient(1400px 700px at 50% -10%, rgba(212,168,75,.08), transparent 60%),
+      #0C0805;
+  }
+  .sheet {
+    max-width: 1120px;
+    margin: 0 auto;
+    background: var(--page);
+    padding: 80px 88px 96px;
+    position: relative;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.35) inset,
+      0 0 0 1px #2E1E12,
+      0 40px 100px -30px rgba(0,0,0,.8);
+  }
+  .sheet::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: .18;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .sheet > * { position: relative; }
+
+  /* ── Masthead ────────────────────────────────────────── */
+  .masthead {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: end;
+    gap: 32px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .masthead::after {
+    content: ""; display: block; height: 3px;
+    background: var(--ink); margin-top: 3px;
+  }
+  .folio-mark {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: .32em; text-transform: uppercase;
+    color: var(--ink-quiet);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .folio-mark .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cinnabar); }
+  .masthead h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -.02em;
+    margin: 0;
+    text-align: center;
+  }
+  .masthead h1 em { font-style: italic; color: var(--ink-quiet); font-weight: 400; }
+  .masthead-sub {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0 12px;
+  }
+  .masthead-sub .rule { height: 1px; background: var(--rule-m); }
+  .masthead-sub .diamond {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-quiet);
+    letter-spacing: .42em;
+  }
+
+  /* ── Section heads (shared rhythm with Components) ─── */
+  .section { margin-top: 80px; }
+  .section:first-of-type { margin-top: 48px; }
+  .section-head {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    margin-bottom: 32px;
+  }
+  .section-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 48px;
+    color: var(--cinnabar);
+    line-height: 1;
+    text-align: right;
+    padding-right: 12px;
+    border-right: 1px solid var(--rule-m);
+  }
+  .section-title-block h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 1.05;
+    margin: 0 0 6px;
+    letter-spacing: -.01em;
+  }
+  .section-title-block .desc {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin: 0;
+  }
+  .section-title-block .meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+    margin-top: 10px;
+  }
+
+  /* ── Hero wordmark plate ─────────────────────────────── */
+  .hero-mark {
+    background: var(--page-deep);
+    padding: 80px 40px 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    box-shadow: inset 0 0 0 1px var(--rule-q);
+  }
+  .hero-mark .cap {
+    position: absolute; left: 14px; top: 12px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .hero-mark .corner {
+    position: absolute;
+    width: 24px; height: 24px;
+    border: 1px solid var(--ink-quiet);
+  }
+  .hero-mark .corner.tl { top: 20px; left: 20px; border-right: 0; border-bottom: 0; }
+  .hero-mark .corner.tr { top: 20px; right: 20px; border-left: 0; border-bottom: 0; }
+  .hero-mark .corner.bl { bottom: 20px; left: 20px; border-right: 0; border-top: 0; }
+  .hero-mark .corner.br { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
+
+  .wordmark-row { display: flex; align-items: center; gap: 24px; }
+  .wordmark-row svg { width: 84px; height: 84px; }
+  .wordmark-word {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 148px;
+    line-height: .9;
+    letter-spacing: -.03em;
+    color: var(--ink);
+  }
+  .wordmark-word .dot { color: var(--cinnabar); }
+  .wordmark-under {
+    display: flex; align-items: center; gap: 18px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .36em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .wordmark-under .bar { width: 40px; height: 1px; background: var(--ink-soft); }
+  .tagline-line {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* ── Wordmark specimens (light/dark) ─────────────────── */
+  .specimens {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .specimen {
+    padding: 56px 40px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 18px;
+    min-height: 260px;
+    position: relative;
+  }
+  .specimen .cap {
+    position: absolute; left: 14px; top: 12px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .specimen--light { background: var(--page-deep); box-shadow: inset 0 0 0 1px var(--rule-q); }
+  .specimen--dark { background: var(--page-dark); color: var(--page); box-shadow: inset 0 0 0 1px rgba(240,230,209,.08); }
+  .specimen--dark .cap { color: rgba(240,230,209,.45); }
+  .specimen-word {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .specimen-word .dot { color: var(--cinnabar); }
+  .specimen-under {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .36em;
+    text-transform: uppercase;
+    color: currentColor;
+    opacity: .55;
+  }
+
+  /* ── Monogram quartet ────────────────────────────────── */
+  .mono-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .mono-cell {
+    padding: 40px 16px 22px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 14px;
+    position: relative;
+    min-height: 220px;
+  }
+  .mono-cell .cap {
+    position: absolute; left: 14px; top: 12px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+    color: currentColor; opacity: .55;
+  }
+  .mono-cell--ink { background: var(--page-deep); color: var(--ink); box-shadow: inset 0 0 0 1px var(--rule-q); }
+  .mono-cell--void { background: var(--page-dark); color: var(--page); box-shadow: inset 0 0 0 1px rgba(240,230,209,.1); }
+  .mono-cell--cinnabar { background: var(--cinnabar); color: var(--page); }
+  .mono-cell--brass {
+    background: linear-gradient(180deg, #F2C88F 0%, #D9A96A 45%, #B37E3E 100%);
+    color: #2A1607;
+  }
+  .mono-cell svg { width: 84px; height: 84px; }
+  .mono-cell .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .mono-cell .size {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 13px;
+    opacity: .7;
+  }
+
+  /* ── Glyph alphabet ──────────────────────────────────── */
+  .alphabet {
+    background: var(--page-deep);
+    padding: 40px 32px;
+    box-shadow: inset 0 0 0 1px var(--rule-q);
+    position: relative;
+  }
+  .alphabet .cap {
+    position: absolute; left: 14px; top: 12px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 28px 20px;
+  }
+  .glyph-cell {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    padding-top: 8px;
+  }
+  .glyph-cell svg {
+    width: 56px; height: 56px; color: var(--ink);
+  }
+  .glyph-cell .g-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .alphabet-string {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--rule-m);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    letter-spacing: .5em;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* ── Voice table ─────────────────────────────────────── */
+  .voice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .voice-col {
+    padding: 32px 28px;
+    position: relative;
+  }
+  .voice-col .cap {
+    position: absolute; left: 14px; top: 12px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .voice-col--yes { background: color-mix(in oklab, var(--viridian) 8%, var(--page-deep)); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--viridian) 30%, transparent); }
+  .voice-col--no { background: color-mix(in oklab, var(--cinnabar) 7%, var(--page-deep)); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--cinnabar) 28%, transparent); }
+  .voice-col h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1;
+    margin: 14px 0 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .voice-col--yes h3 { color: var(--viridian); }
+  .voice-col--no h3 { color: var(--cinnabar); }
+  .voice-col h3 svg { width: 22px; height: 22px; }
+  .voice-list { display: grid; gap: 14px; }
+  .voice-item {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.45;
+    color: var(--ink);
+    padding-left: 18px;
+    border-left: 1px solid var(--rule-m);
+  }
+  .voice-col--yes .voice-item { border-left-color: color-mix(in oklab, var(--viridian) 50%, transparent); }
+  .voice-col--no .voice-item {
+    border-left-color: color-mix(in oklab, var(--cinnabar) 50%, transparent);
+    color: var(--ink-soft);
+    text-decoration: line-through;
+    text-decoration-color: color-mix(in oklab, var(--cinnabar) 40%, transparent);
+    text-decoration-thickness: 1px;
+  }
+
+  /* ── Seals row ───────────────────────────────────────── */
+  .seals-plate {
+    background: var(--page-deep);
+    padding: 56px 40px 48px;
+    box-shadow: inset 0 0 0 1px var(--rule-q);
+    position: relative;
+  }
+  .seals-plate .cap {
+    position: absolute; left: 14px; top: 12px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .seals-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    align-items: end;
+  }
+  .seal-col { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .seal-col .seal-name {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .seal-col .seal-desc {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-align: center;
+    max-width: 22ch;
+    line-height: 1.4;
+  }
+  .seal-disc {
+    width: 108px; height: 108px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    color: #F8E9CC;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.1;
+    letter-spacing: .02em;
+    position: relative;
+    box-shadow:
+      inset 0 2px 4px rgba(255,255,255,.18),
+      inset 0 -3px 6px rgba(0,0,0,.5),
+      0 4px 10px rgba(0,0,0,.35);
+    transform: rotate(-5deg);
+  }
+  .seal-disc::before {
+    content: ""; position: absolute; inset: 9px; border-radius: 50%;
+    border: 1px dashed rgba(248,233,204,.4);
+  }
+  .seal-disc span { position: relative; padding: 4px 8px; }
+  .seal-disc.cinnabar { background: radial-gradient(circle at 32% 30%, #D94835 0%, #8E2015 55%, #5A120B 100%); }
+  .seal-disc.viridian { background: radial-gradient(circle at 32% 30%, #5AAE82 0%, #2E6B4E 55%, #1A3F2D 100%); }
+  .seal-disc.brass { background: radial-gradient(circle at 32% 30%, #F3D39B 0%, #C98A3E 50%, #5C3A14 100%); color: #2A1607; }
+  .seal-disc.indigo { background: radial-gradient(circle at 32% 30%, #7C7BBB 0%, #2B2A6B 55%, #121238 100%); }
+
+  /* ── Colophon ────────────────────────────────────────── */
+  .colophon {
+    margin-top: 96px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .colophon .diamond { color: var(--ink); letter-spacing: .4em; }
+  .colophon .right { text-align: right; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="masthead">
+    <div class="folio-mark"><span class="dot"></span>a5c · codex · vol. i</div>
+    <h1>Sigils <em>&amp;</em> Voice</h1>
+    <div class="folio-mark">folio · i</div>
+  </div>
+  <div class="masthead-sub">
+    <div class="rule"></div>
+    <div class="diamond">✦  the marks of a5c.ai  ✦</div>
+    <div class="rule"></div>
+  </div>
+
+  <!-- I · HERO WORDMARK -->
+  <div class="section" style="margin-top: 56px;">
+    <div class="section-head">
+      <div class="section-num">I</div>
+      <div class="section-title-block">
+        <h2>The wordmark</h2>
+        <p class="desc">Cormorant Garamond, medium weight, optically kerned. The cinnabar dot is the only ornament — never coloured otherwise, never removed.</p>
+        <div class="meta">primary · lockup</div>
+      </div>
+    </div>
+
+    <div class="hero-mark">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <span class="cap">plate · a</span>
+
+      <div class="wordmark-under">
+        <span class="bar"></span>
+        <span>codex · of · reliable · autonomy</span>
+        <span class="bar"></span>
+      </div>
+
+      <div class="wordmark-row">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <g fill="none" stroke="#1B1611" stroke-width="1.6" stroke-linecap="round">
+            <circle cx="60" cy="60" r="54"/>
+            <circle cx="60" cy="60" r="44" stroke-dasharray="2 4"/>
+            <path d="M34 88 L60 26 L86 88 M42 72 H78"/>
+            <circle cx="60" cy="60" r="3.5" fill="#C03A2B" stroke="none"/>
+          </g>
+        </svg>
+        <span class="wordmark-word">a5c<span class="dot">.</span>ai</span>
+      </div>
+
+      <div class="tagline-line">Reliable AI workflows · for teams that ship</div>
+    </div>
+  </div>
+
+  <!-- II · SPECIMENS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">II</div>
+      <div class="section-title-block">
+        <h2>Specimens, on vellum &amp; on void</h2>
+        <p class="desc">The wordmark holds on either ground. On dark, ink becomes bone; the dot stays cinnabar.</p>
+        <div class="meta">component · wordmark</div>
+      </div>
+    </div>
+    <div class="specimens">
+      <div class="specimen specimen--light">
+        <span class="cap">on · vellum</span>
+        <span class="specimen-word">a5c<span class="dot">.</span>ai</span>
+        <span class="specimen-under">ink #1B1611 · cinnabar #C03A2B</span>
+      </div>
+      <div class="specimen specimen--dark">
+        <span class="cap">on · void</span>
+        <span class="specimen-word">a5c<span class="dot">.</span>ai</span>
+        <span class="specimen-under">bone #F0E6D1 · cinnabar #C03A2B</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- III · MONOGRAM -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">III</div>
+      <div class="section-title-block">
+        <h2>The monogram</h2>
+        <p class="desc">An engraved <em>A</em> inside a dashed orbit, with a cinnabar gem at its centre. Used at favicon size and up; never smaller than 24px.</p>
+        <div class="meta">component · mark</div>
+      </div>
+    </div>
+    <div class="mono-grid">
+      <div class="mono-cell mono-cell--ink">
+        <span class="cap">ink · on · vellum</span>
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="60" cy="60" r="54"/>
+            <circle cx="60" cy="60" r="44" stroke-dasharray="2 4"/>
+            <path d="M34 88 L60 26 L86 88 M42 72 H78"/>
+            <circle cx="60" cy="60" r="3.5" fill="#C03A2B" stroke="currentColor" stroke-width="0"/>
+          </g>
+        </svg>
+        <span class="label">positive</span>
+        <span class="size">— preferred</span>
+      </div>
+      <div class="mono-cell mono-cell--void">
+        <span class="cap">bone · on · void</span>
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="60" cy="60" r="54"/>
+            <circle cx="60" cy="60" r="44" stroke-dasharray="2 4"/>
+            <path d="M34 88 L60 26 L86 88 M42 72 H78"/>
+            <circle cx="60" cy="60" r="3.5" fill="#C03A2B" stroke="currentColor" stroke-width="0"/>
+          </g>
+        </svg>
+        <span class="label">night · mode</span>
+        <span class="size">— terminal</span>
+      </div>
+      <div class="mono-cell mono-cell--cinnabar">
+        <span class="cap">bone · on · cinnabar</span>
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="60" cy="60" r="54"/>
+            <circle cx="60" cy="60" r="44" stroke-dasharray="2 4"/>
+            <path d="M34 88 L60 26 L86 88 M42 72 H78"/>
+            <circle cx="60" cy="60" r="3.5" fill="currentColor" stroke="none"/>
+          </g>
+        </svg>
+        <span class="label">stamp</span>
+        <span class="size">— reverse</span>
+      </div>
+      <div class="mono-cell mono-cell--brass">
+        <span class="cap">ink · on · brass</span>
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="60" cy="60" r="54"/>
+            <circle cx="60" cy="60" r="44" stroke-dasharray="2 4"/>
+            <path d="M34 88 L60 26 L86 88 M42 72 H78"/>
+            <circle cx="60" cy="60" r="3.5" fill="#C03A2B" stroke="currentColor" stroke-width="0"/>
+          </g>
+        </svg>
+        <span class="label">plate</span>
+        <span class="size">— ceremonial</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- IV · GLYPH ALPHABET -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">IV</div>
+      <div class="section-title-block">
+        <h2>The glyph alphabet</h2>
+        <p class="desc">Mode insignia, verdict marks, decorative punctuation. All drawn on a 48-unit grid with 1.4 stroke; colour inherits from context.</p>
+        <div class="meta">component · glyph</div>
+      </div>
+    </div>
+    <div class="alphabet">
+      <span class="cap">plate · d</span>
+      <div class="alphabet-grid">
+        <div class="glyph-cell">
+          <svg viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="24" cy="24" r="18"/><path d="M14 24 H34 M24 14 V34"/><circle cx="24" cy="24" r="3" fill="currentColor"/></g></svg>
+          <span class="g-label">interactive</span>
+        </div>
+        <div class="glyph-cell">
+          <svg viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M10 10 H38 V38 H10 Z"/><path d="M10 18 H38 M18 18 V38"/><path d="M22 24 H34 M22 30 H30"/><circle cx="14" cy="14" r="1.5" fill="currentColor"/></g></svg>
+          <span class="g-label">plan first</span>
+        </div>
+        <div class="glyph-cell">
+          <svg viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 34 L24 10 L36 34 Z"/><path d="M18 28 H30"/><circle cx="24" cy="22" r="2" fill="#C03A2B" stroke="none"/></g></svg>
+          <span class="g-label">yolo</span>
+        </div>
+        <div class="glyph-cell">
+          <svg viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M16 24 A6 6 0 1 1 22 30 L26 18 A6 6 0 1 1 32 24 A6 6 0 1 1 26 30 L22 18 A6 6 0 1 1 16 24 Z"/></g></svg>
+          <span class="g-label">forever</span>
+        </div>
+        <div class="glyph-cell">
+          <svg viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M8 24 L18 14 L30 26 L40 16"/><path d="M30 26 L24 32 L22 38"/></g></svg>
+          <span class="g-label">convergence</span>
+        </div>
+        <div class="glyph-cell">
+          <svg viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="24" cy="24" r="16"/><path d="M16 24 L22 30 L32 18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"/></g></svg>
+          <span class="g-label">gate passed</span>
+        </div>
+        <div class="glyph-cell">
+          <svg viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="24" cy="24" r="14"/><path d="M16 16 L32 32 M32 16 L16 32"/></g></svg>
+          <span class="g-label">gate failed</span>
+        </div>
+        <div class="glyph-cell">
+          <svg viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="24" cy="24" r="16"/><path d="M24 14 V24 L32 28"/></g></svg>
+          <span class="g-label">iteration</span>
+        </div>
+      </div>
+      <div class="alphabet-string">⟡  ◊  ⟡  ·  ∴  ·  §  ·  ¶  ·  ⧖  ·  ⨯  ·  ✓  ·  ⟡  ◊  ⟡</div>
+    </div>
+  </div>
+
+  <!-- V · VOICE -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">V</div>
+      <div class="section-title-block">
+        <h2>Voice</h2>
+        <p class="desc">Short declarative lines. Second person. Specificity instead of superlatives; one idea per sentence.</p>
+        <div class="meta">rules · voice</div>
+      </div>
+    </div>
+    <div class="voice">
+      <div class="voice-col voice-col--yes">
+        <span class="cap">plate · e · i</span>
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L10 18 L20 6"/></svg>
+          Say
+        </h3>
+        <div class="voice-list">
+          <p class="voice-item">Reliable AI workflows for teams that ship.</p>
+          <p class="voice-item">Tasks converge. PRs get merged. Done means done.</p>
+          <p class="voice-item">Same agents. Better outcomes.</p>
+          <p class="voice-item">You define <em>done</em>. The gates enforce it. The seal proves it.</p>
+          <p class="voice-item">The recipes are more valuable than the kitchen.</p>
+        </div>
+      </div>
+      <div class="voice-col voice-col--no">
+        <span class="cap">plate · e · ii</span>
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6 L18 18 M18 6 L6 18"/></svg>
+          Avoid
+        </h3>
+        <div class="voice-list">
+          <p class="voice-item">Unlock the power of AI-driven development.</p>
+          <p class="voice-item">Revolutionary orchestration platform, reimagined.</p>
+          <p class="voice-item">Empowering engineering teams with next-generation tooling.</p>
+          <p class="voice-item">Let our cutting-edge AI handle the heavy lifting.</p>
+          <p class="voice-item">Unleash productivity at the speed of thought.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VI · SEALS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">VI</div>
+      <div class="section-title-block">
+        <h2>Seals, struck once</h2>
+        <p class="desc">The wax seal is reserved for terminal events — a task converged, a proof emitted, an artifact signed. Four mintages, one per occasion.</p>
+        <div class="meta">component · seal</div>
+      </div>
+    </div>
+    <div class="seals-plate">
+      <span class="cap">plate · f</span>
+      <div class="seals-row">
+        <div class="seal-col">
+          <div class="seal-disc cinnabar"><span>gate<br/>passed</span></div>
+          <span class="seal-name">cinnabar</span>
+          <span class="seal-desc">Struck once all quality gates have cleared.</span>
+        </div>
+        <div class="seal-col">
+          <div class="seal-disc viridian"><span>converged</span></div>
+          <span class="seal-name">viridian</span>
+          <span class="seal-desc">The loop reached a fixed point. Output is stable.</span>
+        </div>
+        <div class="seal-col">
+          <div class="seal-disc brass"><span>sealed</span></div>
+          <span class="seal-name">brass</span>
+          <span class="seal-desc">Artifact signed. Bound to merged PR or release.</span>
+        </div>
+        <div class="seal-col">
+          <div class="seal-disc indigo"><span>proof<br/>emitted</span></div>
+          <span class="seal-name">indigo</span>
+          <span class="seal-desc">Cryptographic proof-of-done issued to chain.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="colophon">
+    <span>a5c.ai · design · codex</span>
+    <span class="diamond">✦</span>
+    <span class="right">fol · i · of viii</span>
+  </div>
+</div>
+</body>
+</html>

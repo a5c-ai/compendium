@@ -1,0 +1,80 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "entryPoints": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "packageName": "@a5c-ai/compendium",
+        "projectDir": "."
+      },
+      "instructions": [
+        "Read the current src/ directory structure to understand what exists.",
+        "",
+        "Create/update src/index.ts:",
+        "  - Re-export everything from ./components",
+        "  - Re-export everything from ./icons",
+        "  - Re-export token types from ./tokens",
+        "  - Import ./tokens/index.css (so importing the package also imports base tokens)",
+        "",
+        "Create src/react.ts:",
+        "  - Re-export only React components (not icons or tokens)",
+        "",
+        "Create src/tokens.ts:",
+        "  - Re-export only tokens",
+        "",
+        "Create src/icons.ts:",
+        "  - Re-export only icons",
+        "",
+        "Update package.json exports field:",
+        "  \".\": { import: \"./dist/index.js\", require: \"./dist/index.cjs\", types: \"./dist/index.d.ts\" }",
+        "  \"./react\": { import: \"./dist/react.js\", require: \"./dist/react.cjs\", types: \"./dist/react.d.ts\" }",
+        "  \"./tokens\": { import: \"./dist/tokens.js\", require: \"./dist/tokens.cjs\", types: \"./dist/tokens.d.ts\" }",
+        "  \"./icons\": { import: \"./dist/icons.js\", require: \"./dist/icons.cjs\", types: \"./dist/icons.d.ts\" }",
+        "  \"./css\": \"./dist/tokens/index.css\"",
+        "  \"./css/*\": \"./dist/*.css\"",
+        "",
+        "Update vite.config.ts to include multiple entry points: index, react, tokens, icons.",
+        "",
+        "IMPORTANT: Actually modify the files. Verify they import/export correctly."
+      ],
+      "outputFormat": "JSON",
+      "role": "Package architecture specialist",
+      "task": "Set up barrel exports and package.json subpath exports for @a5c-ai/compendium."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPR33KHEF9EZ8YVJRBR83TPE/input.json",
+    "outputJsonPath": "tasks/01KPR33KHEF9EZ8YVJRBR83TPE/output.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "exports",
+    "package"
+  ],
+  "title": "Configure barrel exports and package.json exports map",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPR33KHEF9EZ8YVJRBR83TPE",
+  "taskId": "setup-exports",
+  "invocationKey": "design-system-repo:S000007:setup-exports",
+  "stepId": "S000007",
+  "inputs": {
+    "packageName": "@a5c-ai/compendium",
+    "projectDir": "."
+  }
+}

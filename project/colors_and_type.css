@@ -1,0 +1,333 @@
+/* ============================================================
+   a5c.ai Design System — Codex edition
+   colors_and_type.css
+   Load this first; everything else assumes these vars exist.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+:root {
+  /* ----- COLORS: Vellum & Cipher ----- */
+
+  /* Grounds */
+  --ground-vellum:    #EDE3CF;
+  --ground-parchment: #D9CBAE;
+  --ground-void:      #0B0A0F;
+  --ground-ink:       #181624;
+
+  /* Ink (text on vellum / light) */
+  --ink-pigment: #1B1611;
+  --ink-fade:    #5A4E3C;
+  --ink-ghost:   #8C7E65;
+
+  /* Glyph (text on void / dark) */
+  --glyph-bone: #F0E6D1;
+  --glyph-fade: #A89980;
+
+  /* Accents — used like illuminations, sparingly */
+  --accent-cinnabar: #C03A2B; /* the seal */
+  --accent-indigo:   #2B2A6B; /* cold diagrammatic */
+  --accent-viridian: #2F6F5E; /* gate passed */
+  --accent-sulphur:  #D4A84B; /* gold leaf / warning */
+
+  /* Gemstones — jewels embedded on brass. Sparing, ceremonial. */
+  --gem-cyan:    #16D7E6; /* topaz / aquamarine — iteration, info */
+  --gem-magenta: #E23FB4; /* amethyst — the unknown, commentary */
+  --gem-ruby:    #D81F3D; /* ruby — terminal states, failure, seal */
+  --gem-emerald: #3EA676; /* emerald — verdict pass */
+  --gem-amber:   #E0A63A; /* amber — pending, warning */
+
+  /* Brass registers */
+  --brass-light: #F2C88F;
+  --brass:       #C98A3E;
+  --brass-deep:  #8E5A26;
+  --brass-shadow:#3E1E0E;
+  --leather:     #5B3817;
+  --mahogany:    #2A1607;
+
+  /* Semantic */
+  --gate-pass: var(--accent-viridian);
+  --gate-fail: var(--accent-cinnabar);
+  --info:      var(--accent-indigo);
+  --warn:      var(--accent-sulphur);
+
+  /* Foreground/Background aliases (light mode default) */
+  --bg:   var(--ground-vellum);
+  --bg-2: var(--ground-parchment);
+  --fg:   var(--ink-pigment);
+  --fg-2: var(--ink-fade);
+  --fg-3: var(--ink-ghost);
+  --rule: color-mix(in oklab, var(--ink-fade) 45%, transparent);
+
+  /* ----- TYPE FAMILIES ----- */
+  --font-display: 'Cormorant Garamond', 'Cormorant', 'Garamond', 'Didot', serif;
+  --font-body:    'EB Garamond', 'Garamond', Georgia, 'Times New Roman', serif;
+  --font-mono:    'JetBrains Mono', 'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* ----- TYPE SIZES (fluid-ish, desktop primary) ----- */
+  --fs-hairline: 11px;   /* tiny labels, folio numbers */
+  --fs-caption:  13px;   /* marginalia, figure caps */
+  --fs-small:    14px;
+  --fs-body:     17px;   /* prose default */
+  --fs-lead:     20px;
+  --fs-h5:       22px;
+  --fs-h4:       28px;
+  --fs-h3:       36px;
+  --fs-h2:       52px;
+  --fs-h1:       84px;   /* hero */
+  --fs-display:  120px;  /* deck titles */
+
+  /* line heights */
+  --lh-tight:  1.02;
+  --lh-snug:   1.18;
+  --lh-normal: 1.45;
+  --lh-prose:  1.62;
+
+  /* letter spacing */
+  --ls-display:  -0.02em;
+  --ls-tight:    -0.01em;
+  --ls-normal:   0;
+  --ls-label:    0.14em;  /* all-caps labels */
+  --ls-glyph:    0.28em;  /* glyph strings, "⟡ ◊ ⟡" */
+
+  /* ----- SPACING ----- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  /* measure (column widths) */
+  --measure-body: 58ch;
+  --measure-caption: 42ch;
+
+  /* ----- RADII ----- */
+  --r-0: 0;
+  --r-1: 2px;
+  --r-pill: 999px;
+
+  /* ----- SHADOWS / PLATES ----- */
+  --shadow-plate:      3px 3px 0 var(--ink-pigment);
+  --shadow-plate-dark: 3px 3px 0 var(--glyph-bone);
+  --shadow-stamp:      0 0 0 1px var(--accent-cinnabar);
+  --shadow-fold:       inset 0 1px 0 rgba(0,0,0,.08);
+
+  /* ----- MOTION ----- */
+  --ease-codex: cubic-bezier(.2,.7,.2,1);
+  --dur-quick: 160ms;
+  --dur-base:  320ms;
+  --dur-slow:  520ms;
+}
+
+/* ----- DARK MODE / VOID CONTEXTS ----- */
+.void, [data-theme="void"] {
+  --bg:   var(--ground-void);
+  --bg-2: var(--ground-ink);
+  --fg:   var(--glyph-bone);
+  --fg-2: var(--glyph-fade);
+  --fg-3: color-mix(in oklab, var(--glyph-fade) 70%, transparent);
+  --rule: color-mix(in oklab, var(--glyph-fade) 40%, transparent);
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT STYLES
+   Use by adding the class or wrapping in a .codex-prose block.
+   ============================================================ */
+
+.codex-prose,
+.codex {
+  color: var(--fg);
+  background: var(--bg);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-prose);
+  font-feature-settings: "kern", "liga", "onum" 1;
+}
+
+/* Headings */
+.h-display, .codex h1.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--fg);
+  margin: 0;
+}
+.h1, .codex h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  margin: 0 0 var(--s-5);
+}
+.h2, .codex h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  margin: var(--s-8) 0 var(--s-4);
+}
+.h3, .codex h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  margin: var(--s-6) 0 var(--s-3);
+}
+.h4, .codex h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  margin: var(--s-5) 0 var(--s-3);
+}
+.h5, .codex h5 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-h5);
+  line-height: var(--lh-snug);
+  margin: var(--s-4) 0 var(--s-2);
+}
+
+/* Labels / small caps */
+.label, .eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-hairline);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  color: var(--fg-2);
+  font-weight: 500;
+}
+
+/* Body */
+.p, .codex p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-prose);
+  max-width: var(--measure-body);
+  margin: 0 0 var(--s-4);
+  text-wrap: pretty;
+  color: var(--fg);
+}
+.lead { font-size: var(--fs-lead); line-height: var(--lh-normal); }
+.caption, .codex figcaption {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: var(--fs-caption);
+  color: var(--fg-2);
+  max-width: var(--measure-caption);
+  line-height: var(--lh-normal);
+}
+
+/* Quotes */
+.codex blockquote, .pull-quote {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  color: var(--fg);
+  padding: var(--s-5) 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin: var(--s-7) 0;
+  max-width: var(--measure-body);
+}
+
+/* Code + monospace */
+.codex code, .mono, code {
+  font-family: var(--font-mono);
+  font-size: .92em;
+  background: color-mix(in oklab, var(--fg) 8%, transparent);
+  padding: 2px 6px;
+  border-radius: var(--r-1);
+}
+.codex pre, pre.codex {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  padding: var(--s-5);
+  background: var(--ground-void);
+  color: var(--glyph-bone);
+  border-radius: var(--r-1);
+  overflow-x: auto;
+}
+
+/* Links */
+.codex a, a.codex-link {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--fg-2);
+  transition: opacity var(--dur-quick) var(--ease-codex),
+              text-decoration-color var(--dur-quick) var(--ease-codex);
+}
+.codex a:hover { opacity: .78; text-decoration-color: var(--accent-cinnabar); }
+
+/* Rules & dividers */
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: var(--s-7) 0;
+}
+.rule-double {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  height: 6px;
+  margin: var(--s-7) 0;
+}
+
+/* Figure caption block */
+.fig {
+  font-family: var(--font-mono);
+  font-size: var(--fs-hairline);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  color: var(--fg-2);
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+}
+.fig::before {
+  content: '';
+  flex: 0 0 24px;
+  border-top: 1px solid var(--fg-2);
+  transform: translateY(-4px);
+}
+
+/* Glyph string (decorative) */
+.glyph-string {
+  font-family: var(--font-mono);
+  letter-spacing: var(--ls-glyph);
+  color: var(--fg-2);
+  text-align: center;
+  user-select: none;
+}
+
+/* Paper grain overlay — add class to body or section */
+.paper-grain {
+  position: relative;
+}
+.paper-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/></svg>");
+}
+.void .paper-grain::after, [data-theme="void"] .paper-grain::after {
+  opacity: .08;
+  mix-blend-mode: screen;
+}
