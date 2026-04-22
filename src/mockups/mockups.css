@@ -2088,11 +2088,37 @@
   grid-template-columns: 296px 1fr 128px;
   gap: 16px;
   padding: 40px 12px 18px;
-  background: linear-gradient(180deg, #f4ecd9 0%, #efe3cd 100%);
+  background:
+    radial-gradient(circle at 16% 8%, rgba(197, 151, 83, .12), transparent 18%),
+    radial-gradient(circle at 82% 88%, rgba(38, 89, 105, .08), transparent 20%),
+    linear-gradient(180deg, rgba(255,255,255,.62) 0%, transparent 22%),
+    linear-gradient(180deg, #f4ecd9 0%, #efe3cd 100%);
   color: #3e342a;
   border: 1px solid #bda98b;
   border-radius: 10px;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.45), 0 10px 30px rgba(73, 48, 24, 0.12);
+}
+
+.mk-seraph::before,
+.mk-seraph::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.mk-seraph::before {
+  inset: 32px 10px 10px;
+  border: 1px solid rgba(151, 118, 72, .35);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 0 0, rgba(120, 81, 42, .08), transparent 20%),
+    radial-gradient(circle at 100% 100%, rgba(120, 81, 42, .08), transparent 20%);
+}
+
+.mk-seraph::after {
+  inset: 36px 14px 14px;
+  border: 1px solid rgba(255,255,255,.32);
+  border-radius: 6px;
 }
 
 .mk-seraph__chrome {
@@ -2109,6 +2135,7 @@
   font-size: 10px;
   letter-spacing: .18em;
   text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(245, 236, 220, .8), rgba(232, 216, 189, .55));
 }
 
 .mk-seraph__traffic {
@@ -2146,7 +2173,9 @@
 .mk-seraph__aside {
   position: relative;
   border: 1px solid #c7b496;
-  background: rgba(252,248,240,.72);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), transparent 22%),
+    rgba(252,248,240,.78);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.38);
 }
 
@@ -2166,6 +2195,8 @@
   gap: 14px;
   padding: 4px 0;
   border-right: 1px solid rgba(188, 164, 128, 0.7);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.28), transparent 18%, rgba(177, 142, 91, .06) 100%);
 }
 
 .mk-seraph__dial {
@@ -2245,7 +2276,24 @@
   border: 1px solid #b79f7c;
   background: linear-gradient(180deg, #efe3cc, #eadac0);
   border-radius: 0 0 12px 12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(127, 90, 44, .18);
 }
+
+.mk-seraph__crest::before,
+.mk-seraph__crest::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #f0d59b 0%, #b77534 52%, #6d3923 100%);
+  box-shadow: 0 0 0 2px #7c4a26, inset 0 0 0 2px rgba(255,255,255,.28);
+}
+
+.mk-seraph__crest::before { left: 16px; }
+.mk-seraph__crest::after { right: 16px; }
 
 .mk-seraph__sun {
   position: absolute;
@@ -2268,6 +2316,12 @@
   inset: 20px 24px 10px;
   border-top: 3px solid #6f482b;
   border-radius: 50% 50% 0 0;
+}
+
+.mk-seraph__vine,
+.mk-seraph__vine::before,
+.mk-seraph__vine::after {
+  box-shadow: 0 -1px 0 rgba(255,255,255,.22);
 }
 
 .mk-seraph__vine::before,
@@ -2302,6 +2356,15 @@
   font-size: 18px;
   text-align: left;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 2px 0 #8a6f4f;
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+}
+
+.mk-seraph__new:hover,
+.mk-seraph__new:focus-visible {
+  transform: translateY(-1px);
+  filter: saturate(1.05) brightness(1.03);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 3px 0 #8a6f4f;
+  outline: none;
 }
 
 .mk-seraph__section-title {
@@ -2326,12 +2389,20 @@
   align-items: start;
   padding: 10px 8px;
   border-top: 1px solid #d7c6ab;
+  transition: background-color .16s ease, border-color .16s ease;
+}
+
+.mk-seraph__thread:hover {
+  background: rgba(249, 242, 229, .72);
 }
 
 .mk-seraph__thread.is-current {
-  background: rgba(246,236,214,.9);
+  background:
+    linear-gradient(90deg, rgba(28, 84, 99, .06), transparent 42%),
+    rgba(246,236,214,.96);
   border: 1px solid #ccb793;
   border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.48);
 }
 
 .mk-seraph__thread-glyph {
@@ -2370,6 +2441,7 @@
   border-radius: 999px;
   background: rgba(255,250,244,.85);
   font-size: 13px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
 }
 
 .mk-seraph__profile {
@@ -2461,11 +2533,14 @@
   padding: 16px 18px;
   border: 1px solid #c7b496;
   border-radius: 12px;
-  background: rgba(248,241,228,.94);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.34), transparent 36%),
+    rgba(248,241,228,.96);
   font-family: var(--font-display);
   font-size: 28px;
   line-height: 1.25;
   color: #493d2f;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 1px 0 rgba(126, 91, 52, .16);
 }
 
 .mk-seraph__prompt-bar span {
@@ -2492,9 +2567,12 @@
   position: relative;
   padding: 12px 14px;
   border: 1px solid #c7b496;
-  background: rgba(251,247,239,.92);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.26), transparent 38%),
+    rgba(251,247,239,.94);
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
 }
 
 .mk-seraph__card h4,
@@ -2579,7 +2657,10 @@
 .mk-seraph__diff {
   padding: 12px 14px;
   border: 1px solid #c7b496;
-  background: rgba(251,247,239,.92);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.26), transparent 38%),
+    rgba(251,247,239,.94);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
 }
 
 .mk-seraph__diff header {
@@ -2650,7 +2731,9 @@
   position: relative;
   padding: 10px 12px;
   border: 1px solid #c7b496;
-  background: rgba(250,246,238,.92);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22), transparent 34%),
+    rgba(250,246,238,.94);
   min-height: 110px;
 }
 
@@ -2665,7 +2748,10 @@
   gap: 10px;
   padding: 12px;
   border: 1px solid #c7b496;
-  background: rgba(248,241,228,.94);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.3), transparent 36%),
+    rgba(248,241,228,.96);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.48);
 }
 
 .mk-seraph__tool-row {
@@ -2796,6 +2882,7 @@
     radial-gradient(circle at 84% 62%, #c76c31 0 3px, transparent 4px),
     linear-gradient(180deg, transparent 46%, #7a5631 46% 48%, transparent 48%),
     rgba(247,239,225,.92);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.42);
 }
 
 .mk-seraph__sprout,
