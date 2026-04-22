@@ -43,6 +43,28 @@ import {
   ChatTyping,
   ChatWall,
 } from './ChatPrimitives';
+import {
+  CodexChapterHeader,
+  CodexDashboardChart,
+  CodexDashboardCommandPalette,
+  CodexDashboardFeed,
+  CodexDashboardGauges,
+  CodexDashboardHero,
+  CodexDashboardKpis,
+  CodexDashboardPanel,
+  CodexDashboardRail,
+  CodexDashboardShell,
+  CodexDashboardToolbar,
+  CodexDocsArticle,
+  CodexDocsCallout,
+  CodexDocsChapterMark,
+  CodexDocsFigure,
+  CodexDocsMargin,
+  CodexDocsShell,
+  CodexDocsToc,
+  CodexFrame,
+  CodexPlate,
+} from './CodexPrimitives';
 import './mockups.css';
 
 export type MockupName =
@@ -66,79 +88,6 @@ export interface MockupDefinition {
   sourceLabel?: string;
 }
 
-function CodexFrame({
-  title,
-  kicker,
-  folio,
-  colophon,
-  activeTab,
-  children,
-}: {
-  title: ReactNode;
-  kicker: string;
-  folio?: string;
-  colophon?: string;
-  activeTab: 'Philosophy' | 'UI Components' | 'Type' | 'Pigments' | 'Measure';
-  children: ReactElement;
-}) {
-  const tabs: Array<'Philosophy' | 'UI Components' | 'Type' | 'Pigments' | 'Measure'> = [
-    'Philosophy',
-    'UI Components',
-    'Type',
-    'Pigments',
-    'Measure',
-  ];
-  return (
-    <div className="mk-codex">
-      <nav className="mk-tabs-row">
-        {tabs.map((tab) => (
-          <span key={tab} className={`mk-tab ${tab === activeTab ? 'mk-tab--active' : ''}`}>
-            {tab}
-          </span>
-        ))}
-      </nav>
-      <div className="mk-casing">
-        <span className="mk-rivet mk-rivet--bl" />
-        <span className="mk-rivet mk-rivet--br" />
-        <div className="mk-page">
-          <div className="mk-gears" aria-hidden="true">
-            <svg viewBox="0 0 200 200" className="mk-gears__gear mk-gears__gear--lg">
-              <g fill="none" stroke="currentColor" strokeWidth="1.4">
-                <circle cx="100" cy="100" r="70" />
-                <circle cx="100" cy="100" r="54" />
-                <rect x="96" y="20" width="8" height="16" />
-                <rect x="96" y="164" width="8" height="16" />
-                <rect x="20" y="96" width="16" height="8" />
-                <rect x="164" y="96" width="16" height="8" />
-                <circle cx="100" cy="100" r="14" />
-              </g>
-            </svg>
-            <svg viewBox="0 0 200 200" className="mk-gears__gear mk-gears__gear--sm">
-              <g fill="none" stroke="currentColor" strokeWidth="1.4">
-                <circle cx="100" cy="100" r="70" />
-                <circle cx="100" cy="100" r="50" />
-                <circle cx="100" cy="100" r="16" />
-              </g>
-            </svg>
-          </div>
-          <header className="mk-codex-head">
-            <div className="mk-codex-vol">a5c · codex · vol. i{folio ? ` · ${folio}` : ''}</div>
-            <h1>{title}</h1>
-            <p>{kicker}</p>
-          </header>
-          {children}
-          {colophon ? (
-            <footer className="mk-colophon">
-              <span>a5c.ai · design · codex</span>
-              <span className="diamond">✦ ✦ ✦</span>
-              <span className="right">{colophon}</span>
-            </footer>
-          ) : null}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function AdsSurface() {
   return (
@@ -308,14 +257,7 @@ function BrandSurface() {
       activeTab="Philosophy"
     >
       <section className="mk-chapter">
-        <header className="mk-chapter__head mk-chapter__head--wide">
-          <span className="mk-chapter__num">I</span>
-          <div>
-            <h3>The wordmark</h3>
-            <p>Hero specimen, underlines, and the engraved signature line.</p>
-          </div>
-          <span className="mk-codex-meta">folio i · voice</span>
-        </header>
+        <CodexChapterHeader num="I" title="The wordmark" body="Hero specimen, underlines, and the engraved signature line." meta="folio i · voice" />
         <div className="mk-brand-hero">
           <span className="mk-brand-hero__cap">wordmark · master</span>
           <div className="mk-brand-hero__row">
@@ -337,28 +279,14 @@ function BrandSurface() {
             <small>product shell</small>
           </div>
         </div>
-        <header className="mk-chapter__head mk-chapter__head--wide">
-          <span className="mk-chapter__num">II</span>
-          <div>
-            <h3>Monograms and mode glyphs</h3>
-            <p>Reduced seals for rails, runbooks, and dispatch states.</p>
-          </div>
-          <span className="mk-codex-meta">registry</span>
-        </header>
+        <CodexChapterHeader num="II" title="Monograms and mode glyphs" body="Reduced seals for rails, runbooks, and dispatch states." meta="registry" />
         <div className="mk-brand-mono-grid">
           <div className="mk-brand-mono-cell"><span>ink</span><LogoMonogram style={{ width: 84 }} /><small>primary seal</small></div>
           <div className="mk-brand-mono-cell mk-brand-mono-cell--void"><span>void</span><LogoMonogramDark style={{ width: 84 }} /><small>night shell</small></div>
           <div className="mk-brand-mono-cell mk-brand-mono-cell--cin"><span>dispatch</span><GlyphModeInteractive style={{ width: 72 }} /><small>interactive</small></div>
           <div className="mk-brand-mono-cell mk-brand-mono-cell--brass"><span>modes</span><div className="mk-brand-glyphs"><GlyphModePlan style={{ width: 48 }} /><GlyphModeYolo style={{ width: 48 }} /><GlyphModeForever style={{ width: 48 }} /></div><small>plan · yolo · forever</small></div>
         </div>
-        <header className="mk-chapter__head mk-chapter__head--wide">
-          <span className="mk-chapter__num">III</span>
-          <div>
-            <h3>Voice, glyphs, and seals</h3>
-            <p>The secondary plates that make the folio read like a registry rather than a single specimen.</p>
-          </div>
-          <span className="mk-codex-meta">apparatus</span>
-        </header>
+        <CodexChapterHeader num="III" title="Voice, glyphs, and seals" body="The secondary plates that make the folio read like a registry rather than a single specimen." meta="apparatus" />
         <div className="mk-plate">
           <div className="mk-catalog-cap">alphabet · mode</div>
           <div className="mk-brand-alphabet-grid">
@@ -1098,12 +1026,11 @@ function ComponentsSurface() {
             <div className="mk-plate">
               <div className="mk-catalog-cap">command console</div>
               <div className="mk-components-console">
-                <span><span className="mk-components-console__prompt">$</span> babysitter call &quot;rebuild login using the design system&quot;</span>
-                <span className="muted">↻ planning · iteration 1 of 4 …</span>
-                <span>✓ gate · lint <span className="muted">— 0 issues</span></span>
-                <span>✓ gate · test <span className="muted">— 24 / 24 passing</span></span>
-                <span>⚠ gate · audit <span className="muted">— advisory, revising</span></span>
-                <span className="mk-components-console__seal">⟡ the seal is struck — proof-of-done issued</span>
+                <CodeBlock
+                  tone="terminal"
+                  language="bash"
+                  code={`$ babysitter call "rebuild login using the design system"\n↻ planning · iteration 1 of 4 …\n✓ gate · lint — 0 issues\n✓ gate · test — 24 / 24 passing\n⚠ gate · audit — advisory, revising\n⟡ the seal is struck — proof-of-done issued`}
+                />
               </div>
             </div>
             <div className="mk-plate">
@@ -1223,109 +1150,104 @@ function DashboardSurface() {
     { id: 'r-8840', workflow: 'Customer escalation · tier 2', agents: 'C · R', verdict: 'sealed', cost: '$0.19', sealed: '14:17:30' },
     { id: 'r-8839', workflow: 'Nightly data hygiene · warehouse', agents: 'J', verdict: 'fail', cost: '$1.04', sealed: '14:09:12' },
   ];
+  const bars = Array.from({ length: 24 }).map((_, index) => 80 + ((index * 17) % 120));
   return (
-    <section className="mk-dashboard">
-      <aside className="mk-dashboard__side-rail">
-        <div className="mk-dashboard__brand">
-          <LogoMonogram style={{ width: 28, height: 28 }} />
-          <strong>a·5·c·ai</strong>
-        </div>
-        <span>Foundry</span>
-        <button type="button" className="current">Overview</button>
-        <button type="button">Runs & telemetry</button>
-        <button type="button">Ledger</button>
-        <button type="button">Gates & verdicts</button>
-        <span>Agents</span>
-        <button type="button">Roster</button>
-        <button type="button">Seat pool</button>
-        <button type="button">Tools & MCP</button>
-        <footer>
-          <div className="mk-chat-avatar">E</div>
-          <div>
-            <strong>Elena Varga</strong>
-            <small>Foundry · Ops</small>
-          </div>
-        </footer>
-      </aside>
-      <div className="mk-dashboard__main">
-        <header className="mk-dashboard__hero">
-          <div>
-            <div className="mk-dashboard__crumbs">Foundry › Praxis Collective › Overview</div>
-            <h2>
-              Overview of <em>yesterday&apos;s convergence</em>
-            </h2>
-            <p>
-              A plain-spoken ledger of every agent conversation, gate verdict, and replay in the
-              last twenty-four hours.
-            </p>
-            <div className="mk-dashboard__dim">
-              <span />
-              <i>14 AUG 2026 · 00:00 → 23:59 · UTC</i>
-              <span />
+    <CodexDashboardShell
+      rail={(
+        <CodexDashboardRail
+          brand={<><LogoMonogram style={{ width: 28, height: 28 }} /><strong>a·5·c·ai</strong></>}
+          sections={[
+            {
+              title: 'Foundry',
+              items: [
+                { label: 'Overview', current: true },
+                { label: 'Runs & telemetry' },
+                { label: 'Ledger' },
+                { label: 'Gates & verdicts' },
+              ],
+            },
+            {
+              title: 'Agents',
+              items: [
+                { label: 'Roster' },
+                { label: 'Seat pool' },
+                { label: 'Tools & MCP' },
+              ],
+            },
+          ]}
+          footer={(
+            <footer>
+              <div className="mk-chat-avatar">E</div>
+              <div>
+                <strong>Elena Varga</strong>
+                <small>Foundry · Ops</small>
+              </div>
+            </footer>
+          )}
+        />
+      )}
+      header={(
+        <CodexDashboardHero
+          crumbs="Foundry › Praxis Collective › Overview"
+          title={<>Overview of <em>yesterday&apos;s convergence</em></>}
+          body="A plain-spoken ledger of every agent conversation, gate verdict, and replay in the last twenty-four hours."
+          dim={<><span /><i>14 AUG 2026 · 00:00 → 23:59 · UTC</i><span /></>}
+          actions={(
+            <>
+              <div className="mk-dashboard__stamp">Live · reconciled 14:32 UTC</div>
+              <div>
+                <Button variant="ghost">Export</Button>
+                <Button variant="default">Reconcile</Button>
+                <Button variant="primary">New run</Button>
+              </div>
+            </>
+          )}
+        />
+      )}
+      tools={(
+        <CodexDashboardToolbar
+          segments={(
+            <div className="mk-dashboard__segs">
+              <button type="button" className="on">24 hr</button>
+              <button type="button">7 d</button>
+              <button type="button">30 d</button>
+              <button type="button">Custom</button>
             </div>
-          </div>
-          <div className="mk-dashboard__hero-actions">
-            <div className="mk-dashboard__stamp">Live · reconciled 14:32 UTC</div>
-            <div>
-              <Button variant="ghost">Export</Button>
-              <Button variant="default">Reconcile</Button>
-              <Button variant="primary">New run</Button>
+          )}
+          filters={<><Tag>Tenant: Praxis Co.</Tag><Tag>Gate: Convergence</Tag><Tag>Verdict: Any</Tag></>}
+          search={(
+            <div className="mk-dashboard__search">
+              <span>Search runs, agents, gates…</span>
+              <i>⌘K</i>
             </div>
-          </div>
-        </header>
-        <div className="mk-dashboard__tools">
-          <div className="mk-dashboard__segs">
-            <button type="button" className="on">24 hr</button>
-            <button type="button">7 d</button>
-            <button type="button">30 d</button>
-            <button type="button">Custom</button>
-          </div>
-          <div className="mk-dashboard__filters">
-            <Tag>Tenant: Praxis Co.</Tag>
-            <Tag>Gate: Convergence</Tag>
-            <Tag>Verdict: Any</Tag>
-          </div>
-          <div className="mk-dashboard__search">
-            <span>Search runs, agents, gates…</span>
-            <i>⌘K</i>
-          </div>
-        </div>
+          )}
+        />
+      )}
+      body={(
         <div className="mk-dashboard__body">
           <div className="mk-dashboard__col-main">
-            <div className="mk-dashboard__kpis">
-              <article><span>Convergence rate</span><strong>94.2%</strong><small>▲ 2.4</small></article>
-              <article><span>Gate verdicts issued</span><strong>1,284</strong><small>▲ 18</small></article>
-              <article><span>Seat-hours consumed</span><strong>318.7</strong><small>▼ 4.1</small></article>
-              <article><span>Median cost / run</span><strong>$0.47</strong><small>▼ 0.11</small></article>
-            </div>
-            <section className="mk-dashboard__chart mk-dashboard__chart--bp">
-              <header>
-                <span>I.</span>
-                <strong>Run timeline & gate verdicts</strong>
-                <div>
-                  <button type="button" className="on">Volume</button>
-                  <button type="button">Cost</button>
-                  <button type="button">Latency</button>
-                </div>
-              </header>
-              <div className="mk-dashboard__chart-body">
-                <div className="mk-dashboard__gridlines">
-                  {Array.from({ length: 24 }).map((_, index) => (
-                    <i key={index} style={{ height: `${80 + ((index * 17) % 120)}px` }} />
-                  ))}
-                </div>
-              </div>
-            </section>
-            <section className="mk-dashboard__ledger">
-              <header>
-                <span>II.</span>
-                <strong>Recent runs · ledger</strong>
-                <div>
-                  <Button variant="ghost">Columns</Button>
-                  <Button variant="ghost">Group</Button>
-                  <Button variant="default">Export</Button>
-                </div>
-              </header>
+            <CodexDashboardKpis
+              items={[
+                { label: 'Convergence rate', value: '94.2%', delta: '▲ 2.4' },
+                { label: 'Gate verdicts issued', value: '1,284', delta: '▲ 18' },
+                { label: 'Seat-hours consumed', value: '318.7', delta: '▼ 4.1' },
+                { label: 'Median cost / run', value: '$0.47', delta: '▼ 0.11' },
+              ]}
+            />
+            <CodexDashboardPanel
+              className="mk-dashboard__chart mk-dashboard__chart--bp"
+              headIndex="I."
+              title="Run timeline & gate verdicts"
+              actions={<><button type="button" className="on">Volume</button><button type="button">Cost</button><button type="button">Latency</button></>}
+            >
+              <CodexDashboardChart bars={bars} />
+            </CodexDashboardPanel>
+            <CodexDashboardPanel
+              className="mk-dashboard__ledger"
+              headIndex="II."
+              title="Recent runs · ledger"
+              actions={<><Button variant="ghost">Columns</Button><Button variant="ghost">Group</Button><Button variant="default">Export</Button></>}
+            >
               <DataTable
                 columns={[
                   { key: 'id', label: 'No.' },
@@ -1338,40 +1260,42 @@ function DashboardSurface() {
                 rows={rows}
                 pageSize={4}
               />
-            </section>
+            </CodexDashboardPanel>
           </div>
           <aside className="mk-dashboard__col-side">
-            <section className="mk-dashboard__gauge-panel">
-              <header>III. Seat pool · utilisation</header>
-              <div className="mk-dashboard__gauges">
-                <div><span>Editor</span><strong>72%</strong><Progress value={72} /></div>
-                <div><span>Verifier</span><strong>48%</strong><Progress value={48} /></div>
-                <div><span>Runner</span><strong>91%</strong><Progress value={91} /></div>
-                <div><span>Scribe</span><strong>24%</strong><Progress value={24} /></div>
-              </div>
-            </section>
-            <section className="mk-dashboard__feed">
-              <header>IV. Activity · last hour</header>
-              <article><b>01</b><p><strong>verifier-03</strong> sealed `r-8842` with PASS.</p><span>14:28</span></article>
-              <article><b>02</b><p><strong>editor-11</strong> pushed iteration 5 of `r-8841`.</p><span>14:23</span></article>
-              <article><b>03</b><p><strong>concierge-02</strong> escalated `r-8840` to policy.</p><span>14:17</span></article>
-            </section>
-            <section className="mk-dashboard__cmd">
-              <header>
-                <span>⌕</span>
-                <strong>reseat janitor-01</strong>
-                <i>⌘K</i>
-              </header>
-              <div>
-                <button type="button" className="current">Reseat janitor-01 with read-only warehouse key</button>
-                <button type="button">Open replay worktree for r-8839</button>
-                <button type="button">Disable janitor-01 write scope</button>
-              </div>
-            </section>
+            <CodexDashboardPanel className="mk-dashboard__gauge-panel" title="III. Seat pool · utilisation">
+              <CodexDashboardGauges
+                items={[
+                  { label: 'Editor', value: '72%', meter: <Progress value={72} /> },
+                  { label: 'Verifier', value: '48%', meter: <Progress value={48} /> },
+                  { label: 'Runner', value: '91%', meter: <Progress value={91} /> },
+                  { label: 'Scribe', value: '24%', meter: <Progress value={24} /> },
+                ]}
+              />
+            </CodexDashboardPanel>
+            <CodexDashboardPanel className="mk-dashboard__feed" title="IV. Activity · last hour">
+              <CodexDashboardFeed
+                items={[
+                  { index: '01', body: <><strong>verifier-03</strong> sealed `r-8842` with PASS.</>, timestamp: '14:28' },
+                  { index: '02', body: <><strong>editor-11</strong> pushed iteration 5 of `r-8841`.</>, timestamp: '14:23' },
+                  { index: '03', body: <><strong>concierge-02</strong> escalated `r-8840` to policy.</>, timestamp: '14:17' },
+                ]}
+              />
+            </CodexDashboardPanel>
+            <CodexDashboardCommandPalette
+              icon="⌕"
+              title="reseat janitor-01"
+              shortcut="⌘K"
+              items={[
+                { label: 'Reseat janitor-01 with read-only warehouse key', current: true },
+                { label: 'Open replay worktree for r-8839' },
+                { label: 'Disable janitor-01 write scope' },
+              ]}
+            />
           </aside>
         </div>
-      </div>
-    </section>
+      )}
+    />
   );
 }
 
@@ -1379,102 +1303,103 @@ function DocsSurface() {
   const chapterRows = [
     { num: 'I.', title: 'A first acquaintance', pages: 'pp. 3 – 18' },
     { num: 'II.', title: 'Agents & seats', pages: 'pp. 19 – 44' },
-    { num: 'III.', title: 'Gates & verdicts', pages: 'pp. 45 – 82', current: true },
+    {
+      num: 'III.',
+      title: 'Gates & verdicts',
+      pages: 'pp. 45 – 82',
+      current: true,
+      items: [
+        { label: 'The grammar of a gate' },
+        { label: 'Convergence · the canonical gate', current: true },
+        { label: 'Authoring a custom verdict' },
+        { label: 'Sealing, unsealing, replay' },
+      ],
+    },
     { num: 'IV.', title: 'The run ledger', pages: 'pp. 83 – 112' },
   ];
   return (
-    <section className="mk-docs">
-      <header className="mk-docs__running">
-        <div className="mk-docs__running-left"><span className="folio">xii</span><span>Book I · Foundations</span></div>
-        <span>Encyclopedia § <em>of the foundry and its rites</em></span>
-        <div className="mk-docs__running-right"><span>Edition 4.2 · August 2026</span><span>a5c.ai</span></div>
-      </header>
-      <div className="mk-docs__layout">
-        <aside className="mk-docs__toc">
-          <div className="mk-docs__search"><span>Search the encyclopedia…</span><i>/</i></div>
-          <small>Book I · Foundations</small>
-          <h4>Of the Foundry and its Rites</h4>
-          {chapterRows.map((row) => (
-            <div key={row.num} className={`mk-docs__chapter ${row.current ? 'current' : ''}`}>
-              <div className="mk-docs__chapter-head">
-                <b>{row.num}</b>
-                <strong>{row.title}</strong>
-                <span>{row.pages}</span>
-              </div>
-              {row.current ? (
-                <div className="mk-docs__chapter-items">
-                  <a>The grammar of a gate</a>
-                  <a className="current">Convergence · the canonical gate</a>
-                  <a>Authoring a custom verdict</a>
-                  <a>Sealing, unsealing, replay</a>
-                </div>
-              ) : null}
-            </div>
-          ))}
-        </aside>
-        <article className="mk-docs__article">
-          <div className="mk-docs__chapter-mark">
-            <b>III.</b>
-            <div><small>Chapter III · Section 2</small><p>Book I · Foundations · Gates & verdicts</p></div>
-            <span>Reading · 14 min</span>
+    <CodexDocsShell
+      runningLeft={<><span className="folio">xii</span><span>Book I · Foundations</span></>}
+      title={<>Encyclopedia § <em>of the foundry and its rites</em></>}
+      runningRight={<><span>Edition 4.2 · August 2026</span><span>a5c.ai</span></>}
+      toc={(
+        <CodexDocsToc
+          searchLabel="Search the encyclopedia…"
+          bookLabel="Book I · Foundations"
+          title="Of the Foundry and its Rites"
+          chapters={chapterRows}
+        />
+      )}
+      article={(
+        <CodexDocsArticle
+          chapterMark={(
+            <CodexDocsChapterMark
+              num="III."
+              subtitle="Chapter III · Section 2"
+              context="Book I · Foundations · Gates & verdicts"
+              readingTime="Reading · 14 min"
+            />
+          )}
+          title={<>Convergence — <em>the canonical gate</em></>}
+          lead="A decision, in writing, about whether a run of agents has produced something worth sealing, and the machinery that renders it impossible to skip."
+          meta={<><Tag>Stable since 3.0</Tag><Tag>API reference</Tag><Tag>Tutorial</Tag><span>Last revised · 2026-08-12</span></>}
+        >
+          <p>Every run the foundry produces ends with a written verdict. The convergence gate is the canonical shape against which every other gate is measured.</p>
+          <h3><span>§ 1</span>The shape of a convergence gate</h3>
+          <p>A convergence gate takes three inputs: the artefact, the criteria written into the role manifest, and the history of prior iterations.</p>
+          <div className="mk-docs__defbox">
+            <strong>Definition</strong>
+            <p>Convergence: a written statement, by an agent not party to production, that an artefact is indistinguishable in its salient properties from what a second agent would have produced.</p>
           </div>
-          <h2>
-            Convergence — <em>the canonical gate</em>
-          </h2>
-          <p className="lead">
-            A decision, in writing, about whether a run of agents has produced something worth sealing, and the machinery that renders it impossible to skip.
-          </p>
-          <div className="mk-docs__meta">
-            <Tag>Stable since 3.0</Tag>
-            <Tag>API reference</Tag>
-            <Tag>Tutorial</Tag>
-            <span>Last revised · 2026-08-12</span>
-          </div>
-          <div className="mk-docs__columns">
-            <p>Every run the foundry produces ends with a written verdict. The convergence gate is the canonical shape against which every other gate is measured.</p>
-            <h3><span>§ 1</span>The shape of a convergence gate</h3>
-            <p>A convergence gate takes three inputs: the artefact, the criteria written into the role manifest, and the history of prior iterations.</p>
-            <div className="mk-docs__defbox">
-              <strong>Definition</strong>
-              <p>Convergence: a written statement, by an agent not party to production, that an artefact is indistinguishable in its salient properties from what a second agent would have produced.</p>
-            </div>
-            <blockquote>“Two strangers, same answer. Everything else is ornament.”<cite>Praxis Foundry handbook, 2024</cite></blockquote>
-            <h3><span>§ 2</span>The four verdicts, in order of appetite</h3>
-            <ol>
-              <li>Pass. The run is sealed; the ledger updates; downstream seals cascade.</li>
-              <li>Iterate. The verifier can name what must change for a pass.</li>
-              <li>Fail. The artefact is not of the kind the criteria describe.</li>
-              <li>Defer. A human is summoned because the criteria are silent.</li>
-            </ol>
-            <div className="mk-docs__figure"><div className="mk-docs__figure-line" /><span>FIG. 3-2 · editor → artefact → verifier → human</span></div>
-            <div className="mk-docs__signpost">
-              <b>!</b>
-              <div><strong>If the manifest is silent on the question, defer.</strong><p>Agents that guess past their criteria are a form of drift.</p></div>
-              <Button variant="ghost">Chap. VI</Button>
-            </div>
-          </div>
-        </article>
-        <aside className="mk-docs__margin">
-          <div>
-            <h4>On this page</h4>
-            <a>§ 1 The shape of a convergence gate</a>
-            <a className="current">§ 2 The four verdicts</a>
-            <a>§ 3 Authoring a verdict</a>
-            <a>§ 4 What the gate refuses to do</a>
-          </div>
-          <div>
-            <h4>Marginal gloss</h4>
-            <p>Cinnabar seal: the vermilion mark a verifier affixes to a sealed verdict.</p>
-            <p>Replay worktree: a parallel workspace in which a retracted verdict is re-rendered.</p>
-          </div>
-          <div>
-            <h4>Revisions</h4>
-            <p>4.2 — 12 Aug 2026</p>
-            <p>Rewrote § 4; added Fig. 3-2; moved tutorial to § 3.</p>
-          </div>
-        </aside>
-      </div>
-    </section>
+          <blockquote>“Two strangers, same answer. Everything else is ornament.”<cite>Praxis Foundry handbook, 2024</cite></blockquote>
+          <h3><span>§ 2</span>The four verdicts, in order of appetite</h3>
+          <ol>
+            <li>Pass. The run is sealed; the ledger updates; downstream seals cascade.</li>
+            <li>Iterate. The verifier can name what must change for a pass.</li>
+            <li>Fail. The artefact is not of the kind the criteria describe.</li>
+            <li>Defer. A human is summoned because the criteria are silent.</li>
+          </ol>
+          <CodexDocsFigure label="FIG. 3-2 · editor → artefact → verifier → human" />
+          <CodexDocsCallout
+            body={<><strong>If the manifest is silent on the question, defer.</strong><p>Agents that guess past their criteria are a form of drift.</p></>}
+            action={<Button variant="ghost">Chap. VI</Button>}
+          />
+          <CodeBlock
+            title="Canonical Gate"
+            meta="verdict.example.ts"
+            language="ts"
+            lineNumbers
+            code={`export const verdict = {\n  decision: "defer",\n  reason: "manifest is silent on pricing policy",\n  nextStep: "summon human reviewer",\n};`}
+          />
+        </CodexDocsArticle>
+      )}
+      margin={(
+        <CodexDocsMargin
+          sections={[
+            {
+              title: 'On this page',
+              items: [
+                <a>§ 1 The shape of a convergence gate</a>,
+                <a className="current">§ 2 The four verdicts</a>,
+                <a>§ 3 Authoring a verdict</a>,
+                <a>§ 4 What the gate refuses to do</a>,
+              ],
+            },
+            {
+              title: 'Marginal gloss',
+              items: [
+                <p>Cinnabar seal: the vermilion mark a verifier affixes to a sealed verdict.</p>,
+                <p>Replay worktree: a parallel workspace in which a retracted verdict is re-rendered.</p>,
+              ],
+            },
+            {
+              title: 'Revisions',
+              items: [<p>4.2 — 12 Aug 2026</p>, <p>Rewrote § 4; added Fig. 3-2; moved tutorial to § 3.</p>],
+            },
+          ]}
+        />
+      )}
+    />
   );
 }
 
@@ -1731,16 +1656,13 @@ function TypeSurface() {
           </div>
           <span className="mk-codex-meta">mono · ⧉</span>
         </header>
-        <div className="mk-plate mk-plate--void">
-          <div className="mk-mono-strip">
-            <span><span className="mk-mono-strip__prompt">$</span> babysitter call &quot;add OAuth to /login&quot;</span>
-            <span className="muted">↻ planning · iteration 1 of 4 …</span>
-            <span>✓ gate · lint <span className="muted">— 0 issues</span></span>
-            <span>✓ gate · test <span className="muted">— 24 / 24 passing</span></span>
-            <span>⚠ gate · audit <span className="muted">— advisory, revising</span></span>
-            <span className="mk-mono-strip__seal">⟡ the seal is struck — proof-of-done issued</span>
-          </div>
-        </div>
+        <CodexPlate dark>
+          <CodeBlock
+            tone="terminal"
+            language="bash"
+            code={`$ babysitter call "add OAuth to /login"\n↻ planning · iteration 1 of 4 …\n✓ gate · lint — 0 issues\n✓ gate · test — 24 / 24 passing\n⚠ gate · audit — advisory, revising\n⟡ the seal is struck — proof-of-done issued`}
+          />
+        </CodexPlate>
         <dl className="mk-specs">
           <dt>Family</dt><dd><code>JetBrains Mono</code> · 400, 500, 700.</dd>
           <dt>Use</dt><dd>Code, commands, gate chips, folio numbers, and figure labels.</dd>
@@ -1759,7 +1681,7 @@ function TypeSurface() {
           <article className="mk-atlas-item"><span className="mk-atlas-name">folio</span><div className="mk-atlas-demo mk-atlas-demo--folio">fol. iii / viii</div><div className="mk-atlas-caption">JetBrains Mono · 10 · .3em · uppercase</div></article>
           <article className="mk-atlas-item"><span className="mk-atlas-name">caption</span><div className="mk-atlas-demo mk-atlas-demo--caption">fig. iv — the ruby halts all further iteration.</div><div className="mk-atlas-caption">EB Garamond italic · 13 · 1.45</div></article>
           <article className="mk-atlas-item"><span className="mk-atlas-name">glyph · string</span><div className="mk-atlas-demo mk-atlas-demo--glyph">⟡ ✦ ✧ ◊ ✦ ⟡</div><div className="mk-atlas-caption">JetBrains Mono · .3em · decorative rule</div></article>
-          <article className="mk-atlas-item"><span className="mk-atlas-name">code · inline</span><div className="mk-atlas-demo">Run <code>babysitter init</code> to begin.</div><div className="mk-atlas-caption">JetBrains Mono · .92em inherit</div></article>
+          <article className="mk-atlas-item"><span className="mk-atlas-name">code · block</span><div className="mk-atlas-demo"><CodeBlock tone="terminal" language="bash" code={`$ babysitter init`} /></div><div className="mk-atlas-caption">Reusable code surface · terminal tone</div></article>
           <article className="mk-atlas-item"><span className="mk-atlas-name">chip · label</span><div className="mk-atlas-demo"><span className="mk-inline-chip">gate · passed</span></div><div className="mk-atlas-caption">JetBrains Mono · 10 · .22em · uppercase</div></article>
         </div>
         <header className="mk-chapter__head mk-chapter__head--wide">
@@ -1779,7 +1701,7 @@ function TypeSurface() {
           <div>
             <span className="mk-type-pair__tag">display · over · mono</span>
             <h4>Proof of done</h4>
-            <p className="mk-type-pair__mono"><span className="mk-mono-strip__prompt">$</span> babysitter seal<br /><span className="muted">// receipt issued · 2048-bit · archive</span></p>
+            <CodeBlock tone="terminal" language="bash" code={`$ babysitter seal\n// receipt issued · 2048-bit · archive`} />
           </div>
         </div>
         <div className="mk-type-pair mk-type-pair--wide">

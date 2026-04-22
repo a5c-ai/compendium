@@ -94,10 +94,16 @@
 .tkc-btn--primary {
   --bg: linear-gradient(180deg, #D04A3B 0%, #8A2519 100%);
   --bc: #5A120B;
-  --fg: #FFF3D8;
+  --fg: var(--tkc-danger-fg);
 }
-.tkc-btn--primary:hover { --bg: linear-gradient(180deg, var(--tkc-danger-hover) 0%, var(--tkc-cinnabar-dark) 100%); }
-.tkc-btn--primary:active { --bg: linear-gradient(180deg, var(--tkc-cinnabar-dark) 0%, var(--tkc-danger-active) 100%); }
+.tkc-btn--primary:hover {
+  --bg: linear-gradient(180deg, var(--tkc-danger-hover) 0%, var(--tkc-cinnabar-dark) 100%);
+  --fg: var(--tkc-danger-fg);
+}
+.tkc-btn--primary:active {
+  --bg: linear-gradient(180deg, var(--tkc-cinnabar-dark) 0%, var(--tkc-danger-active) 100%);
+  --fg: var(--tkc-danger-fg);
+}
 .tkc-btn--ghost {
   --bg: transparent;
   --fg: var(--tkc-ink);
@@ -109,6 +115,11 @@
 }
 .tkc-btn--ghost:active {
   --bg: color-mix(in oklab, var(--tkc-ink) 14%, transparent);
+}
+.tkc-btn--primary,
+.tkc-btn--primary:hover,
+.tkc-btn--primary:active {
+  text-shadow: 0 1px 0 rgba(0,0,0,.28);
 }
 .tkc-btn--sm { padding: 5px 10px; font-size: 13px; }
 .tkc-btn--icon { padding: 7px; }
@@ -1123,15 +1134,21 @@
   padding: 10px 12px 0;
 }
 
-.tkc-diff__tabs span {
+.tkc-diff__tabs button {
   padding: 4px 8px;
   border: 1px solid var(--tkc-rule-q);
   background: var(--tkc-panel-muted);
   color: var(--tkc-ink-quiet);
+  cursor: pointer;
 }
 
 .tkc-diff__tabs .is-active {
   background: var(--tkc-panel-strong);
+  color: var(--tkc-ink);
+}
+
+.tkc-diff__tabs button:hover {
+  background: color-mix(in oklab, var(--tkc-ink) 8%, transparent);
   color: var(--tkc-ink);
 }
 

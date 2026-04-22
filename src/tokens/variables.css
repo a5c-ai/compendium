@@ -151,6 +151,7 @@
   --tkc-selection:     color-mix(in oklab, var(--tkc-cinnabar) 24%, white);
   --tkc-danger-hover:  #D94D3C;
   --tkc-danger-active: #7A2016;
+  --tkc-danger-fg:     #FFF8ED;
   --tkc-success-strong: #245245;
   --tkc-link-hover:    #8A2519;
   --tkc-link-active:   #5A120B;
@@ -314,6 +315,7 @@
   --tkc-selection:     color-mix(in oklab, var(--tkc-cinnabar) 28%, black);
   --tkc-danger-hover:  #FF8E7A;
   --tkc-danger-active: #D65A49;
+  --tkc-danger-fg:     #FFFDFC;
   --tkc-success-strong: #92D1B8;
   --tkc-link-hover:    #FFB19C;
   --tkc-link-active:   #FFD1C5;

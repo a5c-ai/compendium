@@ -1,7 +1,9 @@
-export { CodeBlock, CodeEditor, DiffViewer } from "./Code";
+export { CodeBlock, CodeEditor, DiffFileTabs, DiffFileView, DiffViewer } from "./Code";
 export type {
   CodeBlockProps,
   CodeEditorProps,
+  DiffFileTabsProps,
+  DiffFileViewProps,
   DiffViewerProps,
   DiffFile,
   CodeTone,

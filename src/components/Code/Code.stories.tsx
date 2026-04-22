@@ -58,6 +58,7 @@ export const BlueprintEditor: StoryObj<typeof CodeEditor> = {
 export const SideBySideDiff: StoryObj<typeof DiffViewer> = {
   render: () => (
     <DiffViewer
+      initialFile="src/middleware/auth.ts"
       files={[
         {
           filename: "src/middleware/auth.ts",
@@ -68,6 +69,11 @@ export const SideBySideDiff: StoryObj<typeof DiffViewer> = {
         {
           filename: "tests/auth.test.ts",
           after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
+          language: "diff",
+        },
+        {
+          filename: "src/lib/requestTracing.ts",
+          after: `+ export function startRequest(req, res) {\n+   const requestId = crypto.randomUUID();\n+   res.setHeader("x-request-id", requestId);\n+   return requestId;\n+ }`,
           language: "diff",
         },
       ]}
