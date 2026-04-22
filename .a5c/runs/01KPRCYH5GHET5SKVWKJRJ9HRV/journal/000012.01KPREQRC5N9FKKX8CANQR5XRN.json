@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T16:42:21.957Z",
+  "data": {
+    "effectId": "01KPREQRAJ11FMN0P5KDFEAN5G",
+    "invocationKey": "design-system-mockup-remediation:S000006:library-build",
+    "invocationHash": "cd88576157f93b5db9f51dc03a0b8a6f9fe1095375a8e95a0126a996ca03b604",
+    "stepId": "S000006",
+    "taskId": "library-build",
+    "kind": "shell",
+    "label": "verification",
+    "taskDefRef": "tasks/01KPREQRAJ11FMN0P5KDFEAN5G/task.json",
+    "labels": [
+      "verification",
+      "build",
+      "library"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "ac6a755da826781b8cadbe3c545c7baf8a93e7b1c88306901507d1c8890be739"
+}

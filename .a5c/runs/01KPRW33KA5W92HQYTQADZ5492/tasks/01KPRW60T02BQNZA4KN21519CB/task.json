@@ -1,0 +1,173 @@
+{
+  "agent": {
+    "name": "react-developer",
+    "outputSchema": {
+      "properties": {
+        "exampleSurfaces": {
+          "type": "array"
+        },
+        "filesChanged": {
+          "type": "array"
+        },
+        "mockupsCovered": {
+          "type": "array"
+        },
+        "notes": {
+          "type": "array"
+        },
+        "runtimeCallPaths": {
+          "type": "array"
+        },
+        "storyIds": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "filesChanged",
+        "runtimeCallPaths",
+        "mockupsCovered",
+        "storyIds",
+        "exampleSurfaces",
+        "notes"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "exampleDir": "examples/basic-usage",
+        "mockupNames": [
+          "Ads",
+          "Brand",
+          "Chat",
+          "Colors",
+          "Components",
+          "Dashboard",
+          "Docs",
+          "Spacing",
+          "Type"
+        ],
+        "projectDir": ".",
+        "relatedRunId": "01KPRCYH5GHET5SKVWKJRJ9HRV",
+        "relatedRunReason": "follow-up",
+        "remediationPlan": {
+          "plan": [
+            "Extract per-mock structural and typographic deltas by comparing each rendered Storybook mock surface to project/preview counterparts.",
+            "Refine shared mockup page shells (tabs/casing/page headers/chapter rhythm) and page-specific sections in src/mockups/MockupPreviews.tsx.",
+            "Tighten style fidelity in src/mockups/mockups.css for exact spacing scales, panel geometry, borders, gradients, and typography sizes against each mock family.",
+            "Keep story controls and example app parity untouched except for any required consumption adjustments.",
+            "Run deterministic gates: mockup coverage check, lint, build, storybook build, and example build. Iterate one additional repair pass if any gates fail or fidelity review notes remain high-severity."
+          ],
+          "runtimeCallPaths": [
+            ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css -> src/tokens/index.css -> src/components/components.css",
+            ".storybook/preview.ts -> src/tokens/index.css -> src/components/components.css -> src/mockups/MockupPreviews.stories.tsx",
+            "examples/basic-usage/src/main.tsx -> examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/react.ts -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css",
+            "project/preview/*.html -> visual reference for typography rhythm, spacing cadence, casing chrome, and layout proportions only"
+          ],
+          "targetFiles": [
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/mockups.css",
+            "src/mockups/MockupPreviews.stories.tsx",
+            "examples/basic-usage/src/App.tsx",
+            "examples/basic-usage/src/App.css"
+          ],
+          "verificationNotes": [
+            "Every mock family (Ads, Brand, Chat, Colors, Components, Dashboard, Docs, Spacing, Type) must remain represented in shared source and Storybook stories.",
+            "Storybook mock pages must render without missing routes/assets and stay fully local (no external iframe dependency).",
+            "Fidelity checks focus on layout structure, type scale, spacing rhythm, casing/tab chrome, and color contrast alignment to project/preview sources.",
+            "Example app must continue consuming the same shared mockup surfaces and controls for parity with Storybook."
+          ]
+        },
+        "runtimeInventory": {
+          "exitCode": 0,
+          "stderr": "\r\n",
+          "stdout": "## .storybook\r\n.storybook\\preview.ts\r\n.storybook\\main.ts\r\n## src\r\nsrc\\tokens.ts\r\nsrc\\tokens\\variables.css\r\nsrc\\tokens\\Tokens.stories.tsx\r\nsrc\\tokens\\technical.css\r\nsrc\\tokens\\reset.css\r\nsrc\\tokens\\ornate.css\r\nsrc\\tokens\\index.ts\r\nsrc\\tokens\\index.css\r\nsrc\\tokens\\codex-ornate.css\r\nsrc\\tokens\\base.css\r\nsrc\\react.ts\r\nsrc\\mockups\\mockups.css\r\nsrc\\mockups\\MockupPreviews.tsx\r\nsrc\\mockups\\MockupPreviews.stories.tsx\r\nsrc\\index.ts\r\nsrc\\icons.ts\r\nsrc\\icons\\SealGatePassed.tsx\r\nsrc\\icons\\LogoWordmark.tsx\r\nsrc\\icons\\LogoMonogramDark.tsx\r\nsrc\\icons\\LogoMonogram.tsx\r\nsrc\\icons\\index.ts\r\nsrc\\icons\\IllustrationQualityGates.tsx\r\nsrc\\icons\\IllustrationConvergenceLoop.tsx\r\nsrc\\icons\\Icons.stories.tsx\r\nsrc\\icons\\GlyphModeYolo.tsx\r\nsrc\\icons\\GlyphModePlan.tsx\r\nsrc\\icons\\GlyphModeInteractive.tsx\r\nsrc\\icons\\GlyphModeForever.tsx\r\nsrc\\icons\\GlyphDivider.tsx\r\nsrc\\components\\utils\\index.ts\r\nsrc\\components\\utils\\cx.ts\r\nsrc\\components\\Tooltip\\Tooltip.tsx\r\nsrc\\components\\Tooltip\\Tooltip.stories.tsx\r\nsrc\\components\\Tooltip\\index.ts\r\nsrc\\components\\Toggle\\Toggle.tsx\r\nsrc\\components\\Toggle\\Toggle.stories.tsx\r\nsrc\\components\\Toggle\\index.ts\r\nsrc\\components\\Portal\\Portal.tsx\r\nsrc\\components\\Portal\\index.ts\r\nsrc\\components\\Nav\\Nav.tsx\r\nsrc\\components\\Nav\\Nav.stories.tsx\r\nsrc\\components\\Tag\\Tag.tsx\r\nsrc\\components\\Nav\\index.ts\r\nsrc\\components\\Tag\\Tag.stories.tsx\r\nsrc\\components\\Tag\\index.ts\r\nsrc\\components\\components.css\r\nsrc\\components\\hooks\\usePopoverPos.ts\r\nsrc\\components\\hooks\\useOutside.ts\r\nsrc\\components\\hooks\\useKey.ts\r\nsrc\\components\\hooks\\useCtrl.ts\r\nsrc\\components\\hooks\\index.ts\r\nsrc\\components\\Stepper\\Stepper.tsx\r\nsrc\\components\\Stepper\\Stepper.stories.tsx\r\nsrc\\components\\Stepper\\index.ts\r\nsrc\\components\\Table\\Table.stories.tsx\r\nsrc\\components\\Table\\index.ts\r\nsrc\\components\\Table\\Table.tsx\r\nsrc\\components\\Popover\\Popover.tsx\r\nsrc\\components\\Popover\\Popover.stories.tsx\r\nsrc\\components\\Popover\\index.ts\r\nsrc\\components\\Progress\\Progress.stories.tsx\r\nsrc\\components\\Progress\\index.ts\r\nsrc\\components\\Progress\\Progress.tsx\r\nsrc\\components\\SplitPane\\index.ts\r\nsrc\\components\\SplitPane\\SplitPane.tsx\r\nsrc\\components\\SplitPane\\SplitPane.stories.tsx\r\nsrc\\components\\Tabs\\Tabs.stories.tsx\r\nsrc\\components\\Tabs\\index.ts\r\nsrc\\components\\Tabs\\Tabs.tsx\r\nsrc\\components\\Radio\\Radio.tsx\r\nsrc\\components\\Radio\\Radio.stories.tsx\r\nsrc\\components\\Radio\\index.ts\r\nsrc\\components\\index.ts\r\nsrc\\components\\DropdownMenu\\DropdownMenu.tsx\r\nsrc\\components\\DropdownMenu\\DropdownMenu.stories.tsx\r\nsrc\\components\\DropdownMenu\\index.ts\r\nsrc\\components\\Button\\index.ts\r\nsrc\\components\\Button\\Button.tsx\r\nsrc\\components\\Button\\Button.stories.tsx\r\nsrc\\components\\CommandPalette\\CommandPalette.tsx\r\nsrc\\components\\CommandPalette\\CommandPalette.stories.tsx\r\nsrc\\components\\CommandPalette\\index.ts\r\nsrc\\components\\Toast\\Toast.stories.tsx\r\nsrc\\components\\Toast\\index.ts\r\nsrc\\components\\Toast\\Toast.tsx\r\nsrc\\components\\Select\\Select.stories.tsx\r\nsrc\\components\\Select\\index.ts\r\nsrc\\components\\Select\\Select.tsx\r\nsrc\\components\\Modal\\Modal.tsx\r\nsrc\\components\\Modal\\Modal.stories.tsx\r\nsrc\\components\\Modal\\index.ts\r\nsrc\\components\\Icon\\Icon.tsx\r\nsrc\\components\\Icon\\index.ts\r\nsrc\\components\\Input\\Input.stories.tsx\r\nsrc\\components\\Input\\index.ts\r\nsrc\\components\\Input\\Input.tsx\r\nsrc\\components\\Slider\\Slider.tsx\r\nsrc\\components\\Slider\\Slider.stories.tsx\r\nsrc\\components\\Slider\\index.ts\r\nsrc\\components\\InlineEdit\\InlineEdit.stories.tsx\r\nsrc\\components\\InlineEdit\\index.ts\r\nsrc\\components\\InlineEdit\\InlineEdit.tsx\r\nsrc\\components\\Accordion\\index.ts\r\nsrc\\components\\Accordion\\Accordion.tsx\r\nsrc\\components\\Accordion\\Accordion.stories.tsx\r\nsrc\\components\\Checkbox\\Checkbox.tsx\r\nsrc\\components\\Checkbox\\Checkbox.stories.tsx\r\nsrc\\components\\Checkbox\\index.ts\r\nsrc\\components\\ColorPicker\\ColorPicker.stories.tsx\r\nsrc\\components\\ColorPicker\\ColorPicker.tsx\r\nsrc\\components\\ColorPicker\\index.ts\r\n## examples/basic-usage/src\r\nexamples/basic-usage/src\\main.tsx\r\nexamples/basic-usage/src\\App.tsx\r\nexamples/basic-usage/src\\App.css\r\n## project/preview\r\nproject/preview\\type.html\r\nproject/preview\\spacing.html\r\nproject/preview\\docs.html\r\nproject/preview\\dashboard.html\r\nproject/preview\\components.html\r\nproject/preview\\colors.html\r\nproject/preview\\chat.html\r\nproject/preview\\brand.html\r\nproject/preview\\ads.html\r\n## project/ui_kits/marketing\r\nproject/ui_kits/marketing\\index.html\r\n\r\n"
+        }
+      },
+      "instructions": [
+        "USER REQUEST (verbatim):",
+        "---",
+        "$babysitter:call iterate and compare to adapt the components and final designed pages until it looks almost exactly like the mocks 99%",
+        "---",
+        "Implement React mockup surfaces that match the project preview sources as closely as practical with the existing compendium tokens, technical CSS, components, and icons.",
+        "Create or update Storybook stories so each project preview mock surface has a preview and meaningful controls.",
+        "Reuse the same shared React surfaces in the basic usage example app so the examples cover the same mock families.",
+        "Prefer shared source files over duplicating markup across Storybook and the example app.",
+        "Keep package public API stable unless exporting a shared internal surface is clearly required for reuse.",
+        "Do not touch unrelated files or add speculative abstractions.",
+        "Return JSON with keys: `filesChanged`, `runtimeCallPaths`, `mockupsCovered`, `storyIds`, `exampleSurfaces`, `notes`."
+      ],
+      "outputFormat": "JSON",
+      "role": "Senior React design-system engineer",
+      "task": "Implement the requested brownfield remediation completely, not as a proposal."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPRW60T02BQNZA4KN21519CB/input.json",
+    "outputJsonPath": "tasks/01KPRW60T02BQNZA4KN21519CB/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "examples",
+    "implementation",
+    "mockups",
+    "react",
+    "storybook"
+  ],
+  "title": "Implement shared mockup surfaces, stories, and example-app parity",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPRW60T02BQNZA4KN21519CB",
+  "taskId": "implement-mockup-remediation",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000003:implement-mockup-remediation",
+  "stepId": "S000003",
+  "inputs": {
+    "exampleDir": "examples/basic-usage",
+    "mockupNames": [
+      "Ads",
+      "Brand",
+      "Chat",
+      "Colors",
+      "Components",
+      "Dashboard",
+      "Docs",
+      "Spacing",
+      "Type"
+    ],
+    "projectDir": ".",
+    "relatedRunId": "01KPRCYH5GHET5SKVWKJRJ9HRV",
+    "relatedRunReason": "follow-up",
+    "remediationPlan": {
+      "plan": [
+        "Extract per-mock structural and typographic deltas by comparing each rendered Storybook mock surface to project/preview counterparts.",
+        "Refine shared mockup page shells (tabs/casing/page headers/chapter rhythm) and page-specific sections in src/mockups/MockupPreviews.tsx.",
+        "Tighten style fidelity in src/mockups/mockups.css for exact spacing scales, panel geometry, borders, gradients, and typography sizes against each mock family.",
+        "Keep story controls and example app parity untouched except for any required consumption adjustments.",
+        "Run deterministic gates: mockup coverage check, lint, build, storybook build, and example build. Iterate one additional repair pass if any gates fail or fidelity review notes remain high-severity."
+      ],
+      "runtimeCallPaths": [
+        ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css -> src/tokens/index.css -> src/components/components.css",
+        ".storybook/preview.ts -> src/tokens/index.css -> src/components/components.css -> src/mockups/MockupPreviews.stories.tsx",
+        "examples/basic-usage/src/main.tsx -> examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/react.ts -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css",
+        "project/preview/*.html -> visual reference for typography rhythm, spacing cadence, casing chrome, and layout proportions only"
+      ],
+      "targetFiles": [
+        "src/mockups/MockupPreviews.tsx",
+        "src/mockups/mockups.css",
+        "src/mockups/MockupPreviews.stories.tsx",
+        "examples/basic-usage/src/App.tsx",
+        "examples/basic-usage/src/App.css"
+      ],
+      "verificationNotes": [
+        "Every mock family (Ads, Brand, Chat, Colors, Components, Dashboard, Docs, Spacing, Type) must remain represented in shared source and Storybook stories.",
+        "Storybook mock pages must render without missing routes/assets and stay fully local (no external iframe dependency).",
+        "Fidelity checks focus on layout structure, type scale, spacing rhythm, casing/tab chrome, and color contrast alignment to project/preview sources.",
+        "Example app must continue consuming the same shared mockup surfaces and controls for parity with Storybook."
+      ]
+    },
+    "requestText": "$babysitter:call iterate and compare to adapt the components and final designed pages until it looks almost exactly like the mocks 99%",
+    "runtimeInventory": {
+      "exitCode": 0,
+      "stderr": "\r\n",
+      "stdout": "## .storybook\r\n.storybook\\preview.ts\r\n.storybook\\main.ts\r\n## src\r\nsrc\\tokens.ts\r\nsrc\\tokens\\variables.css\r\nsrc\\tokens\\Tokens.stories.tsx\r\nsrc\\tokens\\technical.css\r\nsrc\\tokens\\reset.css\r\nsrc\\tokens\\ornate.css\r\nsrc\\tokens\\index.ts\r\nsrc\\tokens\\index.css\r\nsrc\\tokens\\codex-ornate.css\r\nsrc\\tokens\\base.css\r\nsrc\\react.ts\r\nsrc\\mockups\\mockups.css\r\nsrc\\mockups\\MockupPreviews.tsx\r\nsrc\\mockups\\MockupPreviews.stories.tsx\r\nsrc\\index.ts\r\nsrc\\icons.ts\r\nsrc\\icons\\SealGatePassed.tsx\r\nsrc\\icons\\LogoWordmark.tsx\r\nsrc\\icons\\LogoMonogramDark.tsx\r\nsrc\\icons\\LogoMonogram.tsx\r\nsrc\\icons\\index.ts\r\nsrc\\icons\\IllustrationQualityGates.tsx\r\nsrc\\icons\\IllustrationConvergenceLoop.tsx\r\nsrc\\icons\\Icons.stories.tsx\r\nsrc\\icons\\GlyphModeYolo.tsx\r\nsrc\\icons\\GlyphModePlan.tsx\r\nsrc\\icons\\GlyphModeInteractive.tsx\r\nsrc\\icons\\GlyphModeForever.tsx\r\nsrc\\icons\\GlyphDivider.tsx\r\nsrc\\components\\utils\\index.ts\r\nsrc\\components\\utils\\cx.ts\r\nsrc\\components\\Tooltip\\Tooltip.tsx\r\nsrc\\components\\Tooltip\\Tooltip.stories.tsx\r\nsrc\\components\\Tooltip\\index.ts\r\nsrc\\components\\Toggle\\Toggle.tsx\r\nsrc\\components\\Toggle\\Toggle.stories.tsx\r\nsrc\\components\\Toggle\\index.ts\r\nsrc\\components\\Portal\\Portal.tsx\r\nsrc\\components\\Portal\\index.ts\r\nsrc\\components\\Nav\\Nav.tsx\r\nsrc\\components\\Nav\\Nav.stories.tsx\r\nsrc\\components\\Tag\\Tag.tsx\r\nsrc\\components\\Nav\\index.ts\r\nsrc\\components\\Tag\\Tag.stories.tsx\r\nsrc\\components\\Tag\\index.ts\r\nsrc\\components\\components.css\r\nsrc\\components\\hooks\\usePopoverPos.ts\r\nsrc\\components\\hooks\\useOutside.ts\r\nsrc\\components\\hooks\\useKey.ts\r\nsrc\\components\\hooks\\useCtrl.ts\r\nsrc\\components\\hooks\\index.ts\r\nsrc\\components\\Stepper\\Stepper.tsx\r\nsrc\\components\\Stepper\\Stepper.stories.tsx\r\nsrc\\components\\Stepper\\index.ts\r\nsrc\\components\\Table\\Table.stories.tsx\r\nsrc\\components\\Table\\index.ts\r\nsrc\\components\\Table\\Table.tsx\r\nsrc\\components\\Popover\\Popover.tsx\r\nsrc\\components\\Popover\\Popover.stories.tsx\r\nsrc\\components\\Popover\\index.ts\r\nsrc\\components\\Progress\\Progress.stories.tsx\r\nsrc\\components\\Progress\\index.ts\r\nsrc\\components\\Progress\\Progress.tsx\r\nsrc\\components\\SplitPane\\index.ts\r\nsrc\\components\\SplitPane\\SplitPane.tsx\r\nsrc\\components\\SplitPane\\SplitPane.stories.tsx\r\nsrc\\components\\Tabs\\Tabs.stories.tsx\r\nsrc\\components\\Tabs\\index.ts\r\nsrc\\components\\Tabs\\Tabs.tsx\r\nsrc\\components\\Radio\\Radio.tsx\r\nsrc\\components\\Radio\\Radio.stories.tsx\r\nsrc\\components\\Radio\\index.ts\r\nsrc\\components\\index.ts\r\nsrc\\components\\DropdownMenu\\DropdownMenu.tsx\r\nsrc\\components\\DropdownMenu\\DropdownMenu.stories.tsx\r\nsrc\\components\\DropdownMenu\\index.ts\r\nsrc\\components\\Button\\index.ts\r\nsrc\\components\\Button\\Button.tsx\r\nsrc\\components\\Button\\Button.stories.tsx\r\nsrc\\components\\CommandPalette\\CommandPalette.tsx\r\nsrc\\components\\CommandPalette\\CommandPalette.stories.tsx\r\nsrc\\components\\CommandPalette\\index.ts\r\nsrc\\components\\Toast\\Toast.stories.tsx\r\nsrc\\components\\Toast\\index.ts\r\nsrc\\components\\Toast\\Toast.tsx\r\nsrc\\components\\Select\\Select.stories.tsx\r\nsrc\\components\\Select\\index.ts\r\nsrc\\components\\Select\\Select.tsx\r\nsrc\\components\\Modal\\Modal.tsx\r\nsrc\\components\\Modal\\Modal.stories.tsx\r\nsrc\\components\\Modal\\index.ts\r\nsrc\\components\\Icon\\Icon.tsx\r\nsrc\\components\\Icon\\index.ts\r\nsrc\\components\\Input\\Input.stories.tsx\r\nsrc\\components\\Input\\index.ts\r\nsrc\\components\\Input\\Input.tsx\r\nsrc\\components\\Slider\\Slider.tsx\r\nsrc\\components\\Slider\\Slider.stories.tsx\r\nsrc\\components\\Slider\\index.ts\r\nsrc\\components\\InlineEdit\\InlineEdit.stories.tsx\r\nsrc\\components\\InlineEdit\\index.ts\r\nsrc\\components\\InlineEdit\\InlineEdit.tsx\r\nsrc\\components\\Accordion\\index.ts\r\nsrc\\components\\Accordion\\Accordion.tsx\r\nsrc\\components\\Accordion\\Accordion.stories.tsx\r\nsrc\\components\\Checkbox\\Checkbox.tsx\r\nsrc\\components\\Checkbox\\Checkbox.stories.tsx\r\nsrc\\components\\Checkbox\\index.ts\r\nsrc\\components\\ColorPicker\\ColorPicker.stories.tsx\r\nsrc\\components\\ColorPicker\\ColorPicker.tsx\r\nsrc\\components\\ColorPicker\\index.ts\r\n## examples/basic-usage/src\r\nexamples/basic-usage/src\\main.tsx\r\nexamples/basic-usage/src\\App.tsx\r\nexamples/basic-usage/src\\App.css\r\n## project/preview\r\nproject/preview\\type.html\r\nproject/preview\\spacing.html\r\nproject/preview\\docs.html\r\nproject/preview\\dashboard.html\r\nproject/preview\\components.html\r\nproject/preview\\colors.html\r\nproject/preview\\chat.html\r\nproject/preview\\brand.html\r\nproject/preview\\ads.html\r\n## project/ui_kits/marketing\r\nproject/ui_kits/marketing\\index.html\r\n\r\n"
+    }
+  }
+}

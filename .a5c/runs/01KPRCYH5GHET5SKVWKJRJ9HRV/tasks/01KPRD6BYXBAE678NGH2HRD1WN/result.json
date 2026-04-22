@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPRD6BYXBAE678NGH2HRD1WN",
+  "taskId": "implement-mockup-remediation",
+  "invocationKey": "design-system-mockup-remediation:S000003:implement-mockup-remediation",
+  "status": "ok",
+  "result": {
+    "exampleSurfaces": [
+      "MockupPreviews gallery with per-mockup selection, zoom, columns, and frame-height controls"
+    ],
+    "filesChanged": [
+      "src/react.ts",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/MockupPreviews.stories.tsx",
+      "src/mockups/mockups.css",
+      "examples/basic-usage/src/App.tsx",
+      "examples/basic-usage/src/App.css"
+    ],
+    "mockupsCovered": [
+      "Ads",
+      "Brand",
+      "Chat",
+      "Colors",
+      "Components",
+      "Dashboard",
+      "Docs",
+      "Spacing",
+      "Type"
+    ],
+    "notes": [
+      "Implemented shared mockup surfaces as iframe-backed React previews that source the canonical project/preview HTML files.",
+      "Storybook now has dedicated mockup stories plus controls for mockup selection, zoom, columns, frame height, and metadata visibility.",
+      "The basic example app now uses the same shared MockupPreviews module and exposes matching controls for parity and validation.",
+      "Verification gates passed: coverage check, npm run lint, npm run build, npm run build-storybook, and examples/basic-usage npm run build."
+    ],
+    "runtimeCallPaths": [
+      ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> project/preview/*.html -> src/mockups/mockups.css",
+      "examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/react.ts -> src/mockups/MockupPreviews.tsx -> project/preview/*.html -> src/mockups/mockups.css"
+    ],
+    "storyIds": [
+      "Mockups/Project Previews.Gallery",
+      "Mockups/Project Previews.Ads",
+      "Mockups/Project Previews.Brand",
+      "Mockups/Project Previews.Chat",
+      "Mockups/Project Previews.Colors",
+      "Mockups/Project Previews.Components",
+      "Mockups/Project Previews.Dashboard",
+      "Mockups/Project Previews.Docs",
+      "Mockups/Project Previews.Spacing",
+      "Mockups/Project Previews.Type"
+    ]
+  },
+  "startedAt": "2026-04-21T16:40:33.619Z",
+  "finishedAt": "2026-04-21T16:40:33.619Z",
+  "value": {
+    "exampleSurfaces": [
+      "MockupPreviews gallery with per-mockup selection, zoom, columns, and frame-height controls"
+    ],
+    "filesChanged": [
+      "src/react.ts",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/MockupPreviews.stories.tsx",
+      "src/mockups/mockups.css",
+      "examples/basic-usage/src/App.tsx",
+      "examples/basic-usage/src/App.css"
+    ],
+    "mockupsCovered": [
+      "Ads",
+      "Brand",
+      "Chat",
+      "Colors",
+      "Components",
+      "Dashboard",
+      "Docs",
+      "Spacing",
+      "Type"
+    ],
+    "notes": [
+      "Implemented shared mockup surfaces as iframe-backed React previews that source the canonical project/preview HTML files.",
+      "Storybook now has dedicated mockup stories plus controls for mockup selection, zoom, columns, frame height, and metadata visibility.",
+      "The basic example app now uses the same shared MockupPreviews module and exposes matching controls for parity and validation.",
+      "Verification gates passed: coverage check, npm run lint, npm run build, npm run build-storybook, and examples/basic-usage npm run build."
+    ],
+    "runtimeCallPaths": [
+      ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> project/preview/*.html -> src/mockups/mockups.css",
+      "examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/react.ts -> src/mockups/MockupPreviews.tsx -> project/preview/*.html -> src/mockups/mockups.css"
+    ],
+    "storyIds": [
+      "Mockups/Project Previews.Gallery",
+      "Mockups/Project Previews.Ads",
+      "Mockups/Project Previews.Brand",
+      "Mockups/Project Previews.Chat",
+      "Mockups/Project Previews.Colors",
+      "Mockups/Project Previews.Components",
+      "Mockups/Project Previews.Dashboard",
+      "Mockups/Project Previews.Docs",
+      "Mockups/Project Previews.Spacing",
+      "Mockups/Project Previews.Type"
+    ]
+  }
+}

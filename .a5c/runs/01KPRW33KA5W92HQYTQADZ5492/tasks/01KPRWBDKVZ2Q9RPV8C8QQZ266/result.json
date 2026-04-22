@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPRWBDKVZ2Q9RPV8C8QQZ266",
+  "taskId": "typecheck",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000005:typecheck",
+  "status": "ok",
+  "result": {
+    "exitCode": 0,
+    "stderr": null,
+    "stdout": "\r\n> @a5c-ai/compendium@0.1.0 lint\r\n> tsc --noEmit\r\n\r\n"
+  },
+  "stdoutRef": "tasks/01KPRWBDKVZ2Q9RPV8C8QQZ266/stdout.log",
+  "stderrRef": "tasks/01KPRWBDKVZ2Q9RPV8C8QQZ266/stderr.log",
+  "startedAt": "2026-04-21T20:40:44.294Z",
+  "finishedAt": "2026-04-21T20:40:44.294Z",
+  "value": {
+    "exitCode": 0,
+    "stderr": null,
+    "stdout": "\r\n> @a5c-ai/compendium@0.1.0 lint\r\n> tsc --noEmit\r\n\r\n"
+  }
+}

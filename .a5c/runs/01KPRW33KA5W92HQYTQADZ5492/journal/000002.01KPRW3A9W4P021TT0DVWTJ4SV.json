@@ -1,0 +1,24 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T20:35:52.252Z",
+  "data": {
+    "effectId": "01KPRW3A8JN44W8MS21YN1BYNY",
+    "invocationKey": "design-system-mockup-remediation-fidelity:S000001:runtime-inventory",
+    "invocationHash": "d2bd5ed5e96737b6c313063f18739b7cfdc7eb48cc0fa9831bb02fc922f0d095",
+    "stepId": "S000001",
+    "taskId": "runtime-inventory",
+    "kind": "shell",
+    "label": "brownfield",
+    "taskDefRef": "tasks/01KPRW3A8JN44W8MS21YN1BYNY/task.json",
+    "labels": [
+      "brownfield",
+      "inventory",
+      "storybook",
+      "examples",
+      "mockups"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "ca6196555de32b8b1767605ced81c3b4da35d6e1a65716c826904533d3d71736"
+}

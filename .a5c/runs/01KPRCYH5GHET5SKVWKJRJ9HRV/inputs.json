@@ -1,0 +1,18 @@
+{
+  "projectDir": ".",
+  "exampleDir": "examples/basic-usage",
+  "requestText": "$babysitter:call resume work on this repo, improve, fill the gaps, tech debts, pixel pushing, until it perfectly fits the mocks in project and have storybook previews for each mockup and their controls, etc. and in the examples.",
+  "mockupNames": [
+    "Ads",
+    "Brand",
+    "Chat",
+    "Colors",
+    "Components",
+    "Dashboard",
+    "Docs",
+    "Spacing",
+    "Type"
+  ],
+  "relatedRunId": "01KPRA3G0CJD8K7N2H71TKJJY0",
+  "relatedRunReason": "follow-up"
+}

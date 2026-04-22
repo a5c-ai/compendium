@@ -1,0 +1,10 @@
+{
+  "type": "RUN_COMPLETED",
+  "recordedAt": "2026-04-21T16:43:44.698Z",
+  "data": {
+    "outputRef": "state/output.json",
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "0fc56523cdd62117bfdfa75232c7fbbf2f37ffa6ff8d073d06aace2ac5f53d67"
+}

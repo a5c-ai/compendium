@@ -1,0 +1,17 @@
+{
+  "type": "RUN_CREATED",
+  "recordedAt": "2026-04-21T16:11:06.912Z",
+  "data": {
+    "runId": "01KPRCYH5GHET5SKVWKJRJ9HRV",
+    "processId": "design-system-mockup-remediation",
+    "entrypoint": {
+      "importPath": "../../processes/design-system-mockup-remediation.js",
+      "exportName": "process"
+    },
+    "harness": "codex",
+    "inputsRef": "inputs.json",
+    "prompt": " resume work on this repo, improve, fill the gaps, tech debts, pixel pushing, until it perfectly fits the mocks in project and have storybook previews for each mockup and their controls, etc. and in the examples.",
+    "sessionId": "019db0c3-f56d-75e1-b28b-56470fde965e"
+  },
+  "checksum": "3f09ee7b6aa987add75a638697872d2c1b597c3a969362b1e1dd706d863a6afb"
+}

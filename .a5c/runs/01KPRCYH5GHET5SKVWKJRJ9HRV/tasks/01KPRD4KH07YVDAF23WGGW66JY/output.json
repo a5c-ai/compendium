@@ -1,0 +1,27 @@
+{
+  "runtimeCallPaths": [
+    ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css -> src/tokens/index.css -> src/components/components.css",
+    ".storybook/preview.ts -> src/tokens/index.css -> src/components/components.css -> src/mockups/MockupPreviews.stories.tsx",
+    "examples/basic-usage/src/main.tsx -> examples/basic-usage/src/App.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css -> @a5c-ai/compendium/css",
+    "project/preview/*.html -> visual and structural reference only; do not edit these files"
+  ],
+  "plan": [
+    "Create a shared React surface module for the preview families so Storybook and the example app render the same compositions.",
+    "Add a dedicated Storybook story file that exposes one preview per mockup family and surfaces meaningful args/controls rather than static snapshots.",
+    "Refactor the basic usage example app into a navigable mockup gallery that reuses the shared surface module instead of maintaining a separate one-off landing page.",
+    "Keep package API stable unless a small internal export is the cleanest way to reuse the shared mockup module across local source and the example app.",
+    "Verify the work with deterministic gates: mockup story coverage grep, typecheck, library build, Storybook build, and example build."
+  ],
+  "targetFiles": [
+    "src/mockups/MockupPreviews.tsx",
+    "src/mockups/MockupPreviews.stories.tsx",
+    "src/mockups/mockups.css",
+    "examples/basic-usage/src/App.tsx",
+    "examples/basic-usage/src/App.css"
+  ],
+  "verificationNotes": [
+    "Every preview family in project/preview should appear by name in the shared source module and Storybook story file.",
+    "The example app should reference the shared mockup surfaces rather than only component demos.",
+    "No unrelated component APIs or token contracts should change unless required for reuse or fidelity."
+  ]
+}

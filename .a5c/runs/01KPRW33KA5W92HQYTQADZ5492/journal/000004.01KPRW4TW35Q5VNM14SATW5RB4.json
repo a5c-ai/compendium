@@ -1,0 +1,24 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T20:36:41.987Z",
+  "data": {
+    "effectId": "01KPRW4TTVYGSG9WBFEFD9TQET",
+    "invocationKey": "design-system-mockup-remediation-fidelity:S000002:remediation-plan",
+    "invocationHash": "89bc3cad67992dc18c16544400c18bc841d01e982a65395efeffd5cd92c35d01",
+    "stepId": "S000002",
+    "taskId": "remediation-plan",
+    "kind": "agent",
+    "label": "brownfield",
+    "taskDefRef": "tasks/01KPRW4TTVYGSG9WBFEFD9TQET/task.json",
+    "labels": [
+      "brownfield",
+      "planning",
+      "storybook",
+      "examples",
+      "mockups"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "ae7ad882f4d7c98824fe5ee23c01ab08dd1d4fb8d47a13ca8f92767ff7df052f"
+}

@@ -1,0 +1,27 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPREQRAJ11FMN0P5KDFEAN5G/input.json",
+    "outputJsonPath": "tasks/01KPREQRAJ11FMN0P5KDFEAN5G/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "build",
+    "library",
+    "verification"
+  ],
+  "shell": {
+    "command": "npm run build",
+    "cwd": ".",
+    "expectedExitCode": 0,
+    "timeout": 300000
+  },
+  "title": "Library build",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPREQRAJ11FMN0P5KDFEAN5G",
+  "taskId": "library-build",
+  "invocationKey": "design-system-mockup-remediation:S000006:library-build",
+  "stepId": "S000006",
+  "inputs": {
+    "projectDir": "."
+  }
+}

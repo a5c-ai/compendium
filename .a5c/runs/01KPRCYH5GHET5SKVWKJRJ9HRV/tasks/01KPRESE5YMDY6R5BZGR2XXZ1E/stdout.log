@@ -1,0 +1,13 @@
+
+> compendium-basic-usage@0.0.0 build
+> tsc && vite build
+
+vite v6.4.2 building for production...
+transforming...
+✓ 35 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:   0.27 kB
+dist/assets/index-DkFk_Tpp.css   33.16 kB │ gzip:   7.84 kB
+dist/assets/index-BV7nQjuD.js   694.97 kB │ gzip: 183.90 kB
+✓ built in 858ms

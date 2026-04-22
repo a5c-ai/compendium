@@ -1,0 +1,40 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPRWAH6W4260DMZM7CYYWF6B/input.json",
+    "outputJsonPath": "tasks/01KPRWAH6W4260DMZM7CYYWF6B/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "examples",
+    "mockups",
+    "storybook",
+    "verification"
+  ],
+  "shell": {
+    "command": "$ErrorActionPreference = 'Stop'; $storyFile = 'src/mockups/MockupPreviews.stories.tsx'; $surfaceFile = 'src/mockups/MockupPreviews.tsx'; $exampleFile = 'examples/basic-usage/src/App.tsx'; if (!(Test-Path $storyFile)) { Write-Error \"Missing $storyFile\" }; if (!(Test-Path $surfaceFile)) { Write-Error \"Missing $surfaceFile\" }; if (!(Test-Path $exampleFile)) { Write-Error \"Missing $exampleFile\" }; $storyText = Get-Content -Raw $storyFile; $surfaceText = Get-Content -Raw $surfaceFile; $exampleText = Get-Content -Raw $exampleFile; $expected = @('Ads', 'Brand', 'Chat', 'Colors', 'Components', 'Dashboard', 'Docs', 'Spacing', 'Type'); foreach ($name in $expected) {;   if ($storyText -notmatch $name) { Write-Error \"Story coverage missing for $name\" };   if ($surfaceText -notmatch $name) { Write-Error \"Surface definition missing for $name\" }; }; if ($exampleText -notmatch 'Mockup') { Write-Error 'Example app does not reference mockup surfaces' }; Write-Output 'mockup coverage ok'",
+    "cwd": ".",
+    "expectedExitCode": 0,
+    "timeout": 30000
+  },
+  "title": "Verify story coverage and shared mockup source files exist",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPRWAH6W4260DMZM7CYYWF6B",
+  "taskId": "mockup-coverage-check",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000004:mockup-coverage-check",
+  "stepId": "S000004",
+  "inputs": {
+    "exampleDir": "examples/basic-usage",
+    "mockupNames": [
+      "Ads",
+      "Brand",
+      "Chat",
+      "Colors",
+      "Components",
+      "Dashboard",
+      "Docs",
+      "Spacing",
+      "Type"
+    ],
+    "projectDir": "."
+  }
+}

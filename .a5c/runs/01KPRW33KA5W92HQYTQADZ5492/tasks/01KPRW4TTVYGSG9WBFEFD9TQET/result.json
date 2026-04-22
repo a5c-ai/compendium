@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPRW4TTVYGSG9WBFEFD9TQET",
+  "taskId": "remediation-plan",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000002:remediation-plan",
+  "status": "ok",
+  "result": {
+    "plan": [
+      "Extract per-mock structural and typographic deltas by comparing each rendered Storybook mock surface to project/preview counterparts.",
+      "Refine shared mockup page shells (tabs/casing/page headers/chapter rhythm) and page-specific sections in src/mockups/MockupPreviews.tsx.",
+      "Tighten style fidelity in src/mockups/mockups.css for exact spacing scales, panel geometry, borders, gradients, and typography sizes against each mock family.",
+      "Keep story controls and example app parity untouched except for any required consumption adjustments.",
+      "Run deterministic gates: mockup coverage check, lint, build, storybook build, and example build. Iterate one additional repair pass if any gates fail or fidelity review notes remain high-severity."
+    ],
+    "runtimeCallPaths": [
+      ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css -> src/tokens/index.css -> src/components/components.css",
+      ".storybook/preview.ts -> src/tokens/index.css -> src/components/components.css -> src/mockups/MockupPreviews.stories.tsx",
+      "examples/basic-usage/src/main.tsx -> examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/react.ts -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css",
+      "project/preview/*.html -> visual reference for typography rhythm, spacing cadence, casing chrome, and layout proportions only"
+    ],
+    "targetFiles": [
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css",
+      "src/mockups/MockupPreviews.stories.tsx",
+      "examples/basic-usage/src/App.tsx",
+      "examples/basic-usage/src/App.css"
+    ],
+    "verificationNotes": [
+      "Every mock family (Ads, Brand, Chat, Colors, Components, Dashboard, Docs, Spacing, Type) must remain represented in shared source and Storybook stories.",
+      "Storybook mock pages must render without missing routes/assets and stay fully local (no external iframe dependency).",
+      "Fidelity checks focus on layout structure, type scale, spacing rhythm, casing/tab chrome, and color contrast alignment to project/preview sources.",
+      "Example app must continue consuming the same shared mockup surfaces and controls for parity with Storybook."
+    ]
+  },
+  "startedAt": "2026-04-21T20:37:13.275Z",
+  "finishedAt": "2026-04-21T20:37:13.275Z",
+  "value": {
+    "plan": [
+      "Extract per-mock structural and typographic deltas by comparing each rendered Storybook mock surface to project/preview counterparts.",
+      "Refine shared mockup page shells (tabs/casing/page headers/chapter rhythm) and page-specific sections in src/mockups/MockupPreviews.tsx.",
+      "Tighten style fidelity in src/mockups/mockups.css for exact spacing scales, panel geometry, borders, gradients, and typography sizes against each mock family.",
+      "Keep story controls and example app parity untouched except for any required consumption adjustments.",
+      "Run deterministic gates: mockup coverage check, lint, build, storybook build, and example build. Iterate one additional repair pass if any gates fail or fidelity review notes remain high-severity."
+    ],
+    "runtimeCallPaths": [
+      ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css -> src/tokens/index.css -> src/components/components.css",
+      ".storybook/preview.ts -> src/tokens/index.css -> src/components/components.css -> src/mockups/MockupPreviews.stories.tsx",
+      "examples/basic-usage/src/main.tsx -> examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/react.ts -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css",
+      "project/preview/*.html -> visual reference for typography rhythm, spacing cadence, casing chrome, and layout proportions only"
+    ],
+    "targetFiles": [
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css",
+      "src/mockups/MockupPreviews.stories.tsx",
+      "examples/basic-usage/src/App.tsx",
+      "examples/basic-usage/src/App.css"
+    ],
+    "verificationNotes": [
+      "Every mock family (Ads, Brand, Chat, Colors, Components, Dashboard, Docs, Spacing, Type) must remain represented in shared source and Storybook stories.",
+      "Storybook mock pages must render without missing routes/assets and stay fully local (no external iframe dependency).",
+      "Fidelity checks focus on layout structure, type scale, spacing rhythm, casing/tab chrome, and color contrast alignment to project/preview sources.",
+      "Example app must continue consuming the same shared mockup surfaces and controls for parity with Storybook."
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPRERJ4WEAZEKNXFQ3Q5TRDP/input.json",
+    "outputJsonPath": "tasks/01KPRERJ4WEAZEKNXFQ3Q5TRDP/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "build",
+    "storybook",
+    "verification"
+  ],
+  "shell": {
+    "command": "npm run build-storybook",
+    "cwd": ".",
+    "expectedExitCode": 0,
+    "timeout": 300000
+  },
+  "title": "Storybook build",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPRERJ4WEAZEKNXFQ3Q5TRDP",
+  "taskId": "storybook-build",
+  "invocationKey": "design-system-mockup-remediation:S000007:storybook-build",
+  "stepId": "S000007",
+  "inputs": {
+    "projectDir": "."
+  }
+}

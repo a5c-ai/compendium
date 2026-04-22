@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPRESE5YMDY6R5BZGR2XXZ1E",
+  "taskId": "example-build",
+  "invocationKey": "design-system-mockup-remediation:S000008:example-build",
+  "status": "ok",
+  "result": {
+    "exitCode": 0,
+    "stderr": "\r\n(!) Some chunks are larger than 500 kB after minification. Consider:\r\n- Using dynamic import() to code-split the application\r\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\r\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\r\n",
+    "stdout": "\r\n> compendium-basic-usage@0.0.0 build\r\n> tsc && vite build\r\n\r\nvite v6.4.2 building for production...\r\ntransforming...\r\n✓ 35 modules transformed.\r\nrendering chunks...\r\ncomputing gzip size...\r\ndist/index.html                   0.41 kB │ gzip:   0.27 kB\r\ndist/assets/index-DkFk_Tpp.css   33.16 kB │ gzip:   7.84 kB\r\ndist/assets/index-BV7nQjuD.js   694.97 kB │ gzip: 183.90 kB\r\n✓ built in 858ms\r\n"
+  },
+  "stdoutRef": "tasks/01KPRESE5YMDY6R5BZGR2XXZ1E/stdout.log",
+  "stderrRef": "tasks/01KPRESE5YMDY6R5BZGR2XXZ1E/stderr.log",
+  "startedAt": "2026-04-21T16:43:37.503Z",
+  "finishedAt": "2026-04-21T16:43:37.503Z",
+  "value": {
+    "exitCode": 0,
+    "stderr": "\r\n(!) Some chunks are larger than 500 kB after minification. Consider:\r\n- Using dynamic import() to code-split the application\r\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\r\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\r\n",
+    "stdout": "\r\n> compendium-basic-usage@0.0.0 build\r\n> tsc && vite build\r\n\r\nvite v6.4.2 building for production...\r\ntransforming...\r\n✓ 35 modules transformed.\r\nrendering chunks...\r\ncomputing gzip size...\r\ndist/index.html                   0.41 kB │ gzip:   0.27 kB\r\ndist/assets/index-DkFk_Tpp.css   33.16 kB │ gzip:   7.84 kB\r\ndist/assets/index-BV7nQjuD.js   694.97 kB │ gzip: 183.90 kB\r\n✓ built in 858ms\r\n"
+  }
+}

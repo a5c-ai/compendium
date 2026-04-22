@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T20:41:28.926Z",
+  "data": {
+    "effectId": "01KPRWDK1S2GTEAPSA62MX7XHQ",
+    "invocationKey": "design-system-mockup-remediation-fidelity:S000007:storybook-build",
+    "invocationHash": "ce40b7b2abf1b5da8801dbec7b3d5ba13c76c2be90123a35faabc14459706f4d",
+    "stepId": "S000007",
+    "taskId": "storybook-build",
+    "kind": "shell",
+    "label": "verification",
+    "taskDefRef": "tasks/01KPRWDK1S2GTEAPSA62MX7XHQ/task.json",
+    "labels": [
+      "verification",
+      "storybook",
+      "build"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "362de9114bc6a340e20fdb8dc35cc398b707abfca728d4d16fb9daeb582e31dc"
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPRWEKCNNFT2Z6PM5EPCHJJH",
+  "taskId": "example-build",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000008:example-build",
+  "status": "ok",
+  "result": {
+    "exitCode": 0,
+    "stderr": null,
+    "stdout": "\r\n> compendium-basic-usage@0.0.0 build\r\n> tsc && vite build\r\n\r\nvite v6.4.2 building for production...\r\ntransforming...\r\n✓ 36 modules transformed.\r\nrendering chunks...\r\ncomputing gzip size...\r\ndist/index.html                   0.41 kB │ gzip:  0.27 kB\r\ndist/assets/index-DkFk_Tpp.css   33.16 kB │ gzip:  7.84 kB\r\ndist/assets/index-Bd1dy6Pk.js   229.29 kB │ gzip: 71.07 kB\r\n✓ built in 603ms\r\n"
+  },
+  "stdoutRef": "tasks/01KPRWEKCNNFT2Z6PM5EPCHJJH/stdout.log",
+  "stderrRef": "tasks/01KPRWEKCNNFT2Z6PM5EPCHJJH/stderr.log",
+  "startedAt": "2026-04-21T20:42:27.446Z",
+  "finishedAt": "2026-04-21T20:42:27.446Z",
+  "value": {
+    "exitCode": 0,
+    "stderr": null,
+    "stdout": "\r\n> compendium-basic-usage@0.0.0 build\r\n> tsc && vite build\r\n\r\nvite v6.4.2 building for production...\r\ntransforming...\r\n✓ 36 modules transformed.\r\nrendering chunks...\r\ncomputing gzip size...\r\ndist/index.html                   0.41 kB │ gzip:  0.27 kB\r\ndist/assets/index-DkFk_Tpp.css   33.16 kB │ gzip:  7.84 kB\r\ndist/assets/index-Bd1dy6Pk.js   229.29 kB │ gzip: 71.07 kB\r\n✓ built in 603ms\r\n"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "projectDir": ".",
+  "exampleDir": "examples/basic-usage",
+  "requestText": "$babysitter:call iterate and compare to adapt the components and final designed pages until it looks almost exactly like the mocks 99%",
+  "mockupNames": [
+    "Ads",
+    "Brand",
+    "Chat",
+    "Colors",
+    "Components",
+    "Dashboard",
+    "Docs",
+    "Spacing",
+    "Type"
+  ],
+  "relatedRunId": "01KPRCYH5GHET5SKVWKJRJ9HRV",
+  "relatedRunReason": "follow-up"
+}

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPRW60T02BQNZA4KN21519CB",
+  "taskId": "implement-mockup-remediation",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000003:implement-mockup-remediation",
+  "status": "ok",
+  "result": {
+    "exampleSurfaces": [
+      "Shared MockupPreviews gallery remains consumed by examples/basic-usage with identical controls and surfaces as Storybook"
+    ],
+    "filesChanged": [
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "mockupsCovered": [
+      "Ads",
+      "Brand",
+      "Chat",
+      "Colors",
+      "Components",
+      "Dashboard",
+      "Docs",
+      "Spacing",
+      "Type"
+    ],
+    "notes": [
+      "Performed iterative fidelity pass on all nine mock families, tightening casing/tabs/page chrome, typography scale, section rhythm, and layout geometry to closely match project preview references.",
+      "Added page-family-specific structures: dark ad-sheet slot compositions, tri-pane atelier chat, dashboard hero+KPI+ledger+gauge side panel, and encyclopedia running-head with TOC/article/marginalia.",
+      "Kept story controls and shared surface architecture stable while increasing visual match quality in shared source files only.",
+      "Validation completed during implementation pass: npm run lint, npm run build-storybook, and examples/basic-usage npm run build passed."
+    ],
+    "runtimeCallPaths": [
+      ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css -> src/tokens/index.css -> src/components/components.css",
+      ".storybook/preview.ts -> src/tokens/index.css -> src/components/components.css -> src/mockups/MockupPreviews.stories.tsx",
+      "examples/basic-usage/src/main.tsx -> examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/react.ts -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css",
+      "project/preview/*.html -> fidelity reference for visual reconstruction"
+    ],
+    "storyIds": [
+      "Mockups/Project Previews.Gallery",
+      "Mockups/Project Previews.Ads",
+      "Mockups/Project Previews.Brand",
+      "Mockups/Project Previews.Chat",
+      "Mockups/Project Previews.Colors",
+      "Mockups/Project Previews.Components",
+      "Mockups/Project Previews.Dashboard",
+      "Mockups/Project Previews.Docs",
+      "Mockups/Project Previews.Spacing",
+      "Mockups/Project Previews.Type"
+    ]
+  },
+  "startedAt": "2026-04-21T20:39:34.570Z",
+  "finishedAt": "2026-04-21T20:39:34.570Z",
+  "value": {
+    "exampleSurfaces": [
+      "Shared MockupPreviews gallery remains consumed by examples/basic-usage with identical controls and surfaces as Storybook"
+    ],
+    "filesChanged": [
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "mockupsCovered": [
+      "Ads",
+      "Brand",
+      "Chat",
+      "Colors",
+      "Components",
+      "Dashboard",
+      "Docs",
+      "Spacing",
+      "Type"
+    ],
+    "notes": [
+      "Performed iterative fidelity pass on all nine mock families, tightening casing/tabs/page chrome, typography scale, section rhythm, and layout geometry to closely match project preview references.",
+      "Added page-family-specific structures: dark ad-sheet slot compositions, tri-pane atelier chat, dashboard hero+KPI+ledger+gauge side panel, and encyclopedia running-head with TOC/article/marginalia.",
+      "Kept story controls and shared surface architecture stable while increasing visual match quality in shared source files only.",
+      "Validation completed during implementation pass: npm run lint, npm run build-storybook, and examples/basic-usage npm run build passed."
+    ],
+    "runtimeCallPaths": [
+      ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css -> src/tokens/index.css -> src/components/components.css",
+      ".storybook/preview.ts -> src/tokens/index.css -> src/components/components.css -> src/mockups/MockupPreviews.stories.tsx",
+      "examples/basic-usage/src/main.tsx -> examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/react.ts -> src/mockups/MockupPreviews.tsx -> src/mockups/mockups.css",
+      "project/preview/*.html -> fidelity reference for visual reconstruction"
+    ],
+    "storyIds": [
+      "Mockups/Project Previews.Gallery",
+      "Mockups/Project Previews.Ads",
+      "Mockups/Project Previews.Brand",
+      "Mockups/Project Previews.Chat",
+      "Mockups/Project Previews.Colors",
+      "Mockups/Project Previews.Components",
+      "Mockups/Project Previews.Dashboard",
+      "Mockups/Project Previews.Docs",
+      "Mockups/Project Previews.Spacing",
+      "Mockups/Project Previews.Type"
+    ]
+  }
+}

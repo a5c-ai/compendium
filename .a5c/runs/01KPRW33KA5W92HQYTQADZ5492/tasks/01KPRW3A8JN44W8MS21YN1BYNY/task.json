@@ -1,0 +1,30 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPRW3A8JN44W8MS21YN1BYNY/input.json",
+    "outputJsonPath": "tasks/01KPRW3A8JN44W8MS21YN1BYNY/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "brownfield",
+    "examples",
+    "inventory",
+    "mockups",
+    "storybook"
+  ],
+  "shell": {
+    "command": "$ErrorActionPreference = 'Stop'; $paths = @(;   '.storybook',;   'src',;   'examples/basic-usage/src',;   'project/preview',;   'project/ui_kits/marketing'; ); foreach ($path in $paths) {;   if (Test-Path $path) {;     Write-Output \"## $path\";     rg --files $path;   }; }",
+    "cwd": ".",
+    "expectedExitCode": 0,
+    "timeout": 30000
+  },
+  "title": "Inventory live runtime paths for storybook, source, examples, and preview specs",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPRW3A8JN44W8MS21YN1BYNY",
+  "taskId": "runtime-inventory",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000001:runtime-inventory",
+  "stepId": "S000001",
+  "inputs": {
+    "exampleDir": "examples/basic-usage",
+    "projectDir": "."
+  }
+}

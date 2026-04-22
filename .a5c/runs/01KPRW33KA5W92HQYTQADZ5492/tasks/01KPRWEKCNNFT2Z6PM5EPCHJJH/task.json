@@ -1,0 +1,28 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPRWEKCNNFT2Z6PM5EPCHJJH/input.json",
+    "outputJsonPath": "tasks/01KPRWEKCNNFT2Z6PM5EPCHJJH/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "build",
+    "examples",
+    "verification"
+  ],
+  "shell": {
+    "command": "npm run build",
+    "cwd": "examples/basic-usage",
+    "expectedExitCode": 0,
+    "timeout": 300000
+  },
+  "title": "Basic usage example build",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPRWEKCNNFT2Z6PM5EPCHJJH",
+  "taskId": "example-build",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000008:example-build",
+  "stepId": "S000008",
+  "inputs": {
+    "exampleDir": "examples/basic-usage",
+    "projectDir": "."
+  }
+}

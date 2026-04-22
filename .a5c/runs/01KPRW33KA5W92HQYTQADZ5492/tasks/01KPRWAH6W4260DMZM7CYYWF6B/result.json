@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPRWAH6W4260DMZM7CYYWF6B",
+  "taskId": "mockup-coverage-check",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000004:mockup-coverage-check",
+  "status": "ok",
+  "result": {
+    "exitCode": 0,
+    "stderr": "\r\n",
+    "stdout": "mockup coverage ok\r\n\r\n"
+  },
+  "stdoutRef": "tasks/01KPRWAH6W4260DMZM7CYYWF6B/stdout.log",
+  "stderrRef": "tasks/01KPRWAH6W4260DMZM7CYYWF6B/stderr.log",
+  "startedAt": "2026-04-21T20:40:11.087Z",
+  "finishedAt": "2026-04-21T20:40:11.087Z",
+  "value": {
+    "exitCode": 0,
+    "stderr": "\r\n",
+    "stdout": "mockup coverage ok\r\n\r\n"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "runId": "01KPRW33KA5W92HQYTQADZ5492",
+  "request": "design-system-mockup-remediation-fidelity",
+  "processId": "design-system-mockup-remediation-fidelity",
+  "harness": "codex",
+  "entrypoint": {
+    "importPath": "../../processes/design-system-mockup-remediation.js",
+    "exportName": "process"
+  },
+  "processPath": "../../processes/design-system-mockup-remediation.js",
+  "layoutVersion": "2026.01-storage-preview",
+  "createdAt": "2026-04-21T20:35:45.429Z",
+  "prompt": " iterate and compare to adapt the components and final designed pages until it looks almost exactly like the mocks 99%",
+  "completionProof": "7507497d1192e9f8409f5244c6670ee1"
+}

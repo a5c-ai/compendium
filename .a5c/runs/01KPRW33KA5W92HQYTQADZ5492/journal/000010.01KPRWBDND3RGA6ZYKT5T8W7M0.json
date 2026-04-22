@@ -1,0 +1,21 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T20:40:17.837Z",
+  "data": {
+    "effectId": "01KPRWBDKVZ2Q9RPV8C8QQZ266",
+    "invocationKey": "design-system-mockup-remediation-fidelity:S000005:typecheck",
+    "invocationHash": "5c928030c2f8260ccb4bacbc3dd0d1459e9e39e69ac2a32eb83ff48de5f47edb",
+    "stepId": "S000005",
+    "taskId": "typecheck",
+    "kind": "shell",
+    "label": "verification",
+    "taskDefRef": "tasks/01KPRWBDKVZ2Q9RPV8C8QQZ266/task.json",
+    "labels": [
+      "verification",
+      "typescript"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "42ffd79a07fe4611191698b17a44fe2517d605c36cc0e0f5929f1d3600b0ee67"
+}

@@ -1,0 +1,23 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T16:40:52.805Z",
+  "data": {
+    "effectId": "01KPREN18SDKE2AKQ0NBT1R493",
+    "invocationKey": "design-system-mockup-remediation:S000004:mockup-coverage-check",
+    "invocationHash": "5acdd36dae3e5233e07d52060029e2f5f5eee7368d0671bd1c4e5af3614fb1e1",
+    "stepId": "S000004",
+    "taskId": "mockup-coverage-check",
+    "kind": "shell",
+    "label": "verification",
+    "taskDefRef": "tasks/01KPREN18SDKE2AKQ0NBT1R493/task.json",
+    "labels": [
+      "verification",
+      "storybook",
+      "examples",
+      "mockups"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "d59592b9caa913b0a60dd4647182f5bb13c2f7f2fb9a6a5d488fe66de89fbdea"
+}

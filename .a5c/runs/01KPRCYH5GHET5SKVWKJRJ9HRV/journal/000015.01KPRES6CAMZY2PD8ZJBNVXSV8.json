@@ -1,0 +1,16 @@
+{
+  "type": "EFFECT_RESOLVED",
+  "recordedAt": "2026-04-21T16:43:09.067Z",
+  "data": {
+    "effectId": "01KPRERJ4WEAZEKNXFQ3Q5TRDP",
+    "status": "ok",
+    "resultRef": "tasks/01KPRERJ4WEAZEKNXFQ3Q5TRDP/result.json",
+    "stdoutRef": "tasks/01KPRERJ4WEAZEKNXFQ3Q5TRDP/stdout.log",
+    "stderrRef": "tasks/01KPRERJ4WEAZEKNXFQ3Q5TRDP/stderr.log",
+    "startedAt": "2026-04-21T16:43:08.955Z",
+    "finishedAt": "2026-04-21T16:43:08.955Z",
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "8b76661062deefdcf3c0f2c9f94a6451f7f867c2c568a591e03b01e2172d27c4"
+}

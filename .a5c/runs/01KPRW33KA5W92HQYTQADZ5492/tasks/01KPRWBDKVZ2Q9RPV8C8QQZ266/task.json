@@ -1,0 +1,26 @@
+{
+  "io": {
+    "inputJsonPath": "tasks/01KPRWBDKVZ2Q9RPV8C8QQZ266/input.json",
+    "outputJsonPath": "tasks/01KPRWBDKVZ2Q9RPV8C8QQZ266/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "typescript",
+    "verification"
+  ],
+  "shell": {
+    "command": "npm run lint",
+    "cwd": ".",
+    "expectedExitCode": 0,
+    "timeout": 300000
+  },
+  "title": "TypeScript typecheck",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPRWBDKVZ2Q9RPV8C8QQZ266",
+  "taskId": "typecheck",
+  "invocationKey": "design-system-mockup-remediation-fidelity:S000005:typecheck",
+  "stepId": "S000005",
+  "inputs": {
+    "projectDir": "."
+  }
+}

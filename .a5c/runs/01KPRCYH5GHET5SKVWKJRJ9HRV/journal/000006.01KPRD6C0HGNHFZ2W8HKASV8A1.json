@@ -1,0 +1,24 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-21T16:15:23.666Z",
+  "data": {
+    "effectId": "01KPRD6BYXBAE678NGH2HRD1WN",
+    "invocationKey": "design-system-mockup-remediation:S000003:implement-mockup-remediation",
+    "invocationHash": "4da55aeee4f85073071cef6fc968ef8e7a5006b3c38f5c451d6ce844871ce3ec",
+    "stepId": "S000003",
+    "taskId": "implement-mockup-remediation",
+    "kind": "agent",
+    "label": "implementation",
+    "taskDefRef": "tasks/01KPRD6BYXBAE678NGH2HRD1WN/task.json",
+    "labels": [
+      "implementation",
+      "react",
+      "storybook",
+      "examples",
+      "mockups"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0c3-f56d-75e1-b28b-56470fde965e"
+  },
+  "checksum": "16c55c0fda8b03d9cd333143f62a1ea486f55e55467e70dcfcacfa9a3b6cdb6e"
+}
