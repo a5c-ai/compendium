@@ -25,6 +25,8 @@ export type MockupName =
   | 'Chat'
   | 'Colors'
   | 'Components'
+  | 'Seraph Bestiary'
+  | 'Seraph Refactor'
   | 'Dashboard'
   | 'Docs'
   | 'Spacing'
@@ -35,6 +37,7 @@ export interface MockupDefinition {
   slug: string;
   description: string;
   render: () => ReactElement;
+  sourceLabel?: string;
 }
 
 function CodexFrame({
@@ -659,6 +662,328 @@ function ChatSurface() {
   );
 }
 
+function SeraphRefactorSurface() {
+  const conversations = [
+    ['Auth middleware refactor', 'Refactor, tracing, tests', '10:42 AM', true],
+    ['Fix flaky tests', 'Investigate & stabilize', '9:18 AM', false],
+    ['Deploy review', 'Staging → Production', 'Yesterday', false],
+    ['TypeScript cleanup', 'Strict mode & any fixes', 'Yesterday', false],
+    ['Database migration plan', 'Users table partitioning', 'Yesterday', false],
+    ['API rate limiting', 'Redis + sliding window', 'May 12', false],
+    ['Frontend build error', 'Vite config issue', 'May 11', false],
+    ['Add dark mode', 'Theme tokens & toggle', 'May 10', false],
+    ['CI pipeline optimization', 'Caching & parallel jobs', 'May 8', false],
+  ] as const;
+
+  return (
+    <section className="mk-seraph">
+      <header className="mk-seraph__chrome">
+        <div className="mk-seraph__traffic"><span /><span /><span /></div>
+        <div className="mk-seraph__title">CODEX SERAPHINIANUS · Chat AI</div>
+        <div className="mk-seraph__window">─ □ ×</div>
+      </header>
+      <aside className="mk-seraph__sidebar">
+        <div className="mk-seraph__rail mk-seraph__rail--left">
+          <div className="mk-seraph__dial" />
+          <div className="mk-seraph__sigil">✺</div>
+          <div className="mk-seraph__totem mk-seraph__totem--serpent" />
+          <div className="mk-seraph__totem mk-seraph__totem--relic" />
+        </div>
+        <div className="mk-seraph__crest">
+          <div className="mk-seraph__sun" />
+          <div className="mk-seraph__vine" />
+        </div>
+        <button type="button" className="mk-seraph__new">+ New Conversation</button>
+        <div className="mk-seraph__section-title">Today</div>
+        <div className="mk-seraph__thread-list">
+          {conversations.map(([title, subtitle, when, current]) => (
+            <article key={title} className={`mk-seraph__thread ${current ? 'is-current' : ''}`}>
+              <div className="mk-seraph__thread-glyph">✺</div>
+              <div>
+                <strong>{title}</strong>
+                <p>{subtitle}</p>
+              </div>
+              <span>{when}</span>
+            </article>
+          ))}
+        </div>
+        <div className="mk-seraph__search">
+          <span>Search conversations</span>
+          <i>⌘K</i>
+        </div>
+        <footer className="mk-seraph__profile">
+          <div className="mk-seraph__medallion">✺</div>
+          <div>
+            <strong>Pro Plan</strong>
+            <small>Codex Seraphinianus</small>
+          </div>
+        </footer>
+        <div className="mk-seraph__bottom-ornament" />
+      </aside>
+      <main className="mk-seraph__main">
+        <header className="mk-seraph__prompt-bar">
+          <div className="mk-seraph__seal">✺</div>
+          <div className="mk-seraph__prompt">
+            Refactor the auth middleware, add request tracing,
+            <br />
+            and update the tests. Show me the changes before committing.
+          </div>
+          <span>10:42 AM</span>
+        </header>
+        <p className="mk-seraph__lead">
+          I&apos;ll inspect the codebase, run the tests, implement the refactor with request tracing,
+          update tests, and show you the diff before committing.
+        </p>
+        <div className="mk-seraph__cards">
+          <article className="mk-seraph__card">
+            <h4>Repository Inspection <span>Completed</span></h4>
+            <p>Scanned project files and dependencies.</p>
+            <small>Files scanned: 214 · Language: TypeScript</small>
+            <div className="mk-seraph__sprout" />
+          </article>
+          <article className="mk-seraph__card">
+            <h4>Key Files Found</h4>
+            <ul>
+              <li>`src/middleware/auth.ts`</li>
+              <li>`src/lib/requestTracing.ts`</li>
+              <li>`tests/auth.test.ts`</li>
+              <li>`src/server.ts`</li>
+            </ul>
+            <div className="mk-seraph__sprout mk-seraph__sprout--small" />
+          </article>
+          <article className="mk-seraph__card">
+            <h4>Plan <span>Completed</span></h4>
+            <ol>
+              <li>Analyze existing middleware</li>
+              <li>Add request tracing</li>
+              <li>Refactor auth parsing logic</li>
+              <li>Update tests</li>
+              <li>Run tests & lint</li>
+              <li>Show diff</li>
+            </ol>
+            <div className="mk-seraph__tree" />
+          </article>
+        </div>
+        <div className="mk-seraph__terminal">
+          <div className="mk-seraph__terminal-main">
+            <h4>Bash / Terminal <span>Completed</span></h4>
+            <pre>{`$ rg "authMiddleware|requestId" src tests
+src/middleware/auth.ts: export function authMiddleware
+src/lib/requestTracing.ts: export function requestId
+
+$ npm test -- auth
+PASS tests/auth.test.ts
+  ✓ rejects missing token
+  ✓ accepts valid token
+  ✓ attaches user to request`}</pre>
+          </div>
+          <div className="mk-seraph__terminal-side">
+            <pre>{`$ npm run lint
+✔ No problems found
+
+$ git status --porcelain
+ M src/middleware/auth.ts
+ A src/lib/requestTracing.ts
+ M tests/auth.test.ts
+ M src/server.ts`}</pre>
+            <div className="mk-seraph__machine" />
+          </div>
+        </div>
+        <div className="mk-seraph__diff">
+          <header>
+            <h4>Diff / Code Changes</h4>
+            <span>3 files changed</span>
+          </header>
+          <div className="mk-seraph__tabs">
+            <span className="is-active">src/middleware/auth.ts</span>
+            <span>src/lib/requestTracing.ts</span>
+            <span>tests/auth.test.ts</span>
+          </div>
+          <div className="mk-seraph__diff-grid">
+            <div className="mk-seraph__code">
+              <span className="file">src/middleware/auth.ts</span>
+              <pre>{`- export function authMiddleware(req, res, next) {
++ export function authMiddleware(req, res, next) {
++   const requestId = startRequest(req, res);
+    const token = authSplit(req);
+-   if (!token) return res.status(401).json(...)
++   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`}</pre>
+            </div>
+            <div className="mk-seraph__code">
+              <span className="file">tests/auth.test.ts</span>
+              <pre>{`+ import { getRequestId } from '../lib/requestTracing';
+...
++ expect(requestId).toMatch(/req_/);
++ expect(res.body.requestId).toBeDefined();`}</pre>
+            </div>
+          </div>
+        </div>
+        <div className="mk-seraph__summary-row">
+          <article><h5>Tests / Validation</h5><p>12 passed, 12 total · Coverage: 92%</p><div className="mk-seraph__icon mk-seraph__icon--torch" /></article>
+          <article><h5>Lint</h5><p>No problems found</p><div className="mk-seraph__icon mk-seraph__icon--totem" /></article>
+          <article><h5>Type Check</h5><p>No type errors</p><div className="mk-seraph__icon mk-seraph__icon--vine" /></article>
+          <article><h5>Summary</h5><p>Refactor complete. Added request tracing, simplified token parsing, and updated 3 tests.</p><div className="mk-seraph__icon mk-seraph__icon--lizard" /></article>
+        </div>
+        <footer className="mk-seraph__composer">
+          <Input placeholder="Message Codex Seraphinianus…" />
+          <div className="mk-seraph__tool-row">
+            <Tag>Web Search</Tag>
+            <Tag>Bash</Tag>
+            <Tag>File Reader</Tag>
+            <Tag>Diff</Tag>
+            <Tag>Tests</Tag>
+            <Tag>Git</Tag>
+          </div>
+        </footer>
+        <div className="mk-seraph__folio-border" />
+      </main>
+      <aside className="mk-seraph__aside">
+        <div className="mk-seraph__dial mk-seraph__dial--large" />
+        <div className="mk-seraph__scribbles">
+          <span>ᚠ ᚨ ᚦ ᚱ ᚲ ᚷ</span>
+          <span>⟐ ⟡ ⊹ ⊹ ⟡ ⟐</span>
+          <span>ᚷ ᚲ ᚱ ᚦ ᚨ ᚠ</span>
+        </div>
+        <div className="mk-seraph__plant mk-seraph__plant--circuit" />
+        <div className="mk-seraph__dial mk-seraph__dial--eye" />
+      </aside>
+    </section>
+  );
+}
+
+function SeraphBestiarySurface() {
+  const threads = [
+    ['Illustrated bestiary', 'Help me research and design...', '10:42 AM', true],
+    ['Garden automation', 'Schedule + soil sensors', '9:18 AM', false],
+    ['Travel to the Red Isles', 'Itinerary + packing list', 'Yesterday', false],
+    ['Translate manuscript', 'Strange script to English', 'Yesterday', false],
+    ['Dream journal analysis', 'Recurring symbols & themes', 'May 12', false],
+    ['Recipe from mushrooms', 'Foraged morels & herbs', 'May 11', false],
+    ['Music theory helper', 'Fugue in D minor', 'May 10', false],
+  ] as const;
+  return (
+    <section className="mk-seraph mk-seraph--bestiary">
+      <header className="mk-seraph__chrome">
+        <div className="mk-seraph__traffic"><span /><span /><span /></div>
+        <div className="mk-seraph__title">CODEX SERAPHINIANUS · Chat AI</div>
+        <div className="mk-seraph__window">─ □ ×</div>
+      </header>
+      <aside className="mk-seraph__sidebar">
+        <div className="mk-seraph__rail mk-seraph__rail--left">
+          <div className="mk-seraph__dial" />
+          <div className="mk-seraph__sigil">☼</div>
+          <div className="mk-seraph__totem mk-seraph__totem--owl" />
+          <div className="mk-seraph__totem mk-seraph__totem--serpent" />
+        </div>
+        <div className="mk-seraph__crest mk-seraph__crest--orb">
+          <div className="mk-seraph__sun mk-seraph__sun--blue" />
+          <div className="mk-seraph__vine" />
+        </div>
+        <button type="button" className="mk-seraph__new">+ New Conversation</button>
+        <div className="mk-seraph__section-title">Today</div>
+        <div className="mk-seraph__thread-list">
+          {threads.map(([title, subtitle, when, current]) => (
+            <article key={title} className={`mk-seraph__thread ${current ? 'is-current' : ''}`}>
+              <div className="mk-seraph__thread-glyph">{current ? '☼' : '✢'}</div>
+              <div>
+                <strong>{title}</strong>
+                <p>{subtitle}</p>
+              </div>
+              <span>{when}</span>
+            </article>
+          ))}
+        </div>
+        <div className="mk-seraph__search">
+          <span>Search conversations</span>
+          <i>⌘K</i>
+        </div>
+        <footer className="mk-seraph__profile">
+          <div className="mk-seraph__medallion">☉</div>
+          <div>
+            <strong>Anima Codex</strong>
+            <small>Pro Plan</small>
+          </div>
+        </footer>
+        <div className="mk-seraph__bottom-ornament" />
+      </aside>
+      <main className="mk-seraph__main">
+        <header className="mk-seraph__prompt-bar">
+          <div className="mk-seraph__seal">☉</div>
+          <div className="mk-seraph__prompt">
+            I&apos;m creating a bestiary of surreal desert creatures.
+            <br />
+            Research real-world desert adaptations, draft 3 creature concepts,
+            and illustrate one in the style of an illuminated manuscript.
+          </div>
+          <span>10:42 AM</span>
+        </header>
+        <p className="mk-seraph__lead">
+          A grand endeavor. I&apos;ll research desert adaptations, draft concepts, and illustrate.
+        </p>
+        <div className="mk-seraph__task-stack">
+          <article className="mk-seraph__task">
+            <h4>Web Search <span>Completed</span></h4>
+            <div className="mk-seraph__task-copy"><p>Query: desert animal adaptations</p><small>Sources: 12</small></div>
+            <ul><li>National Geographic: Desert Animals</li><li>Smithsonian: Desert Biology Overview</li><li>BBC Earth: Survivors of the Desert</li><li>… and 9 more</li></ul>
+            <div className="mk-seraph__flora mk-seraph__flora--tuft" />
+          </article>
+          <article className="mk-seraph__task">
+            <h4>File Reader <span>Completed</span></h4>
+            <div className="mk-seraph__task-copy"><p>File: desert_creatures_notes.pdf</p><small>Pages: 1–14</small></div>
+            <ul><li>Water retention strategies</li><li>Burrowing & thermoregulation</li><li>Nocturnal behaviors</li></ul>
+            <div className="mk-seraph__flora mk-seraph__flora--bells" />
+          </article>
+          <article className="mk-seraph__task">
+            <h4>Code Runner <span>Completed</span></h4>
+            <div className="mk-seraph__task-copy"><p>Language: Python</p><small>Generated 27 unique trait sets.</small></div>
+            <ol><li>Sand-burrower, reflective plates, air sacs</li><li>Dune skimmer, electrostatic dust repellent</li><li>Mirage stalker, heat funnel crest</li></ol>
+            <div className="mk-seraph__icon mk-seraph__icon--beetle" />
+          </article>
+          <article className="mk-seraph__task">
+            <h4>Image Tool <span>Completed</span></h4>
+            <div className="mk-seraph__task-copy"><p>Prompt: illuminated manuscript desert creature</p><small>Style: Codex Seraphinianus</small></div>
+            <div className="mk-seraph__creature">
+              <div className="mk-seraph__creature-body" />
+            </div>
+          </article>
+          <article className="mk-seraph__task">
+            <h4>Calendar Tool <span>Scheduled</span></h4>
+            <div className="mk-seraph__task-copy"><p>Event: Bestiary review</p><small>When: May 23, 2024 at 3:00 PM</small></div>
+            <p>I&apos;ll schedule a review so we can refine the creatures and choose names and habitats.</p>
+            <div className="mk-seraph__flora mk-seraph__flora--mushroom" />
+          </article>
+        </div>
+        <p className="mk-seraph__closing">
+          All set! Three concepts are drafted, and one is illustrated.
+          <br />
+          Would you like me to show the other two concepts or refine this one?
+        </p>
+        <footer className="mk-seraph__composer">
+          <Input placeholder="Message Codex Seraphinianus…" />
+          <div className="mk-seraph__tool-row">
+            <Tag>Web Search</Tag>
+            <Tag>Code Runner</Tag>
+            <Tag>File Reader</Tag>
+            <Tag>Image Tool</Tag>
+            <Tag>Calendar</Tag>
+          </div>
+        </footer>
+        <div className="mk-seraph__folio-border" />
+      </main>
+      <aside className="mk-seraph__aside">
+        <div className="mk-seraph__dial mk-seraph__dial--large" />
+        <div className="mk-seraph__scribbles">
+          <span>ϟ Ϙ ϰ ϟ Ϙ ϰ</span>
+          <span>⟐ ꙮ ⟡ ꙮ ⟐</span>
+          <span>ϰ Ϙ ϟ ϰ Ϙ ϟ</span>
+        </div>
+        <div className="mk-seraph__plant mk-seraph__plant--botanic" />
+        <div className="mk-seraph__dial mk-seraph__dial--eye" />
+      </aside>
+    </section>
+  );
+}
+
 function ColorsSurface() {
   const grounds = [
     ['Vellum', 'var(--ground-vellum)', '#EDE3CF · ground · base', 'The default marketing surface. Warm ground, rests the eye.'],
@@ -859,13 +1184,19 @@ function ColorsSurface() {
 function ComponentsSurface() {
   return (
     <CodexFrame
-      title="Instruments And Artifacts"
+      title={
+        <>
+          Instruments <em>&amp;</em> Artifacts
+        </>
+      }
       kicker="navigation, command surfaces, and gate strips"
+      folio="folio ii"
+      colophon="fol · ii of viii"
       activeTab="UI Components"
     >
       <section className="mk-chapter">
         <header className="mk-chapter__head mk-chapter__head--wide">
-          <span className="mk-chapter__num">II</span>
+          <span className="mk-chapter__num">I</span>
           <div>
             <h3>Navigation, controls, and gate strips</h3>
             <p>The same brass and vellum rhythm as the preview folios, but rendered from the system components.</p>
@@ -875,44 +1206,180 @@ function ComponentsSurface() {
         <div className="mk-components-stack">
           <div className="mk-plate">
             <div className="mk-catalog-cap">nav bar</div>
-            <div className="mk-plate__row">
-              <Button variant="ghost">Product</Button>
-              <Button variant="ghost">Workflow</Button>
-              <Button variant="ghost">Enterprise</Button>
-              <Button variant="ghost">Docs</Button>
+            <div className="mk-components-nav">
+              <div className="mk-components-nav__brand">
+                <LogoMonogram style={{ width: 28, height: 28 }} />
+                <strong>a<span>·</span>5<span>·</span>c<span>·</span>ai</strong>
+              </div>
+              <div className="mk-components-nav__links">
+                <a className="current">Product</a>
+                <a>Workflow</a>
+                <a>Enterprise</a>
+                <a>Docs</a>
+              </div>
+              <div className="mk-components-nav__cta">
+                <Tag>Stable</Tag>
+                <Button variant="primary">Request access</Button>
+              </div>
+            </div>
+          </div>
+          <div className="mk-components-modes">
+            {[
+              { num: '01', name: 'Interactive', icon: <GlyphModeInteractive style={{ width: 44, height: 44 }} />, cmd: '`/call`', desc: 'Pause for a human when the apparatus requires judgment.' },
+              { num: '02', name: 'Plan', icon: <GlyphModePlan style={{ width: 44, height: 44 }} />, cmd: '`/plan`', desc: 'Write the route first, expose tradeoffs, then execute with intent.' },
+              { num: '03', name: 'Yolo', icon: <GlyphModeYolo style={{ width: 44, height: 44 }} />, cmd: '`/yolo`', desc: 'Non-interactive loop for bounded work that still ends in a proof.' },
+              { num: '04', name: 'Forever', icon: <GlyphModeForever style={{ width: 44, height: 44 }} />, cmd: '`/forever`', desc: 'Long-running steward that continues to tend the room after first seal.' },
+            ].map(({ num, name, icon, cmd, desc }) => (
+              <article key={name} className="mk-components-mode">
+                <span className="mk-components-mode__num">{num}</span>
+                <div className="mk-components-mode__glyph">{icon}</div>
+                <strong className="mk-components-mode__name">{name}</strong>
+                <span className="mk-components-mode__cmd">{cmd}</span>
+                <p className="mk-components-mode__desc">{desc}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mk-plate">
+            <div className="mk-catalog-cap">gate strip</div>
+            <div className="mk-components-gates">
+              <article className="mk-components-gate mk-components-gate--pass">
+                <span>i</span>
+                <strong>Plan</strong>
+                <small>written and accepted</small>
+              </article>
+              <article className="mk-components-gate mk-components-gate--pass">
+                <span>ii</span>
+                <strong>Execute</strong>
+                <small>artifact rendered</small>
+              </article>
+              <article className="mk-components-gate mk-components-gate--pending">
+                <span>iii</span>
+                <strong>Verify</strong>
+                <small>auditor reseated</small>
+              </article>
+              <article className="mk-components-gate mk-components-gate--sealed">
+                <span>iv</span>
+                <strong>Seal</strong>
+                <small>proof when convergence holds</small>
+              </article>
             </div>
           </div>
           <div className="mk-surface-grid">
             <div className="mk-plate">
-              <div className="mk-catalog-cap">buttons</div>
-              <div className="mk-plate__row">
-                <Button variant="primary">Primary</Button>
-                <Button>Default</Button>
-                <Button variant="ghost">Ghost</Button>
+              <div className="mk-catalog-cap">command console</div>
+              <div className="mk-components-console">
+                <span><span className="mk-components-console__prompt">$</span> babysitter call &quot;rebuild login using the design system&quot;</span>
+                <span className="muted">↻ planning · iteration 1 of 4 …</span>
+                <span>✓ gate · lint <span className="muted">— 0 issues</span></span>
+                <span>✓ gate · test <span className="muted">— 24 / 24 passing</span></span>
+                <span>⚠ gate · audit <span className="muted">— advisory, revising</span></span>
+                <span className="mk-components-console__seal">⟡ the seal is struck — proof-of-done issued</span>
               </div>
             </div>
             <div className="mk-plate">
-              <div className="mk-catalog-cap">tags</div>
-              <div className="mk-plate__row">
-                <Tag>Gemstone</Tag>
-                <Tag>Critical</Tag>
-                <Tag>Pending</Tag>
+              <div className="mk-catalog-cap">install strip</div>
+              <div className="mk-components-install">
+                <div className="mk-components-install__cmd">
+                  <span className="mk-components-install__sigil">$</span>
+                  <span>npx @a5c/babysitter init</span>
+                </div>
+                <button type="button" className="mk-components-install__copy">Copy</button>
               </div>
             </div>
           </div>
           <div className="mk-plate">
-            <div className="mk-catalog-cap">gate strip</div>
-            <Progress value={94} />
-            <p>Gate confidence 94% · replay aligned · seal pending confirmation.</p>
+            <div className="mk-catalog-cap">quill input</div>
+            <div className="mk-components-quill">
+              <Input placeholder="Describe the artifact you want, or call a named process…" />
+              <div className="mk-components-quill__meta">
+                <Tag>interactive</Tag>
+                <Tag>stable</Tag>
+              </div>
+            </div>
           </div>
-          <Tabs
-            defaultValue="nav"
-            items={[
-              { value: 'nav', label: 'Navigation', body: <div className="mk-components-tabcopy">Primary navigation with engraved brass hierarchy.</div> },
-              { value: 'controls', label: 'Controls', body: <div className="mk-components-tabcopy">Buttons, tags, and command inputs share a measured baseline.</div> },
-              { value: 'gate', label: 'Gate Strip', body: <div className="mk-components-tabcopy">Status panels remain prose-first, with progress second.</div> },
-            ]}
-          />
+          <div className="mk-plate">
+            <div className="mk-catalog-cap">button and chip board</div>
+            <div className="mk-plate__row">
+              <Button variant="primary">Primary</Button>
+              <Button>Default</Button>
+              <Button variant="ghost">Ghost</Button>
+              <Tag>gate passed</Tag>
+              <Tag>critical</Tag>
+              <Tag>iterating</Tag>
+            </div>
+          </div>
+          <div className="mk-components-artifacts">
+            <div className="mk-plate">
+              <div className="mk-catalog-cap">chips · gems</div>
+              <div className="mk-components-chips">
+                <Tag>v0.12.1</Tag>
+                <Tag>MIT · licensed</Tag>
+                <Tag>gate · passed</Tag>
+                <Tag>gate · failed</Tag>
+                <Tag>in · review</Tag>
+                <Tag>iterating</Tag>
+                <Tag>commentated</Tag>
+                <Tag>claude · code</Tag>
+              </div>
+            </div>
+            <div className="mk-plate">
+              <div className="mk-catalog-cap">wax · seal</div>
+              <div className="mk-components-seal-row">
+                <div className="mk-components-wax">
+                  <span>gate<br />sealed</span>
+                </div>
+                <div className="mk-components-gems">
+                  {[
+                    ['topaz · iter', 'var(--gem-cyan)'],
+                    ['amethyst · note', '#E23FB4'],
+                    ['ruby · halt', 'var(--gem-ruby)'],
+                  ].map(([label, color]) => (
+                    <figure key={label}>
+                      <div className="mk-components-gem" style={{ background: `radial-gradient(circle at 35% 28%, rgba(255,255,255,.9), ${color} 34%, color-mix(in oklab, ${color} 70%, black) 100%)` }} />
+                      <figcaption>{label}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mk-plate">
+            <div className="mk-catalog-cap">tabs</div>
+            <Tabs
+              defaultValue="nav"
+              items={[
+                { value: 'nav', label: 'Navigation', body: <div className="mk-components-tabcopy">Primary navigation with engraved brass hierarchy and a strong centerline.</div> },
+                { value: 'controls', label: 'Controls', body: <div className="mk-components-tabcopy">Buttons, chips, inputs, and commands belong to one measured register.</div> },
+                { value: 'gate', label: 'Gate Strip', body: <div className="mk-components-tabcopy">Status stays prose-first. The visual is only there to carry the written verdict.</div> },
+              ]}
+            />
+          </div>
+          <div className="mk-plate">
+            <div className="mk-catalog-cap">gauges · chronometers</div>
+            <div className="mk-components-gauge-row">
+              {[
+                ['2k+', 'Built-in', 'processes'],
+                ['5 min', 'Setup', 'time'],
+                ['0', 'Telemetry', 'bytes'],
+                ['MIT', 'License', ''],
+              ].map(([value, top, bottom], index) => (
+                <div key={value} className="mk-components-gauge">
+                  <div className="mk-components-gauge__dial">
+                    <div className="mk-components-gauge__needle" style={{ transform: `translate(-50%, -10px) rotate(${[55, -40, -170, 90][index]}deg)` }} />
+                    <div className="mk-components-gauge__pivot" />
+                    <div className="mk-components-gauge__value">{value}</div>
+                  </div>
+                  <div className="mk-components-gauge__label">{top}<br />{bottom}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mk-components-pull">
+            <blockquote>
+              Two strangers, same answer. Everything else is ornament.
+              <cite>Praxis Foundry handbook, 2024</cite>
+            </blockquote>
+          </div>
         </div>
       </section>
     </CodexFrame>
@@ -1529,6 +1996,20 @@ export const MOCKUP_DEFINITIONS: MockupDefinition[] = [
     render: ComponentsSurface,
   },
   {
+    name: 'Seraph Refactor',
+    slug: 'seraph-refactor',
+    description: 'Illuminated agent-workbench chat for code refactors, terminal traces, and diff review.',
+    render: SeraphRefactorSurface,
+    sourceLabel: 'provided image reference #1',
+  },
+  {
+    name: 'Seraph Bestiary',
+    slug: 'seraph-bestiary',
+    description: 'Illuminated research workspace for creature ideation, tool cards, and manuscript-style illustration.',
+    render: SeraphBestiarySurface,
+    sourceLabel: 'provided image reference #2',
+  },
+  {
     name: 'Dashboard',
     slug: 'dashboard',
     description: 'Foundry dashboard with hero strip, KPI row, and ledger panel.',
@@ -1623,7 +2104,7 @@ export function MockupPreviews({
             </div>
             {showSources ? (
               <footer className="mockup-card__footer">
-                <span className="mockup-card__file">reference: project/preview/{item.slug}.html</span>
+                <span className="mockup-card__file">reference: {item.sourceLabel ?? `project/preview/${item.slug}.html`}</span>
                 <span className="mockup-card__open">reconstructed with tokens + components</span>
               </footer>
             ) : null}

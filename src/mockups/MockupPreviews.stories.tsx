@@ -64,6 +64,14 @@ export const Components: Story = {
   args: { mockup: 'Components', columns: 1, zoom: 0.78 },
 };
 
+export const SeraphRefactor: Story = {
+  args: { mockup: 'Seraph Refactor', columns: 1, zoom: 0.62, frameHeight: 900 },
+};
+
+export const SeraphBestiary: Story = {
+  args: { mockup: 'Seraph Bestiary', columns: 1, zoom: 0.62, frameHeight: 900 },
+};
+
 export const Dashboard: Story = {
   args: { mockup: 'Dashboard', columns: 1, zoom: 0.74 },
 };
@@ -79,4 +87,3 @@ export const Spacing: Story = {
 export const Type: Story = {
   args: { mockup: 'Type', columns: 1, zoom: 0.78 },
 };
-
