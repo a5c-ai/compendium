@@ -45,6 +45,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
           <div
             ref={panel}
             className="tkc-pop"
+            role="menu"
             style={{ top: pos.top, left: pos.left }}
           >
             {items.map((it, i) =>
@@ -65,6 +66,8 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 <div
                   key={i}
                   className="tkc-pop__item"
+                  role="menuitem"
+                  aria-disabled={it.disabled || undefined}
                   data-disabled={it.disabled || undefined}
                   onClick={() => {
                     if (!it.disabled) {
@@ -132,6 +135,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
           <div
             ref={panel}
             className="tkc-pop"
+            role="menu"
             style={{ top: pos.top, left: pos.left }}
           >
             {items.map((it, i) =>
@@ -152,6 +156,8 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
                 <div
                   key={i}
                   className="tkc-pop__item"
+                  role="menuitem"
+                  aria-disabled={it.disabled || undefined}
                   data-disabled={it.disabled || undefined}
                   onClick={() => {
                     if (!it.disabled) {

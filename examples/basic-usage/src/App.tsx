@@ -10,7 +10,7 @@ import {
   Toggle,
   type MockupSelection,
 } from '@a5c-ai/compendium/react';
-import { LogoMonogram, LogoWordmark } from '@a5c-ai/compendium/icons';
+import { Button, LogoMonogram, LogoWordmark } from '@a5c-ai/compendium';
 
 const mockupOptions = [
   { label: 'All Mockups', value: 'All' },
@@ -25,6 +25,7 @@ const columnOptions = [
 
 export default function App() {
   const [mockup, setMockup] = useState<MockupSelection>('All');
+  const [theme, setTheme] = useState<'vellum' | 'void'>('vellum');
   const [columnsValue, setColumnsValue] = useState('2');
   const [zoom, setZoom] = useState(0.72);
   const [frameHeight, setFrameHeight] = useState(840);
@@ -40,7 +41,7 @@ export default function App() {
   }, [columnsValue]);
 
   return (
-    <div className="mockup-app">
+    <div className={`mockup-app mockup-app--${theme}`} data-theme={theme}>
       <header className="mockup-app__header">
         <div className="mockup-app__brand">
           <LogoMonogram style={{ width: 30, height: 30 }} />
@@ -52,6 +53,25 @@ export default function App() {
         <p className="mockup-app__summary">
           Shared Mockup surfaces used in Storybook and examples, wired to the `project/preview` references.
         </p>
+        <div className="mockup-app__theme">
+          <span>Theme</span>
+          <div className="mockup-app__theme-actions" role="group" aria-label="Theme">
+            <Button
+              variant={theme === 'vellum' ? 'primary' : 'default'}
+              size="sm"
+              onClick={() => setTheme('vellum')}
+            >
+              Vellum
+            </Button>
+            <Button
+              variant={theme === 'void' ? 'primary' : 'default'}
+              size="sm"
+              onClick={() => setTheme('void')}
+            >
+              Void
+            </Button>
+          </div>
+        </div>
       </header>
 
       <main className="mockup-app__main">
@@ -120,4 +140,3 @@ export default function App() {
     </div>
   );
 }
-

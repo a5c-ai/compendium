@@ -27,12 +27,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       type="button"
       role="checkbox"
       aria-checked={indeterminate ? "mixed" : on}
+      aria-disabled={disabled || undefined}
       className="tkc-check tkc-focus"
       data-checked={(on && !indeterminate) || undefined}
       data-indeterminate={indeterminate || undefined}
       onClick={toggle}
       disabled={disabled}
-      style={disabled ? { opacity: 0.5, cursor: "not-allowed" } : undefined}
     >
       {indeterminate ? (
         <svg
@@ -57,10 +57,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   );
   if (label) {
     return (
-      <label
-        className="tkc-check-row"
-        style={{ cursor: disabled ? "not-allowed" : "pointer" }}
-      >
+      <label className="tkc-check-row" data-disabled={disabled || undefined}>
         {control}
         <span>{label}</span>
       </label>

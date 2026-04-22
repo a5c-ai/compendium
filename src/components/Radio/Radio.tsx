@@ -49,19 +49,18 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           <label
             key={val}
             className="tkc-check-row"
-            style={{
-              cursor: dis ? "not-allowed" : "pointer",
-              opacity: dis ? 0.5 : 1,
-            }}
+            data-disabled={dis || undefined}
           >
             <button
               type="button"
               role="radio"
               aria-checked={isChecked}
+              aria-disabled={dis || undefined}
               className="tkc-radio tkc-focus"
               data-checked={isChecked || undefined}
               onClick={() => !dis && set(val)}
               name={name || gid}
+              disabled={dis}
             >
               <span className="tkc-radio__dot" />
             </button>

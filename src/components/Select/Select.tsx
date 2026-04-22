@@ -74,6 +74,8 @@ export const Select: React.FC<SelectProps> = ({
         type="button"
         className="tkc-select tkc-focus"
         data-open={open || undefined}
+        aria-expanded={open}
+        aria-haspopup="listbox"
         disabled={disabled}
         onClick={() => !disabled && setOpen((o) => !o)}
         onKeyDown={onKey}
@@ -90,6 +92,7 @@ export const Select: React.FC<SelectProps> = ({
           <div
             ref={panel}
             className="tkc-pop"
+            role="listbox"
             style={{ top: pos.top, left: pos.left, minWidth: pos.width }}
             onKeyDown={onKey}
           >
@@ -97,6 +100,8 @@ export const Select: React.FC<SelectProps> = ({
               <div
                 key={o.value}
                 className="tkc-pop__item"
+                role="option"
+                aria-selected={o.value === v}
                 data-active={i === active || undefined}
                 data-selected={o.value === v || undefined}
                 onMouseEnter={() => setActive(i)}
@@ -175,7 +180,10 @@ export const Combobox: React.FC<ComboboxProps> = ({
     <>
       <div
         ref={trigger}
-        className="tkc-input"
+        className="tkc-input tkc-focus-within"
+        role="combobox"
+        aria-expanded={open}
+        aria-haspopup="listbox"
         style={{
           padding: "6px 10px",
           display: "flex",
@@ -215,6 +223,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
           <div
             ref={panel}
             className="tkc-pop"
+            role="listbox"
             style={{ top: pos.top, left: pos.left, minWidth: pos.width }}
           >
             {filtered.length === 0 ? (
@@ -224,6 +233,8 @@ export const Combobox: React.FC<ComboboxProps> = ({
                 <div
                   key={o.value}
                   className="tkc-pop__item"
+                  role="option"
+                  aria-selected={o.value === v}
                   data-active={i === active || undefined}
                   data-selected={o.value === v || undefined}
                   onMouseEnter={() => setActive(i)}

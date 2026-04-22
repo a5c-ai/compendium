@@ -1,7 +1,10 @@
 import { CSSProperties, ReactElement, ReactNode } from 'react';
 import {
   Button,
+  CodeBlock,
+  CodeEditor,
   DataTable,
+  DiffViewer,
   Input,
   Progress,
   Tabs,
@@ -17,6 +20,29 @@ import {
   LogoWordmark,
   SealGatePassed,
 } from '../icons';
+import {
+  SeraphAside,
+  SeraphCard,
+  SeraphComposer,
+  SeraphPromptBar,
+  SeraphSidebar,
+  SeraphSummaryRow,
+  SeraphTask,
+  SeraphWindow,
+} from './SeraphPrimitives';
+import {
+  ChatAvatar,
+  ChatBudgetFoot,
+  ChatComposer,
+  ChatInspector,
+  ChatMemo,
+  ChatMessageBody,
+  ChatRail,
+  ChatShell,
+  ChatTurn,
+  ChatTyping,
+  ChatWall,
+} from './ChatPrimitives';
 import './mockups.css';
 
 export type MockupName =
@@ -436,229 +462,129 @@ function ChatSurface() {
     },
   ];
   return (
-    <section className="mk-chat-app">
-      <aside className="mk-chat-rail">
-        <header className="mk-chat-rail__head">
-          <div className="mk-chat-rail__brand">Atelier.</div>
-          <button type="button" className="mk-chat-square">
-            +
-          </button>
-        </header>
-        <div className="mk-chat-rail__search">
-          <span>Search conversations…</span>
-          <i>⌘K</i>
-        </div>
-        <div className="mk-chat-rail__section">
-          <span>Pinned</span>
-          <i>2</i>
-        </div>
-        {pinnedThreads.map((thread) => (
-          <button
-            key={thread.title}
-            className={`mk-chat-rail__item ${thread.current ? 'current' : ''}`}
-            type="button"
-          >
-            <b>{thread.mark}</b>
-            <div>
-              <strong>{thread.title}</strong>
-              <small>{thread.preview}</small>
-            </div>
-            <span>{thread.when}</span>
-          </button>
-        ))}
-        <div className="mk-chat-rail__section">
-          <span>Today</span>
-          <i>5</i>
-        </div>
-        {todayThreads.map((thread) => (
-          <button key={thread.title} className="mk-chat-rail__item" type="button">
-            <b>{thread.mark}</b>
-            <div>
-              <strong>{thread.title}</strong>
-              <small>{thread.preview}</small>
-            </div>
-            <span>{thread.when}</span>
-          </button>
-        ))}
-        <footer className="mk-chat-rail__foot">
-          <div className="mk-chat-avatar">E</div>
-          <div>
-            <strong>Elena Varga</strong>
-            <small>Praxis · Ops</small>
-          </div>
-          <div className="mk-chat-rail__budget">
-            <strong>$42.18</strong>
-            <small>Budget · 71%</small>
-          </div>
-        </footer>
-      </aside>
-      <main className="mk-chat-wall">
-        <header className="mk-chat-wall__head">
-          <div>
-            <h2>
-              Freight claims <em>Oct batch review</em>
-            </h2>
-            <p>Workflow r-8841 › Iteration 5 of 5 › Gate: quality · pending</p>
-          </div>
-          <div className="mk-chat-wall__tools">
-            <Tag>3 agents seated</Tag>
-            <Button variant="ghost">Replay</Button>
-            <Button variant="ghost">Branch</Button>
-            <Button variant="primary">Seal verdict</Button>
-          </div>
-        </header>
-        <div className="mk-chat-stream">
-          <article className="mk-chat-turn mk-chat-turn--user">
-            <div className="mk-chat-turn__gutter">
-              <div className="mk-chat-avatar">E</div>
-              <small>Principal · 14:01</small>
-            </div>
-            <div className="mk-chat-turn__body">
+    <ChatShell
+      rail={(
+        <ChatRail
+          brand="Atelier."
+          pinned={pinnedThreads}
+          today={todayThreads}
+          foot={<ChatBudgetFoot initial="E" name="Elena Varga" role="Praxis · Ops" budget="$42.18" usage="Budget · 71%" />}
+        />
+      )}
+      wall={(
+        <ChatWall
+          title={<>Freight claims <em>Oct batch review</em></>}
+          subtitle="Workflow r-8841 › Iteration 5 of 5 › Gate: quality · pending"
+          tools={(
+            <>
+              <Tag>3 agents seated</Tag>
+              <Button variant="ghost">Replay</Button>
+              <Button variant="ghost">Branch</Button>
+              <Button variant="primary">Seal verdict</Button>
+            </>
+          )}
+          composer={(
+            <ChatComposer
+              attachments={['Oct-freight-manifest.csv', 'tariff-2026-Q3.pdf']}
+              placeholder="Ask archivist something, or @verifier-03 / describe a new gate…"
+              footerLabel="seated · archivist · verifier-03"
+            />
+          )}
+        >
+          <ChatTurn avatar={<ChatAvatar>E</ChatAvatar>} label="Principal" timestamp="14:01" user>
+            <ChatMessageBody>
               Walk the October freight-claims batch. Flag anything inconsistent with carrier tariff
               §4.2 and draft short responses for the contested ones. Cite the claim IDs and do not
               make up numbers.
-            </div>
-          </article>
-          <article className="mk-chat-turn">
-            <div className="mk-chat-turn__gutter">
-              <div className="mk-chat-avatar mk-chat-avatar--agent">A</div>
-              <small>archivist · 14:02</small>
-            </div>
-            <div className="mk-chat-memo">
-              <span className="mk-chat-memo__corner mk-chat-memo__corner--bl" />
-              <span className="mk-chat-memo__corner mk-chat-memo__corner--br" />
-              <div className="mk-chat-memo__head">
-                <span>Memo · 01</span>
-                <strong>archivist · ledger reconciler</strong>
-                <span>14:02:11 UTC</span>
-              </div>
-              <div className="mk-chat-memo__body">
-                <p>
-                  I walked the 42 October freight claims against tariff §4.2 and manifest records.
-                  Thirty-six are internally consistent. Six need direct carrier follow-up.
-                </p>
-                <h4>Batch shape</h4>
-                <div className="mk-chat-diagram">
-                  <div className="mk-chat-bars">
-                    {Array.from({ length: 24 }).map((_, index) => (
-                      <i key={index} style={{ height: `${40 + ((index * 9) % 90)}px` }} />
-                    ))}
+            </ChatMessageBody>
+          </ChatTurn>
+          <ChatTurn avatar={<ChatAvatar agent>A</ChatAvatar>} label="archivist" timestamp="14:02">
+            <ChatMemo
+              title="Memo · 01"
+              seat="archivist · ledger reconciler"
+              timestamp="14:02:11 UTC"
+              footnote="Seat 03 · 1.42s · ¢3.8"
+              actions={[
+                { label: 'Reply', variant: 'ghost' },
+                { label: 'Copy', variant: 'ghost' },
+                { label: 'Branch', variant: 'ghost' },
+              ]}
+              body={(
+                <>
+                  <p>
+                    I walked the 42 October freight claims against tariff §4.2 and manifest records.
+                    Thirty-six are internally consistent. Six need direct carrier follow-up.
+                  </p>
+                  <h4>Batch shape</h4>
+                  <div className="mk-chat-diagram">
+                    <div className="mk-chat-bars">
+                      {Array.from({ length: 24 }).map((_, index) => (
+                        <i key={index} style={{ height: `${40 + ((index * 9) % 90)}px` }} />
+                      ))}
+                    </div>
+                    <span>Distribution of 42 claims by invoiced amount. Right-tail bars are flagged.</span>
                   </div>
-                  <span>Distribution of 42 claims by invoiced amount. Right-tail bars are flagged.</span>
-                </div>
-                <h4>The six flagged claims</h4>
-                <div className="mk-chat-tool">
-                  <div className="mk-chat-tool__head">
-                    <span>Tool</span>
-                    <span>ledger.query · rows=6</span>
-                    <span>412ms</span>
+                  <h4>The six flagged claims</h4>
+                  <div className="mk-chat-tool">
+                    <div className="mk-chat-tool__head">
+                      <span>Tool</span>
+                      <span>ledger.query · rows=6</span>
+                      <span>412ms</span>
+                    </div>
+                    <div className="mk-chat-tool__body">
+                      <CodeEditor
+                        tone="blueprint"
+                        language="text"
+                        filename="ledger.query"
+                        status="rows=6 · 412ms"
+                        code={`CLM-10412 · surcharge 18.2% vs tariff 14.0%\nCLM-10477 · weight rounded up one bracket\nCLM-10544 · duplicate line item\nCLM-10602 · fuel surcharge applied twice`}
+                      />
+                    </div>
                   </div>
-                  <div className="mk-chat-tool__body">
-                    <p>CLM-10412 · surcharge 18.2% vs tariff 14.0%</p>
-                    <p>CLM-10477 · weight rounded up one bracket</p>
-                    <p>CLM-10544 · duplicate line item</p>
-                    <p>CLM-10602 · fuel surcharge applied twice</p>
-                  </div>
-                </div>
-                <p>
-                  Aggregate carrier overcharge: $4,511.05. Draft replies are staged under Drafts ›
-                  Oct-freight-replies.
-                </p>
-              </div>
-              <div className="mk-chat-memo__foot">
-                <span>Seat 03 · 1.42s · ¢3.8</span>
-                <div className="mk-chat-memo__actions">
-                  <Button variant="ghost">Reply</Button>
-                  <Button variant="ghost">Copy</Button>
-                  <Button variant="ghost">Branch</Button>
-                </div>
-              </div>
-            </div>
-          </article>
-          <article className="mk-chat-turn mk-chat-turn--user">
-            <div className="mk-chat-turn__gutter">
-              <div className="mk-chat-avatar">E</div>
-              <small>Principal · 14:14</small>
-            </div>
-            <div className="mk-chat-turn__body">
+                  <p>
+                    Aggregate carrier overcharge: $4,511.05. Draft replies are staged under Drafts ›
+                    Oct-freight-replies.
+                  </p>
+                </>
+              )}
+            />
+          </ChatTurn>
+          <ChatTurn avatar={<ChatAvatar>E</ChatAvatar>} label="Principal" timestamp="14:14" user>
+            <ChatMessageBody>
               Pull CLM-10544 into the editor and loop in verifier-03 to confirm tariff timing
               before you seal.
-            </div>
-          </article>
-          <article className="mk-chat-turn">
-            <div className="mk-chat-turn__gutter">
-              <div className="mk-chat-avatar mk-chat-avatar--agent">A</div>
-              <small>archivist · 14:15</small>
-            </div>
-            <div className="mk-chat-memo mk-chat-memo--brief">
-              <div className="mk-chat-memo__head">
-                <span>Memo · 02</span>
-                <strong>archivist · seat 03</strong>
-                <span>14:15:03 UTC</span>
-              </div>
-              <div className="mk-chat-memo__body">
+            </ChatMessageBody>
+          </ChatTurn>
+          <ChatTurn avatar={<ChatAvatar agent>A</ChatAvatar>} label="archivist" timestamp="14:15">
+            <ChatMemo
+              brief
+              title="Memo · 02"
+              seat="archivist · seat 03"
+              timestamp="14:15:03 UTC"
+              body={(
                 <p>
                   Opening CLM-10544 now. Duplicate line is row 4. Verifier-03 is reseating from
                   the audit pool to confirm whether the zone-3 rate applies pre-06:00 UTC.
                 </p>
-              </div>
-            </div>
-          </article>
-          <div className="mk-chat-typing">
-            <span />
-            <span />
-            <span />
-            <em>verifier-03 is reconciling the tariff table. ETA ~4 s.</em>
-          </div>
-        </div>
-        <div className="mk-chat-composer">
-          <div className="mk-chat-composer__chips">
-            <span>attached</span>
-            <Tag>Oct-freight-manifest.csv</Tag>
-            <Tag>tariff-2026-Q3.pdf</Tag>
-          </div>
-          <div className="mk-chat-composer__box">
-            <Input placeholder="Ask archivist something, or @verifier-03 / describe a new gate…" />
-            <div className="mk-chat-composer__bar">
-              <span>seated · archivist · verifier-03</span>
-              <div>
-                <Button variant="default">Draft</Button>
-                <Button variant="primary">Send</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-      <aside className="mk-chat-inspector">
-        <div className="mk-chat-inspector__head">
-          <span className="mk-chat-callout">i</span>
-          <h3>Worktree · context</h3>
-          <button type="button" className="mk-chat-square">
-            ×
-          </button>
-        </div>
-        <article>
-          <span>Seated agents</span>
-          <p>archivist · verifier-03 · editor-11</p>
-        </article>
-        <article>
-          <span>Tools in scope</span>
-          <p>ledger.query · editor.open · carrier.api</p>
-        </article>
-        <article>
-          <span>Pinned files</span>
-          <p>Oct-freight-manifest.csv · tariff-2026-Q3.pdf · policy/refund-softcap.md</p>
-        </article>
-        <article>
-          <span>Run cost</span>
-          <p>8,412 input · 2,901 output · subtotal $0.049</p>
-        </article>
-        <footer className="mk-chat-inspector__foot">
-          <div className="mk-chat-seal">✓</div>
-          <p>Not yet sealed · verdict pending</p>
-        </footer>
-      </aside>
-    </section>
+              )}
+            />
+          </ChatTurn>
+          <ChatTyping>verifier-03 is reconciling the tariff table. ETA ~4 s.</ChatTyping>
+        </ChatWall>
+      )}
+      inspector={(
+        <ChatInspector
+          title="Worktree · context"
+          items={[
+            { label: 'Seated agents', value: 'archivist · verifier-03 · editor-11' },
+            { label: 'Tools in scope', value: 'ledger.query · editor.open · carrier.api' },
+            { label: 'Pinned files', value: 'Oct-freight-manifest.csv · tariff-2026-Q3.pdf · policy/refund-softcap.md' },
+            { label: 'Run cost', value: '8,412 input · 2,901 output · subtotal $0.049' },
+          ]}
+          footer={<><div className="mk-chat-seal">✓</div><p>Not yet sealed · verdict pending</p></>}
+        />
+      )}
+    />
   );
 }
 
@@ -676,83 +602,45 @@ function SeraphRefactorSurface() {
   ] as const;
 
   return (
-    <section className="mk-seraph">
-      <header className="mk-seraph__chrome">
-        <div className="mk-seraph__traffic"><span /><span /><span /></div>
-        <div className="mk-seraph__title">CODEX SERAPHINIANUS · Chat AI</div>
-        <div className="mk-seraph__window">─ □ ×</div>
-      </header>
-      <aside className="mk-seraph__sidebar">
-        <div className="mk-seraph__rail mk-seraph__rail--left">
-          <div className="mk-seraph__dial" />
-          <div className="mk-seraph__sigil">✺</div>
-          <div className="mk-seraph__totem mk-seraph__totem--serpent" />
-          <div className="mk-seraph__totem mk-seraph__totem--relic" />
-        </div>
-        <div className="mk-seraph__crest">
-          <div className="mk-seraph__sun" />
-          <div className="mk-seraph__vine" />
-        </div>
-        <button type="button" className="mk-seraph__new">+ New Conversation</button>
-        <div className="mk-seraph__section-title">Today</div>
-        <div className="mk-seraph__thread-list">
-          {conversations.map(([title, subtitle, when, current]) => (
-            <article key={title} className={`mk-seraph__thread ${current ? 'is-current' : ''}`}>
-              <div className="mk-seraph__thread-glyph">✺</div>
-              <div>
-                <strong>{title}</strong>
-                <p>{subtitle}</p>
-              </div>
-              <span>{when}</span>
-            </article>
-          ))}
-        </div>
-        <div className="mk-seraph__search">
-          <span>Search conversations</span>
-          <i>⌘K</i>
-        </div>
-        <footer className="mk-seraph__profile">
-          <div className="mk-seraph__medallion">✺</div>
-          <div>
-            <strong>Pro Plan</strong>
-            <small>Codex Seraphinianus</small>
-          </div>
-        </footer>
-        <div className="mk-seraph__bottom-ornament" />
-      </aside>
+    <SeraphWindow>
+      <SeraphSidebar
+        rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic' }}
+        crest={<div className="mk-seraph__crest"><div className="mk-seraph__sun" /><div className="mk-seraph__vine" /></div>}
+        threads={conversations.map(([title, subtitle, when, current]) => ({ title, subtitle, when, current }))}
+        medallion="✺"
+        planTitle="Pro Plan"
+        planSubtitle="Codex Seraphinianus"
+      />
       <main className="mk-seraph__main">
-        <header className="mk-seraph__prompt-bar">
-          <div className="mk-seraph__seal">✺</div>
-          <div className="mk-seraph__prompt">
-            Refactor the auth middleware, add request tracing,
-            <br />
-            and update the tests. Show me the changes before committing.
-          </div>
-          <span>10:42 AM</span>
-        </header>
+        <SeraphPromptBar
+          seal="✺"
+          time="10:42 AM"
+          prompt={(
+            <>
+              Refactor the auth middleware, add request tracing,
+              <br />
+              and update the tests. Show me the changes before committing.
+            </>
+          )}
+        />
         <p className="mk-seraph__lead">
           I&apos;ll inspect the codebase, run the tests, implement the refactor with request tracing,
           update tests, and show you the diff before committing.
         </p>
         <div className="mk-seraph__cards">
-          <article className="mk-seraph__card">
-            <h4>Repository Inspection <span>Completed</span></h4>
+          <SeraphCard title="Repository Inspection" status="Completed" ornament={<div className="mk-seraph__sprout" />}>
             <p>Scanned project files and dependencies.</p>
             <small>Files scanned: 214 · Language: TypeScript</small>
-            <div className="mk-seraph__sprout" />
-          </article>
-          <article className="mk-seraph__card">
-            <h4>Key Files Found</h4>
+          </SeraphCard>
+          <SeraphCard title="Key Files Found" ornament={<div className="mk-seraph__sprout mk-seraph__sprout--small" />}>
             <ul>
               <li>`src/middleware/auth.ts`</li>
               <li>`src/lib/requestTracing.ts`</li>
               <li>`tests/auth.test.ts`</li>
               <li>`src/server.ts`</li>
             </ul>
-            <div className="mk-seraph__sprout mk-seraph__sprout--small" />
-          </article>
-          <article className="mk-seraph__card">
-            <h4>Plan <span>Completed</span></h4>
+          </SeraphCard>
+          <SeraphCard title="Plan" status="Completed" ornament={<div className="mk-seraph__tree" />}>
             <ol>
               <li>Analyze existing middleware</li>
               <li>Add request tracing</li>
@@ -761,13 +649,15 @@ function SeraphRefactorSurface() {
               <li>Run tests & lint</li>
               <li>Show diff</li>
             </ol>
-            <div className="mk-seraph__tree" />
-          </article>
+          </SeraphCard>
         </div>
         <div className="mk-seraph__terminal">
           <div className="mk-seraph__terminal-main">
             <h4>Bash / Terminal <span>Completed</span></h4>
-            <pre>{`$ rg "authMiddleware|requestId" src tests
+            <CodeBlock
+              tone="terminal"
+              language="bash"
+              code={`$ rg "authMiddleware|requestId" src tests
 src/middleware/auth.ts: export function authMiddleware
 src/lib/requestTracing.ts: export function requestId
 
@@ -775,79 +665,61 @@ $ npm test -- auth
 PASS tests/auth.test.ts
   ✓ rejects missing token
   ✓ accepts valid token
-  ✓ attaches user to request`}</pre>
+  ✓ attaches user to request`}
+            />
           </div>
           <div className="mk-seraph__terminal-side">
-            <pre>{`$ npm run lint
+            <CodeBlock
+              tone="terminal"
+              language="bash"
+              code={`$ npm run lint
 ✔ No problems found
 
 $ git status --porcelain
  M src/middleware/auth.ts
  A src/lib/requestTracing.ts
  M tests/auth.test.ts
- M src/server.ts`}</pre>
+ M src/server.ts`}
+            />
             <div className="mk-seraph__machine" />
           </div>
         </div>
         <div className="mk-seraph__diff">
-          <header>
-            <h4>Diff / Code Changes</h4>
-            <span>3 files changed</span>
-          </header>
-          <div className="mk-seraph__tabs">
-            <span className="is-active">src/middleware/auth.ts</span>
-            <span>src/lib/requestTracing.ts</span>
-            <span>tests/auth.test.ts</span>
-          </div>
-          <div className="mk-seraph__diff-grid">
-            <div className="mk-seraph__code">
-              <span className="file">src/middleware/auth.ts</span>
-              <pre>{`- export function authMiddleware(req, res, next) {
-+ export function authMiddleware(req, res, next) {
-+   const requestId = startRequest(req, res);
-    const token = authSplit(req);
--   if (!token) return res.status(401).json(...)
-+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`}</pre>
-            </div>
-            <div className="mk-seraph__code">
-              <span className="file">tests/auth.test.ts</span>
-              <pre>{`+ import { getRequestId } from '../lib/requestTracing';
-...
-+ expect(requestId).toMatch(/req_/);
-+ expect(res.body.requestId).toBeDefined();`}</pre>
-            </div>
-          </div>
+          <DiffViewer
+            files={[
+              {
+                filename: "src/middleware/auth.ts",
+                before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
+                after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
+                language: "diff",
+              },
+              {
+                filename: "tests/auth.test.ts",
+                after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
+                language: "diff",
+              },
+            ]}
+          />
         </div>
-        <div className="mk-seraph__summary-row">
-          <article><h5>Tests / Validation</h5><p>12 passed, 12 total · Coverage: 92%</p><div className="mk-seraph__icon mk-seraph__icon--torch" /></article>
-          <article><h5>Lint</h5><p>No problems found</p><div className="mk-seraph__icon mk-seraph__icon--totem" /></article>
-          <article><h5>Type Check</h5><p>No type errors</p><div className="mk-seraph__icon mk-seraph__icon--vine" /></article>
-          <article><h5>Summary</h5><p>Refactor complete. Added request tracing, simplified token parsing, and updated 3 tests.</p><div className="mk-seraph__icon mk-seraph__icon--lizard" /></article>
-        </div>
-        <footer className="mk-seraph__composer">
-          <Input placeholder="Message Codex Seraphinianus…" />
-          <div className="mk-seraph__tool-row">
-            <Tag>Web Search</Tag>
-            <Tag>Bash</Tag>
-            <Tag>File Reader</Tag>
-            <Tag>Diff</Tag>
-            <Tag>Tests</Tag>
-            <Tag>Git</Tag>
-          </div>
-        </footer>
+        <SeraphSummaryRow
+          items={[
+            { title: 'Tests / Validation', body: '12 passed, 12 total · Coverage: 92%', iconClass: 'mk-seraph__icon--torch' },
+            { title: 'Lint', body: 'No problems found', iconClass: 'mk-seraph__icon--totem' },
+            { title: 'Type Check', body: 'No type errors', iconClass: 'mk-seraph__icon--vine' },
+            { title: 'Summary', body: 'Refactor complete. Added request tracing, simplified token parsing, and updated 3 tests.', iconClass: 'mk-seraph__icon--lizard' },
+          ]}
+        />
+        <SeraphComposer
+          placeholder="Message Codex Seraphinianus…"
+          tools={['Web Search', 'Bash', 'File Reader', 'Diff', 'Tests', 'Git']}
+        />
         <div className="mk-seraph__folio-border" />
       </main>
-      <aside className="mk-seraph__aside">
-        <div className="mk-seraph__dial mk-seraph__dial--large" />
-        <div className="mk-seraph__scribbles">
-          <span>ᚠ ᚨ ᚦ ᚱ ᚲ ᚷ</span>
-          <span>⟐ ⟡ ⊹ ⊹ ⟡ ⟐</span>
-          <span>ᚷ ᚲ ᚱ ᚦ ᚨ ᚠ</span>
-        </div>
-        <div className="mk-seraph__plant mk-seraph__plant--circuit" />
-        <div className="mk-seraph__dial mk-seraph__dial--eye" />
-      </aside>
-    </section>
+      <SeraphAside
+        scribbles={['ᚠ ᚨ ᚦ ᚱ ᚲ ᚷ', '⟐ ⟡ ⊹ ⊹ ⟡ ⟐', 'ᚷ ᚲ ᚱ ᚦ ᚨ ᚠ']}
+        plantClass="mk-seraph__plant--circuit"
+      />
+    </SeraphWindow>
   );
 }
 
@@ -862,125 +734,83 @@ function SeraphBestiarySurface() {
     ['Music theory helper', 'Fugue in D minor', 'May 10', false],
   ] as const;
   return (
-    <section className="mk-seraph mk-seraph--bestiary">
-      <header className="mk-seraph__chrome">
-        <div className="mk-seraph__traffic"><span /><span /><span /></div>
-        <div className="mk-seraph__title">CODEX SERAPHINIANUS · Chat AI</div>
-        <div className="mk-seraph__window">─ □ ×</div>
-      </header>
-      <aside className="mk-seraph__sidebar">
-        <div className="mk-seraph__rail mk-seraph__rail--left">
-          <div className="mk-seraph__dial" />
-          <div className="mk-seraph__sigil">☼</div>
-          <div className="mk-seraph__totem mk-seraph__totem--owl" />
-          <div className="mk-seraph__totem mk-seraph__totem--serpent" />
-        </div>
-        <div className="mk-seraph__crest mk-seraph__crest--orb">
-          <div className="mk-seraph__sun mk-seraph__sun--blue" />
-          <div className="mk-seraph__vine" />
-        </div>
-        <button type="button" className="mk-seraph__new">+ New Conversation</button>
-        <div className="mk-seraph__section-title">Today</div>
-        <div className="mk-seraph__thread-list">
-          {threads.map(([title, subtitle, when, current]) => (
-            <article key={title} className={`mk-seraph__thread ${current ? 'is-current' : ''}`}>
-              <div className="mk-seraph__thread-glyph">{current ? '☼' : '✢'}</div>
-              <div>
-                <strong>{title}</strong>
-                <p>{subtitle}</p>
-              </div>
-              <span>{when}</span>
-            </article>
-          ))}
-        </div>
-        <div className="mk-seraph__search">
-          <span>Search conversations</span>
-          <i>⌘K</i>
-        </div>
-        <footer className="mk-seraph__profile">
-          <div className="mk-seraph__medallion">☉</div>
-          <div>
-            <strong>Anima Codex</strong>
-            <small>Pro Plan</small>
-          </div>
-        </footer>
-        <div className="mk-seraph__bottom-ornament" />
-      </aside>
+    <SeraphWindow variant="mk-seraph--bestiary">
+      <SeraphSidebar
+        rail={{ sigil: '☼', topTotemClass: 'mk-seraph__totem--owl', bottomTotemClass: 'mk-seraph__totem--serpent' }}
+        crest={<div className="mk-seraph__crest mk-seraph__crest--orb"><div className="mk-seraph__sun mk-seraph__sun--blue" /><div className="mk-seraph__vine" /></div>}
+        threads={threads.map(([title, subtitle, when, current]) => ({ title, subtitle, when, current }))}
+        medallion="☉"
+        planTitle="Anima Codex"
+        planSubtitle="Pro Plan"
+      />
       <main className="mk-seraph__main">
-        <header className="mk-seraph__prompt-bar">
-          <div className="mk-seraph__seal">☉</div>
-          <div className="mk-seraph__prompt">
-            I&apos;m creating a bestiary of surreal desert creatures.
-            <br />
-            Research real-world desert adaptations, draft 3 creature concepts,
-            and illustrate one in the style of an illuminated manuscript.
-          </div>
-          <span>10:42 AM</span>
-        </header>
+        <SeraphPromptBar
+          seal="☉"
+          time="10:42 AM"
+          prompt={(
+            <>
+              I&apos;m creating a bestiary of surreal desert creatures.
+              <br />
+              Research real-world desert adaptations, draft 3 creature concepts,
+              and illustrate one in the style of an illuminated manuscript.
+            </>
+          )}
+        />
         <p className="mk-seraph__lead">
           A grand endeavor. I&apos;ll research desert adaptations, draft concepts, and illustrate.
         </p>
         <div className="mk-seraph__task-stack">
-          <article className="mk-seraph__task">
-            <h4>Web Search <span>Completed</span></h4>
-            <div className="mk-seraph__task-copy"><p>Query: desert animal adaptations</p><small>Sources: 12</small></div>
-            <ul><li>National Geographic: Desert Animals</li><li>Smithsonian: Desert Biology Overview</li><li>BBC Earth: Survivors of the Desert</li><li>… and 9 more</li></ul>
-            <div className="mk-seraph__flora mk-seraph__flora--tuft" />
-          </article>
-          <article className="mk-seraph__task">
-            <h4>File Reader <span>Completed</span></h4>
-            <div className="mk-seraph__task-copy"><p>File: desert_creatures_notes.pdf</p><small>Pages: 1–14</small></div>
-            <ul><li>Water retention strategies</li><li>Burrowing & thermoregulation</li><li>Nocturnal behaviors</li></ul>
-            <div className="mk-seraph__flora mk-seraph__flora--bells" />
-          </article>
-          <article className="mk-seraph__task">
-            <h4>Code Runner <span>Completed</span></h4>
-            <div className="mk-seraph__task-copy"><p>Language: Python</p><small>Generated 27 unique trait sets.</small></div>
-            <ol><li>Sand-burrower, reflective plates, air sacs</li><li>Dune skimmer, electrostatic dust repellent</li><li>Mirage stalker, heat funnel crest</li></ol>
-            <div className="mk-seraph__icon mk-seraph__icon--beetle" />
-          </article>
-          <article className="mk-seraph__task">
-            <h4>Image Tool <span>Completed</span></h4>
-            <div className="mk-seraph__task-copy"><p>Prompt: illuminated manuscript desert creature</p><small>Style: Codex Seraphinianus</small></div>
-            <div className="mk-seraph__creature">
-              <div className="mk-seraph__creature-body" />
-            </div>
-          </article>
-          <article className="mk-seraph__task">
-            <h4>Calendar Tool <span>Scheduled</span></h4>
-            <div className="mk-seraph__task-copy"><p>Event: Bestiary review</p><small>When: May 23, 2024 at 3:00 PM</small></div>
-            <p>I&apos;ll schedule a review so we can refine the creatures and choose names and habitats.</p>
-            <div className="mk-seraph__flora mk-seraph__flora--mushroom" />
-          </article>
+          <SeraphTask
+            title="Web Search"
+            status="Completed"
+            leading={<><p>Query: desert animal adaptations</p><small>Sources: 12</small></>}
+            body={<ul><li>National Geographic: Desert Animals</li><li>Smithsonian: Desert Biology Overview</li><li>BBC Earth: Survivors of the Desert</li><li>… and 9 more</li></ul>}
+            ornament={<div className="mk-seraph__flora mk-seraph__flora--tuft" />}
+          />
+          <SeraphTask
+            title="File Reader"
+            status="Completed"
+            leading={<><p>File: desert_creatures_notes.pdf</p><small>Pages: 1–14</small></>}
+            body={<ul><li>Water retention strategies</li><li>Burrowing & thermoregulation</li><li>Nocturnal behaviors</li></ul>}
+            ornament={<div className="mk-seraph__flora mk-seraph__flora--bells" />}
+          />
+          <SeraphTask
+            title="Code Runner"
+            status="Completed"
+            leading={<><p>Language: Python</p><small>Generated 27 unique trait sets.</small></>}
+            body={<ol><li>Sand-burrower, reflective plates, air sacs</li><li>Dune skimmer, electrostatic dust repellent</li><li>Mirage stalker, heat funnel crest</li></ol>}
+            ornament={<div className="mk-seraph__icon mk-seraph__icon--beetle" />}
+          />
+          <SeraphTask
+            title="Image Tool"
+            status="Completed"
+            leading={<><p>Prompt: illuminated manuscript desert creature</p><small>Style: Codex Seraphinianus</small></>}
+            body={<div className="mk-seraph__creature"><div className="mk-seraph__creature-body" /></div>}
+          />
+          <SeraphTask
+            title="Calendar Tool"
+            status="Scheduled"
+            leading={<><p>Event: Bestiary review</p><small>When: May 23, 2024 at 3:00 PM</small></>}
+            body={<p>I&apos;ll schedule a review so we can refine the creatures and choose names and habitats.</p>}
+            ornament={<div className="mk-seraph__flora mk-seraph__flora--mushroom" />}
+          />
         </div>
         <p className="mk-seraph__closing">
           All set! Three concepts are drafted, and one is illustrated.
           <br />
           Would you like me to show the other two concepts or refine this one?
         </p>
-        <footer className="mk-seraph__composer">
-          <Input placeholder="Message Codex Seraphinianus…" />
-          <div className="mk-seraph__tool-row">
-            <Tag>Web Search</Tag>
-            <Tag>Code Runner</Tag>
-            <Tag>File Reader</Tag>
-            <Tag>Image Tool</Tag>
-            <Tag>Calendar</Tag>
-          </div>
-        </footer>
+        <SeraphComposer
+          placeholder="Message Codex Seraphinianus…"
+          tools={['Web Search', 'Code Runner', 'File Reader', 'Image Tool', 'Calendar']}
+        />
         <div className="mk-seraph__folio-border" />
       </main>
-      <aside className="mk-seraph__aside">
-        <div className="mk-seraph__dial mk-seraph__dial--large" />
-        <div className="mk-seraph__scribbles">
-          <span>ϟ Ϙ ϰ ϟ Ϙ ϰ</span>
-          <span>⟐ ꙮ ⟡ ꙮ ⟐</span>
-          <span>ϰ Ϙ ϟ ϰ Ϙ ϟ</span>
-        </div>
-        <div className="mk-seraph__plant mk-seraph__plant--botanic" />
-        <div className="mk-seraph__dial mk-seraph__dial--eye" />
-      </aside>
-    </section>
+      <SeraphAside
+        scribbles={['ϟ Ϙ ϰ ϟ Ϙ ϰ', '⟐ ꙮ ⟡ ꙮ ⟐', 'ϰ Ϙ ϟ ϰ Ϙ ϟ']}
+        plantClass="mk-seraph__plant--botanic"
+      />
+    </SeraphWindow>
   );
 }
 

@@ -25,20 +25,19 @@ export const Toggle: React.FC<ToggleProps> = ({
       type="button"
       role="switch"
       aria-checked={on}
+      aria-disabled={disabled || undefined}
       className="tkc-toggle tkc-focus"
       data-on={on || undefined}
       data-disabled={disabled || undefined}
       onClick={toggle}
+      disabled={disabled}
     >
       <span className="tkc-toggle__knob" />
     </button>
   );
   if (label) {
     return (
-      <label
-        className="tkc-check-row"
-        style={{ cursor: disabled ? "not-allowed" : "pointer" }}
-      >
+      <label className="tkc-check-row" data-disabled={disabled || undefined}>
         {control}
         <span>{label}</span>
       </label>

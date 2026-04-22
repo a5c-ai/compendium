@@ -5,3 +5,5 @@ import './components/components.css';
 export * from './tokens/index';
 export * from './components/index';
 export * from './icons/index';
+export * from './mockups/ChatPrimitives';
+export * from './mockups/SeraphPrimitives';

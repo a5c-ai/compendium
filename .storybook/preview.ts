@@ -14,6 +14,8 @@ const withTheme: Decorator = (Story, context) => {
   return React.createElement(
     'div',
     {
+      'data-theme': theme,
+      className: theme === 'void' ? 'void' : undefined,
       style: {
         background,
         color,

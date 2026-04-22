@@ -86,6 +86,17 @@ export type {
 export { SplitPane } from "./SplitPane";
 export type { SplitPaneProps } from "./SplitPane";
 
+/* Code / Editor / Diff */
+export { CodeBlock, CodeEditor, DiffViewer } from "./Code";
+export type {
+  CodeBlockProps,
+  CodeEditorProps,
+  DiffViewerProps,
+  DiffFile,
+  CodeTone,
+  CodeLanguage,
+} from "./Code";
+
 /* Tooltip */
 export { Tooltip } from "./Tooltip";
 export type { TooltipProps } from "./Tooltip";

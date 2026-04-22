@@ -35,6 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
       className={cls}
       disabled={disabled}
       data-loading={loading || undefined}
+      aria-busy={loading || undefined}
       onClick={onClick}
       {...rest}
     >
