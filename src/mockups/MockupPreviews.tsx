@@ -124,6 +124,8 @@ export type MockupName =
   | 'Spacing'
   | 'Type';
 
+export type MockupTheme = 'vellum' | 'void';
+
 export interface MockupDefinition {
   name: MockupName;
   slug: string;
@@ -1704,6 +1706,7 @@ export interface MockupPreviewsProps {
   zoom?: number;
   showDescription?: boolean;
   showSources?: boolean;
+  theme?: MockupTheme;
 }
 
 function clampZoom(value: number): number {
@@ -1725,6 +1728,7 @@ export function MockupPreviews({
   zoom = 0.72,
   showDescription = true,
   showSources = true,
+  theme,
 }: MockupPreviewsProps) {
   const safeZoom = clampZoom(zoom);
   const safeHeight = clampHeight(frameHeight);
@@ -1738,7 +1742,11 @@ export function MockupPreviews({
   } as CSSProperties;
 
   return (
-    <section className="mockup-previews" style={style}>
+    <section
+      className={`mockup-previews ${theme === 'void' ? 'void' : ''}`.trim()}
+      data-theme={theme}
+      style={style}
+    >
       {visible.map((item) => {
         const viewportHeight = Math.round(safeHeight / safeZoom);
         const viewportWidth = Math.round(100 / safeZoom);

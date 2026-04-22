@@ -8,9 +8,10 @@ import {
   Select,
   Slider,
   Toggle,
+  type MockupTheme,
   type MockupSelection,
 } from '@a5c-ai/compendium/react';
-import { Button, LogoMonogram, LogoWordmark } from '@a5c-ai/compendium';
+import { Button, LogoMonogram, LogoMonogramDark, LogoWordmark, LogoWordmarkDark } from '@a5c-ai/compendium';
 
 const mockupOptions = [
   { label: 'All Mockups', value: 'All' },
@@ -25,7 +26,7 @@ const columnOptions = [
 
 export default function App() {
   const [mockup, setMockup] = useState<MockupSelection>('All');
-  const [theme, setTheme] = useState<'vellum' | 'void'>('vellum');
+  const [theme, setTheme] = useState<MockupTheme>('vellum');
   const [columnsValue, setColumnsValue] = useState('2');
   const [zoom, setZoom] = useState(0.72);
   const [frameHeight, setFrameHeight] = useState(840);
@@ -44,10 +45,18 @@ export default function App() {
     <div className={`mockup-app mockup-app--${theme}`} data-theme={theme}>
       <header className="mockup-app__header">
         <div className="mockup-app__brand">
-          <LogoMonogram style={{ width: 30, height: 30 }} />
+          {theme === 'void' ? (
+            <LogoMonogramDark style={{ width: 30, height: 30 }} />
+          ) : (
+            <LogoMonogram style={{ width: 30, height: 30 }} />
+          )}
           <div className="mockup-app__labels">
             <span className="mockup-app__eyebrow">a5c.ai Compendium</span>
-            <LogoWordmark style={{ width: 126, height: 17 }} />
+            {theme === 'void' ? (
+              <LogoWordmarkDark style={{ width: 126, height: 17 }} />
+            ) : (
+              <LogoWordmark style={{ width: 126, height: 17 }} />
+            )}
           </div>
         </div>
         <p className="mockup-app__summary">
@@ -135,6 +144,7 @@ export default function App() {
           frameHeight={frameHeight}
           showDescription={showDescription}
           showSources={showSources}
+          theme={theme}
         />
       </main>
     </div>

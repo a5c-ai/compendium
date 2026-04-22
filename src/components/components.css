@@ -17,10 +17,12 @@
   color-scheme: light;
 }
 
+.void,
 [data-theme="void"] {
   color-scheme: dark;
 }
 
+.void ::selection,
 [data-theme] ::selection {
   background: var(--tkc-selection);
 }

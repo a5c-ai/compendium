@@ -8,4 +8,5 @@ export { default as IllustrationQualityGates } from './IllustrationQualityGates'
 export { default as LogoMonogram } from './LogoMonogram';
 export { default as LogoMonogramDark } from './LogoMonogramDark';
 export { default as LogoWordmark } from './LogoWordmark';
+export { default as LogoWordmarkDark } from './LogoWordmarkDark';
 export { default as SealGatePassed } from './SealGatePassed';

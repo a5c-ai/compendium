@@ -28,6 +28,10 @@ const meta: Meta<typeof MockupPreviews> = {
     showSources: {
       control: { type: 'boolean' },
     },
+    theme: {
+      control: { type: 'inline-radio' },
+      options: ['vellum', 'void'],
+    },
   },
   args: {
     mockup: 'All',
@@ -36,6 +40,7 @@ const meta: Meta<typeof MockupPreviews> = {
     frameHeight: 840,
     showDescription: true,
     showSources: true,
+    theme: 'vellum',
   },
 };
 
@@ -43,6 +48,10 @@ export default meta;
 type Story = StoryObj<typeof MockupPreviews>;
 
 export const Gallery: Story = {};
+
+export const DarkGallery: Story = {
+  args: { theme: 'void' },
+};
 
 export const Ads: Story = {
   args: { mockup: 'Ads', columns: 1, zoom: 0.8 },

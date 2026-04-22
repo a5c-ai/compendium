@@ -246,6 +246,7 @@
   --shadow-plate-dark: 3px 3px 0 var(--glyph-bone);
   --shadow-stamp:      0 0 0 1px var(--accent-cinnabar);
   --shadow-fold:       inset 0 1px 0 rgba(0,0,0,.08);
+  --shadow-card:       0 10px 24px color-mix(in oklab, var(--fg) 12%, transparent);
 
   /* ==========================================================
      MOTION: Easing & Durations
@@ -273,6 +274,15 @@
   --fg-2: var(--glyph-fade);
   --fg-3: color-mix(in oklab, var(--glyph-fade) 70%, transparent);
   --rule: color-mix(in oklab, var(--glyph-fade) 40%, transparent);
+  --tk-paper:         #14171A;
+  --tk-paper-2:       #1A1F24;
+  --tk-graph:         #20262B;
+  --tk-line:          #E6DDD0;
+  --tk-line-soft:     #B5AA99;
+  --tk-line-hair:     #736B5F;
+  --tk-bp-line:       #8FDBFF;
+  --tk-bp-line-soft:  rgba(143,219,255,.55);
+  --tk-bp-line-hair:  rgba(143,219,255,.24);
   --tkc-paper:         #1B1611;
   --tkc-paper-2:       #241D17;
   --tkc-paper-3:       #34281F;
