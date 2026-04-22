@@ -38,11 +38,14 @@ export interface DiffViewerProps {
 export interface DiffFileTabsProps {
   files: DiffFile[];
   activeFile: string;
+  panelIdForFile?: (filename: string) => string;
   onChange: (filename: string) => void;
 }
 
 export interface DiffFileViewProps {
   file: DiffFile;
+  panelId?: string;
+  labelledBy?: string;
 }
 
 type TokenKind =
@@ -156,16 +159,23 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   </section>
 );
 
-export const DiffFileTabs: React.FC<DiffFileTabsProps> = ({ files, activeFile, onChange }) => (
+function toDomId(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+export const DiffFileTabs: React.FC<DiffFileTabsProps> = ({ files, activeFile, panelIdForFile, onChange }) => (
   <div className="tkc-diff__tabs" role="tablist" aria-label="Changed files">
     {files.map((file) => {
       const active = file.filename === activeFile;
+      const tabId = `tkc-diff-tab-${toDomId(file.filename)}`;
       return (
         <button
           key={file.filename}
+          id={tabId}
           type="button"
           role="tab"
           aria-selected={active}
+          aria-controls={panelIdForFile?.(file.filename)}
           className={active ? "is-active" : undefined}
           onClick={() => onChange(file.filename)}
         >
@@ -176,8 +186,8 @@ export const DiffFileTabs: React.FC<DiffFileTabsProps> = ({ files, activeFile, o
   </div>
 );
 
-export const DiffFileView: React.FC<DiffFileViewProps> = ({ file }) => (
-  <article className="tkc-diff__file">
+export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, panelId, labelledBy }) => (
+  <article className="tkc-diff__file" id={panelId} role="tabpanel" aria-labelledby={labelledBy}>
     <div className="tkc-diff__name">{file.filename}</div>
     <div className="tkc-diff__columns">
       {file.before ? (
@@ -218,15 +228,23 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
 
   if (!current) return null;
 
+  const activePanelId = `tkc-diff-panel-${toDomId(current.filename)}`;
+  const activeTabId = `tkc-diff-tab-${toDomId(current.filename)}`;
+
   return (
     <section className={cx("tkc-diff", className)}>
       <header className="tkc-diff__head">
         <strong>{title}</strong>
         <span>{meta ?? `${files.length} files changed`}</span>
       </header>
-      <DiffFileTabs files={files} activeFile={current.filename} onChange={setActiveFile} />
+      <DiffFileTabs
+        files={files}
+        activeFile={current.filename}
+        panelIdForFile={(filename) => `tkc-diff-panel-${toDomId(filename)}`}
+        onChange={setActiveFile}
+      />
       <div className="tkc-diff__grid">
-        <DiffFileView file={current} />
+        <DiffFileView file={current} panelId={activePanelId} labelledBy={activeTabId} />
       </div>
     </section>
   );

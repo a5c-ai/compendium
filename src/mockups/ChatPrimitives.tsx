@@ -14,17 +14,30 @@ export interface ChatMemoAction {
   variant?: 'default' | 'primary' | 'ghost';
 }
 
+export interface ChatChartBar {
+  height: number;
+}
+
+export interface ChatToolRecord {
+  title: string;
+  meta: string;
+  latency: string;
+  body: ReactNode;
+}
+
 export function ChatShell({
   rail,
   wall,
   inspector,
+  theme = 'light',
 }: {
   rail: ReactNode;
   wall: ReactNode;
   inspector: ReactNode;
+  theme?: 'light' | 'dark';
 }) {
   return (
-    <section className="mk-chat-app">
+    <section className={`mk-chat-app ${theme === 'dark' ? 'mk-chat-app--dark' : ''}`}>
       {rail}
       {wall}
       {inspector}
@@ -135,6 +148,38 @@ export function ChatTurn({
 
 export function ChatMessageBody({ children }: { children: ReactNode }) {
   return <div className="mk-chat-turn__body">{children}</div>;
+}
+
+export function ChatBars({
+  bars,
+  caption,
+}: {
+  bars: readonly ChatChartBar[];
+  caption: ReactNode;
+}) {
+  return (
+    <div className="mk-chat-diagram">
+      <div className="mk-chat-bars">
+        {bars.map((bar, index) => (
+          <i key={index} style={{ height: `${bar.height}px` }} />
+        ))}
+      </div>
+      <span>{caption}</span>
+    </div>
+  );
+}
+
+export function ChatToolCard({ title, meta, latency, body }: ChatToolRecord) {
+  return (
+    <div className="mk-chat-tool">
+      <div className="mk-chat-tool__head">
+        <span>{title}</span>
+        <span>{meta}</span>
+        <span>{latency}</span>
+      </div>
+      <div className="mk-chat-tool__body">{body}</div>
+    </div>
+  );
 }
 
 export function ChatMemo({

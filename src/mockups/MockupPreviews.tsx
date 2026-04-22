@@ -32,6 +32,7 @@ import {
 } from './SeraphPrimitives';
 import {
   ChatAvatar,
+  ChatBars,
   ChatBudgetFoot,
   ChatComposer,
   ChatInspector,
@@ -39,10 +40,19 @@ import {
   ChatMessageBody,
   ChatRail,
   ChatShell,
+  ChatToolCard,
   ChatTurn,
   ChatTyping,
   ChatWall,
 } from './ChatPrimitives';
+import {
+  BrandGlyphAtlas,
+  BrandHero,
+  BrandMonoGrid,
+  BrandSealRow,
+  BrandSpecimenGrid,
+  BrandVoiceGrid,
+} from './BrandPrimitives';
 import {
   CodexChapterHeader,
   CodexDashboardChart,
@@ -244,6 +254,7 @@ function AdsSurface() {
 }
 
 function BrandSurface() {
+  const wordmark = <>a<span>·</span>5<span>·</span>c<span>·</span>ai</>;
   return (
     <CodexFrame
       title={
@@ -258,39 +269,33 @@ function BrandSurface() {
     >
       <section className="mk-chapter">
         <CodexChapterHeader num="I" title="The wordmark" body="Hero specimen, underlines, and the engraved signature line." meta="folio i · voice" />
-        <div className="mk-brand-hero">
-          <span className="mk-brand-hero__cap">wordmark · master</span>
-          <div className="mk-brand-hero__row">
-            <LogoMonogram style={{ width: 84, height: 84 }} />
-            <div className="mk-brand-hero__word">a<span>·</span>5<span>·</span>c<span>·</span>ai</div>
-          </div>
-          <div className="mk-brand-hero__under"><i />atelier for exacting multi-agent work<i /></div>
-          <p>Build with certainty. Done means done.</p>
-        </div>
-        <div className="mk-brand-specimens">
-          <div className="mk-brand-specimen">
-            <span>light field</span>
-            <div className="mk-brand-specimen__word">a<span>·</span>5<span>·</span>c<span>·</span>ai</div>
-            <small>editorial application</small>
-          </div>
-          <div className="mk-brand-specimen mk-brand-specimen--dark">
-            <span>void field</span>
-            <div className="mk-brand-specimen__word">a<span>·</span>5<span>·</span>c<span>·</span>ai</div>
-            <small>product shell</small>
-          </div>
-        </div>
+        <BrandHero
+          cap="wordmark · master"
+          icon={<LogoMonogram style={{ width: 84, height: 84 }} />}
+          wordmark={wordmark}
+          under="atelier for exacting multi-agent work"
+          statement="Build with certainty. Done means done."
+        />
+        <BrandSpecimenGrid
+          items={[
+            { label: 'light field', wordmark, caption: 'editorial application' },
+            { label: 'void field', wordmark, caption: 'product shell', dark: true },
+          ]}
+        />
         <CodexChapterHeader num="II" title="Monograms and mode glyphs" body="Reduced seals for rails, runbooks, and dispatch states." meta="registry" />
-        <div className="mk-brand-mono-grid">
-          <div className="mk-brand-mono-cell"><span>ink</span><LogoMonogram style={{ width: 84 }} /><small>primary seal</small></div>
-          <div className="mk-brand-mono-cell mk-brand-mono-cell--void"><span>void</span><LogoMonogramDark style={{ width: 84 }} /><small>night shell</small></div>
-          <div className="mk-brand-mono-cell mk-brand-mono-cell--cin"><span>dispatch</span><GlyphModeInteractive style={{ width: 72 }} /><small>interactive</small></div>
-          <div className="mk-brand-mono-cell mk-brand-mono-cell--brass"><span>modes</span><div className="mk-brand-glyphs"><GlyphModePlan style={{ width: 48 }} /><GlyphModeYolo style={{ width: 48 }} /><GlyphModeForever style={{ width: 48 }} /></div><small>plan · yolo · forever</small></div>
-        </div>
+        <BrandMonoGrid
+          items={[
+            { label: 'ink', icon: <LogoMonogram style={{ width: 84 }} />, caption: 'primary seal' },
+            { label: 'void', icon: <LogoMonogramDark style={{ width: 84 }} />, caption: 'night shell', tone: 'void' },
+            { label: 'dispatch', icon: <GlyphModeInteractive style={{ width: 72 }} />, caption: 'interactive', tone: 'cinnabar' },
+            { label: 'modes', icon: <div className="mk-brand-glyphs"><GlyphModePlan style={{ width: 48 }} /><GlyphModeYolo style={{ width: 48 }} /><GlyphModeForever style={{ width: 48 }} /></div>, caption: 'plan · yolo · forever', tone: 'brass' },
+          ]}
+        />
         <CodexChapterHeader num="III" title="Voice, glyphs, and seals" body="The secondary plates that make the folio read like a registry rather than a single specimen." meta="apparatus" />
         <div className="mk-plate">
-          <div className="mk-catalog-cap">alphabet · mode</div>
-          <div className="mk-brand-alphabet-grid">
-            {[
+          <BrandGlyphAtlas
+            cap="alphabet · mode"
+            items={[
               { label: 'mono', icon: <LogoMonogram style={{ width: 56, height: 56 }} /> },
               { label: 'mono dark', icon: <LogoMonogramDark style={{ width: 56, height: 56 }} /> },
               { label: 'interactive', icon: <GlyphModeInteractive style={{ width: 56, height: 56 }} /> },
@@ -299,53 +304,44 @@ function BrandSurface() {
               { label: 'forever', icon: <GlyphModeForever style={{ width: 56, height: 56 }} /> },
               { label: 'seal', icon: <SealGatePassed style={{ width: 56, height: 56 }} /> },
               { label: 'wordmark', icon: <LogoWordmark style={{ width: 72, height: 32 }} /> },
-            ].map(({ label, icon }) => (
-              <div key={label} className="mk-brand-glyph-cell">
-                <div className="mk-brand-glyph-cell__icon">{icon}</div>
-                <div className="mk-brand-glyph-cell__label">{label}</div>
-              </div>
-            ))}
-          </div>
-          <div className="mk-brand-alphabet-string">⟡ ✦ ✧ ◊ ✦ ⟡ · atlas of marks</div>
+            ]}
+            footer="⟡ ✦ ✧ ◊ ✦ ⟡ · atlas of marks"
+          />
         </div>
-        <div className="mk-brand-voice">
-          <div className="mk-brand-voice__col mk-brand-voice__col--yes">
-            <span className="mk-brand-voice__cap">do</span>
-            <h4>Quiet authority</h4>
-            <div className="mk-brand-voice__list">
-              <p>Say what the system does in plain prose, then prove it.</p>
-              <p>Reserve italics for emphasis and utterance, not decoration.</p>
-              <p>Make the seal feel earned, never theatrical.</p>
-            </div>
-          </div>
-          <div className="mk-brand-voice__col mk-brand-voice__col--no">
-            <span className="mk-brand-voice__cap">avoid</span>
-            <h4>Chrome and slogans</h4>
-            <div className="mk-brand-voice__list">
-              <p>Do not make the product sound like a startup landing page.</p>
-              <p>Do not decorate technical surfaces with arbitrary gem color.</p>
-              <p>Do not overstate certainty where a gate has not yet passed.</p>
-            </div>
-          </div>
-        </div>
+        <BrandVoiceGrid
+          columns={[
+            {
+              cap: 'do',
+              title: 'Quiet authority',
+              tone: 'yes',
+              items: [
+                'Say what the system does in plain prose, then prove it.',
+                'Reserve italics for emphasis and utterance, not decoration.',
+                'Make the seal feel earned, never theatrical.',
+              ],
+            },
+            {
+              cap: 'avoid',
+              title: 'Chrome and slogans',
+              tone: 'no',
+              items: [
+                'Do not make the product sound like a startup landing page.',
+                'Do not decorate technical surfaces with arbitrary gem color.',
+                'Do not overstate certainty where a gate has not yet passed.',
+              ],
+            },
+          ]}
+        />
         <div className="mk-plate">
           <div className="mk-catalog-cap">seals · row</div>
-          <div className="mk-brand-seals">
-            {[
-              ['cinnabar', 'human seal', 'the struck verdict'],
-              ['viridian', 'healthy run', 'stable and passing'],
-              ['brass', 'mechanism', 'casing and apparatus'],
-              ['indigo', 'reference', 'cold diagrammatic register'],
-            ].map(([tone, name, desc]) => (
-              <div key={tone} className="mk-brand-seal-col">
-                <div className={`mk-brand-seal-disc mk-brand-seal-disc--${tone}`}>
-                  <span>{name}</span>
-                </div>
-                <strong>{name}</strong>
-                <small>{desc}</small>
-              </div>
-            ))}
-          </div>
+          <BrandSealRow
+            items={[
+              { tone: 'cinnabar', name: 'human seal', description: 'the struck verdict' },
+              { tone: 'viridian', name: 'healthy run', description: 'stable and passing' },
+              { tone: 'brass', name: 'mechanism', description: 'casing and apparatus' },
+              { tone: 'indigo', name: 'reference', description: 'cold diagrammatic register' },
+            ]}
+          />
         </div>
       </section>
     </CodexFrame>
@@ -391,6 +387,7 @@ function ChatSurface() {
   ];
   return (
     <ChatShell
+      theme="dark"
       rail={(
         <ChatRail
           brand="Atelier."
@@ -444,22 +441,16 @@ function ChatSurface() {
                     Thirty-six are internally consistent. Six need direct carrier follow-up.
                   </p>
                   <h4>Batch shape</h4>
-                  <div className="mk-chat-diagram">
-                    <div className="mk-chat-bars">
-                      {Array.from({ length: 24 }).map((_, index) => (
-                        <i key={index} style={{ height: `${40 + ((index * 9) % 90)}px` }} />
-                      ))}
-                    </div>
-                    <span>Distribution of 42 claims by invoiced amount. Right-tail bars are flagged.</span>
-                  </div>
+                  <ChatBars
+                    bars={Array.from({ length: 24 }).map((_, index) => ({ height: 40 + ((index * 9) % 90) }))}
+                    caption="Distribution of 42 claims by invoiced amount. Right-tail bars are flagged."
+                  />
                   <h4>The six flagged claims</h4>
-                  <div className="mk-chat-tool">
-                    <div className="mk-chat-tool__head">
-                      <span>Tool</span>
-                      <span>ledger.query · rows=6</span>
-                      <span>412ms</span>
-                    </div>
-                    <div className="mk-chat-tool__body">
+                  <ChatToolCard
+                    title="Tool"
+                    meta="ledger.query · rows=6"
+                    latency="412ms"
+                    body={(
                       <CodeEditor
                         tone="blueprint"
                         language="text"
@@ -467,8 +458,8 @@ function ChatSurface() {
                         status="rows=6 · 412ms"
                         code={`CLM-10412 · surcharge 18.2% vs tariff 14.0%\nCLM-10477 · weight rounded up one bracket\nCLM-10544 · duplicate line item\nCLM-10602 · fuel surcharge applied twice`}
                       />
-                    </div>
-                  </div>
+                    )}
+                  />
                   <p>
                     Aggregate carrier overcharge: $4,511.05. Draft replies are staged under Drafts ›
                     Oct-freight-replies.

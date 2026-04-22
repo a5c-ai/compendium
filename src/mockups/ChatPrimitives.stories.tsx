@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button, CodeEditor, Tag } from '../components';
 import {
   ChatAvatar,
+  ChatBars,
   ChatBudgetFoot,
   ChatComposer,
   ChatInspector,
@@ -9,6 +10,7 @@ import {
   ChatMessageBody,
   ChatRail,
   ChatShell,
+  ChatToolCard,
   ChatTurn,
   ChatTyping,
   ChatWall,
@@ -28,6 +30,7 @@ type Story = StoryObj<typeof ChatShell>;
 export const WorkspaceScaffold: Story = {
   render: () => (
     <ChatShell
+      theme="dark"
       rail={(
         <ChatRail
           brand="Atelier."
@@ -70,12 +73,23 @@ export const WorkspaceScaffold: Story = {
               body={
                 <>
                   <p>Thirty-six are internally consistent. Six need direct carrier follow-up.</p>
-                  <CodeEditor
-                    tone="blueprint"
-                    language="text"
-                    filename="ledger.query"
-                    status="rows=6 · 412ms"
-                    code={`CLM-10412 · surcharge 18.2% vs tariff 14.0%\nCLM-10477 · weight rounded up one bracket\nCLM-10544 · duplicate line item`}
+                  <ChatBars
+                    bars={Array.from({ length: 12 }).map((_, index) => ({ height: 46 + ((index * 13) % 68) }))}
+                    caption="Flagged claims cluster on the right tail."
+                  />
+                  <ChatToolCard
+                    title="Tool"
+                    meta="ledger.query · rows=6"
+                    latency="412ms"
+                    body={(
+                      <CodeEditor
+                        tone="blueprint"
+                        language="text"
+                        filename="ledger.query"
+                        status="rows=6 · 412ms"
+                        code={`CLM-10412 · surcharge 18.2% vs tariff 14.0%\nCLM-10477 · weight rounded up one bracket\nCLM-10544 · duplicate line item`}
+                      />
+                    )}
                   />
                 </>
               }
