@@ -54,6 +54,25 @@ import {
   BrandVoiceGrid,
 } from './BrandPrimitives';
 import {
+  ColorBrassRow,
+  ColorGemShelf,
+  ColorGroundGrid,
+  ColorLadderGroup,
+  ColorUsageGrid,
+  ColorVerdictStrip,
+} from './ColorPrimitives';
+import {
+  ComponentGaugeRow,
+  ComponentGateStrip,
+  ComponentGemRow,
+  ComponentInstallStrip,
+  ComponentModeGrid,
+} from './ComponentPrimitives';
+import {
+  TypeAtlasGrid,
+  TypePairGrid,
+} from './TypePrimitives';
+import {
   CodexChapterHeader,
   CodexDashboardChart,
   CodexDashboardCommandPalette,
@@ -735,26 +754,26 @@ function SeraphBestiarySurface() {
 
 function ColorsSurface() {
   const grounds = [
-    ['Vellum', 'var(--ground-vellum)', '#EDE3CF · ground · base', 'The default marketing surface. Warm ground, rests the eye.'],
-    ['Parchment', 'var(--ground-parchment)', '#D9CBAE · ground · alt', 'The deeper leaf. Used beneath vellum for section breaks and cards.'],
-    ['Void', 'var(--ground-void)', '#0B0A0F · ground · deep', 'The workshop at midnight. Product shell, code, and technical reference.'],
-    ['Ink', 'var(--ground-ink)', '#181624 · ground · layer', 'A shade warmer than void. Sits beneath void for layered panels.'],
+    { label: 'Vellum', color: 'var(--ground-vellum)', meta: '#EDE3CF · ground · base', note: 'The default marketing surface. Warm ground, rests the eye.' },
+    { label: 'Parchment', color: 'var(--ground-parchment)', meta: '#D9CBAE · ground · alt', note: 'The deeper leaf. Used beneath vellum for section breaks and cards.' },
+    { label: 'Void', color: 'var(--ground-void)', meta: '#0B0A0F · ground · deep', note: 'The workshop at midnight. Product shell, code, and technical reference.', dark: true },
+    { label: 'Ink', color: 'var(--ground-ink)', meta: '#181624 · ground · layer', note: 'A shade warmer than void. Sits beneath void for layered panels.', dark: true },
   ] as const;
   const ladder = [
-    ['Pigment', '#1B1611', 'body, headings — the voice'],
-    ['Fade', '#5A4E3C', 'captions, marginalia, hints'],
-    ['Ghost', '#8C7E65', 'folio numbers, hairline labels'],
-    ['Bone', '#F0E6D1', 'body, headings — against dark'],
-    ['Fade (dark)', '#A89980', 'captions on dark surfaces'],
+    { label: 'Pigment', color: '#1B1611', note: 'body, headings — the voice' },
+    { label: 'Fade', color: '#5A4E3C', note: 'captions, marginalia, hints' },
+    { label: 'Ghost', color: '#8C7E65', note: 'folio numbers, hairline labels' },
+    { label: 'Bone', color: '#F0E6D1', note: 'body, headings — against dark' },
+    { label: 'Fade (dark)', color: '#A89980', note: 'captions on dark surfaces' },
   ] as const;
   const gems = [
-    ['Cinnabar', 'var(--accent-cinnabar)', 'the seal · brand · failure verdict'],
-    ['Emerald', 'var(--gem-emerald)', 'gate passed · verdict · healthy'],
-    ['Ruby', 'var(--gem-ruby)', 'halt · terminal error · unrecoverable'],
-    ['Amber', 'var(--accent-sulphur)', 'pending · advisory · warning'],
-    ['Topaz', 'var(--gem-cyan)', 'iterating · in-flight · progress'],
-    ['Amethyst', '#E23FB4', 'annotation · marginalia · human note'],
-    ['Sapphire', 'var(--accent-indigo)', 'diagrammatic · cold reference · linkage'],
+    { label: 'Cinnabar', color: 'var(--accent-cinnabar)', note: 'the seal · brand · failure verdict' },
+    { label: 'Emerald', color: 'var(--gem-emerald)', note: 'gate passed · verdict · healthy' },
+    { label: 'Ruby', color: 'var(--gem-ruby)', note: 'halt · terminal error · unrecoverable' },
+    { label: 'Amber', color: 'var(--accent-sulphur)', note: 'pending · advisory · warning' },
+    { label: 'Topaz', color: 'var(--gem-cyan)', note: 'iterating · in-flight · progress' },
+    { label: 'Amethyst', color: '#E23FB4', note: 'annotation · marginalia · human note' },
+    { label: 'Sapphire', color: 'var(--accent-indigo)', note: 'diagrammatic · cold reference · linkage' },
   ] as const;
   return (
     <CodexFrame
@@ -779,17 +798,7 @@ function ColorsSurface() {
         </header>
         <div className="mk-plate">
           <div className="mk-catalog-cap">grounds · α</div>
-          <div className="mk-ground-grid">
-            {grounds.map(([label, color, hex, note]) => (
-              <article key={label} className={`mk-ground-card ${label === 'Void' || label === 'Ink' ? 'mk-ground-card--dark' : ''}`} style={{ background: color }}>
-                <strong>{label}</strong>
-                <div>
-                  <p>{note}</p>
-                  <small>{hex}</small>
-                </div>
-              </article>
-            ))}
-          </div>
+          <ColorGroundGrid items={grounds} />
         </div>
         <dl className="mk-specs">
           <dt>Rule of two</dt><dd>Any page uses at most two grounds: vellum + parchment, or void + ink. Never mix registers.</dd>
@@ -805,32 +814,8 @@ function ColorsSurface() {
         </header>
         <div className="mk-plate">
           <div className="mk-catalog-cap">ladder · β</div>
-          <div className="mk-color-ladder__group">on vellum</div>
-          <div className="mk-color-ladder">
-            {ladder.slice(0, 3).map(([label, color, note]) => (
-              <div key={label} className="mk-color-ladder__row">
-                <div className="mk-color-ladder__swatch" style={{ background: color }} />
-                <div>
-                  <strong>{label}</strong>
-                  <p>{note}</p>
-                </div>
-                <span>{color}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mk-color-ladder__group">on void</div>
-          <div className="mk-color-ladder">
-            {ladder.slice(3).map(([label, color, note]) => (
-              <div key={label} className="mk-color-ladder__row">
-                <div className="mk-color-ladder__swatch" style={{ background: color }} />
-                <div>
-                  <strong>{label}</strong>
-                  <p>{note}</p>
-                </div>
-                <span>{color}</span>
-              </div>
-            ))}
-          </div>
+          <ColorLadderGroup title="on vellum" items={ladder.slice(0, 3)} />
+          <ColorLadderGroup title="on void" items={ladder.slice(3)} />
         </div>
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">III</span>
@@ -840,20 +825,7 @@ function ColorsSurface() {
           </div>
           <span className="mk-codex-meta">brass · ring</span>
         </header>
-        <div className="mk-brass-row">
-          {[
-            'light · #F2C88F',
-            'gilt · #D9A96A',
-            'brass · #B37E3E',
-            'deep · #8E5A26',
-            'leather · #5B3817',
-            'mahogany · #2A1607',
-          ].map((step, index) => (
-            <div key={step} className={`mk-brass-step mk-brass-step--${index + 1}`}>
-              <span>{step}</span>
-            </div>
-          ))}
-        </div>
+        <ColorBrassRow items={['light · #F2C88F', 'gilt · #D9A96A', 'brass · #B37E3E', 'deep · #8E5A26', 'leather · #5B3817', 'mahogany · #2A1607']} />
         <dl className="mk-specs">
           <dt>Use</dt><dd>Casings, navigation, primary buttons, rivets, compass rings, and watch-dial surfaces.</dd>
           <dt>Never</dt><dd>No gradients on text and no brass as decorative plate fill.</dd>
@@ -868,15 +840,7 @@ function ColorsSurface() {
         </header>
         <div className="mk-plate mk-plate--void">
           <div className="mk-catalog-cap">gem shelf · γ</div>
-          <div className="mk-gem-shelf">
-            {gems.map(([label, color, note]) => (
-              <article key={label} className="mk-gem-cell">
-                <div className="mk-gem-cell__stone" style={{ background: `radial-gradient(circle at 35% 30%, rgba(255,255,255,.92), ${color} 34%, color-mix(in oklab, ${color} 70%, black) 100%)` }} />
-                <strong>{label}</strong>
-                <small>{note}</small>
-              </article>
-            ))}
-          </div>
+          <ColorGemShelf items={gems} />
         </div>
         <dl className="mk-specs">
           <dt>Rule</dt><dd>A gemstone only appears when it means something. Emerald decorates nothing; it verifies.</dd>
@@ -890,13 +854,15 @@ function ColorsSurface() {
           </div>
           <span className="mk-codex-meta">verdicts · strip</span>
         </header>
-        <div className="mk-verdict-strip">
-          <div><i style={{ background: 'var(--gem-emerald)' }} /><strong>Passed</strong><small>Gate has cleared; proof will be issued.</small><span>#3EA676 · emerald</span></div>
-          <div><i style={{ background: 'var(--gem-ruby)' }} /><strong>Halted</strong><small>The run has stopped; human review required.</small><span>#D81F3D · ruby</span></div>
-          <div><i style={{ background: 'var(--accent-sulphur)' }} /><strong>Pending</strong><small>Advisory; the loop is adjusting.</small><span>#E0A63A · amber</span></div>
-          <div><i style={{ background: 'var(--gem-cyan)' }} /><strong>Iterating</strong><small>In-flight; next gate incoming.</small><span>#16D7E6 · topaz</span></div>
-          <div><i style={{ background: 'var(--accent-cinnabar)' }} /><strong>Sealed</strong><small>The seal has been struck. Run complete.</small><span>#C03A2B · cinnabar</span></div>
-        </div>
+        <ColorVerdictStrip
+          items={[
+            { label: 'Passed', color: 'var(--gem-emerald)', body: 'Gate has cleared; proof will be issued.', meta: '#3EA676 · emerald' },
+            { label: 'Halted', color: 'var(--gem-ruby)', body: 'The run has stopped; human review required.', meta: '#D81F3D · ruby' },
+            { label: 'Pending', color: 'var(--accent-sulphur)', body: 'Advisory; the loop is adjusting.', meta: '#E0A63A · amber' },
+            { label: 'Iterating', color: 'var(--gem-cyan)', body: 'In-flight; next gate incoming.', meta: '#16D7E6 · topaz' },
+            { label: 'Sealed', color: 'var(--accent-cinnabar)', body: 'The seal has been struck. Run complete.', meta: '#C03A2B · cinnabar' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">VI</span>
           <div>
@@ -905,26 +871,24 @@ function ColorsSurface() {
           </div>
           <span className="mk-codex-meta">usage</span>
         </header>
-        <div className="mk-usage-grid">
-          <div className="mk-usage mk-usage--light">
-            <div className="mk-usage__cap">light proof</div>
-            <h4>Proof on vellum.</h4>
-            <p>Editorial surfaces stay warm and quiet, with brass used sparingly to carry hierarchy.</p>
-            <div className="mk-usage__row">
-              <Button variant="primary">Gate passed</Button>
-              <Tag>stable</Tag>
-            </div>
-          </div>
-          <div className="mk-usage mk-usage--dark">
-            <div className="mk-usage__cap">night shell</div>
-            <h4>Proof in the workshop.</h4>
-            <p>Dark surfaces carry brighter gems, deeper brass, and a tighter contrast floor.</p>
-            <div className="mk-usage__row">
-              <Button variant="default">Needs review</Button>
-              <Tag>critical</Tag>
-            </div>
-          </div>
-        </div>
+        <ColorUsageGrid
+          items={[
+            {
+              cap: 'light proof',
+              tone: 'light',
+              title: 'Proof on vellum.',
+              body: 'Editorial surfaces stay warm and quiet, with brass used sparingly to carry hierarchy.',
+              actions: <><Button variant="primary">Gate passed</Button><Tag>stable</Tag></>,
+            },
+            {
+              cap: 'night shell',
+              tone: 'dark',
+              title: 'Proof in the workshop.',
+              body: 'Dark surfaces carry brighter gems, deeper brass, and a tighter contrast floor.',
+              actions: <><Button variant="default">Needs review</Button><Tag>critical</Tag></>,
+            },
+          ]}
+        />
       </section>
     </CodexFrame>
   );
@@ -972,46 +936,24 @@ function ComponentsSurface() {
               </div>
             </div>
           </div>
-          <div className="mk-components-modes">
-            {[
-              { num: '01', name: 'Interactive', icon: <GlyphModeInteractive style={{ width: 44, height: 44 }} />, cmd: '`/call`', desc: 'Pause for a human when the apparatus requires judgment.' },
-              { num: '02', name: 'Plan', icon: <GlyphModePlan style={{ width: 44, height: 44 }} />, cmd: '`/plan`', desc: 'Write the route first, expose tradeoffs, then execute with intent.' },
-              { num: '03', name: 'Yolo', icon: <GlyphModeYolo style={{ width: 44, height: 44 }} />, cmd: '`/yolo`', desc: 'Non-interactive loop for bounded work that still ends in a proof.' },
-              { num: '04', name: 'Forever', icon: <GlyphModeForever style={{ width: 44, height: 44 }} />, cmd: '`/forever`', desc: 'Long-running steward that continues to tend the room after first seal.' },
-            ].map(({ num, name, icon, cmd, desc }) => (
-              <article key={name} className="mk-components-mode">
-                <span className="mk-components-mode__num">{num}</span>
-                <div className="mk-components-mode__glyph">{icon}</div>
-                <strong className="mk-components-mode__name">{name}</strong>
-                <span className="mk-components-mode__cmd">{cmd}</span>
-                <p className="mk-components-mode__desc">{desc}</p>
-              </article>
-            ))}
-          </div>
+          <ComponentModeGrid
+            items={[
+              { num: '01', name: 'Interactive', icon: <GlyphModeInteractive style={{ width: 44, height: 44 }} />, cmd: '`/call`', description: 'Pause for a human when the apparatus requires judgment.' },
+              { num: '02', name: 'Plan', icon: <GlyphModePlan style={{ width: 44, height: 44 }} />, cmd: '`/plan`', description: 'Write the route first, expose tradeoffs, then execute with intent.' },
+              { num: '03', name: 'Yolo', icon: <GlyphModeYolo style={{ width: 44, height: 44 }} />, cmd: '`/yolo`', description: 'Non-interactive loop for bounded work that still ends in a proof.' },
+              { num: '04', name: 'Forever', icon: <GlyphModeForever style={{ width: 44, height: 44 }} />, cmd: '`/forever`', description: 'Long-running steward that continues to tend the room after first seal.' },
+            ]}
+          />
           <div className="mk-plate">
             <div className="mk-catalog-cap">gate strip</div>
-            <div className="mk-components-gates">
-              <article className="mk-components-gate mk-components-gate--pass">
-                <span>i</span>
-                <strong>Plan</strong>
-                <small>written and accepted</small>
-              </article>
-              <article className="mk-components-gate mk-components-gate--pass">
-                <span>ii</span>
-                <strong>Execute</strong>
-                <small>artifact rendered</small>
-              </article>
-              <article className="mk-components-gate mk-components-gate--pending">
-                <span>iii</span>
-                <strong>Verify</strong>
-                <small>auditor reseated</small>
-              </article>
-              <article className="mk-components-gate mk-components-gate--sealed">
-                <span>iv</span>
-                <strong>Seal</strong>
-                <small>proof when convergence holds</small>
-              </article>
-            </div>
+            <ComponentGateStrip
+              items={[
+                { index: 'i', title: 'Plan', body: 'written and accepted', tone: 'pass' },
+                { index: 'ii', title: 'Execute', body: 'artifact rendered', tone: 'pass' },
+                { index: 'iii', title: 'Verify', body: 'auditor reseated', tone: 'pending' },
+                { index: 'iv', title: 'Seal', body: 'proof when convergence holds', tone: 'sealed' },
+              ]}
+            />
           </div>
           <div className="mk-surface-grid">
             <div className="mk-plate">
@@ -1026,13 +968,7 @@ function ComponentsSurface() {
             </div>
             <div className="mk-plate">
               <div className="mk-catalog-cap">install strip</div>
-              <div className="mk-components-install">
-                <div className="mk-components-install__cmd">
-                  <span className="mk-components-install__sigil">$</span>
-                  <span>npx @a5c/babysitter init</span>
-                </div>
-                <button type="button" className="mk-components-install__copy">Copy</button>
-              </div>
+              <ComponentInstallStrip command="npx @a5c/babysitter init" action={<button type="button" className="mk-components-install__copy">Copy</button>} />
             </div>
           </div>
           <div className="mk-plate">
@@ -1072,23 +1008,14 @@ function ComponentsSurface() {
             </div>
             <div className="mk-plate">
               <div className="mk-catalog-cap">wax · seal</div>
-              <div className="mk-components-seal-row">
-                <div className="mk-components-wax">
-                  <span>gate<br />sealed</span>
-                </div>
-                <div className="mk-components-gems">
-                  {[
-                    ['topaz · iter', 'var(--gem-cyan)'],
-                    ['amethyst · note', '#E23FB4'],
-                    ['ruby · halt', 'var(--gem-ruby)'],
-                  ].map(([label, color]) => (
-                    <figure key={label}>
-                      <div className="mk-components-gem" style={{ background: `radial-gradient(circle at 35% 28%, rgba(255,255,255,.9), ${color} 34%, color-mix(in oklab, ${color} 70%, black) 100%)` }} />
-                      <figcaption>{label}</figcaption>
-                    </figure>
-                  ))}
-                </div>
-              </div>
+              <ComponentGemRow
+                seal={<span>gate<br />sealed</span>}
+                items={[
+                  { label: 'topaz · iter', color: 'var(--gem-cyan)' },
+                  { label: 'amethyst · note', color: '#E23FB4' },
+                  { label: 'ruby · halt', color: 'var(--gem-ruby)' },
+                ]}
+              />
             </div>
           </div>
           <div className="mk-plate">
@@ -1104,23 +1031,14 @@ function ComponentsSurface() {
           </div>
           <div className="mk-plate">
             <div className="mk-catalog-cap">gauges · chronometers</div>
-            <div className="mk-components-gauge-row">
-              {[
-                ['2k+', 'Built-in', 'processes'],
-                ['5 min', 'Setup', 'time'],
-                ['0', 'Telemetry', 'bytes'],
-                ['MIT', 'License', ''],
-              ].map(([value, top, bottom], index) => (
-                <div key={value} className="mk-components-gauge">
-                  <div className="mk-components-gauge__dial">
-                    <div className="mk-components-gauge__needle" style={{ transform: `translate(-50%, -10px) rotate(${[55, -40, -170, 90][index]}deg)` }} />
-                    <div className="mk-components-gauge__pivot" />
-                    <div className="mk-components-gauge__value">{value}</div>
-                  </div>
-                  <div className="mk-components-gauge__label">{top}<br />{bottom}</div>
-                </div>
-              ))}
-            </div>
+            <ComponentGaugeRow
+              items={[
+                { value: '2k+', top: 'Built-in', bottom: 'processes', needleRotation: 55 },
+                { value: '5 min', top: 'Setup', bottom: 'time', needleRotation: -40 },
+                { value: '0', top: 'Telemetry', bottom: 'bytes', needleRotation: -170 },
+                { value: 'MIT', top: 'License', bottom: '', needleRotation: 90 },
+              ]}
+            />
           </div>
           <div className="mk-components-pull">
             <blockquote>
@@ -1667,14 +1585,16 @@ function TypeSurface() {
           </div>
           <span className="mk-codex-meta">atlas · μ</span>
         </header>
-        <div className="mk-type-atlas">
-          <article className="mk-atlas-item"><span className="mk-atlas-name">eyebrow</span><div className="mk-atlas-demo mk-atlas-demo--mono">Vol. i · Chapter iii</div><div className="mk-atlas-caption">JetBrains Mono · 11 · .28em · uppercase</div></article>
-          <article className="mk-atlas-item"><span className="mk-atlas-name">folio</span><div className="mk-atlas-demo mk-atlas-demo--folio">fol. iii / viii</div><div className="mk-atlas-caption">JetBrains Mono · 10 · .3em · uppercase</div></article>
-          <article className="mk-atlas-item"><span className="mk-atlas-name">caption</span><div className="mk-atlas-demo mk-atlas-demo--caption">fig. iv — the ruby halts all further iteration.</div><div className="mk-atlas-caption">EB Garamond italic · 13 · 1.45</div></article>
-          <article className="mk-atlas-item"><span className="mk-atlas-name">glyph · string</span><div className="mk-atlas-demo mk-atlas-demo--glyph">⟡ ✦ ✧ ◊ ✦ ⟡</div><div className="mk-atlas-caption">JetBrains Mono · .3em · decorative rule</div></article>
-          <article className="mk-atlas-item"><span className="mk-atlas-name">code · block</span><div className="mk-atlas-demo"><CodeBlock tone="terminal" language="bash" code={`$ babysitter init`} /></div><div className="mk-atlas-caption">Reusable code surface · terminal tone</div></article>
-          <article className="mk-atlas-item"><span className="mk-atlas-name">chip · label</span><div className="mk-atlas-demo"><span className="mk-inline-chip">gate · passed</span></div><div className="mk-atlas-caption">JetBrains Mono · 10 · .22em · uppercase</div></article>
-        </div>
+        <TypeAtlasGrid
+          items={[
+            { name: 'eyebrow', demo: <div className="mk-atlas-demo mk-atlas-demo--mono">Vol. i · Chapter iii</div>, caption: 'JetBrains Mono · 11 · .28em · uppercase' },
+            { name: 'folio', demo: <div className="mk-atlas-demo mk-atlas-demo--folio">fol. iii / viii</div>, caption: 'JetBrains Mono · 10 · .3em · uppercase' },
+            { name: 'caption', demo: <div className="mk-atlas-demo mk-atlas-demo--caption">fig. iv — the ruby halts all further iteration.</div>, caption: 'EB Garamond italic · 13 · 1.45' },
+            { name: 'glyph · string', demo: <div className="mk-atlas-demo mk-atlas-demo--glyph">⟡ ✦ ✧ ◊ ✦ ⟡</div>, caption: 'JetBrains Mono · .3em · decorative rule' },
+            { name: 'code · block', demo: <CodeBlock tone="terminal" language="bash" code={`$ babysitter init`} />, caption: 'Reusable code surface · terminal tone' },
+            { name: 'chip · label', demo: <div className="mk-atlas-demo"><span className="mk-inline-chip">gate · passed</span></div>, caption: 'JetBrains Mono · 10 · .22em · uppercase' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">VI</span>
           <div>
@@ -1683,25 +1603,30 @@ function TypeSurface() {
           </div>
           <span className="mk-codex-meta">pair · τ</span>
         </header>
-        <div className="mk-type-pair">
-          <div>
-            <span className="mk-type-pair__tag">display · over · body</span>
-            <h4>The recipes are more valuable than the kitchen.</h4>
-            <p>A short paragraph in EB Garamond sits beneath a Cormorant display. The italic of one answers the upright of the other.</p>
-          </div>
-          <div>
-            <span className="mk-type-pair__tag">display · over · mono</span>
-            <h4>Proof of done</h4>
-            <CodeBlock tone="terminal" language="bash" code={`$ babysitter seal\n// receipt issued · 2048-bit · archive`} />
-          </div>
-        </div>
-        <div className="mk-type-pair mk-type-pair--wide">
-          <div>
-            <span className="mk-type-pair__tag">eyebrow · over · display</span>
-            <div className="mk-type-pair__eyebrow">chapter iv · convergence</div>
-            <h4 className="mk-type-pair__headline">The loop is the product.</h4>
-          </div>
-        </div>
+        <TypePairGrid
+          items={[
+            {
+              tag: 'display · over · body',
+              title: 'The recipes are more valuable than the kitchen.',
+              body: <p>A short paragraph in EB Garamond sits beneath a Cormorant display. The italic of one answers the upright of the other.</p>,
+            },
+            {
+              tag: 'display · over · mono',
+              title: 'Proof of done',
+              body: <CodeBlock tone="terminal" language="bash" code={`$ babysitter seal\n// receipt issued · 2048-bit · archive`} />,
+            },
+          ]}
+        />
+        <TypePairGrid
+          wide
+          items={[
+            {
+              tag: 'eyebrow · over · display',
+              aside: <div className="mk-type-pair__eyebrow">chapter iv · convergence</div>,
+              title: <span className="mk-type-pair__headline">The loop is the product.</span>,
+            },
+          ]}
+        />
       </section>
     </CodexFrame>
   );
