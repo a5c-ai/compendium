@@ -24,6 +24,8 @@ import {
   SeraphAside,
   SeraphCard,
   SeraphComposer,
+  SeraphCrest,
+  SeraphFolioBorder,
   SeraphPromptBar,
   SeraphSidebar,
   SeraphSummaryRow,
@@ -62,16 +64,29 @@ import {
   ColorVerdictStrip,
 } from './ColorPrimitives';
 import {
+  ComponentChipBoard,
   ComponentGaugeRow,
   ComponentGateStrip,
   ComponentGemRow,
   ComponentInstallStrip,
   ComponentModeGrid,
+  ComponentNavBar,
+  ComponentTabNarrative,
 } from './ComponentPrimitives';
 import {
   TypeAtlasGrid,
+  TypeProseGrid,
   TypePairGrid,
+  TypeScaleTable,
 } from './TypePrimitives';
+import {
+  SpacingElevationRow,
+  SpacingGridSheet,
+  SpacingLadder,
+  SpacingMeasureGrid,
+  SpacingRadiusRow,
+  SpacingRhythmBlock,
+} from './SpacingPrimitives';
 import {
   CodexChapterHeader,
   CodexDashboardChart,
@@ -543,7 +558,7 @@ function SeraphRefactorSurface() {
     <SeraphWindow>
       <SeraphSidebar
         rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic' }}
-        crest={<div className="mk-seraph__crest"><div className="mk-seraph__sun" /><div className="mk-seraph__vine" /></div>}
+        crest={<SeraphCrest />}
         threads={conversations.map(([title, subtitle, when, current]) => ({ title, subtitle, when, current }))}
         medallion="✺"
         planTitle="Pro Plan"
@@ -651,7 +666,7 @@ $ git status --porcelain
           placeholder="Message Codex Seraphinianus…"
           tools={['Web Search', 'Bash', 'File Reader', 'Diff', 'Tests', 'Git']}
         />
-        <div className="mk-seraph__folio-border" />
+        <SeraphFolioBorder />
       </main>
       <SeraphAside
         scribbles={['ᚠ ᚨ ᚦ ᚱ ᚲ ᚷ', '⟐ ⟡ ⊹ ⊹ ⟡ ⟐', 'ᚷ ᚲ ᚱ ᚦ ᚨ ᚠ']}
@@ -675,7 +690,7 @@ function SeraphBestiarySurface() {
     <SeraphWindow variant="mk-seraph--bestiary">
       <SeraphSidebar
         rail={{ sigil: '☼', topTotemClass: 'mk-seraph__totem--owl', bottomTotemClass: 'mk-seraph__totem--serpent' }}
-        crest={<div className="mk-seraph__crest mk-seraph__crest--orb"><div className="mk-seraph__sun mk-seraph__sun--blue" /><div className="mk-seraph__vine" /></div>}
+        crest={<SeraphCrest className="mk-seraph__crest--orb" sunClass="mk-seraph__sun--blue" />}
         threads={threads.map(([title, subtitle, when, current]) => ({ title, subtitle, when, current }))}
         medallion="☉"
         planTitle="Anima Codex"
@@ -742,7 +757,7 @@ function SeraphBestiarySurface() {
           placeholder="Message Codex Seraphinianus…"
           tools={['Web Search', 'Code Runner', 'File Reader', 'Image Tool', 'Calendar']}
         />
-        <div className="mk-seraph__folio-border" />
+        <SeraphFolioBorder />
       </main>
       <SeraphAside
         scribbles={['ϟ Ϙ ϰ ϟ Ϙ ϰ', '⟐ ꙮ ⟡ ꙮ ⟐', 'ϰ Ϙ ϟ ϰ Ϙ ϟ']}
@@ -916,25 +931,24 @@ function ComponentsSurface() {
           </div>
           <span className="mk-codex-meta">catalogue</span>
         </header>
-        <div className="mk-components-stack">
+          <div className="mk-components-stack">
           <div className="mk-plate">
             <div className="mk-catalog-cap">nav bar</div>
-            <div className="mk-components-nav">
-              <div className="mk-components-nav__brand">
+            <ComponentNavBar
+              brand={(
+                <>
                 <LogoMonogram style={{ width: 28, height: 28 }} />
                 <strong>a<span>·</span>5<span>·</span>c<span>·</span>ai</strong>
-              </div>
-              <div className="mk-components-nav__links">
-                <a className="current">Product</a>
-                <a>Workflow</a>
-                <a>Enterprise</a>
-                <a>Docs</a>
-              </div>
-              <div className="mk-components-nav__cta">
-                <Tag>Stable</Tag>
-                <Button variant="primary">Request access</Button>
-              </div>
-            </div>
+                </>
+              )}
+              links={[
+                { label: 'Product', current: true },
+                { label: 'Workflow' },
+                { label: 'Enterprise' },
+                { label: 'Docs' },
+              ]}
+              action={<><Tag>Stable</Tag><Button variant="primary">Request access</Button></>}
+            />
           </div>
           <ComponentModeGrid
             items={[
@@ -995,16 +1009,18 @@ function ComponentsSurface() {
           <div className="mk-components-artifacts">
             <div className="mk-plate">
               <div className="mk-catalog-cap">chips · gems</div>
-              <div className="mk-components-chips">
-                <Tag>v0.12.1</Tag>
-                <Tag>MIT · licensed</Tag>
-                <Tag>gate · passed</Tag>
-                <Tag>gate · failed</Tag>
-                <Tag>in · review</Tag>
-                <Tag>iterating</Tag>
-                <Tag>commentated</Tag>
-                <Tag>claude · code</Tag>
-              </div>
+              <ComponentChipBoard
+                items={[
+                  { label: 'v0.12.1' },
+                  { label: 'MIT · licensed' },
+                  { label: 'gate · passed' },
+                  { label: 'gate · failed' },
+                  { label: 'in · review' },
+                  { label: 'iterating' },
+                  { label: 'commentated' },
+                  { label: 'claude · code' },
+                ]}
+              />
             </div>
             <div className="mk-plate">
               <div className="mk-catalog-cap">wax · seal</div>
@@ -1020,7 +1036,7 @@ function ComponentsSurface() {
           </div>
           <div className="mk-plate">
             <div className="mk-catalog-cap">tabs</div>
-            <Tabs
+            <ComponentTabNarrative
               defaultValue="nav"
               items={[
                 { value: 'nav', label: 'Navigation', body: <div className="mk-components-tabcopy">Primary navigation with engraved brass hierarchy and a strong centerline.</div> },
@@ -1346,16 +1362,7 @@ function SpacingSurface() {
           </div>
           <span className="mk-codex-meta">ruler · Σ</span>
         </header>
-        <div className="mk-plate mk-ladder mk-ladder--engraved">
-          <div className="mk-catalog-cap">ruler · Σ</div>
-          {ladder.map((item) => (
-            <div key={item.name} className="mk-ladder__row">
-              <div><span>{item.name}</span><small>{item.token}</small></div>
-              <div className="mk-ruler-track"><i style={{ width: `${Math.max(item.value, 2)}px` }} /></div>
-              <div className="mk-ruler-meta"><strong>{item.value} px</strong><small>{item.note}</small></div>
-            </div>
-          ))}
-        </div>
+        <SpacingLadder cap="ruler · Σ" items={ladder} />
         <dl className="mk-specs">
           <dt>Base unit</dt><dd>4 px. Every value on the ladder is a multiple. No 5px, 15px, or 20px.</dd>
           <dt>Rhythm</dt><dd>Vertical stacks prefer s-4 → s-5 → s-6. Never skip two steps.</dd>
@@ -1368,23 +1375,13 @@ function SpacingSurface() {
           </div>
           <span className="mk-codex-meta">measure</span>
         </header>
-        <div className="mk-measure-grid">
-          <article className="mk-measure-cell">
-            <span className="mk-measure-cell__cap">too narrow · 32ch</span>
-            <strong className="mk-measure-cell__num">i</strong>
-            <p className="mk-measure-cell__text">Babysitter wraps any coding agent in a convergent loop. Short measure chatters.</p>
-          </article>
-          <article className="mk-measure-cell mk-measure-cell--good">
-            <span className="mk-measure-cell__cap">just right · 58ch</span>
-            <strong className="mk-measure-cell__num">ii</strong>
-            <p className="mk-measure-cell__text">Babysitter wraps any coding agent in a convergent loop. The measure breathes; the eye returns to the left edge without searching.</p>
-          </article>
-          <article className="mk-measure-cell">
-            <span className="mk-measure-cell__cap">too wide · 88ch</span>
-            <strong className="mk-measure-cell__num">iii</strong>
-            <p className="mk-measure-cell__text">Babysitter wraps any coding agent in a convergent loop. Wide measure is a trap; the eye loses the next line.</p>
-          </article>
-        </div>
+        <SpacingMeasureGrid
+          items={[
+            { cap: 'too narrow · 32ch', mark: 'i', text: 'Babysitter wraps any coding agent in a convergent loop. Short measure chatters.' },
+            { cap: 'just right · 58ch', mark: 'ii', text: 'Babysitter wraps any coding agent in a convergent loop. The measure breathes; the eye returns to the left edge without searching.', emphasis: true },
+            { cap: 'too wide · 88ch', mark: 'iii', text: 'Babysitter wraps any coding agent in a convergent loop. Wide measure is a trap; the eye loses the next line.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">III</span>
           <div>
@@ -1393,15 +1390,15 @@ function SpacingSurface() {
           </div>
           <span className="mk-codex-meta">radii · ρ</span>
         </header>
-        <div className="mk-radii">
-          {[['r-0', '0 · plates'], ['r-1', '2 · code, inputs'], ['r-2', '6 · buttons'], ['r-3', '12 · cartouches'], ['r-∞', 'pill · chips, gems']].map(([name, spec], index) => (
-            <div key={name} className="mk-radius-cell">
-              <div className={`mk-radius-swatch mk-radius-swatch--${index}`} />
-              <strong className="mk-radius-name">{name}</strong>
-              <span className="mk-radius-spec">{spec}</span>
-            </div>
-          ))}
-        </div>
+        <SpacingRadiusRow
+          items={[
+            { name: 'r-0', spec: '0 · plates' },
+            { name: 'r-1', spec: '2 · code, inputs' },
+            { name: 'r-2', spec: '6 · buttons' },
+            { name: 'r-3', spec: '12 · cartouches' },
+            { name: 'r-∞', spec: 'pill · chips, gems' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">IV</span>
           <div>
@@ -1410,15 +1407,14 @@ function SpacingSurface() {
           </div>
           <span className="mk-codex-meta">elev · Δ</span>
         </header>
-        <div className="mk-elev-row">
-          {[0, 1, 2, 3].map((level) => (
-            <div key={level} className="mk-elev-cell">
-              <div className={`mk-elev-plate mk-elev-plate--${level}`}>{level === 0 ? '—' : ['i', 'ii', 'iii'][level - 1]}</div>
-              <strong className="mk-elev-name">e-{level}</strong>
-              <span className="mk-elev-spec">{level === 0 ? 'inline · no offset' : level === 1 ? 'card · 0 2px 0 ink' : level === 2 ? 'button · 0 4px 0 ink' : 'panel · 0 6px 0 ink'}</span>
-            </div>
-          ))}
-        </div>
+        <SpacingElevationRow
+          items={[
+            { level: 0, mark: '—', spec: 'inline · no offset' },
+            { level: 1, mark: 'i', spec: 'card · 0 2px 0 ink' },
+            { level: 2, mark: 'ii', spec: 'button · 0 4px 0 ink' },
+            { level: 3, mark: 'iii', spec: 'panel · 0 6px 0 ink' },
+          ]}
+        />
         <dl className="mk-specs">
           <dt>Rule</dt><dd>No diffuse browser shadows. Use a hard offset in ink.</dd>
           <dt>Hover</dt><dd>Increment by one register on hover: e-1 → e-2. Never invert.</dd>
@@ -1431,17 +1427,10 @@ function SpacingSurface() {
           </div>
           <span className="mk-codex-meta">grid · 12</span>
         </header>
-        <div className="mk-grid-sheet">
-          <div className="mk-grid-preview mk-grid-preview--filled">
-            {Array.from({ length: 12 }).map((_, index) => (
-              <span key={index}>{index + 1}</span>
-            ))}
-          </div>
-          <div className="mk-grid-content">
-            <div>4 col · rail</div>
-            <div>8 col · body</div>
-          </div>
-        </div>
+        <SpacingGridSheet
+          numbers={Array.from({ length: 12 }, (_, index) => `${index + 1}`)}
+          labels={['4 col · rail', '8 col · body']}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">VI</span>
           <div>
@@ -1450,12 +1439,18 @@ function SpacingSurface() {
           </div>
           <span className="mk-codex-meta">baseline</span>
         </header>
-        <div className="mk-rhythm-block">
-          <span className="mk-rhythm-block__cap">baseline · 24 px</span>
-          <h4>The recipe, not the kitchen.</h4>
-          <p>AI models change; proven workflows do not. Babysitter makes the recipe a first-class artifact: plan, execute, verify, seal.</p>
-          <p>Every heading sits on the 24px ruling. Body copy sits on it. Captions sit on it. When a measurement disagrees, the measurement is wrong, not the grid.</p>
-        </div>
+        <SpacingRhythmBlock
+          sections={[
+            {
+              cap: 'baseline · 24 px',
+              title: 'The recipe, not the kitchen.',
+              body: [
+                'AI models change; proven workflows do not. Babysitter makes the recipe a first-class artifact: plan, execute, verify, seal.',
+                'Every heading sits on the 24px ruling. Body copy sits on it. Captions sit on it. When a measurement disagrees, the measurement is wrong, not the grid.',
+              ],
+            },
+          ]}
+        />
       </section>
     </CodexFrame>
   );
@@ -1505,28 +1500,18 @@ function TypeSurface() {
           </div>
           <span className="mk-codex-meta">scale · Σ</span>
         </header>
-        <div className="mk-plate">
-          <table className="mk-scale-table">
-            <tbody>
-              {[
-                ['display', 'Proof of done', '96 / 1.0 · −.02em'],
-                ['h1', 'The loop closes', '72 / 1.02 · −.02em'],
-                ['h2', 'Reliable workflows ship', '48 / 1.1 · −.01em'],
-                ['h3', 'Gates hold the line', '32 / 1.15 · 0'],
-                ['h4', 'Convergence is a promise', '24 / 1.2 · 0'],
-                ['lede', 'Run it, prove it, seal it — the marginalia of craft.', '22 / 1.35 italic'],
-                ['body', 'Babysitter wraps any coding agent in a convergent loop. You define what done means; the apparatus enforces it.', '17 / 1.62'],
-                ['caption', 'fig. iv — the ruby halts all further iteration.', '13 / 1.45 italic'],
-              ].map(([token, sample, spec]) => (
-                <tr key={token}>
-                  <td className="mk-scale-token">{token}</td>
-                  <td className="mk-scale-sample">{sample}</td>
-                  <td className="mk-scale-specs">{spec}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <TypeScaleTable
+          items={[
+            { token: 'display', sample: 'Proof of done', spec: '96 / 1.0 · −.02em' },
+            { token: 'h1', sample: 'The loop closes', spec: '72 / 1.02 · −.02em' },
+            { token: 'h2', sample: 'Reliable workflows ship', spec: '48 / 1.1 · −.01em' },
+            { token: 'h3', sample: 'Gates hold the line', spec: '32 / 1.15 · 0' },
+            { token: 'h4', sample: 'Convergence is a promise', spec: '24 / 1.2 · 0' },
+            { token: 'lede', sample: 'Run it, prove it, seal it — the marginalia of craft.', spec: '22 / 1.35 italic' },
+            { token: 'body', sample: 'Babysitter wraps any coding agent in a convergent loop. You define what done means; the apparatus enforces it.', spec: '17 / 1.62' },
+            { token: 'caption', sample: 'fig. iv — the ruby halts all further iteration.', spec: '13 / 1.45 italic' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">III</span>
           <div>
@@ -1535,22 +1520,28 @@ function TypeSurface() {
           </div>
           <span className="mk-codex-meta">prose · β</span>
         </header>
-        <div className="mk-type-prose">
-          <div className="mk-plate">
-            <h4>The recipe, not the kitchen</h4>
-            <p className="mk-type-lede">A manifesto, in three paragraphs.</p>
-            <p className="mk-dropcap">AI models change. The useful thing to own is the recipe, stamped and sealed, portable across whatever oven the industry hands you next.</p>
-            <p>Babysitter was written to make those recipes first-class. Every agent call is wrapped in a convergent loop: plan, execute, verify, repeat.</p>
-            <p>The alternative is a demo. A reel. A vibe. Our alternative is the seal.</p>
-          </div>
-          <div className="mk-plate">
-            <h4>Three things are never negotiable</h4>
-            <p className="mk-type-lede">Gates, determinism, the seal.</p>
-            <p>Gates are hard. A failed lint is not a suggestion. A red test is not close enough.</p>
-            <p>Determinism is cultural. Same agent, same plan, same gates, same outcome, or a written reason why not.</p>
-            <p>The seal is issued exactly once per task. Anything less is theater.</p>
-          </div>
-        </div>
+        <TypeProseGrid
+          items={[
+            {
+              title: 'The recipe, not the kitchen',
+              lead: 'A manifesto, in three paragraphs.',
+              body: [
+                <p className="mk-dropcap">AI models change. The useful thing to own is the recipe, stamped and sealed, portable across whatever oven the industry hands you next.</p>,
+                <p>Babysitter was written to make those recipes first-class. Every agent call is wrapped in a convergent loop: plan, execute, verify, repeat.</p>,
+                <p>The alternative is a demo. A reel. A vibe. Our alternative is the seal.</p>,
+              ],
+            },
+            {
+              title: 'Three things are never negotiable',
+              lead: 'Gates, determinism, the seal.',
+              body: [
+                <p>Gates are hard. A failed lint is not a suggestion. A red test is not close enough.</p>,
+                <p>Determinism is cultural. Same agent, same plan, same gates, same outcome, or a written reason why not.</p>,
+                <p>The seal is issued exactly once per task. Anything less is theater.</p>,
+              ],
+            },
+          ]}
+        />
         <dl className="mk-specs">
           <dt>Family</dt><dd><code>EB Garamond</code> · 400, 500, italic 400.</dd>
           <dt>Measure</dt><dd>Target 58ch. Never below 45ch and never above 75ch.</dd>

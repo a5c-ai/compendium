@@ -13,6 +13,52 @@ export interface TypePairItem {
   aside?: ReactNode;
 }
 
+export interface TypeScaleRow {
+  token: string;
+  sample: ReactNode;
+  spec: string;
+}
+
+export interface TypeProsePanel {
+  title: ReactNode;
+  lead: ReactNode;
+  body: readonly ReactNode[];
+}
+
+export function TypeScaleTable({ items }: { items: readonly TypeScaleRow[] }) {
+  return (
+    <div className="mk-plate">
+      <table className="mk-scale-table">
+        <tbody>
+          {items.map((item) => (
+            <tr key={item.token}>
+              <td className="mk-scale-token">{item.token}</td>
+              <td className="mk-scale-sample">{item.sample}</td>
+              <td className="mk-scale-specs">{item.spec}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function TypeProseGrid({ items }: { items: readonly TypeProsePanel[] }) {
+  return (
+    <div className="mk-type-prose">
+      {items.map((item) => (
+        <div key={`${item.title}`} className="mk-plate">
+          <h4>{item.title}</h4>
+          <p className="mk-type-lede">{item.lead}</p>
+          {item.body.map((paragraph, index) => (
+            <div key={index}>{paragraph}</div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function TypeAtlasGrid({ items }: { items: readonly TypeAtlasItem[] }) {
   return (
     <div className="mk-type-atlas">

@@ -11,4 +11,5 @@ export * from './mockups/ComponentPrimitives';
 export * from './mockups/CodexPrimitives';
 export * from './mockups/ChatPrimitives';
 export * from './mockups/SeraphPrimitives';
+export * from './mockups/SpacingPrimitives';
 export * from './mockups/TypePrimitives';

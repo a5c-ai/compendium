@@ -19,6 +19,11 @@ export interface SeraphAsideProps {
   plantClass: string;
 }
 
+export interface SeraphCrestProps {
+  sunClass?: string;
+  className?: string;
+}
+
 export interface SeraphCardProps {
   title: ReactNode;
   status?: ReactNode;
@@ -127,6 +132,15 @@ export function SeraphPromptBar({
   );
 }
 
+export function SeraphCrest({ sunClass, className }: SeraphCrestProps) {
+  return (
+    <div className={['mk-seraph__crest', className].filter(Boolean).join(' ')}>
+      <div className={['mk-seraph__sun', sunClass].filter(Boolean).join(' ')} />
+      <div className="mk-seraph__vine" />
+    </div>
+  );
+}
+
 export function SeraphCard({ title, status, ornament, children }: SeraphCardProps) {
   return (
     <article className="mk-seraph__card">
@@ -202,4 +216,8 @@ export function SeraphAside({ scribbles, plantClass }: SeraphAsideProps) {
       <div className="mk-seraph__dial mk-seraph__dial--eye" />
     </aside>
   );
+}
+
+export function SeraphFolioBorder() {
+  return <div className="mk-seraph__folio-border" />;
 }

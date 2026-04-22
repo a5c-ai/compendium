@@ -3,6 +3,8 @@ import {
   SeraphAside,
   SeraphCard,
   SeraphComposer,
+  SeraphCrest,
+  SeraphFolioBorder,
   SeraphPromptBar,
   SeraphSidebar,
   SeraphSummaryRow,
@@ -26,7 +28,7 @@ export const WindowScaffold: Story = {
     <SeraphWindow>
       <SeraphSidebar
         rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic' }}
-        crest={<div className="mk-seraph__crest"><div className="mk-seraph__sun" /><div className="mk-seraph__vine" /></div>}
+        crest={<SeraphCrest />}
         threads={[
           { title: 'Auth middleware refactor', subtitle: 'Refactor, tracing, tests', when: '10:42 AM', current: true },
           { title: 'Fix flaky tests', subtitle: 'Investigate & stabilize', when: '9:18 AM' },
@@ -70,7 +72,7 @@ export const WindowScaffold: Story = {
           ]}
         />
         <SeraphComposer placeholder="Compose from a reusable footer…" tools={['Web Search', 'Bash', 'Diff']} />
-        <div className="mk-seraph__folio-border" />
+        <SeraphFolioBorder />
       </main>
       <SeraphAside
         scribbles={['ᚠ ᚨ ᚦ ᚱ ᚲ ᚷ', '⟐ ⟡ ⊹ ⊹ ⟡ ⟐', 'ᚷ ᚲ ᚱ ᚦ ᚨ ᚠ']}
