@@ -48,6 +48,10 @@ import {
   ChatWall,
 } from './ChatPrimitives';
 import {
+  AdsCatalog,
+  AdsSlotItem,
+} from './AdsPrimitives';
+import {
   BrandGlyphAtlas,
   BrandHero,
   BrandMonoGrid,
@@ -136,157 +140,141 @@ export interface MockupDefinition {
 
 
 function AdsSurface() {
-  return (
-    <section className="mk-ads">
-      <header className="mk-ads__head">
-        <h2>
-          Standard display <em>ad set</em>
-        </h2>
-        <div className="mk-ads__meta">
-          <span>Four IAB standard slots</span>
-          <span>Non-animated · legible at 100%</span>
-        </div>
-      </header>
-      <article className="mk-ads-slot">
-        <div className="mk-ads-slot__title">
-          <span className="num">I.</span>
-          <span className="size">300 × 250</span>
-          <span className="name">medium rectangle</span>
-        </div>
-        <div className="mk-ads-slot__row">
-          <div className="mk-ads-stack">
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. A · paper ground</span><i /><span>300 × 250</span></div>
-              <div className="mk-ad-card mk-ad-card--mr">
-                <span className="mk-ad-card__folio">Leaflet Nº I · mr-01</span>
-                <div className="mk-ad-card__chapter"><b>03</b><span>Chapter III<em>Gates & verdicts</em></span></div>
-                <h3>Every agent turn ends in a <em>written verdict</em>.</h3>
-                <div className="mk-ad-card__bottom">
-                  <p><strong>a5c.ai</strong>The foundry for multi-agent work</p>
-                  <Button variant="primary">Request a demo</Button>
-                </div>
-                <div className="mk-ad-card__ticker"><span>Ed. 4.2 · Aug 26</span><span>Vellum ground</span></div>
-              </div>
-            </div>
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. B · blueprint ground</span><i /><span>300 × 250</span></div>
-              <div className="mk-ad-card mk-ad-card--mr mk-ad-card--bp">
-                <span className="mk-ad-card__folio">Leaflet Nº I · mr-02</span>
-                <div className="mk-ad-card__chapter"><b>03</b><span>Chapter III<em>Gates & verdicts</em></span></div>
-                <h3>Two strangers, <em>same answer</em>. The rest is ornament.</h3>
-                <div className="mk-ad-card__bottom">
-                  <p><strong>a5c.ai</strong>Convergence, in plain prose</p>
-                  <Button variant="default">Read chapter III</Button>
-                </div>
-                <div className="mk-ad-card__ticker"><span>Ed. 4.2 · Aug 26</span><span>Blueprint ground</span></div>
-              </div>
-            </div>
-          </div>
-          <aside className="mk-ads-notes">
-            <p>The medium rectangle carries the most weight in the set. Chapter numeral earns its height and the CTA stays isolated at the lower right.</p>
-            <div className="mk-ads-specs">
-              <span>Format</span><strong>JPG · 40 KB ceiling</strong>
-              <span>Type stack</span><strong>Cormorant · JetBrains Mono</strong>
-              <span>Safe area</span><strong>10 px inset</strong>
-            </div>
-          </aside>
-        </div>
-      </article>
-      <article className="mk-ads-slot">
-        <div className="mk-ads-slot__title">
-          <span className="num">II.</span>
-          <span className="size">728 × 90</span>
-          <span className="name">leaderboard</span>
-        </div>
-        <div className="mk-ads-slot__row">
-          <div className="mk-ads-stack">
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. A · ink badge</span><i /><span>728 × 90</span></div>
-              <div className="mk-ad-card mk-ad-card--lb">
-                <div className="mk-ad-card__badge"><b>§ iii</b><span>Chap. III</span></div>
-                <div className="mk-ad-card__body"><small>Book I · Foundations</small><h3>Every run ends in a <em>written verdict</em>. Not a score.</h3></div>
-                <i className="mk-ad-card__divider" />
-                <div className="mk-ad-card__cta-wrap"><strong>a·5·c·ai</strong><Button variant="primary">Open the foundry</Button></div>
-              </div>
-            </div>
-          </div>
-          <aside className="mk-ads-notes">
-            <p>A leaderboard lives above the fold. The chapter badge does the identity work on the left so the headline can stay short.</p>
-          </aside>
-        </div>
-      </article>
-      <article className="mk-ads-slot">
-        <div className="mk-ads-slot__title">
-          <span className="num">III.</span>
-          <span className="size">160 × 600</span>
-          <span className="name">wide skyscraper</span>
-        </div>
-        <div className="mk-ads-slot__row">
-          <div className="mk-ads-stack mk-ads-stack--row">
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. A · paper</span><i /><span>160 × 600</span></div>
-              <div className="mk-ad-card mk-ad-card--sky">
-                <span className="mk-ad-card__folio">sky-01</span>
-                <div className="mk-ad-card__chapter mk-ad-card__chapter--stack"><b>02</b><span>Chapter II<em>Agents & seats</em></span></div>
-                <div className="mk-ad-card__spine"><i /><h3><em>Seats</em>, not seats of software.</h3></div>
-                <p className="mk-ad-card__proof">An agent is a seat in a room; replay is how the room remembers.</p>
-                <div className="mk-ad-card__cta-column"><Button variant="ghost">Chapter II</Button><Button variant="primary">Try a5c.ai</Button></div>
-              </div>
-            </div>
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. B · ink</span><i /><span>160 × 600</span></div>
-              <div className="mk-ad-card mk-ad-card--sky mk-ad-card--ink">
-                <span className="mk-ad-card__folio">sky-02</span>
-                <div className="mk-ad-card__chapter mk-ad-card__chapter--stack"><b>06</b><span>Chapter VI<em>Safety & seals</em></span></div>
-                <div className="mk-ad-card__spine"><i /><h3>Least <em>scope</em>, by default.</h3></div>
-                <p className="mk-ad-card__proof">Every tool an agent can reach was granted, in writing, by a human.</p>
-                <div className="mk-ad-card__cta-column"><Button variant="ghost">Chapter VI</Button><Button variant="default">See the seal</Button></div>
-              </div>
-            </div>
-          </div>
-          <aside className="mk-ads-notes">
-            <p>The skyscraper rewards vertical architecture. The spine acts like a dimension line so the ad reads like a measured elevation.</p>
-          </aside>
-        </div>
-      </article>
-      <article className="mk-ads-slot">
-        <div className="mk-ads-slot__title">
-          <span className="num">IV.</span>
-          <span className="size">300 × 600</span>
-          <span className="name">half-page poster</span>
-        </div>
-        <div className="mk-ads-slot__row">
-          <div className="mk-ads-stack mk-ads-stack--row">
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. A · figure-driven</span><i /><span>300 × 600</span></div>
-              <div className="mk-ad-card mk-ad-card--poster">
-                <span className="mk-ad-card__folio">poster-01</span>
-                <div className="mk-ad-card__chapter"><b>01</b><span>Book I · Foundations<em>A first acquaintance</em></span></div>
-                <h3>The foundry, <em>in one page</em>.</h3>
-                <div className="mk-ad-card__figure"><div className="mk-ad-card__figure-line" /><span>FIG. A · editor → artefact → verifier → human</span></div>
-                <div className="mk-ad-card__stanzas"><p><b>Seat</b> — an agent, a manifest, a room.</p><p><b>Verdict</b> — a written decision, by someone else.</p><p><b>Seal</b> — a cinnabar mark, and a replay if it cracks.</p></div>
-                <div className="mk-ad-card__bottom"><p><strong>a5c.ai</strong>The foundry for multi-agent work</p><Button variant="primary">Request a demo</Button></div>
-              </div>
-            </div>
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. B · cinnabar ground</span><i /><span>300 × 600</span></div>
-              <div className="mk-ad-card mk-ad-card--poster mk-ad-card--cin">
-                <span className="mk-ad-card__folio">poster-02</span>
-                <div className="mk-ad-card__chapter"><b>03</b><span>Book I · Chapter III<em>Gates & verdicts</em></span></div>
-                <h3>Pass. Iterate. Fail. <em>Defer.</em></h3>
-                <div className="mk-ad-card__figure mk-ad-card__figure--words"><span>pass · iterate · fail · defer</span></div>
-                <div className="mk-ad-card__stanzas"><p><b>Two strangers</b>, same answer.</p><p><b>One paragraph</b>, not a score.</p><p><b>Every seal</b>, a replay if it cracks.</p></div>
-                <div className="mk-ad-card__bottom"><p><strong>a5c.ai</strong>Read chapter III in the encyclopedia</p><Button variant="default">Open chapter III</Button></div>
-              </div>
-            </div>
-          </div>
-          <aside className="mk-ads-notes">
-            <p>The half-page is the largest surface and the only one that can carry a three-stanza proof.</p>
-          </aside>
-        </div>
-      </article>
-    </section>
-  );
+  const slots: AdsSlotItem[] = [
+    {
+      number: 'I.',
+      size: '300 × 250',
+      name: 'medium rectangle',
+      note: 'The medium rectangle carries the most weight in the set. Chapter numeral earns its height and the CTA stays isolated at the lower right.',
+      specs: [
+        { label: 'Format', value: 'JPG · 40 KB ceiling' },
+        { label: 'Type stack', value: 'Cormorant · JetBrains Mono' },
+        { label: 'Safe area', value: '10 px inset' },
+      ],
+      sheets: [
+        {
+          rule: { left: 'Var. A · paper ground', right: '300 × 250' },
+          card: {
+            kind: 'mr',
+            folio: 'Leaflet Nº I · mr-01',
+            chapter: { number: '03', label: 'Chapter III', detail: 'Gates & verdicts' },
+            headline: <>Every agent turn ends in a <em>written verdict</em>.</>,
+            brandTitle: 'a5c.ai',
+            brandBody: 'The foundry for multi-agent work',
+            action: <Button variant="primary">Request a demo</Button>,
+            tickerLeft: 'Ed. 4.2 · Aug 26',
+            tickerRight: 'Vellum ground',
+          },
+        },
+        {
+          rule: { left: 'Var. B · blueprint ground', right: '300 × 250' },
+          card: {
+            kind: 'mr',
+            theme: 'blueprint',
+            folio: 'Leaflet Nº I · mr-02',
+            chapter: { number: '03', label: 'Chapter III', detail: 'Gates & verdicts' },
+            headline: <>Two strangers, <em>same answer</em>. The rest is ornament.</>,
+            brandTitle: 'a5c.ai',
+            brandBody: 'Convergence, in plain prose',
+            action: <Button variant="default">Read chapter III</Button>,
+            tickerLeft: 'Ed. 4.2 · Aug 26',
+            tickerRight: 'Blueprint ground',
+          },
+        },
+      ],
+    },
+    {
+      number: 'II.',
+      size: '728 × 90',
+      name: 'leaderboard',
+      note: 'A leaderboard lives above the fold. The chapter badge does the identity work on the left so the headline can stay short.',
+      sheets: [
+        {
+          rule: { left: 'Var. A · ink badge', right: '728 × 90' },
+          card: {
+            kind: 'lb',
+            badge: { number: '§ iii', label: 'Chap. III' },
+            eyebrow: 'Book I · Foundations',
+            headline: <>Every run ends in a <em>written verdict</em>. Not a score.</>,
+            brandTitle: 'a·5·c·ai',
+            action: <Button variant="primary">Open the foundry</Button>,
+          },
+        },
+      ],
+    },
+    {
+      number: 'III.',
+      size: '160 × 600',
+      name: 'wide skyscraper',
+      orientation: 'row',
+      note: 'The skyscraper rewards vertical architecture. The spine acts like a dimension line so the ad reads like a measured elevation.',
+      sheets: [
+        {
+          rule: { left: 'Var. A · paper', right: '160 × 600' },
+          card: {
+            kind: 'sky',
+            folio: 'sky-01',
+            chapter: { number: '02', label: 'Chapter II', detail: 'Agents & seats', stacked: true },
+            headline: <><em>Seats</em>, not seats of software.</>,
+            proof: 'An agent is a seat in a room; replay is how the room remembers.',
+            actions: [<Button variant="ghost">Chapter II</Button>, <Button variant="primary">Try a5c.ai</Button>],
+          },
+        },
+        {
+          rule: { left: 'Var. B · ink', right: '160 × 600' },
+          card: {
+            kind: 'sky',
+            theme: 'ink',
+            folio: 'sky-02',
+            chapter: { number: '06', label: 'Chapter VI', detail: 'Safety & seals', stacked: true },
+            headline: <>Least <em>scope</em>, by default.</>,
+            proof: 'Every tool an agent can reach was granted, in writing, by a human.',
+            actions: [<Button variant="ghost">Chapter VI</Button>, <Button variant="default">See the seal</Button>],
+          },
+        },
+      ],
+    },
+    {
+      number: 'IV.',
+      size: '300 × 600',
+      name: 'half-page poster',
+      orientation: 'row',
+      note: 'The half-page is the largest surface and the only one that can carry a three-stanza proof.',
+      sheets: [
+        {
+          rule: { left: 'Var. A · figure-driven', right: '300 × 600' },
+          card: {
+            kind: 'poster',
+            folio: 'poster-01',
+            chapter: { number: '01', label: 'Book I · Foundations', detail: 'A first acquaintance' },
+            headline: <>The foundry, <em>in one page</em>.</>,
+            figure: <><div className="mk-ad-card__figure-line" /><span>FIG. A · editor → artefact → verifier → human</span></>,
+            stanzas: [<> <b>Seat</b> — an agent, a manifest, a room.</>, <><b>Verdict</b> — a written decision, by someone else.</>, <><b>Seal</b> — a cinnabar mark, and a replay if it cracks.</>],
+            brandTitle: 'a5c.ai',
+            brandBody: 'The foundry for multi-agent work',
+            action: <Button variant="primary">Request a demo</Button>,
+          },
+        },
+        {
+          rule: { left: 'Var. B · cinnabar ground', right: '300 × 600' },
+          card: {
+            kind: 'poster',
+            theme: 'cinnabar',
+            folio: 'poster-02',
+            chapter: { number: '03', label: 'Book I · Chapter III', detail: 'Gates & verdicts' },
+            headline: <>Pass. Iterate. Fail. <em>Defer.</em></>,
+            figure: <span>pass · iterate · fail · defer</span>,
+            figureTone: 'words',
+            stanzas: [<><b>Two strangers</b>, same answer.</>, <><b>One paragraph</b>, not a score.</>, <><b>Every seal</b>, a replay if it cracks.</>],
+            brandTitle: 'a5c.ai',
+            brandBody: 'Read chapter III in the encyclopedia',
+            action: <Button variant="default">Open chapter III</Button>,
+          },
+        },
+      ],
+    },
+  ];
+  return <AdsCatalog title="Standard display" emphasis="ad set" meta={['Four IAB standard slots', 'Non-animated · legible at 100%']} slots={slots} />;
 }
 
 function BrandSurface() {

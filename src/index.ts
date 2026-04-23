@@ -6,6 +6,7 @@ export * from './tokens/index';
 export * from './components/index';
 export * from './icons/index';
 export * from './mockups/BrandPrimitives';
+export * from './mockups/AdsPrimitives';
 export * from './mockups/ColorPrimitives';
 export * from './mockups/ComponentPrimitives';
 export * from './mockups/CodexPrimitives';

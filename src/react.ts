@@ -3,6 +3,7 @@ import './components/components.css';
 
 export * from './components/index';
 export * from './mockups/BrandPrimitives';
+export * from './mockups/AdsPrimitives';
 export * from './mockups/ColorPrimitives';
 export * from './mockups/ComponentPrimitives';
 export * from './mockups/CodexPrimitives';
