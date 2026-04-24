@@ -1,0 +1,15 @@
+{
+  "runId": "01KPZXBCY5V8B5T1NDDCN8JJEF",
+  "request": "design-system-kit-convergence-v2",
+  "processId": "design-system-kit-convergence-v2",
+  "harness": "codex",
+  "entrypoint": {
+    "importPath": "../../processes/design-system-kit-convergence-v2.js",
+    "exportName": "process"
+  },
+  "processPath": "../../processes/design-system-kit-convergence-v2.js",
+  "layoutVersion": "2026.01-storage-preview",
+  "createdAt": "2026-04-24T14:12:26.756Z",
+  "nonInteractive": true,
+  "completionProof": "5d6a0d783057e9d0dfcd3fbec93f5bf3"
+}

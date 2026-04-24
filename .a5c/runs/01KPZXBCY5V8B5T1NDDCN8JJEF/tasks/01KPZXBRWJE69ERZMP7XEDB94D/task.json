@@ -1,0 +1,97 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "constraints": {
+          "type": "array"
+        },
+        "gaps": {
+          "type": "array"
+        },
+        "reusableSurfaces": {
+          "type": "array"
+        },
+        "runtimeCallPaths": {
+          "type": "array"
+        },
+        "specAnchors": {
+          "type": "array"
+        },
+        "targetFiles": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "runtimeCallPaths",
+        "targetFiles",
+        "reusableSurfaces",
+        "gaps",
+        "constraints",
+        "specAnchors"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "exampleDir": "examples/basic-usage",
+        "projectDir": ".",
+        "relatedRunId": "01KPZRNXEY99EDN38CC52F52X1",
+        "relatedRunReason": "prior-kit-refactor-run-completed",
+        "targetSurfaces": [
+          "Mockup previews",
+          "Seraph and Codex primitives",
+          "Code / diff / editor surfaces",
+          "Storybook controls and motifs",
+          "Example app parity",
+          "Dark mode and accessibility states"
+        ]
+      },
+      "instructions": [
+        "USER REQUEST (verbatim):",
+        "---",
+        "Refactor and improve the kit to match specs and improve reusability across use cases. Componentize more of the mock-specific structures, converge visuals toward the local mocks, improve dark mode, fix accessibility issues, deepen Storybook controls and example parity, and iterate until completion.",
+        "---",
+        "Inspect live source only.",
+        "Trace shared runtime surfaces across `src/components/**`, `src/mockups/**`, Storybook stories, shared CSS, example app files, and local uploaded mock/spec images under `project/uploads/` where relevant.",
+        "Be explicit about which surfaces are still page-local, which controls/stories are too shallow, where dark-mode hierarchy is weak, and where hover/active/disabled/chat/docs/code contexts still risk accessibility regressions.",
+        "Return JSON with keys: `runtimeCallPaths`, `targetFiles`, `reusableSurfaces`, `gaps`, `constraints`, `specAnchors`."
+      ],
+      "outputFormat": "JSON",
+      "role": "Brownfield design-system investigator",
+      "task": "Trace the live kit surfaces, local spec anchors, and the highest-value blockers to componentization, pixel-fit, dark mode, and a11y."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPZXBRWJE69ERZMP7XEDB94D/input.json",
+    "outputJsonPath": "tasks/01KPZXBRWJE69ERZMP7XEDB94D/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "analysis",
+    "convergence",
+    "design-system",
+    "reuse"
+  ],
+  "title": "Trace full kit surfaces, spec anchors, and reuse blockers",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPZXBRWJE69ERZMP7XEDB94D",
+  "taskId": "baseline-trace",
+  "invocationKey": "design-system-kit-convergence-v2:S000001:baseline-trace",
+  "stepId": "S000001",
+  "inputs": {
+    "exampleDir": "examples/basic-usage",
+    "projectDir": ".",
+    "relatedRunId": "01KPZRNXEY99EDN38CC52F52X1",
+    "relatedRunReason": "prior-kit-refactor-run-completed",
+    "requestText": "Refactor and improve the kit to match specs and improve reusability across use cases. Componentize more of the mock-specific structures, converge visuals toward the local mocks, improve dark mode, fix accessibility issues, deepen Storybook controls and example parity, and iterate until completion.",
+    "targetSurfaces": [
+      "Mockup previews",
+      "Seraph and Codex primitives",
+      "Code / diff / editor surfaces",
+      "Storybook controls and motifs",
+      "Example app parity",
+      "Dark mode and accessibility states"
+    ]
+  }
+}
