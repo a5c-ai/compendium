@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZPXQZWGSA92788MQF74PHY",
+  "taskId": "repair-pass",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000008:repair-pass",
+  "status": "ok",
+  "result": {
+    "exampleSurfaces": [
+      "Seraph Refactor shared rendering path",
+      "Seraph Bestiary shared rendering path",
+      "shared MockupPreviews rendering path"
+    ],
+    "filesChanged": [
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "fixesApplied": [
+      "Refactored the Seraph kit with explicit reusable HeroPlate and Divider primitives instead of keeping those opening/follow-through patterns implicit in page markup.",
+      "Updated both Seraph pages to consume the new kit primitives so the opening slab and divider rhythm are reusable across more use cases.",
+      "Expanded Storybook motif-level coverage with a dedicated kit-motifs story showing reusable hero, divider, and section-plate patterns outside the final page compositions.",
+      "Codified more framing and tone behavior in the shared CSS vocabulary, improving reuse across future Seraph surfaces."
+    ],
+    "residualRisks": [
+      "Reference-level exactness is still not guaranteed; visual fidelity may still need another pass even though the reusable kit is materially stronger now.",
+      "Some darker and small-text states still need broader accessibility tightening across the full kit.",
+      "The ornament system is more explicit than before, but there is still room to extract even more motif primitives if the next review still rejects fidelity."
+    ],
+    "reusableSurfacesTouched": [
+      "SeraphHeroPlate primitive",
+      "SeraphDivider primitive",
+      "shared hero-seal / divider / hero-plate CSS vocabulary",
+      "motif-level Storybook kit coverage",
+      "page compositions migrated to shared kit primitives"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Seraph Primitives",
+      "KitMotifs",
+      "Mockups/Project Previews"
+    ]
+  },
+  "startedAt": "2026-04-24T12:22:24.731Z",
+  "finishedAt": "2026-04-24T12:22:24.731Z",
+  "value": {
+    "exampleSurfaces": [
+      "Seraph Refactor shared rendering path",
+      "Seraph Bestiary shared rendering path",
+      "shared MockupPreviews rendering path"
+    ],
+    "filesChanged": [
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "fixesApplied": [
+      "Refactored the Seraph kit with explicit reusable HeroPlate and Divider primitives instead of keeping those opening/follow-through patterns implicit in page markup.",
+      "Updated both Seraph pages to consume the new kit primitives so the opening slab and divider rhythm are reusable across more use cases.",
+      "Expanded Storybook motif-level coverage with a dedicated kit-motifs story showing reusable hero, divider, and section-plate patterns outside the final page compositions.",
+      "Codified more framing and tone behavior in the shared CSS vocabulary, improving reuse across future Seraph surfaces."
+    ],
+    "residualRisks": [
+      "Reference-level exactness is still not guaranteed; visual fidelity may still need another pass even though the reusable kit is materially stronger now.",
+      "Some darker and small-text states still need broader accessibility tightening across the full kit.",
+      "The ornament system is more explicit than before, but there is still room to extract even more motif primitives if the next review still rejects fidelity."
+    ],
+    "reusableSurfacesTouched": [
+      "SeraphHeroPlate primitive",
+      "SeraphDivider primitive",
+      "shared hero-seal / divider / hero-plate CSS vocabulary",
+      "motif-level Storybook kit coverage",
+      "page compositions migrated to shared kit primitives"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Seraph Primitives",
+      "KitMotifs",
+      "Mockups/Project Previews"
+    ]
+  }
+}

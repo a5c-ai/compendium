@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZNRZRY578GXBH0QJJJZQZ2",
+  "taskId": "visual-and-a11y-review",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000007:visual-and-a11y-review",
+  "status": "ok",
+  "result": {
+    "a11yRisks": [
+      "Small meta text and some blueprint-tone copy likely still need targeted contrast tightening.",
+      "The broader kit still needs more systematic dark-mode adaptation across all new Seraph-facing variants and states."
+    ],
+    "approved": false,
+    "issues": [
+      "The page compositions are materially stronger, but the kit still does not fully encode the reference language as reusable building blocks. Too much of the final look still depends on page-level composition choices and CSS class choreography rather than a richer section/component kit.",
+      "The Seraph pages are closer in silhouette and hierarchy, but the reference-grade ornament system is still not reusable enough. Rails, illuminated plates, hero artifacts, and divider treatments need to be more explicit kit primitives rather than patterns inferred from page markup.",
+      "Storybook still under-represents the motif-level design system. The page examples are stronger than the component kit previews, which means reuse across new use cases would still be slower and less reliable than desired.",
+      "Color relationships and decorative density are improved but still not fully spec-like. The kit needs more codified tone variants and framing options so those relationships can be reused intentionally instead of hand-tuned page by page."
+    ],
+    "nextEdits": [
+      "Refactor the Seraph kit itself: create more explicit reusable building blocks for page rails, illuminated hero plates, framed notebook sections, and decorative divider systems.",
+      "Move page-specific ornamental patterns into configurable primitive props and dedicated subcomponents where possible.",
+      "Expand Storybook to demonstrate the Seraph kit at motif level, not only at page level, so new use cases can assemble the same visual language predictably.",
+      "Codify tone and framing variants more explicitly so palette/decor behavior is reusable across surfaces."
+    ],
+    "overallScore": 84,
+    "strengths": [
+      "The bestiary page now has a dominant artifact and better manuscript hierarchy.",
+      "The refactor page has a less generic rhythm and better bound-section composition.",
+      "The run is improving shared surfaces rather than only polishing single pages.",
+      "Button contrast and dark diff states remain improved at the shared component layer."
+    ]
+  },
+  "startedAt": "2026-04-24T12:19:40.076Z",
+  "finishedAt": "2026-04-24T12:19:40.076Z",
+  "value": {
+    "a11yRisks": [
+      "Small meta text and some blueprint-tone copy likely still need targeted contrast tightening.",
+      "The broader kit still needs more systematic dark-mode adaptation across all new Seraph-facing variants and states."
+    ],
+    "approved": false,
+    "issues": [
+      "The page compositions are materially stronger, but the kit still does not fully encode the reference language as reusable building blocks. Too much of the final look still depends on page-level composition choices and CSS class choreography rather than a richer section/component kit.",
+      "The Seraph pages are closer in silhouette and hierarchy, but the reference-grade ornament system is still not reusable enough. Rails, illuminated plates, hero artifacts, and divider treatments need to be more explicit kit primitives rather than patterns inferred from page markup.",
+      "Storybook still under-represents the motif-level design system. The page examples are stronger than the component kit previews, which means reuse across new use cases would still be slower and less reliable than desired.",
+      "Color relationships and decorative density are improved but still not fully spec-like. The kit needs more codified tone variants and framing options so those relationships can be reused intentionally instead of hand-tuned page by page."
+    ],
+    "nextEdits": [
+      "Refactor the Seraph kit itself: create more explicit reusable building blocks for page rails, illuminated hero plates, framed notebook sections, and decorative divider systems.",
+      "Move page-specific ornamental patterns into configurable primitive props and dedicated subcomponents where possible.",
+      "Expand Storybook to demonstrate the Seraph kit at motif level, not only at page level, so new use cases can assemble the same visual language predictably.",
+      "Codify tone and framing variants more explicitly so palette/decor behavior is reusable across surfaces."
+    ],
+    "overallScore": 84,
+    "strengths": [
+      "The bestiary page now has a dominant artifact and better manuscript hierarchy.",
+      "The refactor page has a less generic rhythm and better bound-section composition.",
+      "The run is improving shared surfaces rather than only polishing single pages.",
+      "Button contrast and dark diff states remain improved at the shared component layer."
+    ]
+  }
+}

@@ -25,7 +25,9 @@ import {
   SeraphCard,
   SeraphComposer,
   SeraphCrest,
+  SeraphDivider,
   SeraphFolioBorder,
+  SeraphHeroPlate,
   SeraphMarginNote,
   SeraphPromptBar,
   SeraphSectionPlate,
@@ -572,6 +574,13 @@ function SeraphRefactorSurface() {
           I&apos;ll inspect the codebase, run the tests, implement the refactor with request tracing,
           update tests, and show you the diff before committing.
         </p>
+        <SeraphHeroPlate
+          eyebrow="Commission · opening plate"
+          title={<>Refactor, trace, and <em>show the leaves</em>.</>}
+          body={<p>The brief is not only to make the middleware correct, but to leave behind a readable instrument: what changed, why it changed, and which seals were earned.</p>}
+          aside={<div className="mk-seraph__hero-seal">✺<small>refactor folio</small></div>}
+        />
+        <SeraphDivider label="working register" />
         <div className="mk-seraph__cards mk-seraph__cards--asymmetric">
           <SeraphCard eyebrow="Inspection · I" title="Repository Inspection" status="Completed" footer="Ledger reconciled against 214 files." ornament={<div className="mk-seraph__sprout" />}>
             <p>Scanned project files and dependencies.</p>
@@ -681,6 +690,7 @@ $ git status --porcelain
             { eyebrow: 'seal · note', title: 'Summary', body: 'Refactor complete. Added request tracing, simplified token parsing, and updated 3 tests.', iconClass: 'mk-seraph__icon--lizard' },
           ]}
         />
+        <SeraphDivider label="seal register" variant="orb" />
         <SeraphComposer
           placeholder="Message Codex Seraphinianus…"
           tools={['Web Search', 'Bash', 'File Reader', 'Diff', 'Tests', 'Git']}
@@ -731,6 +741,14 @@ function SeraphBestiarySurface() {
         <p className="mk-seraph__lead">
           A grand endeavor. I&apos;ll research desert adaptations, draft concepts, and illustrate.
         </p>
+        <SeraphHeroPlate
+          eyebrow="Commission · specimen plate"
+          title={<>Draft three creatures, then <em>illuminate one</em>.</>}
+          body={<p>The page should revolve around one chosen beast and the research that justifies it. The kit needs to support an artifact-first manuscript rhythm, not only utility cards.</p>}
+          aside={<div className="mk-seraph__hero-seal mk-seraph__hero-seal--orb">☉<small>bestiary folio</small></div>}
+          tone="orb"
+        />
+        <SeraphDivider label="field notebook" variant="orb" />
         <SeraphSectionPlate eyebrow="Bestiary folio · iii" title="Creature notebook" meta="research + synthesis">
           <div className="mk-seraph__bestiary-hero">
             <div className="mk-seraph__bestiary-callout">

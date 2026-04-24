@@ -57,6 +57,19 @@ export interface SeraphSectionPlateProps {
   children: ReactNode;
 }
 
+export interface SeraphHeroPlateProps {
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  body: ReactNode;
+  aside?: ReactNode;
+  tone?: 'default' | 'orb' | 'blueprint';
+}
+
+export interface SeraphDividerProps {
+  label?: ReactNode;
+  variant?: 'default' | 'orb';
+}
+
 export function SeraphWindow({
   children,
   variant,
@@ -279,6 +292,35 @@ export function SeraphSectionPlate({
       </header>
       <div className="mk-seraph__section-plate-body">{children}</div>
     </section>
+  );
+}
+
+export function SeraphHeroPlate({
+  eyebrow,
+  title,
+  body,
+  aside,
+  tone = 'default',
+}: SeraphHeroPlateProps) {
+  return (
+    <section className={`mk-seraph__hero-plate ${tone !== 'default' ? `mk-seraph__hero-plate--${tone}` : ''}`.trim()}>
+      <div className="mk-seraph__hero-copy">
+        {eyebrow ? <div className="mk-seraph__eyebrow">{eyebrow}</div> : null}
+        <h3>{title}</h3>
+        <div className="mk-seraph__hero-body">{body}</div>
+      </div>
+      {aside ? <div className="mk-seraph__hero-aside">{aside}</div> : null}
+    </section>
+  );
+}
+
+export function SeraphDivider({ label, variant = 'default' }: SeraphDividerProps) {
+  return (
+    <div className={`mk-seraph__divider ${variant === 'orb' ? 'mk-seraph__divider--orb' : ''}`.trim()}>
+      <span />
+      {label ? <i>{label}</i> : null}
+      <span />
+    </div>
   );
 }
 

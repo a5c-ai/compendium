@@ -4,9 +4,12 @@ import {
   SeraphCard,
   SeraphComposer,
   SeraphCrest,
+  SeraphDivider,
   SeraphFolioBorder,
+  SeraphHeroPlate,
   SeraphMarginNote,
   SeraphPromptBar,
+  SeraphSectionPlate,
   SeraphSidebar,
   SeraphSummaryRow,
   SeraphTask,
@@ -106,6 +109,31 @@ export const MarginAndBorders: Story = {
         <SeraphFolioBorder />
         <SeraphFolioBorder variant="orb" />
       </div>
+    </div>
+  ),
+};
+
+export const KitMotifs: Story = {
+  render: () => (
+    <div style={{ padding: 24, background: '#efe3cc', display: 'grid', gap: 16 }}>
+      <SeraphHeroPlate
+        eyebrow="Hero plate"
+        title={<>A reusable <em>opening slab</em>.</>}
+        body={<p>Use for page commissions, specimen summaries, and illuminated openings that need stronger hierarchy than a plain prompt bar.</p>}
+        aside={<div className="mk-seraph__hero-seal">✺<small>folio start</small></div>}
+      />
+      <SeraphDivider label="divider register" />
+      <SeraphSectionPlate eyebrow="Section plate" title="Bound notebook section" meta="framed + reusable">
+        <p style={{ margin: 0 }}>This plate houses denser subsections such as diffs, traces, or notebook stacks while keeping the page rhythm consistent.</p>
+      </SeraphSectionPlate>
+      <SeraphDivider label="orb divider" variant="orb" />
+      <SeraphHeroPlate
+        eyebrow="Orb tone"
+        title={<>A second <em>hero treatment</em>.</>}
+        body={<p>Use for bestiary, atlas, and more mystical surfaces that need a colder focal accent and a distinct badge treatment.</p>}
+        aside={<div className="mk-seraph__hero-seal mk-seraph__hero-seal--orb">☉<small>atlas</small></div>}
+        tone="orb"
+      />
     </div>
   ),
 };
