@@ -1,0 +1,17 @@
+{
+  "projectDir": ".",
+  "exampleDir": "examples/basic-usage",
+  "targetSurfaces": [
+    "Seraph primitives",
+    "Mockup previews",
+    "Code and diff surfaces",
+    "Storybook controls",
+    "Example app parity",
+    "Dark-mode and accessibility states"
+  ],
+  "targetQuality": 100,
+  "maxIterations": 8,
+  "relatedRunId": "01KPZ6WDP3K7J8W9NX5PYDHE8N",
+  "relatedRunReason": "completed-seraph-fidelity-convergence",
+  "requestText": "Refactor and improve the kit to match specs and improve reusability across use cases. Preserve reconstructive shared surfaces, Storybook/example parity, dark mode, accessibility-sensitive states, and reusable code/editor/diff components."
+}

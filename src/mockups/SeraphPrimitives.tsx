@@ -42,6 +42,11 @@ export interface SeraphSummaryItem {
   eyebrow?: string;
 }
 
+export interface SeraphSummaryRowProps {
+  items: readonly SeraphSummaryItem[];
+  variant?: 'default' | 'staggered';
+}
+
 export interface SeraphMarginNoteProps {
   eyebrow?: ReactNode;
   title: ReactNode;
@@ -63,6 +68,16 @@ export interface SeraphHeroPlateProps {
   body: ReactNode;
   aside?: ReactNode;
   tone?: 'default' | 'orb' | 'blueprint';
+}
+
+export interface SeraphSpecimenPlateProps {
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  description: ReactNode;
+  glossEyebrow?: ReactNode;
+  gloss?: ReactNode;
+  stars?: boolean;
+  children: ReactNode;
 }
 
 export interface SeraphDividerProps {
@@ -218,9 +233,9 @@ export function SeraphTask({
   );
 }
 
-export function SeraphSummaryRow({ items }: { items: readonly SeraphSummaryItem[] }) {
+export function SeraphSummaryRow({ items, variant = 'default' }: SeraphSummaryRowProps) {
   return (
-    <div className="mk-seraph__summary-row">
+    <div className={`mk-seraph__summary-row ${variant !== 'default' ? `mk-seraph__summary-row--${variant}` : ''}`.trim()}>
       {items.map((item) => (
         <article key={item.title}>
           {item.eyebrow ? <div className="mk-seraph__eyebrow">{item.eyebrow}</div> : null}
@@ -311,6 +326,36 @@ export function SeraphHeroPlate({
       </div>
       {aside ? <div className="mk-seraph__hero-aside">{aside}</div> : null}
     </section>
+  );
+}
+
+export function SeraphSpecimenPlate({
+  eyebrow,
+  title,
+  description,
+  glossEyebrow,
+  gloss,
+  stars = true,
+  children,
+}: SeraphSpecimenPlateProps) {
+  return (
+    <div className="mk-seraph__bestiary-hero">
+      <div className="mk-seraph__bestiary-callout">
+        {eyebrow ? <div className="mk-seraph__eyebrow">{eyebrow}</div> : null}
+        <h4>{title}</h4>
+        <p>{description}</p>
+      </div>
+      <div className="mk-seraph__bestiary-canvas">
+        {gloss ? (
+          <div className="mk-seraph__bestiary-gloss">
+            {glossEyebrow ? <div className="mk-seraph__eyebrow">{glossEyebrow}</div> : null}
+            {gloss}
+          </div>
+        ) : null}
+        {children}
+        {stars ? <div className="mk-seraph__bestiary-stars" /> : null}
+      </div>
+    </div>
   );
 }
 

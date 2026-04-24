@@ -25,6 +25,7 @@ export interface DiffFile {
   after?: string;
   language?: CodeLanguage;
   label?: string;
+  meta?: React.ReactNode;
 }
 
 export interface DiffViewerProps {
@@ -188,7 +189,10 @@ export const DiffFileTabs: React.FC<DiffFileTabsProps> = ({ files, activeFile, p
 
 export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, panelId, labelledBy }) => (
   <article className="tkc-diff__file" id={panelId} role="tabpanel" aria-labelledby={labelledBy}>
-    <div className="tkc-diff__name">{file.filename}</div>
+    <div className="tkc-diff__file-head">
+      <div className="tkc-diff__name">{file.filename}</div>
+      {file.meta ? <div className="tkc-diff__meta">{file.meta}</div> : null}
+    </div>
     <div className="tkc-diff__columns">
       {file.before ? (
         <CodeBlock

@@ -1,0 +1,245 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "a11yRisks": {
+          "type": "array"
+        },
+        "approved": {
+          "type": "boolean"
+        },
+        "issues": {
+          "type": "array"
+        },
+        "nextEdits": {
+          "type": "array"
+        },
+        "overallScore": {
+          "type": "number"
+        },
+        "strengths": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "approved",
+        "overallScore",
+        "issues",
+        "strengths",
+        "a11yRisks",
+        "nextEdits"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "baseline": {
+          "constraints": [
+            "Preserve reconstructive React/CSS output and avoid image-based shortcuts.",
+            "Keep Storybook and example-app parity through shared source paths rather than forks.",
+            "Improve dark mode and accessibility-sensitive states without flattening the visual system.",
+            "Preserve and extend reusable code/editor/diff surfaces instead of duplicating page-local code UI."
+          ],
+          "gaps": [
+            "The bestiary specimen canvas, gloss annotations, and star ornament are still page-local markup/CSS in MockupPreviews instead of exported configurable Seraph primitives.",
+            "The refactor page's folio-rhythm calibration is encoded as local utility classes rather than reusable section or ledger-variant primitives.",
+            "Seraph primitive stories cover key motifs, but they still do not expose the specimen/canvas family or page-rhythm variants as first-class configurable surfaces.",
+            "DiffViewer is reusable, but its composition is still fairly monolithic for broader documentation/chat use cases and it lacks richer story controls around initial file and labels.",
+            "Dark-mode and a11y state quality exist but remain mostly CSS-convention driven; there is little component API support for alternate surface treatments and metadata hierarchy."
+          ],
+          "reusableSurfaces": [
+            "SeraphWindow, SeraphSidebar, SeraphPromptBar, SeraphCard, SeraphTask, SeraphSummaryRow, SeraphComposer, SeraphAside, SeraphFolioBorder",
+            "MockupPreviews gallery surface and per-mockup story controls",
+            "CodeBlock, CodeEditor, DiffViewer, DiffFileTabs, DiffFileView",
+            "Example-app mockup control shell"
+          ],
+          "runtimeCallPaths": [
+            ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+            ".storybook/main.ts -> src/mockups/SeraphPrimitives.stories.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+            ".storybook/main.ts -> src/components/Code/Code.stories.tsx -> src/components/Code/Code.tsx -> src/components/components.css",
+            "examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css"
+          ],
+          "specAnchors": [
+            "project/uploads/image.png",
+            "project/uploads/image2.png",
+            "Current shared mockup surfaces in src/mockups",
+            "Current shared code surfaces in src/components/Code"
+          ],
+          "targetFiles": [
+            "src/mockups/SeraphPrimitives.tsx",
+            "src/mockups/SeraphPrimitives.stories.tsx",
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/MockupPreviews.stories.tsx",
+            "src/mockups/mockups.css",
+            "src/components/Code/Code.tsx",
+            "src/components/Code/Code.stories.tsx",
+            "src/components/components.css",
+            "examples/basic-usage/src/App.tsx"
+          ]
+        },
+        "exampleDir": "examples/basic-usage",
+        "implementation": {
+          "exampleSurfaces": [
+            "MockupPreviews bestiary page through shared Seraph primitive usage",
+            "examples/basic-usage via shared MockupPreviews runtime"
+          ],
+          "filesChanged": [
+            "src/mockups/SeraphPrimitives.tsx",
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/SeraphPrimitives.stories.tsx",
+            "src/components/Code/Code.stories.tsx"
+          ],
+          "fixesApplied": [
+            "Extracted the bestiary specimen canvas from page-local markup into a reusable exported SeraphSpecimenPlate primitive with configurable eyebrow, gloss, star ornament, and child artifact content.",
+            "Rewired the Seraph bestiary page to consume the shared specimen primitive so Storybook, examples, and page compositions can now reuse the same artifact-first surface.",
+            "Added a dedicated Seraph specimen motif story and improved DiffViewer Storybook controls so reusable manuscript and code surfaces are inspectable beyond fixed page previews."
+          ],
+          "residualRisks": [
+            "The refactor-page lower ledger rhythm is still mostly CSS-local rather than encapsulated as its own exported primitive family.",
+            "Code/diff surfaces are more inspectable in Storybook now, but the component API is still relatively compact for broader docs/chat/editor compositions."
+          ],
+          "reusableSurfacesTouched": [
+            "Seraph specimen/artifact composition",
+            "Seraph primitive story coverage",
+            "DiffViewer Storybook control surface"
+          ],
+          "storybookSurfaces": [
+            "Mockups/Seraph Primitives",
+            "Components/Code"
+          ]
+        },
+        "projectDir": ".",
+        "round": 1,
+        "targetQuality": 100,
+        "targetSurfaces": [
+          "Seraph primitives",
+          "Mockup previews",
+          "Code and diff surfaces",
+          "Storybook controls",
+          "Example app parity",
+          "Dark-mode and accessibility states"
+        ]
+      },
+      "instructions": [
+        "USER REQUEST (verbatim):",
+        "---",
+        "Refactor and improve the kit to match specs and improve reusability across use cases. Preserve reconstructive shared surfaces, Storybook/example parity, dark mode, accessibility-sensitive states, and reusable code/editor/diff components.",
+        "---",
+        "Review the live shared files, not only the implementation summary.",
+        "Score reusability and spec-fit strictly from 0-100. Approval requires the target quality.",
+        "Focus on: componentization quality, configuration depth, shared styling vocabulary, Storybook controls, example parity, dark-mode support, hover/active/disabled contrast, and code/diff/editor reuse across surfaces.",
+        "Return JSON with keys: `approved`, `overallScore`, `issues`, `strengths`, `a11yRisks`, `nextEdits`."
+      ],
+      "outputFormat": "JSON",
+      "role": "Exacting design-system reviewer",
+      "task": "Review the current implementation for spec fit, reusability, dark-mode quality, Storybook/example parity, and a11y-sensitive state quality."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPZSM53SDHTXE1FH0GG3QXBA/input.json",
+    "outputJsonPath": "tasks/01KPZSM53SDHTXE1FH0GG3QXBA/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "a11y",
+    "design-system",
+    "reuse",
+    "review"
+  ],
+  "title": "Kit review 1",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPZSM53SDHTXE1FH0GG3QXBA",
+  "taskId": "kit-review",
+  "invocationKey": "design-system-kit-refactor-v1:S000003:kit-review",
+  "stepId": "S000003",
+  "inputs": {
+    "baseline": {
+      "constraints": [
+        "Preserve reconstructive React/CSS output and avoid image-based shortcuts.",
+        "Keep Storybook and example-app parity through shared source paths rather than forks.",
+        "Improve dark mode and accessibility-sensitive states without flattening the visual system.",
+        "Preserve and extend reusable code/editor/diff surfaces instead of duplicating page-local code UI."
+      ],
+      "gaps": [
+        "The bestiary specimen canvas, gloss annotations, and star ornament are still page-local markup/CSS in MockupPreviews instead of exported configurable Seraph primitives.",
+        "The refactor page's folio-rhythm calibration is encoded as local utility classes rather than reusable section or ledger-variant primitives.",
+        "Seraph primitive stories cover key motifs, but they still do not expose the specimen/canvas family or page-rhythm variants as first-class configurable surfaces.",
+        "DiffViewer is reusable, but its composition is still fairly monolithic for broader documentation/chat use cases and it lacks richer story controls around initial file and labels.",
+        "Dark-mode and a11y state quality exist but remain mostly CSS-convention driven; there is little component API support for alternate surface treatments and metadata hierarchy."
+      ],
+      "reusableSurfaces": [
+        "SeraphWindow, SeraphSidebar, SeraphPromptBar, SeraphCard, SeraphTask, SeraphSummaryRow, SeraphComposer, SeraphAside, SeraphFolioBorder",
+        "MockupPreviews gallery surface and per-mockup story controls",
+        "CodeBlock, CodeEditor, DiffViewer, DiffFileTabs, DiffFileView",
+        "Example-app mockup control shell"
+      ],
+      "runtimeCallPaths": [
+        ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+        ".storybook/main.ts -> src/mockups/SeraphPrimitives.stories.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+        ".storybook/main.ts -> src/components/Code/Code.stories.tsx -> src/components/Code/Code.tsx -> src/components/components.css",
+        "examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css"
+      ],
+      "specAnchors": [
+        "project/uploads/image.png",
+        "project/uploads/image2.png",
+        "Current shared mockup surfaces in src/mockups",
+        "Current shared code surfaces in src/components/Code"
+      ],
+      "targetFiles": [
+        "src/mockups/SeraphPrimitives.tsx",
+        "src/mockups/SeraphPrimitives.stories.tsx",
+        "src/mockups/MockupPreviews.tsx",
+        "src/mockups/MockupPreviews.stories.tsx",
+        "src/mockups/mockups.css",
+        "src/components/Code/Code.tsx",
+        "src/components/Code/Code.stories.tsx",
+        "src/components/components.css",
+        "examples/basic-usage/src/App.tsx"
+      ]
+    },
+    "exampleDir": "examples/basic-usage",
+    "implementation": {
+      "exampleSurfaces": [
+        "MockupPreviews bestiary page through shared Seraph primitive usage",
+        "examples/basic-usage via shared MockupPreviews runtime"
+      ],
+      "filesChanged": [
+        "src/mockups/SeraphPrimitives.tsx",
+        "src/mockups/MockupPreviews.tsx",
+        "src/mockups/SeraphPrimitives.stories.tsx",
+        "src/components/Code/Code.stories.tsx"
+      ],
+      "fixesApplied": [
+        "Extracted the bestiary specimen canvas from page-local markup into a reusable exported SeraphSpecimenPlate primitive with configurable eyebrow, gloss, star ornament, and child artifact content.",
+        "Rewired the Seraph bestiary page to consume the shared specimen primitive so Storybook, examples, and page compositions can now reuse the same artifact-first surface.",
+        "Added a dedicated Seraph specimen motif story and improved DiffViewer Storybook controls so reusable manuscript and code surfaces are inspectable beyond fixed page previews."
+      ],
+      "residualRisks": [
+        "The refactor-page lower ledger rhythm is still mostly CSS-local rather than encapsulated as its own exported primitive family.",
+        "Code/diff surfaces are more inspectable in Storybook now, but the component API is still relatively compact for broader docs/chat/editor compositions."
+      ],
+      "reusableSurfacesTouched": [
+        "Seraph specimen/artifact composition",
+        "Seraph primitive story coverage",
+        "DiffViewer Storybook control surface"
+      ],
+      "storybookSurfaces": [
+        "Mockups/Seraph Primitives",
+        "Components/Code"
+      ]
+    },
+    "projectDir": ".",
+    "requestText": "Refactor and improve the kit to match specs and improve reusability across use cases. Preserve reconstructive shared surfaces, Storybook/example parity, dark mode, accessibility-sensitive states, and reusable code/editor/diff components.",
+    "round": 1,
+    "targetQuality": 100,
+    "targetSurfaces": [
+      "Seraph primitives",
+      "Mockup previews",
+      "Code and diff surfaces",
+      "Storybook controls",
+      "Example app parity",
+      "Dark-mode and accessibility states"
+    ]
+  }
+}

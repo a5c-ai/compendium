@@ -11,6 +11,7 @@ import {
   SeraphPromptBar,
   SeraphSectionPlate,
   SeraphSidebar,
+  SeraphSpecimenPlate,
   SeraphSummaryRow,
   SeraphTask,
   SeraphWindow,
@@ -165,6 +166,45 @@ export const HeroFrameCalibration: Story = {
       <SeraphFolioBorder />
     </div>
   ),
+};
+
+export const SpecimenPlateMotif: Story = {
+  render: () => (
+    <div style={{ padding: 24, background: '#efe3cc', display: 'grid', gap: 18 }}>
+      <SeraphSectionPlate eyebrow="Specimen motif" title="Dominant illuminated artifact" meta="bestiary + atlas">
+        <SeraphSpecimenPlate
+          eyebrow="specimen · dominant plate"
+          title="Mirage stalker"
+          description="A reusable manuscript specimen surface for bestiary, atlas, and editorial artifact-first layouts."
+          glossEyebrow="illumination register"
+          gloss={<p>Side view · desert folio · colder teal anatomy</p>}
+        >
+          <div className="mk-seraph__creature mk-seraph__creature--hero">
+            <div className="mk-seraph__creature-body mk-seraph__creature-body--hero" />
+          </div>
+        </SeraphSpecimenPlate>
+      </SeraphSectionPlate>
+      <SeraphFolioBorder variant="orb" />
+    </div>
+  ),
+};
+
+export const LedgerVariants: Story = {
+  render: () => {
+    const items = [
+      { eyebrow: 'gate · i', title: 'Tests / Validation', body: '12 passed, 12 total · Coverage: 92%', iconClass: 'mk-seraph__icon--torch' },
+      { eyebrow: 'gate · ii', title: 'Lint', body: 'No problems found', iconClass: 'mk-seraph__icon--totem' },
+      { eyebrow: 'gate · iii', title: 'Type Check', body: 'No type errors', iconClass: 'mk-seraph__icon--vine' },
+      { eyebrow: 'seal · note', title: 'Summary', body: 'Reusable ledger cadence for footers and proof bands.', iconClass: 'mk-seraph__icon--lizard' },
+    ] as const;
+
+    return (
+      <div style={{ padding: 24, background: '#efe3cc', display: 'grid', gap: 20 }}>
+        <SeraphSummaryRow items={items} />
+        <SeraphSummaryRow items={items} variant="staggered" />
+      </div>
+    );
+  },
 };
 
 export const ComposerOnly: Story = {

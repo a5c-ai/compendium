@@ -32,6 +32,7 @@ import {
   SeraphPromptBar,
   SeraphSectionPlate,
   SeraphSidebar,
+  SeraphSpecimenPlate,
   SeraphSummaryRow,
   SeraphTask,
   SeraphWindow,
@@ -687,6 +688,7 @@ $ git status --porcelain
           />
         </div>
         <SeraphSummaryRow
+          variant="staggered"
           items={[
             { eyebrow: 'gate · i', title: 'Tests / Validation', body: '12 passed, 12 total · Coverage: 92%', iconClass: 'mk-seraph__icon--torch' },
             { eyebrow: 'gate · ii', title: 'Lint', body: 'No problems found', iconClass: 'mk-seraph__icon--totem' },
@@ -754,23 +756,17 @@ function SeraphBestiarySurface() {
         />
         <SeraphDivider label="field notebook" variant="orb" />
         <SeraphSectionPlate eyebrow="Bestiary folio · iii" title="Creature notebook" meta="research + synthesis">
-          <div className="mk-seraph__bestiary-hero">
-            <div className="mk-seraph__bestiary-callout">
-              <div className="mk-seraph__eyebrow">specimen · dominant plate</div>
-              <h4>Mirage stalker</h4>
-              <p>Electrostatic dust veil, folded heat crest, and mirrored abdominal scales. The artifact needs to look pinned into the folio, with the annotation reading as a side gloss rather than a separate card.</p>
+          <SeraphSpecimenPlate
+            eyebrow="specimen · dominant plate"
+            title="Mirage stalker"
+            description="Electrostatic dust veil, folded heat crest, and mirrored abdominal scales. The artifact needs to look pinned into the folio, with the annotation reading as a side gloss rather than a separate card."
+            glossEyebrow="illumination register"
+            gloss={<p>Side view · desert folio · colder teal anatomy</p>}
+          >
+            <div className="mk-seraph__creature mk-seraph__creature--hero">
+              <div className="mk-seraph__creature-body mk-seraph__creature-body--hero" />
             </div>
-            <div className="mk-seraph__bestiary-canvas">
-              <div className="mk-seraph__bestiary-gloss">
-                <div className="mk-seraph__eyebrow">illumination register</div>
-                <p>Side view · desert folio · colder teal anatomy</p>
-              </div>
-              <div className="mk-seraph__creature mk-seraph__creature--hero">
-                <div className="mk-seraph__creature-body mk-seraph__creature-body--hero" />
-              </div>
-              <div className="mk-seraph__bestiary-stars" />
-            </div>
-          </div>
+          </SeraphSpecimenPlate>
           <div className="mk-seraph__task-stack">
             <SeraphTask
             title="Web Search"

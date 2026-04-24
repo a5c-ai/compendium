@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZSJT2ZW4AQVRX5DKV7N4BQ",
+  "taskId": "refactor-pass",
+  "invocationKey": "design-system-kit-refactor-v1:S000002:refactor-pass",
+  "status": "ok",
+  "result": {
+    "exampleSurfaces": [
+      "MockupPreviews bestiary page through shared Seraph primitive usage",
+      "examples/basic-usage via shared MockupPreviews runtime"
+    ],
+    "filesChanged": [
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/components/Code/Code.stories.tsx"
+    ],
+    "fixesApplied": [
+      "Extracted the bestiary specimen canvas from page-local markup into a reusable exported SeraphSpecimenPlate primitive with configurable eyebrow, gloss, star ornament, and child artifact content.",
+      "Rewired the Seraph bestiary page to consume the shared specimen primitive so Storybook, examples, and page compositions can now reuse the same artifact-first surface.",
+      "Added a dedicated Seraph specimen motif story and improved DiffViewer Storybook controls so reusable manuscript and code surfaces are inspectable beyond fixed page previews."
+    ],
+    "residualRisks": [
+      "The refactor-page lower ledger rhythm is still mostly CSS-local rather than encapsulated as its own exported primitive family.",
+      "Code/diff surfaces are more inspectable in Storybook now, but the component API is still relatively compact for broader docs/chat/editor compositions."
+    ],
+    "reusableSurfacesTouched": [
+      "Seraph specimen/artifact composition",
+      "Seraph primitive story coverage",
+      "DiffViewer Storybook control surface"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Seraph Primitives",
+      "Components/Code"
+    ]
+  },
+  "startedAt": "2026-04-24T13:07:08.769Z",
+  "finishedAt": "2026-04-24T13:07:08.769Z",
+  "value": {
+    "exampleSurfaces": [
+      "MockupPreviews bestiary page through shared Seraph primitive usage",
+      "examples/basic-usage via shared MockupPreviews runtime"
+    ],
+    "filesChanged": [
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/components/Code/Code.stories.tsx"
+    ],
+    "fixesApplied": [
+      "Extracted the bestiary specimen canvas from page-local markup into a reusable exported SeraphSpecimenPlate primitive with configurable eyebrow, gloss, star ornament, and child artifact content.",
+      "Rewired the Seraph bestiary page to consume the shared specimen primitive so Storybook, examples, and page compositions can now reuse the same artifact-first surface.",
+      "Added a dedicated Seraph specimen motif story and improved DiffViewer Storybook controls so reusable manuscript and code surfaces are inspectable beyond fixed page previews."
+    ],
+    "residualRisks": [
+      "The refactor-page lower ledger rhythm is still mostly CSS-local rather than encapsulated as its own exported primitive family.",
+      "Code/diff surfaces are more inspectable in Storybook now, but the component API is still relatively compact for broader docs/chat/editor compositions."
+    ],
+    "reusableSurfacesTouched": [
+      "Seraph specimen/artifact composition",
+      "Seraph primitive story coverage",
+      "DiffViewer Storybook control surface"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Seraph Primitives",
+      "Components/Code"
+    ]
+  }
+}

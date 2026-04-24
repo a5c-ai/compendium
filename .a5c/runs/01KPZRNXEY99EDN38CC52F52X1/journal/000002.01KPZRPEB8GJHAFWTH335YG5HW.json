@@ -1,0 +1,23 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T12:51:05.704Z",
+  "data": {
+    "effectId": "01KPZRPE9JG3XBJPE5PEKGC4P0",
+    "invocationKey": "design-system-kit-refactor-v1:S000001:baseline-trace",
+    "invocationHash": "684f9f8554c957a609723f17dbce7a54e68acc0b18d8c3410168207affebe89f",
+    "stepId": "S000001",
+    "taskId": "baseline-trace",
+    "kind": "agent",
+    "label": "analysis",
+    "taskDefRef": "tasks/01KPZRPE9JG3XBJPE5PEKGC4P0/task.json",
+    "labels": [
+      "analysis",
+      "design-system",
+      "kit",
+      "reuse"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "7daba526b1d76c7585a2af40c76bedc75f47bb52fe764239ffb387d6de337b8d"
+}

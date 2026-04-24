@@ -1,6 +1,31 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { CodeBlock, CodeEditor, DiffViewer } from "./Code";
 
+const diffFiles = [
+  {
+    filename: "src/middleware/auth.ts",
+    label: "auth.ts",
+    meta: "M · middleware",
+    before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
+    after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
+    language: "diff" as const,
+  },
+  {
+    filename: "tests/auth.test.ts",
+    label: "auth.test.ts",
+    meta: "A · tests",
+    after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
+    language: "diff" as const,
+  },
+  {
+    filename: "src/lib/requestTracing.ts",
+    label: "requestTracing.ts",
+    meta: "A · library",
+    after: `+ export function startRequest(req, res) {\n+   const requestId = crypto.randomUUID();\n+   res.setHeader(\"x-request-id\", requestId);\n+   return requestId;\n+ }`,
+    language: "diff" as const,
+  },
+] as const;
+
 const meta: Meta<typeof CodeBlock> = {
   title: "Components/Code",
   component: CodeBlock,
@@ -56,27 +81,27 @@ export const BlueprintEditor: StoryObj<typeof CodeEditor> = {
 };
 
 export const SideBySideDiff: StoryObj<typeof DiffViewer> = {
-  render: () => (
+  argTypes: {
+    initialFile: {
+      control: "select",
+      options: diffFiles.map((file) => file.filename),
+    },
+    title: {
+      control: "text",
+    },
+    meta: {
+      control: "text",
+    },
+  },
+  args: {
+    initialFile: "src/middleware/auth.ts",
+    title: "Diff / Code Changes",
+    meta: "3 files changed",
+  },
+  render: (args) => (
     <DiffViewer
-      initialFile="src/middleware/auth.ts"
-      files={[
-        {
-          filename: "src/middleware/auth.ts",
-          before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
-          after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
-          language: "diff",
-        },
-        {
-          filename: "tests/auth.test.ts",
-          after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
-          language: "diff",
-        },
-        {
-          filename: "src/lib/requestTracing.ts",
-          after: `+ export function startRequest(req, res) {\n+   const requestId = crypto.randomUUID();\n+   res.setHeader("x-request-id", requestId);\n+   return requestId;\n+ }`,
-          language: "diff",
-        },
-      ]}
+      {...args}
+      files={[...diffFiles]}
     />
   ),
 };

@@ -1234,6 +1234,21 @@
   gap: 8px;
 }
 
+.tkc-diff__file-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tkc-diff__meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--tkc-ink-quiet);
+}
+
 .tkc-diff__columns {
   display: grid;
   grid-template-columns: 1fr 1fr;

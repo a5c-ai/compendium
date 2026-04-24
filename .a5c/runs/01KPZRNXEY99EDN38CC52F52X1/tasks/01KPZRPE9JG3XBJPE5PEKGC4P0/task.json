@@ -1,0 +1,98 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "constraints": {
+          "type": "array"
+        },
+        "gaps": {
+          "type": "array"
+        },
+        "reusableSurfaces": {
+          "type": "array"
+        },
+        "runtimeCallPaths": {
+          "type": "array"
+        },
+        "specAnchors": {
+          "type": "array"
+        },
+        "targetFiles": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "runtimeCallPaths",
+        "targetFiles",
+        "reusableSurfaces",
+        "gaps",
+        "constraints",
+        "specAnchors"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "exampleDir": "examples/basic-usage",
+        "projectDir": ".",
+        "relatedRunId": "01KPZ6WDP3K7J8W9NX5PYDHE8N",
+        "relatedRunReason": "completed-seraph-fidelity-convergence",
+        "targetSurfaces": [
+          "Seraph primitives",
+          "Mockup previews",
+          "Code and diff surfaces",
+          "Storybook controls",
+          "Example app parity",
+          "Dark-mode and accessibility states"
+        ]
+      },
+      "instructions": [
+        "USER REQUEST (verbatim):",
+        "---",
+        "Refactor and improve the kit to match specs and improve reusability across use cases. Preserve reconstructive shared surfaces, Storybook/example parity, dark mode, accessibility-sensitive states, and reusable code/editor/diff components.",
+        "---",
+        "Inspect the live source only. Do not work from stale summaries.",
+        "Read and trace the shared paths that define reusable kit behavior: `src/components/**`, `src/mockups/**`, relevant Storybook stories, shared CSS, and the example app.",
+        "Map where page-specific implementation is still blocking reuse.",
+        "Be explicit about gaps in: componentization, configurable section/page surfaces, Storybook controls, code/diff/editor adoption, dark-mode support, and a11y-sensitive states.",
+        "Return JSON with keys: `runtimeCallPaths`, `targetFiles`, `reusableSurfaces`, `gaps`, `constraints`, `specAnchors`."
+      ],
+      "outputFormat": "JSON",
+      "role": "Brownfield design-system investigator",
+      "task": "Trace the real runtime surfaces that define the compendium kit, stories, and example-app usage, then identify the highest-value reuse and spec-fit gaps."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPZRPE9JG3XBJPE5PEKGC4P0/input.json",
+    "outputJsonPath": "tasks/01KPZRPE9JG3XBJPE5PEKGC4P0/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "analysis",
+    "design-system",
+    "kit",
+    "reuse"
+  ],
+  "title": "Trace shared kit surfaces and reuse gaps",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPZRPE9JG3XBJPE5PEKGC4P0",
+  "taskId": "baseline-trace",
+  "invocationKey": "design-system-kit-refactor-v1:S000001:baseline-trace",
+  "stepId": "S000001",
+  "inputs": {
+    "exampleDir": "examples/basic-usage",
+    "projectDir": ".",
+    "relatedRunId": "01KPZ6WDP3K7J8W9NX5PYDHE8N",
+    "relatedRunReason": "completed-seraph-fidelity-convergence",
+    "requestText": "Refactor and improve the kit to match specs and improve reusability across use cases. Preserve reconstructive shared surfaces, Storybook/example parity, dark mode, accessibility-sensitive states, and reusable code/editor/diff components.",
+    "targetSurfaces": [
+      "Seraph primitives",
+      "Mockup previews",
+      "Code and diff surfaces",
+      "Storybook controls",
+      "Example app parity",
+      "Dark-mode and accessibility states"
+    ]
+  }
+}

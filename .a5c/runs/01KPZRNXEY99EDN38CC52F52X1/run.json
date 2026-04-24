@@ -1,0 +1,15 @@
+{
+  "runId": "01KPZRNXEY99EDN38CC52F52X1",
+  "request": "design-system-kit-refactor-v1",
+  "processId": "design-system-kit-refactor-v1",
+  "harness": "codex",
+  "entrypoint": {
+    "importPath": "../../processes/design-system-kit-refactor-v1.js",
+    "exportName": "process"
+  },
+  "processPath": "../../processes/design-system-kit-refactor-v1.js",
+  "layoutVersion": "2026.01-storage-preview",
+  "createdAt": "2026-04-24T12:50:48.458Z",
+  "nonInteractive": true,
+  "completionProof": "7ad48926f0d7174662e9728115d1f55a"
+}

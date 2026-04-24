@@ -1,0 +1,23 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T13:06:35.274Z",
+  "data": {
+    "effectId": "01KPZSJT2ZW4AQVRX5DKV7N4BQ",
+    "invocationKey": "design-system-kit-refactor-v1:S000002:refactor-pass",
+    "invocationHash": "59992fd33226516db2e26bbf559633018ec224a202c62e115f8ba7b05f62797c",
+    "stepId": "S000002",
+    "taskId": "refactor-pass",
+    "kind": "agent",
+    "label": "implementation",
+    "taskDefRef": "tasks/01KPZSJT2ZW4AQVRX5DKV7N4BQ/task.json",
+    "labels": [
+      "implementation",
+      "design-system",
+      "kit",
+      "reuse"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "135e2c96645f2ebd25a678f69fc3e217b5ce6257e330e13cd26f3fd699a5ed84"
+}
