@@ -2336,10 +2336,13 @@
 .mk-seraph__totem--serpent {
   height: 160px;
   background:
+    radial-gradient(circle at 50% 10px, #f0d59b 0 3px, transparent 4px),
     radial-gradient(circle at 50% 18px, #d16b2d 0 3px, transparent 4px),
     radial-gradient(circle at 50% 44px, #245669 0 8px, transparent 9px),
     radial-gradient(circle at 52% 82px, #d16b2d 0 3px, transparent 4px),
-    linear-gradient(180deg, transparent 10px, #245669 10px 24px, transparent 24px 34px, #d16b2d 34px 42px, transparent 42px 60px, #245669 60px 74px, transparent 74px 92px, #d16b2d 92px 102px, transparent 102px);
+    radial-gradient(circle at 16px 108px, #245669 0 5px, transparent 6px),
+    radial-gradient(circle at 12px 132px, #d16b2d 0 3px, transparent 4px),
+    linear-gradient(180deg, transparent 10px, #245669 10px 24px, transparent 24px 34px, #d16b2d 34px 42px, transparent 42px 60px, #245669 60px 74px, transparent 74px 92px, #d16b2d 92px 102px, transparent 102px 120px, #245669 120px 132px, transparent 132px);
 }
 
 .mk-seraph__totem--relic,
@@ -2350,7 +2353,8 @@
 .mk-seraph__totem--relic {
   background:
     radial-gradient(circle at 50% 24px, #1d5061 0 7px, transparent 8px),
-    linear-gradient(180deg, transparent 0 42px, #9b6735 42px 48px, transparent 48px 72px, #1d5061 72px 76px, transparent 76px),
+    radial-gradient(circle at 50% 82px, #d16b2d 0 3px, transparent 4px),
+    linear-gradient(180deg, transparent 0 42px, #9b6735 42px 48px, transparent 48px 72px, #1d5061 72px 76px, transparent 76px 88px, #9b6735 88px 92px, transparent 92px),
     linear-gradient(90deg, transparent 8px, #77542f 8px 20px, transparent 20px);
 }
 
@@ -2359,7 +2363,8 @@
     radial-gradient(circle at 10px 22px, #c5652e 0 3px, transparent 4px),
     radial-gradient(circle at 18px 22px, #c5652e 0 3px, transparent 4px),
     radial-gradient(circle at 14px 58px, #245669 0 12px, transparent 13px),
-    linear-gradient(180deg, transparent 0 40px, #9b6735 40px 46px, transparent 46px 76px, #245669 76px 84px, transparent 84px);
+    radial-gradient(circle at 14px 90px, #d9a35a 0 4px, transparent 5px),
+    linear-gradient(180deg, transparent 0 40px, #9b6735 40px 46px, transparent 46px 76px, #245669 76px 84px, transparent 84px 96px, #9b6735 96px 100px, transparent 100px);
 }
 
 .mk-seraph__crest {
@@ -2373,6 +2378,27 @@
     linear-gradient(180deg, #efe3cc, #eadac0);
   border-radius: 0 0 12px 12px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(127, 90, 44, .18);
+}
+
+.mk-seraph__crest > .mk-seraph__sun::before,
+.mk-seraph__crest > .mk-seraph__sun::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid var(--mk-seraph-brass-deep);
+  border-radius: 50%;
+}
+
+.mk-seraph__crest > .mk-seraph__sun::before {
+  left: -18px;
+  transform: translateY(-50%) rotate(-28deg);
+}
+
+.mk-seraph__crest > .mk-seraph__sun::after {
+  right: -18px;
+  transform: translateY(-50%) rotate(28deg);
 }
 
 .mk-seraph__crest::after {
@@ -2439,6 +2465,18 @@
   height: 40px;
   border-top: 3px solid #6f482b;
   border-radius: 50%;
+}
+
+.mk-seraph__vine::before {
+  box-shadow:
+    -18px 18px 0 -17px #6f482b,
+    -30px 22px 0 -20px #6f482b;
+}
+
+.mk-seraph__vine::after {
+  box-shadow:
+    18px 18px 0 -17px #6f482b,
+    30px 22px 0 -20px #6f482b;
 }
 
 .mk-seraph__vine::before {
@@ -3103,6 +3141,7 @@
     radial-gradient(circle at 63% 34%, #1f5768 0 4px, transparent 5px),
     radial-gradient(circle at 84% 62%, #c76c31 0 3px, transparent 4px),
     radial-gradient(circle at 50% 56%, #d7bc7f 0 8px, transparent 9px),
+    radial-gradient(circle at 50% 56%, transparent 0 13px, rgba(123, 86, 49, .18) 13px 14px, transparent 14px),
     repeating-radial-gradient(circle at 50% 50%, transparent 0 18px, rgba(123, 86, 49, .15) 18px 19px, transparent 19px 38px),
     linear-gradient(180deg, transparent 46%, #7a5631 46% 48%, transparent 48%),
     rgba(247,239,225,.92);
@@ -3115,6 +3154,27 @@
 
 .mk-seraph__folio-border {
   height: 56px;
+}
+
+.mk-seraph__folio-border::before,
+.mk-seraph__folio-border::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 96px;
+  height: 18px;
+  transform: translateY(-50%);
+  border-top: 1px solid rgba(122, 86, 49, .65);
+}
+
+.mk-seraph__folio-border::before {
+  left: 18px;
+  border-radius: 80% 20% 0 0;
+}
+
+.mk-seraph__folio-border::after {
+  right: 18px;
+  border-radius: 20% 80% 0 0;
 }
 
 .mk-seraph--bestiary .mk-seraph__folio-border {
@@ -3187,6 +3247,7 @@
   background:
     radial-gradient(circle at 70% 28%, #ca6f35 0 3px, transparent 4px),
     radial-gradient(circle at 76% 36%, #ca6f35 0 3px, transparent 4px),
+    radial-gradient(circle at 48% 44%, #245669 0 3px, transparent 4px),
     linear-gradient(180deg, transparent 28%, #6f8850 28% 30%, transparent 30%),
     linear-gradient(220deg, transparent 42%, #6f8850 42% 44%, transparent 44%),
     linear-gradient(140deg, transparent 48%, #6f8850 48% 50%, transparent 50%);
@@ -3213,6 +3274,16 @@
     radial-gradient(circle at 50% 60%, #ca6f35 0 5px, transparent 6px),
     linear-gradient(180deg, transparent 30%, #6f8850 30% 32%, transparent 32%),
     rgba(0,0,0,0);
+}
+
+.mk-seraph__flora--mushroom {
+  background:
+    radial-gradient(circle at 34% 44%, #d9a35a 0 7px, transparent 8px),
+    radial-gradient(circle at 62% 54%, #d9a35a 0 7px, transparent 8px),
+    radial-gradient(circle at 50% 26%, #245669 0 3px, transparent 4px),
+    linear-gradient(180deg, transparent 30%, #6f8850 30% 32%, transparent 32%),
+    linear-gradient(210deg, transparent 50%, #6f8850 50% 52%, transparent 52%),
+    linear-gradient(150deg, transparent 54%, #6f8850 54% 56%, transparent 56%);
 }
 
 .mk-seraph__icon--totem {
