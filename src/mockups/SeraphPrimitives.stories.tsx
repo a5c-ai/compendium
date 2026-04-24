@@ -138,6 +138,35 @@ export const KitMotifs: Story = {
   ),
 };
 
+export const HeroFrameCalibration: Story = {
+  render: () => (
+    <div style={{ padding: 24, background: '#efe3cc', display: 'grid', gap: 18 }}>
+      <SeraphHeroPlate
+        eyebrow="Calibration"
+        title={<>Hero and frame <em>language</em>.</>}
+        body={<p>This isolates the heading slab, divider rhythm, and marginal frame balance so the Seraph kit can be reused in new flows without copying the full page compositions.</p>}
+        aside={<div className="mk-seraph__hero-seal">✺<small>calibration</small></div>}
+      />
+      <SeraphDivider label="frame rhythm" />
+      <div className="mk-seraph__margin-row">
+        <SeraphMarginNote
+          eyebrow="Margin"
+          title="Left gloss"
+          body={<p>Use for clarifying notes, evidence glosses, or editorial sidebars.</p>}
+          ornament={<div className="mk-seraph__icon mk-seraph__icon--vine" />}
+        />
+        <SeraphMarginNote
+          eyebrow="Frame"
+          title="Right gloss"
+          body={<p>Use for secondary explanations that should still sit inside the illuminated system.</p>}
+          ornament={<div className="mk-seraph__icon mk-seraph__icon--totem" />}
+        />
+      </div>
+      <SeraphFolioBorder />
+    </div>
+  ),
+};
+
 export const ComposerOnly: Story = {
   render: () => (
     <div data-theme="void" className="void" style={{ padding: 24, background: '#0B0A0F' }}>

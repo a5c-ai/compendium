@@ -1,0 +1,23 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T12:23:42.616Z",
+  "data": {
+    "effectId": "01KPZQ49Q930SG5RVJS888EMCA",
+    "invocationKey": "design-system-seraph-fidelity-max-v2:S000010:repair-pass",
+    "invocationHash": "f63bf7a5109bc6851d1016273c0cd51a1a464b002b2ecec700c74ea36a759cf3",
+    "stepId": "S000010",
+    "taskId": "repair-pass",
+    "kind": "agent",
+    "label": "repair",
+    "taskDefRef": "tasks/01KPZQ49Q930SG5RVJS888EMCA/task.json",
+    "labels": [
+      "repair",
+      "convergence",
+      "seraph",
+      "fidelity"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "4be6299a9d96aff2c2c9244896e85fd4949d1df0c1703e1e9f3e2bf3319775dc"
+}

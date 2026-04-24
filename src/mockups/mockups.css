@@ -2743,7 +2743,7 @@
 
 .mk-seraph__prompt-bar span {
   font-size: 12px;
-  color: #675b4d;
+  color: #4f4338;
 }
 
 .mk-seraph__lead,
@@ -2809,7 +2809,7 @@
 
 .mk-seraph__hero-copy h3 em {
   font-style: italic;
-  color: var(--mk-seraph-cinnabar);
+  color: #a62f23;
 }
 
 .mk-seraph__hero-body p {
@@ -2817,7 +2817,7 @@
   max-width: 44ch;
   font-size: 15px;
   line-height: 1.55;
-  color: #5d5348;
+  color: #4e443a;
 }
 
 .mk-seraph__hero-plate--blueprint .mk-seraph__hero-copy h3,
@@ -2881,7 +2881,7 @@
   font-size: 9px;
   letter-spacing: .3em;
   text-transform: uppercase;
-  color: #8b7255;
+  color: #6e5b46;
   font-style: normal;
 }
 
@@ -2946,14 +2946,14 @@
 
 .mk-seraph__eyebrow {
   margin: 0 0 8px;
-  color: #8b7255;
+  color: #6f5d49;
 }
 
 .mk-seraph__footnote {
   margin-top: 10px;
   padding-top: 8px;
   border-top: 1px solid rgba(188, 165, 131, 0.36);
-  color: #6c5d4a;
+  color: #5b4d3f;
 }
 
 .mk-seraph__card h4,
@@ -2976,7 +2976,7 @@
   font-size: 10px;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: #55713f;
+  color: #456134;
 }
 
 .mk-seraph__card ul,
@@ -3137,7 +3137,7 @@
 .mk-seraph__summary-row p {
   font-size: 13px;
   line-height: 1.45;
-  color: #5d5348;
+  color: #50453b;
 }
 
 .mk-seraph__margin-row {
@@ -3238,7 +3238,7 @@
   font-size: 10px;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: #55713f;
+  color: #456134;
 }
 
 .mk-seraph__section-plate--blueprint .mk-seraph__section-plate-head h4,
@@ -3278,7 +3278,7 @@
   margin: 0;
   font-size: 13px;
   line-height: 1.5;
-  color: #5d5348;
+  color: #4d4339;
 }
 
 .mk-seraph__composer {

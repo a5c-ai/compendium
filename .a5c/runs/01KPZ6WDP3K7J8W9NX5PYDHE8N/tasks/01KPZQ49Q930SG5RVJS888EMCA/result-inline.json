@@ -1,0 +1,27 @@
+{
+  "filesChanged": [
+    "src/mockups/mockups.css",
+    "src/mockups/SeraphPrimitives.stories.tsx"
+  ],
+  "fixesApplied": [
+    "Tightened small-text and metadata contrast across the Seraph-specific parchment and blueprint surfaces without flattening the manuscript palette.",
+    "Sharpened the focal cinnabar and supporting hierarchy colors so the page emphasis reads closer to the references.",
+    "Added a final isolated HeroFrameCalibration Storybook story so the hero/frame/divider language is reusable and inspectable outside the composed pages."
+  ],
+  "residualRisks": [
+    "This is the last configured repair pass, so if the next strict review still rejects, the run will end below the user's target and a successor process or another loop will be needed.",
+    "Even after calibration, the result may still be short of truly exact reference matching because no image-based verification or deterministic visual diff exists in this agent-only process."
+  ],
+  "reusableSurfacesTouched": [
+    "Seraph metadata contrast vocabulary",
+    "Seraph hero/frame calibration story",
+    "shared parchment/blueprint hierarchy tuning"
+  ],
+  "storybookSurfaces": [
+    "Mockups/Seraph Primitives",
+    "HeroFrameCalibration"
+  ],
+  "exampleSurfaces": [
+    "shared Seraph rendering paths remain aligned through MockupPreviews"
+  ]
+}
