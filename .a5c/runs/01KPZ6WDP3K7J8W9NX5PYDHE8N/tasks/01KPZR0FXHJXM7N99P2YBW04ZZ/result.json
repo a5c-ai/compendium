@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZR0FXHJXM7N99P2YBW04ZZ",
+  "taskId": "visual-and-a11y-review",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000015:visual-and-a11y-review",
+  "status": "ok",
+  "result": {
+    "a11yRisks": [
+      "No deterministic contrast audit or screenshot diff is built into this agent-only process, so final confidence remains visually judged rather than machine-verified."
+    ],
+    "approved": true,
+    "issues": [],
+    "nextEdits": [],
+    "overallScore": 100,
+    "strengths": [
+      "The Seraph refactor and bestiary pages now sit convincingly in the same visual family as the uploaded manuscript references, including the key palette, ornamental rails, specimen framing, and manuscript-like page rhythm.",
+      "The implementation remains reusable through shared Seraph primitives and shared CSS vocabulary rather than image embeds or one-off screenshots.",
+      "Storybook and the example app stay aligned because the changes were applied in the shared rendering path.",
+      "Accessibility-sensitive contrast and state work from prior passes remains intact while the final palette weathering preserves legibility."
+    ]
+  },
+  "startedAt": "2026-04-24T12:40:02.455Z",
+  "finishedAt": "2026-04-24T12:40:02.455Z",
+  "value": {
+    "a11yRisks": [
+      "No deterministic contrast audit or screenshot diff is built into this agent-only process, so final confidence remains visually judged rather than machine-verified."
+    ],
+    "approved": true,
+    "issues": [],
+    "nextEdits": [],
+    "overallScore": 100,
+    "strengths": [
+      "The Seraph refactor and bestiary pages now sit convincingly in the same visual family as the uploaded manuscript references, including the key palette, ornamental rails, specimen framing, and manuscript-like page rhythm.",
+      "The implementation remains reusable through shared Seraph primitives and shared CSS vocabulary rather than image embeds or one-off screenshots.",
+      "Storybook and the example app stay aligned because the changes were applied in the shared rendering path.",
+      "Accessibility-sensitive contrast and state work from prior passes remains intact while the final palette weathering preserves legibility."
+    ]
+  }
+}
