@@ -86,7 +86,14 @@ export const WorkspaceScaffold: Story = {
                         tone="blueprint"
                         language="text"
                         filename="ledger.query"
+                        fileMeta="carrier tariff · queue a"
                         status="rows=6 · 412ms"
+                        facts={[
+                          { label: 'review', value: '6 flagged' },
+                          { label: 'confidence', value: 'high', tone: 'success' },
+                          { label: 'manual follow-up', value: '2', tone: 'warning' },
+                        ]}
+                        footer={<><span>workspace · claims/oct</span><span>read-only query</span></>}
                         code={`CLM-10412 · surcharge 18.2% vs tariff 14.0%\nCLM-10477 · weight rounded up one bracket\nCLM-10544 · duplicate line item`}
                       />
                     )}

@@ -3,8 +3,9 @@ import '@a5c-ai/compendium/css';
 import './App.css';
 
 import {
+  MockupGalleryControls,
   MockupPreviews,
-  MockupPreviewControls,
+  MOCKUP_NAMES,
   type MockupTheme,
   type MockupSelection,
 } from '@a5c-ai/compendium/react';
@@ -70,19 +71,20 @@ export default function App() {
       </header>
 
       <main className="mockup-app__main">
-        <MockupPreviewControls
+        <MockupGalleryControls
           mockup={mockup}
-          columns={columns}
-          zoom={zoom}
-          frameHeight={frameHeight}
+          mockupNames={MOCKUP_NAMES}
+          columnsValue={columnsValue}
           showDescription={showDescription}
           showSources={showSources}
+          zoom={zoom}
+          frameHeight={frameHeight}
           onMockupChange={setMockup}
-          onColumnsChange={(value) => setColumnsValue(String(value))}
-          onZoomChange={setZoom}
-          onFrameHeightChange={setFrameHeight}
+          onColumnsValueChange={setColumnsValue}
           onShowDescriptionChange={setShowDescription}
           onShowSourcesChange={setShowSources}
+          onZoomChange={setZoom}
+          onFrameHeightChange={setFrameHeight}
         />
 
         <MockupPreviews

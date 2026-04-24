@@ -1,0 +1,15 @@
+{
+  "runId": "01KQ014WWTRF7Y8EEK574N6RDR",
+  "request": "compendium-maturation-pass",
+  "processId": "compendium-maturation-pass",
+  "harness": "codex",
+  "entrypoint": {
+    "importPath": "../../processes/compendium-maturation-pass.js",
+    "exportName": "process"
+  },
+  "processPath": "../../processes/compendium-maturation-pass.js",
+  "layoutVersion": "2026.01-storage-preview",
+  "createdAt": "2026-04-24T15:18:47.981Z",
+  "nonInteractive": true,
+  "completionProof": "f89207d66ded33d77741d2f5bbda5e4f"
+}

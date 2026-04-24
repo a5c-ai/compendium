@@ -1,0 +1,143 @@
+{
+  "agent": {
+    "name": "design-system-architect",
+    "outputSchema": {
+      "properties": {
+        "focusAreas": {
+          "items": {
+            "properties": {
+              "files": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "label": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label",
+              "files",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "implementationSteps": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "risks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "runtimeCallPaths": {
+          "items": {
+            "properties": {
+              "entryPoint": {
+                "type": "string"
+              },
+              "paths": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "entryPoint",
+              "paths",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "validationPlan": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "runtimeCallPaths",
+        "focusAreas",
+        "implementationSteps",
+        "validationPlan",
+        "risks"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "entryPoints": [
+          "src/index.ts",
+          "src/react.ts",
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/*.stories.tsx",
+          "src/components/Code/Code.tsx",
+          "src/components/Code/Code.stories.tsx",
+          "examples/basic-usage/src/App.tsx",
+          ".storybook/preview.ts"
+        ],
+        "packageRoot": "/var/tmp/vibe-kanban/worktrees/a0b0-compendium-matur/compendium",
+        "ticket": "Compendium maturation pass: close remaining design-system convergence gaps, componentize page-local structures, harden dark mode and accessibility, and complete Storybook/example parity."
+      },
+      "instructions": [
+        "Treat this as brownfield work. Trace the live runtime call paths from each provided entry point through the shared surfaces they render or export.",
+        "Record runtimeCallPaths explicitly. Each item must include the entry point, the touched live paths, and why those paths are in scope.",
+        "Identify reusable page-local structures still trapped in MockupPreviews or example-only code.",
+        "Identify API gaps in the code/editor/diff family, dark-mode or accessibility weaknesses, Storybook coverage gaps, and example-app parity gaps.",
+        "Produce an ordered implementation plan with concrete file paths, intended shared exports, validation commands, and any notable risks.",
+        "Do not propose speculative redesigns or churn outside the user-requested scope."
+      ],
+      "outputFormat": "JSON with:\n  runtimeCallPaths: Array<{ entryPoint: string, paths: string[], reason: string }>,\n  focusAreas: Array<{ label: string, files: string[], reason: string }>,\n  implementationSteps: string[],\n  validationPlan: string[],\n  risks: string[]",
+      "role": "principal frontend architect for reusable design systems",
+      "task": "Inspect the compendium package and produce a concrete brownfield plan for the final maturation pass."
+    }
+  },
+  "description": "Trace live runtime paths and produce a concrete brownfield implementation plan.",
+  "io": {
+    "inputJsonPath": "tasks/01KQ0153B5KH9PPFN7GV65XJMM/input.json",
+    "outputJsonPath": "tasks/01KQ0153B5KH9PPFN7GV65XJMM/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "brownfield",
+    "compendium",
+    "planning"
+  ],
+  "title": "Plan compendium maturation pass",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ0153B5KH9PPFN7GV65XJMM",
+  "taskId": "compendium-maturation-plan",
+  "invocationKey": "compendium-maturation-pass:S000001:compendium-maturation-plan",
+  "stepId": "S000001",
+  "inputs": {
+    "entryPoints": [
+      "src/index.ts",
+      "src/react.ts",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/*.stories.tsx",
+      "src/components/Code/Code.tsx",
+      "src/components/Code/Code.stories.tsx",
+      "examples/basic-usage/src/App.tsx",
+      ".storybook/preview.ts"
+    ],
+    "packageRoot": "/var/tmp/vibe-kanban/worktrees/a0b0-compendium-matur/compendium",
+    "ticket": "Compendium maturation pass: close remaining design-system convergence gaps, componentize page-local structures, harden dark mode and accessibility, and complete Storybook/example parity."
+  }
+}

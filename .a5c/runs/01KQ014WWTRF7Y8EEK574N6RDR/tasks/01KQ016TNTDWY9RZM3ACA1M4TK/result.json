@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ016TNTDWY9RZM3ACA1M4TK",
+  "taskId": "compendium-maturation-implementation",
+  "invocationKey": "compendium-maturation-pass:S000002:compendium-maturation-implementation",
+  "status": "ok",
+  "result": {
+    "changedFiles": [
+      "examples/basic-usage/src/App.css",
+      "examples/basic-usage/src/App.tsx",
+      "package-lock.json",
+      "src/components/Code/Code.stories.tsx",
+      "src/components/Code/Code.test.tsx",
+      "src/components/Code/Code.tsx",
+      "src/components/components.css",
+      "src/index.ts",
+      "src/mockups/ChatPrimitives.stories.tsx",
+      "src/mockups/MockupPreviewPrimitives.stories.tsx",
+      "src/mockups/MockupPreviews.test.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "residualRisks": [
+      "MockupPreviews is still a large composition file, although the repeated spec and gallery-control structures have now been extracted into exported shared surfaces.",
+      "Storybook build still emits upstream chunk-size and eval warnings from Storybook tooling, but the build completes successfully."
+    ],
+    "summary": "Extracted shared mockup gallery controls and spec-list primitives out of page-local markup, moved the example app onto the shared controls surface, expanded the code/editor/diff family for metadata-heavy and one-sided states, added direct Storybook coverage for the new preview and code variants, and hardened key dark-mode and focus/contrast states across dense chat/docs/mock surfaces.",
+    "validationsRun": [
+      "npm install",
+      "npm run lint",
+      "npm run test -- --run",
+      "npm run build",
+      "npm run build-storybook",
+      "npm --prefix examples/basic-usage install",
+      "npm --prefix examples/basic-usage run build"
+    ]
+  },
+  "startedAt": "2026-04-24T15:31:45.205Z",
+  "finishedAt": "2026-04-24T15:31:45.205Z",
+  "value": {
+    "changedFiles": [
+      "examples/basic-usage/src/App.css",
+      "examples/basic-usage/src/App.tsx",
+      "package-lock.json",
+      "src/components/Code/Code.stories.tsx",
+      "src/components/Code/Code.test.tsx",
+      "src/components/Code/Code.tsx",
+      "src/components/components.css",
+      "src/index.ts",
+      "src/mockups/ChatPrimitives.stories.tsx",
+      "src/mockups/MockupPreviewPrimitives.stories.tsx",
+      "src/mockups/MockupPreviews.test.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "residualRisks": [
+      "MockupPreviews is still a large composition file, although the repeated spec and gallery-control structures have now been extracted into exported shared surfaces.",
+      "Storybook build still emits upstream chunk-size and eval warnings from Storybook tooling, but the build completes successfully."
+    ],
+    "summary": "Extracted shared mockup gallery controls and spec-list primitives out of page-local markup, moved the example app onto the shared controls surface, expanded the code/editor/diff family for metadata-heavy and one-sided states, added direct Storybook coverage for the new preview and code variants, and hardened key dark-mode and focus/contrast states across dense chat/docs/mock surfaces.",
+    "validationsRun": [
+      "npm install",
+      "npm run lint",
+      "npm run test -- --run",
+      "npm run build",
+      "npm run build-storybook",
+      "npm --prefix examples/basic-usage install",
+      "npm --prefix examples/basic-usage run build"
+    ]
+  }
+}

@@ -3,6 +3,14 @@ import { cx } from "../utils";
 
 export type CodeTone = "default" | "terminal" | "blueprint";
 export type CodeLanguage = "ts" | "tsx" | "js" | "jsx" | "json" | "bash" | "diff" | "text";
+export type CodeFactTone = "default" | "success" | "warning" | "danger";
+export type DiffViewerVariant = "default" | "docs" | "chat";
+
+export interface CodeFactItem {
+  label: React.ReactNode;
+  value: React.ReactNode;
+  tone?: CodeFactTone;
+}
 
 export interface CodeBlockProps {
   code: string;
@@ -10,6 +18,9 @@ export interface CodeBlockProps {
   tone?: CodeTone;
   title?: React.ReactNode;
   meta?: React.ReactNode;
+  facts?: readonly CodeFactItem[];
+  footer?: React.ReactNode;
+  emptyLabel?: React.ReactNode;
   lineNumbers?: boolean;
   className?: string;
 }
@@ -17,6 +28,7 @@ export interface CodeBlockProps {
 export interface CodeEditorProps extends CodeBlockProps {
   status?: React.ReactNode;
   filename?: string;
+  fileMeta?: React.ReactNode;
 }
 
 export interface DiffFile {
@@ -26,6 +38,12 @@ export interface DiffFile {
   language?: CodeLanguage;
   label?: string;
   meta?: React.ReactNode;
+  note?: React.ReactNode;
+  beforeLabel?: React.ReactNode;
+  afterLabel?: React.ReactNode;
+  beforeEmptyLabel?: React.ReactNode;
+  afterEmptyLabel?: React.ReactNode;
+  tone?: CodeTone;
 }
 
 export interface DiffViewerProps {
@@ -34,6 +52,8 @@ export interface DiffViewerProps {
   title?: React.ReactNode;
   meta?: React.ReactNode;
   initialFile?: string;
+  variant?: DiffViewerVariant;
+  emptyLabel?: React.ReactNode;
 }
 
 export interface DiffFileTabsProps {
@@ -122,12 +142,32 @@ function renderCode(code: string, language: CodeLanguage, lineNumbers?: boolean)
   );
 }
 
+function renderEmptyState(label?: React.ReactNode) {
+  return <div className="tkc-code__empty">{label ?? "No content available"}</div>;
+}
+
+function CodeFacts({ facts }: { facts: readonly CodeFactItem[] }) {
+  return (
+    <div className="tkc-code__facts">
+      {facts.map((fact, index) => (
+        <div key={`${index}-${String(fact.label)}`} className={cx("tkc-code__fact", fact.tone && `tkc-code__fact--${fact.tone}`)}>
+          <span>{fact.label}</span>
+          <strong>{fact.value}</strong>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export const CodeBlock: React.FC<CodeBlockProps> = ({
   code,
   language = "text",
   tone = "default",
   title,
   meta,
+  facts,
+  footer,
+  emptyLabel,
   lineNumbers,
   className,
 }) => (
@@ -138,7 +178,9 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
         <span>{meta}</span>
       </header>
     ) : null}
-    {renderCode(code, language, lineNumbers)}
+    {facts?.length ? <CodeFacts facts={facts} /> : null}
+    {code.trim().length ? renderCode(code, language, lineNumbers) : renderEmptyState(emptyLabel)}
+    {footer ? <footer className="tkc-code__foot">{footer}</footer> : null}
   </section>
 );
 
@@ -147,6 +189,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   meta,
   status,
   filename,
+  fileMeta,
   ...rest
 }) => (
   <section className="tkc-editor">
@@ -155,7 +198,12 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       <strong>{title ?? filename}</strong>
       <span>{status ?? meta}</span>
     </header>
-    {filename ? <div className="tkc-editor__file">{filename}</div> : null}
+    {filename || fileMeta ? (
+      <div className="tkc-editor__file">
+        <span>{filename}</span>
+        {fileMeta ? <em>{fileMeta}</em> : null}
+      </div>
+    ) : null}
     <CodeBlock {...rest} className="tkc-editor__body" />
   </section>
 );
@@ -180,41 +228,45 @@ export const DiffFileTabs: React.FC<DiffFileTabsProps> = ({ files, activeFile, p
           className={active ? "is-active" : undefined}
           onClick={() => onChange(file.filename)}
         >
-          {file.label ?? file.filename}
+          <strong>{file.label ?? file.filename}</strong>
+          {file.meta ? <span>{file.meta}</span> : null}
         </button>
       );
     })}
   </div>
 );
 
-export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, panelId, labelledBy }) => (
-  <article className="tkc-diff__file" id={panelId} role="tabpanel" aria-labelledby={labelledBy}>
-    <div className="tkc-diff__file-head">
+export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, panelId, labelledBy }) => {
+  const tone = file.tone ?? "default";
+  const language = file.language ?? "diff";
+  const hasBefore = typeof file.before === "string";
+  const hasAfter = typeof file.after === "string";
+
+  return (
+    <article className="tkc-diff__file" id={panelId} role="tabpanel" aria-labelledby={labelledBy}>
       <div className="tkc-diff__name">{file.filename}</div>
-      {file.meta ? <div className="tkc-diff__meta">{file.meta}</div> : null}
-    </div>
-    <div className="tkc-diff__columns">
-      {file.before ? (
+      {file.note ? <p className="tkc-diff__note">{file.note}</p> : null}
+      <div className="tkc-diff__columns">
         <CodeBlock
-          code={file.before}
-          language={file.language ?? "diff"}
-          tone="default"
-          lineNumbers
-          title="Before"
+          code={file.before ?? ""}
+          language={language}
+          tone={tone}
+          lineNumbers={hasBefore}
+          title={file.beforeLabel ?? "Before"}
+          emptyLabel={file.beforeEmptyLabel ?? "No previous revision"}
         />
-      ) : null}
-      {file.after ? (
         <CodeBlock
-          code={file.after}
-          language={file.language ?? "diff"}
-          tone="default"
-          lineNumbers
-          title={file.before ? "After" : "Changes"}
+          code={file.after ?? ""}
+          language={language}
+          tone={tone}
+          lineNumbers={hasAfter}
+          title={file.afterLabel ?? (hasBefore ? "After" : "Changes")}
+          emptyLabel={file.afterEmptyLabel ?? "No current revision"}
         />
-      ) : null}
-    </div>
-  </article>
-);
+      </div>
+    </article>
+  );
+};
 
 export const DiffViewer: React.FC<DiffViewerProps> = ({
   files,
@@ -222,6 +274,8 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
   title = "Diff / Code Changes",
   meta,
   initialFile,
+  variant = "default",
+  emptyLabel,
 }) => {
   const defaultFile = useMemo(
     () => initialFile && files.some((file) => file.filename === initialFile) ? initialFile : files[0]?.filename,
@@ -230,13 +284,23 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
   const [activeFile, setActiveFile] = useState(defaultFile);
   const current = files.find((file) => file.filename === activeFile) ?? files[0];
 
-  if (!current) return null;
+  if (!current) {
+    return (
+      <section className={cx("tkc-diff", `tkc-diff--${variant}`, className)}>
+        <header className="tkc-diff__head">
+          <strong>{title}</strong>
+          <span>{meta ?? "0 files changed"}</span>
+        </header>
+        {renderEmptyState(emptyLabel ?? "No changed files to display")}
+      </section>
+    );
+  }
 
   const activePanelId = `tkc-diff-panel-${toDomId(current.filename)}`;
   const activeTabId = `tkc-diff-tab-${toDomId(current.filename)}`;
 
   return (
-    <section className={cx("tkc-diff", className)}>
+    <section className={cx("tkc-diff", `tkc-diff--${variant}`, className)}>
       <header className="tkc-diff__head">
         <strong>{title}</strong>
         <span>{meta ?? `${files.length} files changed`}</span>

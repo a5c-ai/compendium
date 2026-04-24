@@ -75,9 +75,36 @@ export const BlueprintEditor: StoryObj<typeof CodeEditor> = {
     tone: "blueprint",
     language: "text",
     filename: "ledger.query",
+    fileMeta: "warehouse/eu-west-2",
     status: "rows=6 · 412ms",
+    facts: [
+      { label: "owner", value: "archivist-04" },
+      { label: "confidence", value: "high", tone: "success" },
+      { label: "requires review", value: "2 lines", tone: "warning" },
+    ],
     code: `CLM-10412 · surcharge 18.2% vs tariff 14.0%\nCLM-10477 · weight rounded up one bracket\nCLM-10544 · duplicate line item`,
   },
+};
+
+export const MetadataHeavyEditor: StoryObj<typeof CodeEditor> = {
+  render: () => (
+    <CodeEditor
+      tone="default"
+      language="tsx"
+      title="docs/snippets/quality-gate.tsx"
+      filename="docs/snippets/quality-gate.tsx"
+      fileMeta="source · handbook / chapter-3"
+      status="verified · 2026-04-24"
+      facts={[
+        { label: "surface", value: "docs embed" },
+        { label: "theme", value: "vellum" },
+        { label: "a11y", value: "AA+", tone: "success" },
+      ]}
+      footer={<><span>Inline in docs and Storybook MDX</span><span>scroll-safe</span></>}
+      code={`export function QualityGateNotice() {\n  return <aside data-tone=\"pass\">Proof required before seal.</aside>;\n}`}
+      lineNumbers
+    />
+  ),
 };
 
 export const SideBySideDiff: StoryObj<typeof DiffViewer> = {
@@ -103,5 +130,75 @@ export const SideBySideDiff: StoryObj<typeof DiffViewer> = {
       {...args}
       files={[...diffFiles]}
     />
+  ),
+};
+
+export const DocsEmbeddedDiff: StoryObj<typeof DiffViewer> = {
+  render: () => (
+    <DiffViewer
+      variant="docs"
+      title="Documentation figure · multi-surface diff"
+      meta="2 files · metadata-heavy"
+      files={[
+        {
+          filename: "src/mockups/CodexPrimitives.tsx",
+          label: "Codex docs frame",
+          meta: "docs shell",
+          note: "Adds an explicit metadata rail so the same frame can host long-form docs and dense preview explanations without wrapper markup.",
+          before: `- export function CodexDocsMargin({ sections }) { ... }`,
+          after: `+ export function CodexDocsMargin({ sections, tone = 'default' }) { ... }`,
+          language: "diff",
+        },
+        {
+          filename: "src/mockups/MockupGallery.tsx",
+          label: "New gallery control surface",
+          meta: "added file",
+          beforeEmptyLabel: "Brand-new shared export",
+          after: `+ export function MockupGalleryControls(props) {\n+   return <section className=\"mk-gallery-controls\">…</section>;\n+ }`,
+          language: "diff",
+        },
+      ]}
+    />
+  ),
+};
+
+export const EmptyAndOneSidedStates: StoryObj<typeof DiffViewer> = {
+  render: () => (
+    <div className="tkc-demo__grid-2">
+      <DiffViewer
+        variant="chat"
+        title="Chat attachment diff"
+        meta="one-sided states"
+        files={[
+          {
+            filename: "src/components/Code/Code.tsx",
+            meta: "modified",
+            before: `- export interface DiffFile { filename: string }`,
+            after: `+ export interface DiffFile { filename: string; meta?: ReactNode }`,
+            language: "diff",
+          },
+          {
+            filename: "src/mockups/MockupGallery.tsx",
+            meta: "new",
+            beforeEmptyLabel: "Introduced in this revision",
+            after: `+ export const MOCKUP_COLUMN_OPTIONS = [...]`,
+            language: "diff",
+          },
+          {
+            filename: "src/legacy/exampleShell.tsx",
+            meta: "removed",
+            before: `- export function ExampleShell() { return null }`,
+            afterEmptyLabel: "Removed after shared extraction",
+            language: "diff",
+          },
+        ]}
+      />
+      <DiffViewer
+        title="Empty diff surface"
+        meta="no files"
+        files={[]}
+        emptyLabel="No diff available for this specimen yet"
+      />
+    </div>
   ),
 };

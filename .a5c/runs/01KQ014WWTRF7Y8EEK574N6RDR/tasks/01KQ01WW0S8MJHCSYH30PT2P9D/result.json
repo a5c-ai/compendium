@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ01WW0S8MJHCSYH30PT2P9D",
+  "taskId": "compendium-test",
+  "invocationKey": "compendium-maturation-pass:S000004:compendium-test",
+  "status": "ok",
+  "result": {
+    "command": "npm run test -- --run",
+    "exitCode": 0,
+    "summary": "Vitest passed: 2 test files, 7 tests, 0 failures."
+  },
+  "startedAt": "2026-04-24T15:32:22.219Z",
+  "finishedAt": "2026-04-24T15:32:22.219Z",
+  "value": {
+    "command": "npm run test -- --run",
+    "exitCode": 0,
+    "summary": "Vitest passed: 2 test files, 7 tests, 0 failures."
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ01Y6NQ6A5KYG7FPHHXSQVX",
+  "taskId": "compendium-final-review",
+  "invocationKey": "compendium-maturation-pass:S000008:compendium-final-review",
+  "status": "ok",
+  "result": {
+    "residualRisks": [
+      "MockupPreviews still holds a large amount of composition logic even after the shared extractions, so future convergence work should keep pulling only clearly repeated motifs rather than broad refactors.",
+      "Storybook emits upstream eval and large-chunk warnings during build, but those warnings are tooling-level and the build itself passes."
+    ],
+    "summary": "Shared mockup-gallery controls and the repeated spec-list motif are now exported reusable surfaces, the example app consumes the shared controls rather than local demo-only UI, the code/editor/diff family now supports richer metadata and one-sided states with direct story coverage, and the touched chat/docs/mock surfaces have stronger dark-mode contrast plus clearer focus/current states.",
+    "validationsPassed": [
+      "npm run lint",
+      "npm run test -- --run",
+      "npm run build",
+      "npm run build-storybook",
+      "npm --prefix examples/basic-usage run build"
+    ]
+  },
+  "startedAt": "2026-04-24T15:32:56.847Z",
+  "finishedAt": "2026-04-24T15:32:56.847Z",
+  "value": {
+    "residualRisks": [
+      "MockupPreviews still holds a large amount of composition logic even after the shared extractions, so future convergence work should keep pulling only clearly repeated motifs rather than broad refactors.",
+      "Storybook emits upstream eval and large-chunk warnings during build, but those warnings are tooling-level and the build itself passes."
+    ],
+    "summary": "Shared mockup-gallery controls and the repeated spec-list motif are now exported reusable surfaces, the example app consumes the shared controls rather than local demo-only UI, the code/editor/diff family now supports richer metadata and one-sided states with direct story coverage, and the touched chat/docs/mock surfaces have stronger dark-mode contrast plus clearer focus/current states.",
+    "validationsPassed": [
+      "npm run lint",
+      "npm run test -- --run",
+      "npm run build",
+      "npm run build-storybook",
+      "npm --prefix examples/basic-usage run build"
+    ]
+  }
+}

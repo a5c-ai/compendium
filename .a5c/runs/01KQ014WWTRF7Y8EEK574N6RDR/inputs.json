@@ -1,0 +1,4 @@
+{
+  "ticket": "Compendium maturation pass: close remaining design-system convergence gaps, componentize page-local structures, harden dark mode and accessibility, and complete Storybook/example parity.",
+  "packageRoot": "/var/tmp/vibe-kanban/worktrees/a0b0-compendium-matur/compendium"
+}

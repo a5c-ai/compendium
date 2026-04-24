@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T15:19:51.253Z",
+  "data": {
+    "effectId": "01KQ016TNTDWY9RZM3ACA1M4TK",
+    "invocationKey": "compendium-maturation-pass:S000002:compendium-maturation-implementation",
+    "invocationHash": "eb9933fbb7cd810455c5d7a7f0e8dd9cd319125ce161e80bef01cede12cc523b",
+    "stepId": "S000002",
+    "taskId": "compendium-maturation-implementation",
+    "kind": "agent",
+    "label": "compendium",
+    "taskDefRef": "tasks/01KQ016TNTDWY9RZM3ACA1M4TK/task.json",
+    "labels": [
+      "compendium",
+      "implementation",
+      "design-system"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc008-9b40-7993-887e-1f1709083b97"
+  },
+  "checksum": "0052ef63b6940eb68ef59d81d5ff370f9291422415c9cbcb88745c3627878489"
+}

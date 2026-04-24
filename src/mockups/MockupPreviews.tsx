@@ -1,4 +1,4 @@
-import { CSSProperties, ReactElement, ReactNode } from 'react';
+import { CSSProperties, Fragment, ReactElement, ReactNode } from 'react';
 import {
   Button,
   CodeBlock,
@@ -145,6 +145,28 @@ export interface MockupDefinition {
   description: string;
   render: () => ReactElement;
   sourceLabel?: string;
+}
+
+export interface MockupSpecItem {
+  label: ReactNode;
+  value: ReactNode;
+}
+
+export function MockupSpecList({
+  items,
+}: {
+  items: readonly MockupSpecItem[];
+}) {
+  return (
+    <dl className="mk-specs">
+      {items.map((item) => (
+        <Fragment key={String(item.label)}>
+          <dt>{item.label}</dt>
+          <dd>{item.value}</dd>
+        </Fragment>
+      ))}
+    </dl>
+  );
 }
 
 
@@ -488,7 +510,14 @@ function ChatSurface() {
                         tone="blueprint"
                         language="text"
                         filename="ledger.query"
+                        fileMeta="carrier tariff · queue a"
                         status="rows=6 · 412ms"
+                        facts={[
+                          { label: 'review', value: '6 flagged' },
+                          { label: 'confidence', value: '92%', tone: 'success' },
+                          { label: 'carrier follow-up', value: '2 cases', tone: 'warning' },
+                        ]}
+                        footer={<><span>workspace · claims/oct</span><span>read-only query</span></>}
                         code={`CLM-10412 · surcharge 18.2% vs tariff 14.0%\nCLM-10477 · weight rounded up one bracket\nCLM-10544 · duplicate line item\nCLM-10602 · fuel surcharge applied twice`}
                       />
                     )}
@@ -668,15 +697,22 @@ $ git status --porcelain
         </SeraphSectionPlate>
         <SeraphSectionPlate eyebrow="Diff folio · v" title="Changed leaves" meta="2 files shown">
           <DiffViewer
+            variant="docs"
+            title="Refactor diff · request tracing"
+            meta="2 files · auth flow"
             files={[
               {
                 filename: "src/middleware/auth.ts",
+                meta: 'middleware',
+                note: 'Auth failures now carry the same request id used by the tracing helper and downstream docs examples.',
                 before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
                 after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
                 language: "diff",
               },
               {
                 filename: "tests/auth.test.ts",
+                meta: 'vitest',
+                beforeEmptyLabel: 'New assertions in this revision',
                 after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
                 language: "diff",
               },
@@ -886,10 +922,12 @@ function ColorsSurface() {
           <div className="mk-catalog-cap">grounds · α</div>
           <ColorGroundGrid items={grounds} />
         </div>
-        <dl className="mk-specs">
-          <dt>Rule of two</dt><dd>Any page uses at most two grounds: vellum + parchment, or void + ink. Never mix registers.</dd>
-          <dt>Contrast</dt><dd>Ink on vellum and bone on void remain the primary readable pairs. Fade registers are secondary only.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Rule of two', value: 'Any page uses at most two grounds: vellum + parchment, or void + ink. Never mix registers.' },
+            { label: 'Contrast', value: 'Ink on vellum and bone on void remain the primary readable pairs. Fade registers are secondary only.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">II</span>
           <div>
@@ -912,10 +950,12 @@ function ColorsSurface() {
           <span className="mk-codex-meta">brass · ring</span>
         </header>
         <ColorBrassRow items={['light · #F2C88F', 'gilt · #D9A96A', 'brass · #B37E3E', 'deep · #8E5A26', 'leather · #5B3817', 'mahogany · #2A1607']} />
-        <dl className="mk-specs">
-          <dt>Use</dt><dd>Casings, navigation, primary buttons, rivets, compass rings, and watch-dial surfaces.</dd>
-          <dt>Never</dt><dd>No gradients on text and no brass as decorative plate fill.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Use', value: 'Casings, navigation, primary buttons, rivets, compass rings, and watch-dial surfaces.' },
+            { label: 'Never', value: 'No gradients on text and no brass as decorative plate fill.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">IV</span>
           <div>
@@ -928,10 +968,12 @@ function ColorsSurface() {
           <div className="mk-catalog-cap">gem shelf · γ</div>
           <ColorGemShelf items={gems} />
         </div>
-        <dl className="mk-specs">
-          <dt>Rule</dt><dd>A gemstone only appears when it means something. Emerald decorates nothing; it verifies.</dd>
-          <dt>Density</dt><dd>No more than three distinct gems per surface.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Rule', value: 'A gemstone only appears when it means something. Emerald decorates nothing; it verifies.' },
+            { label: 'Density', value: 'No more than three distinct gems per surface.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">V</span>
           <div>
@@ -1435,10 +1477,12 @@ function SpacingSurface() {
           <span className="mk-codex-meta">ruler · Σ</span>
         </header>
         <SpacingLadder cap="ruler · Σ" items={ladder} />
-        <dl className="mk-specs">
-          <dt>Base unit</dt><dd>4 px. Every value on the ladder is a multiple. No 5px, 15px, or 20px.</dd>
-          <dt>Rhythm</dt><dd>Vertical stacks prefer s-4 → s-5 → s-6. Never skip two steps.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Base unit', value: '4 px. Every value on the ladder is a multiple. No 5px, 15px, or 20px.' },
+            { label: 'Rhythm', value: 'Vertical stacks prefer s-4 → s-5 → s-6. Never skip two steps.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">II</span>
           <div>
@@ -1487,10 +1531,12 @@ function SpacingSurface() {
             { level: 3, mark: 'iii', spec: 'panel · 0 6px 0 ink' },
           ]}
         />
-        <dl className="mk-specs">
-          <dt>Rule</dt><dd>No diffuse browser shadows. Use a hard offset in ink.</dd>
-          <dt>Hover</dt><dd>Increment by one register on hover: e-1 → e-2. Never invert.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Rule', value: 'No diffuse browser shadows. Use a hard offset in ink.' },
+            { label: 'Hover', value: 'Increment by one register on hover: e-1 → e-2. Never invert.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">V</span>
           <div>
@@ -1559,11 +1605,13 @@ function TypeSurface() {
           <p className="mk-type-alphabet mk-type-alphabet--alt">a b c d e f g h i j k l m n o p q r s t u v w x y z</p>
           <p className="mk-type-numerals">0 1 2 3 4 5 6 7 8 9 · &amp; · ¶ · † · ‡</p>
         </div>
-        <dl className="mk-specs">
-          <dt>Family</dt><dd><code>Cormorant Garamond</code> · weights 400, 500, 600 · italic 400, 500.</dd>
-          <dt>Use</dt><dd>Headlines, display, pull quotes, and section titles. Never below 20px.</dd>
-          <dt>Tracking</dt><dd>Display at -.02em, headings at -.01em. Never letter-space the display weight.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Family', value: <><code>Cormorant Garamond</code> · weights 400, 500, 600 · italic 400, 500.</> },
+            { label: 'Use', value: 'Headlines, display, pull quotes, and section titles. Never below 20px.' },
+            { label: 'Tracking', value: 'Display at -.02em, headings at -.01em. Never letter-space the display weight.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">II</span>
           <div>
@@ -1614,12 +1662,14 @@ function TypeSurface() {
             },
           ]}
         />
-        <dl className="mk-specs">
-          <dt>Family</dt><dd><code>EB Garamond</code> · 400, 500, italic 400.</dd>
-          <dt>Measure</dt><dd>Target 58ch. Never below 45ch and never above 75ch.</dd>
-          <dt>Leading</dt><dd>1.62 at 17px. Increase to 1.7 for long-form reading.</dd>
-          <dt>Figures</dt><dd>Old-style figures on by default.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Family', value: <><code>EB Garamond</code> · 400, 500, italic 400.</> },
+            { label: 'Measure', value: 'Target 58ch. Never below 45ch and never above 75ch.' },
+            { label: 'Leading', value: '1.62 at 17px. Increase to 1.7 for long-form reading.' },
+            { label: 'Figures', value: 'Old-style figures on by default.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">IV</span>
           <div>
@@ -1635,11 +1685,13 @@ function TypeSurface() {
             code={`$ babysitter call "add OAuth to /login"\n↻ planning · iteration 1 of 4 …\n✓ gate · lint — 0 issues\n✓ gate · test — 24 / 24 passing\n⚠ gate · audit — advisory, revising\n⟡ the seal is struck — proof-of-done issued`}
           />
         </CodexPlate>
-        <dl className="mk-specs">
-          <dt>Family</dt><dd><code>JetBrains Mono</code> · 400, 500, 700.</dd>
-          <dt>Use</dt><dd>Code, commands, gate chips, folio numbers, and figure labels.</dd>
-          <dt>Tracking</dt><dd>Labels at .24em to .3em uppercase. Code at 0.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Family', value: <><code>JetBrains Mono</code> · 400, 500, 700.</> },
+            { label: 'Use', value: 'Code, commands, gate chips, folio numbers, and figure labels.' },
+            { label: 'Tracking', value: 'Labels at .24em to .3em uppercase. Code at 0.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">V</span>
           <div>
@@ -1768,6 +1820,16 @@ export const MOCKUP_DEFINITIONS: MockupDefinition[] = [
 
 export const MOCKUP_NAMES = MOCKUP_DEFINITIONS.map((item) => item.name);
 export type MockupSelection = MockupName | 'All';
+export interface MockupControlOption {
+  label: string;
+  value: string;
+}
+
+export const MOCKUP_COLUMN_OPTIONS: readonly MockupControlOption[] = [
+  { label: '1 column', value: '1' },
+  { label: '2 columns', value: '2' },
+  { label: '3 columns', value: '3' },
+];
 
 export interface MockupPreviewsProps {
   mockup?: MockupSelection;
@@ -1792,6 +1854,100 @@ export interface MockupPreviewControlsProps {
   onFrameHeightChange: (value: number) => void;
   onShowDescriptionChange: (value: boolean) => void;
   onShowSourcesChange: (value: boolean) => void;
+}
+
+export interface MockupGalleryControlsProps {
+  mockup: MockupSelection;
+  mockupNames?: readonly MockupName[];
+  columnsValue: string;
+  showDescription: boolean;
+  showSources: boolean;
+  zoom: number;
+  frameHeight: number;
+  onMockupChange: (value: MockupSelection) => void;
+  onColumnsValueChange: (value: string) => void;
+  onShowDescriptionChange: (value: boolean) => void;
+  onShowSourcesChange: (value: boolean) => void;
+  onZoomChange: (value: number) => void;
+  onFrameHeightChange: (value: number) => void;
+  title?: ReactNode;
+  description?: ReactNode;
+}
+
+export function MockupGalleryControls({
+  mockup,
+  mockupNames = MOCKUP_NAMES,
+  columnsValue,
+  showDescription,
+  showSources,
+  zoom,
+  frameHeight,
+  onMockupChange,
+  onColumnsValueChange,
+  onShowDescriptionChange,
+  onShowSourcesChange,
+  onZoomChange,
+  onFrameHeightChange,
+  title = 'Mockup Preview Gallery',
+  description = 'Tune controls to inspect each reference page and compare fidelity against the preview set.',
+}: MockupGalleryControlsProps) {
+  const mockupOptions: readonly MockupControlOption[] = [
+    { label: 'All Mockups', value: 'All' },
+    ...mockupNames.map((name) => ({ label: name, value: name })),
+  ];
+
+  return (
+    <section className="mk-gallery-controls" aria-label="Mockup gallery controls">
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <div className="mk-gallery-controls__grid">
+        <label className="mk-gallery-controls__field">
+          <span>Mockup surface</span>
+          <Select
+            value={mockup}
+            options={[...mockupOptions]}
+            onChange={(value: string) => onMockupChange(value as MockupSelection)}
+          />
+        </label>
+        <label className="mk-gallery-controls__field">
+          <span>Columns</span>
+          <Select
+            value={columnsValue}
+            options={[...MOCKUP_COLUMN_OPTIONS]}
+            onChange={onColumnsValueChange}
+          />
+        </label>
+        <label className="mk-gallery-controls__field">
+          <span>Show descriptions</span>
+          <Toggle checked={showDescription} onChange={onShowDescriptionChange} />
+        </label>
+        <label className="mk-gallery-controls__field">
+          <span>Show source links</span>
+          <Toggle checked={showSources} onChange={onShowSourcesChange} />
+        </label>
+      </div>
+      <label className="mk-gallery-controls__slider">
+        <span>Zoom ({Math.round(zoom * 100)}%)</span>
+        <Slider
+          value={Math.round(zoom * 100)}
+          min={40}
+          max={125}
+          ticks={18}
+          onChange={(value) => onZoomChange(value / 100)}
+        />
+      </label>
+      <label className="mk-gallery-controls__slider">
+        <span>Frame height ({frameHeight}px)</span>
+        <Slider
+          value={frameHeight}
+          min={420}
+          max={1800}
+          ticks={15}
+          onChange={onFrameHeightChange}
+        />
+      </label>
+    </section>
+  );
 }
 
 function clampZoom(value: number): number {

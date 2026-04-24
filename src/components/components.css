@@ -1088,7 +1088,9 @@
 .tkc-diff__head span,
 .tkc-editor__file,
 .tkc-diff__name,
-.tkc-diff__tabs span {
+.tkc-diff__tabs span,
+.tkc-code__fact span,
+.tkc-code__foot {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: .16em;
@@ -1099,7 +1101,9 @@
 .tkc-editor__head span,
 .tkc-diff__head span,
 .tkc-editor__file,
-.tkc-diff__name {
+.tkc-diff__name,
+.tkc-code__fact span,
+.tkc-code__foot {
   color: var(--tkc-ink-quiet);
 }
 
@@ -1124,9 +1128,52 @@
 }
 
 .tkc-editor__file {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
   padding: 6px 12px;
   border-bottom: 1px solid var(--tkc-rule-q);
   background: var(--tkc-panel-muted);
+}
+
+.tkc-editor__file em {
+  font-style: normal;
+  color: var(--tkc-ink);
+}
+
+.tkc-code__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--tkc-rule-q);
+  background: color-mix(in oklab, var(--tkc-panel-muted) 70%, transparent);
+}
+
+.tkc-code__fact {
+  display: grid;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--tkc-rule-q);
+  background: color-mix(in oklab, var(--tkc-surface-strong) 88%, transparent);
+}
+
+.tkc-code__fact strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tkc-code__fact--success strong { color: var(--tkc-emerald); }
+.tkc-code__fact--warning strong { color: var(--tkc-amber); }
+.tkc-code__fact--danger strong { color: var(--tkc-ruby); }
+
+.tkc-code__empty {
+  padding: 18px 12px;
+  color: var(--tkc-ink-quiet);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
 }
 
 .tkc-code__lines {
@@ -1188,6 +1235,15 @@
 .tkc-code--blueprint .tkc-code__tok--symbol { color: #7FD7FF; }
 .tkc-code--terminal .tkc-code__tok--command { color: #F2E3C4; }
 
+.tkc-code__foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px 10px;
+  border-top: 1px solid var(--tkc-rule-q);
+  background: color-mix(in oklab, var(--tkc-panel-muted) 72%, transparent);
+}
+
 .tkc-diff__tabs {
   display: flex;
   flex-wrap: wrap;
@@ -1196,6 +1252,9 @@
 }
 
 .tkc-diff__tabs button {
+  display: grid;
+  gap: 2px;
+  text-align: left;
   padding: 4px 8px;
   border: 1px solid var(--tkc-rule-q);
   background: var(--tkc-panel-muted);
@@ -1206,10 +1265,15 @@
               border-color var(--tkc-dur-fast) var(--tkc-ease-out);
 }
 
+.tkc-diff__tabs button strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .tkc-diff__tabs .is-active {
   background: color-mix(in oklab, var(--tkc-cinnabar) 12%, var(--tkc-panel-strong));
-  border-color: color-mix(in oklab, var(--tkc-cinnabar) 38%, var(--tkc-rule));
   color: var(--tkc-ink);
+  border-color: color-mix(in oklab, var(--tkc-cinnabar) 26%, var(--tkc-rule));
 }
 
 .tkc-diff__tabs button:hover {
@@ -1249,6 +1313,13 @@
   color: var(--tkc-ink-quiet);
 }
 
+.tkc-diff__note {
+  margin: 0;
+  color: var(--tkc-ink-quiet);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 .tkc-diff__columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1267,6 +1338,26 @@
   background: color-mix(in oklab, var(--tkc-cinnabar) 18%, var(--tkc-panel-strong));
   border-color: color-mix(in oklab, var(--tkc-danger-hover) 56%, var(--tkc-rule));
   color: var(--tkc-ink);
+}
+
+.tkc-diff--docs {
+  background: color-mix(in oklab, var(--tkc-surface-strong) 94%, white);
+}
+
+.tkc-diff--chat {
+  background: color-mix(in oklab, var(--tkc-surface-dark) 92%, var(--tkc-panel-strong));
+  color: var(--glyph-bone);
+}
+
+.tkc-diff--chat .tkc-diff__head,
+.tkc-diff--chat .tkc-diff__tabs button,
+.tkc-diff--chat .tkc-code__facts,
+.tkc-diff--chat .tkc-code__foot {
+  background: color-mix(in oklab, var(--tkc-panel-muted) 60%, transparent);
+}
+
+.tkc-diff--chat .tkc-diff__tabs .is-active {
+  color: var(--glyph-bone);
 }
 
 @media (max-width: 900px) {

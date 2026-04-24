@@ -1,0 +1,25 @@
+{
+  "description": "Run the package lint gate required by the ticket acceptance criteria.",
+  "expectedExitCode": 0,
+  "io": {
+    "inputJsonPath": "tasks/01KQ01WVZVVGB7445VCCSVT2PW/input.json",
+    "outputJsonPath": "tasks/01KQ01WVZVVGB7445VCCSVT2PW/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "compendium",
+    "lint",
+    "verify"
+  ],
+  "shell": {
+    "command": "npm run lint",
+    "outputPath": "tasks/01KQ01WVZVVGB7445VCCSVT2PW/result.json"
+  },
+  "title": "Run TypeScript lint gate",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ01WVZVVGB7445VCCSVT2PW",
+  "taskId": "compendium-lint",
+  "invocationKey": "compendium-maturation-pass:S000003:compendium-lint",
+  "stepId": "S000003",
+  "inputs": {}
+}

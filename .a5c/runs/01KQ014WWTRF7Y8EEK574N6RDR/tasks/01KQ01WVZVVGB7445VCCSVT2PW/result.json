@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ01WVZVVGB7445VCCSVT2PW",
+  "taskId": "compendium-lint",
+  "invocationKey": "compendium-maturation-pass:S000003:compendium-lint",
+  "status": "ok",
+  "result": {
+    "command": "npm run lint",
+    "exitCode": 0,
+    "summary": "TypeScript lint gate passed after installing package dependencies in the worktree."
+  },
+  "startedAt": "2026-04-24T15:32:22.220Z",
+  "finishedAt": "2026-04-24T15:32:22.220Z",
+  "value": {
+    "command": "npm run lint",
+    "exitCode": 0,
+    "summary": "TypeScript lint gate passed after installing package dependencies in the worktree."
+  }
+}
