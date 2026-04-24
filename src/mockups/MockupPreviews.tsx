@@ -581,7 +581,7 @@ function SeraphRefactorSurface() {
           aside={<div className="mk-seraph__hero-seal">✺<small>refactor folio</small></div>}
         />
         <SeraphDivider label="working register" />
-        <div className="mk-seraph__cards mk-seraph__cards--asymmetric">
+        <div className="mk-seraph__cards mk-seraph__cards--asymmetric mk-seraph__cards--folio">
           <SeraphCard eyebrow="Inspection · I" title="Repository Inspection" status="Completed" footer="Ledger reconciled against 214 files." ornament={<div className="mk-seraph__sprout" />}>
             <p>Scanned project files and dependencies.</p>
             <small>Files scanned: 214 · Language: TypeScript</small>
@@ -604,6 +604,10 @@ function SeraphRefactorSurface() {
               <li>Show diff</li>
             </ol>
           </SeraphCard>
+          <div className="mk-seraph__cards-note">
+            <div className="mk-seraph__eyebrow">folio note · iii-b</div>
+            <p>Operational proof accumulates unevenly. The reference page tightens on the left first, then descends into the machine register and ledger in a deliberately hand-set sequence.</p>
+          </div>
         </div>
         <div className="mk-seraph__margin-row">
           <SeraphMarginNote
@@ -754,10 +758,17 @@ function SeraphBestiarySurface() {
             <div className="mk-seraph__bestiary-callout">
               <div className="mk-seraph__eyebrow">specimen · dominant plate</div>
               <h4>Mirage stalker</h4>
-              <p>Electrostatic dust veil, folded heat crest, and mirrored abdominal scales. The illustration should read as the sovereign artifact of the page.</p>
+              <p>Electrostatic dust veil, folded heat crest, and mirrored abdominal scales. The artifact needs to look pinned into the folio, with the annotation reading as a side gloss rather than a separate card.</p>
             </div>
-            <div className="mk-seraph__creature mk-seraph__creature--hero">
-              <div className="mk-seraph__creature-body mk-seraph__creature-body--hero" />
+            <div className="mk-seraph__bestiary-canvas">
+              <div className="mk-seraph__bestiary-gloss">
+                <div className="mk-seraph__eyebrow">illumination register</div>
+                <p>Side view · desert folio · colder teal anatomy</p>
+              </div>
+              <div className="mk-seraph__creature mk-seraph__creature--hero">
+                <div className="mk-seraph__creature-body mk-seraph__creature-body--hero" />
+              </div>
+              <div className="mk-seraph__bestiary-stars" />
             </div>
           </div>
           <div className="mk-seraph__task-stack">

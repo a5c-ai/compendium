@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZQF4T4HNMEDAHW0XPGJ20J",
+  "taskId": "repair-pass",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000012:repair-pass",
+  "status": "ok",
+  "result": {
+    "exampleSurfaces": [
+      "examples/basic-usage Seraph mock previews through shared MockupPreviews rendering"
+    ],
+    "filesChanged": [
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "fixesApplied": [
+      "Made the refactor page middle register less uniform by adding a folio-note surface and loosening the lower transition so the composition reads less like a rigid product grid.",
+      "Reworked the bestiary dominant specimen into a fused manuscript canvas with gloss annotations and star ornament so the hero artifact feels embedded in the folio instead of boxed beside a separate card.",
+      "Tightened local palette and ornament emphasis around the bestiary hero and refactor mid-page surfaces using shared Seraph CSS vocabulary rather than image-based shortcuts."
+    ],
+    "residualRisks": [
+      "Final fidelity is still judged by human review in this agent-only loop; there is no deterministic visual diff against the uploaded mock images.",
+      "This pass targeted the highest-impact visual misses and did not add new Storybook stories because the current remaining gap was calibration rather than missing reusable coverage."
+    ],
+    "reusableSurfacesTouched": [
+      "Seraph folio card rhythm",
+      "Seraph bestiary specimen canvas",
+      "shared manuscript annotation and ornament spacing"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Mockup Previews via shared Seraph surfaces",
+      "Mockups/Seraph Primitives via shared CSS vocabulary"
+    ]
+  },
+  "startedAt": "2026-04-24T12:36:08.573Z",
+  "finishedAt": "2026-04-24T12:36:08.573Z",
+  "value": {
+    "exampleSurfaces": [
+      "examples/basic-usage Seraph mock previews through shared MockupPreviews rendering"
+    ],
+    "filesChanged": [
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "fixesApplied": [
+      "Made the refactor page middle register less uniform by adding a folio-note surface and loosening the lower transition so the composition reads less like a rigid product grid.",
+      "Reworked the bestiary dominant specimen into a fused manuscript canvas with gloss annotations and star ornament so the hero artifact feels embedded in the folio instead of boxed beside a separate card.",
+      "Tightened local palette and ornament emphasis around the bestiary hero and refactor mid-page surfaces using shared Seraph CSS vocabulary rather than image-based shortcuts."
+    ],
+    "residualRisks": [
+      "Final fidelity is still judged by human review in this agent-only loop; there is no deterministic visual diff against the uploaded mock images.",
+      "This pass targeted the highest-impact visual misses and did not add new Storybook stories because the current remaining gap was calibration rather than missing reusable coverage."
+    ],
+    "reusableSurfacesTouched": [
+      "Seraph folio card rhythm",
+      "Seraph bestiary specimen canvas",
+      "shared manuscript annotation and ornament spacing"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Mockup Previews via shared Seraph surfaces",
+      "Mockups/Seraph Primitives via shared CSS vocabulary"
+    ]
+  }
+}

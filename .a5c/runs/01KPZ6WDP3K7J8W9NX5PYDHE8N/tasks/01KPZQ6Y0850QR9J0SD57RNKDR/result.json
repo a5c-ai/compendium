@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZQ6Y0850QR9J0SD57RNKDR",
+  "taskId": "visual-and-a11y-review",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000011:visual-and-a11y-review",
+  "status": "ok",
+  "result": {
+    "a11yRisks": [
+      "A few small metadata contexts may still benefit from one final contrast nudge, but the remaining issues are narrower now.",
+      "No deterministic visual validation exists in this agent-only loop, so final confidence is still judgment-based rather than measured."
+    ],
+    "approved": false,
+    "issues": [
+      "The pages are now convincingly in the reference family, but they still fall short of near-exact matching in the final calibration details: the palette relationships, ornament spacing, and local composition tension are not yet fully at the level of the source images.",
+      "The refactor page still has a little too much order in the middle-to-lower transition. The reference feels slightly more irregular and hand-composed.",
+      "The bestiary page is very close, but the framing and ornament around the dominant specimen can still be tuned to feel a touch less schematic and more fully fused with the manuscript surface."
+    ],
+    "nextEdits": [
+      "Do one final page-calibration pass using the stronger kit: tighten palette hierarchy, local ornament spacing, and the irregular manuscript rhythm in the refactor page.",
+      "Tune the bestiary hero framing and surrounding annotations one last time so the dominant specimen feels less boxed and more fused with the folio.",
+      "Make only high-impact visual calibration edits now; the kit itself is strong enough."
+    ],
+    "overallScore": 91,
+    "strengths": [
+      "The Seraph kit is materially stronger and genuinely reusable across more than these two pages.",
+      "Storybook now exposes meaningful motif-level Seraph kit pieces rather than only page-level assemblies.",
+      "The page hierarchy, hero framing, and artifact dominance are all much closer to the references than earlier passes.",
+      "A11y and dark-surface state quality are improved without losing the manuscript identity."
+    ]
+  },
+  "startedAt": "2026-04-24T12:29:10.022Z",
+  "finishedAt": "2026-04-24T12:29:10.022Z",
+  "value": {
+    "a11yRisks": [
+      "A few small metadata contexts may still benefit from one final contrast nudge, but the remaining issues are narrower now.",
+      "No deterministic visual validation exists in this agent-only loop, so final confidence is still judgment-based rather than measured."
+    ],
+    "approved": false,
+    "issues": [
+      "The pages are now convincingly in the reference family, but they still fall short of near-exact matching in the final calibration details: the palette relationships, ornament spacing, and local composition tension are not yet fully at the level of the source images.",
+      "The refactor page still has a little too much order in the middle-to-lower transition. The reference feels slightly more irregular and hand-composed.",
+      "The bestiary page is very close, but the framing and ornament around the dominant specimen can still be tuned to feel a touch less schematic and more fully fused with the manuscript surface."
+    ],
+    "nextEdits": [
+      "Do one final page-calibration pass using the stronger kit: tighten palette hierarchy, local ornament spacing, and the irregular manuscript rhythm in the refactor page.",
+      "Tune the bestiary hero framing and surrounding annotations one last time so the dominant specimen feels less boxed and more fused with the folio.",
+      "Make only high-impact visual calibration edits now; the kit itself is strong enough."
+    ],
+    "overallScore": 91,
+    "strengths": [
+      "The Seraph kit is materially stronger and genuinely reusable across more than these two pages.",
+      "Storybook now exposes meaningful motif-level Seraph kit pieces rather than only page-level assemblies.",
+      "The page hierarchy, hero framing, and artifact dominance are all much closer to the references than earlier passes.",
+      "A11y and dark-surface state quality are improved without losing the manuscript identity."
+    ]
+  }
+}
