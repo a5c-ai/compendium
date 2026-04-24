@@ -110,6 +110,58 @@
   color: var(--mk-shell-accent);
 }
 
+.mockup-controls {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--ground-parchment) 86%, transparent);
+  padding: 16px;
+  box-shadow: 0 10px 24px color-mix(in oklab, var(--fg) 12%, transparent);
+}
+
+[data-theme='void'] .mockup-controls,
+.void .mockup-controls {
+  background: color-mix(in oklab, var(--ground-ink) 82%, transparent);
+}
+
+.mockup-controls h1 {
+  margin: 0 0 8px;
+  font-size: var(--fs-h2);
+}
+
+.mockup-controls p {
+  margin: 0;
+  color: var(--fg-2);
+  max-width: 74ch;
+}
+
+.mockup-controls__grid {
+  margin-top: 14px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.mockup-controls__field {
+  display: grid;
+  gap: 8px;
+}
+
+.mockup-controls__field span,
+.mockup-controls__slider span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+
+.mockup-controls__slider {
+  margin-top: 14px;
+  display: grid;
+  gap: 8px;
+  max-width: 620px;
+}
+
 /* codex shell */
 .mk-codex {
   color: var(--mk-shell-fg);

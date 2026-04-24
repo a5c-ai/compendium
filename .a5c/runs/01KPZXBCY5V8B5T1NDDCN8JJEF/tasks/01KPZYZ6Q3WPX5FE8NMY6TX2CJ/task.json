@@ -1,0 +1,190 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "exampleSurfaces": {
+          "type": "array"
+        },
+        "filesChanged": {
+          "type": "array"
+        },
+        "fixesApplied": {
+          "type": "array"
+        },
+        "residualRisks": {
+          "type": "array"
+        },
+        "reusableSurfacesTouched": {
+          "type": "array"
+        },
+        "storybookSurfaces": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "filesChanged",
+        "fixesApplied",
+        "reusableSurfacesTouched",
+        "storybookSurfaces",
+        "exampleSurfaces",
+        "residualRisks"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "baseline": {
+          "constraints": [
+            "Preserve reconstructive React/CSS output and avoid image-based shortcuts.",
+            "Keep Storybook and example parity through shared source paths rather than forks.",
+            "Improve dark mode and accessibility-sensitive states without flattening the visual system.",
+            "Prefer shared reusable code/editor/diff and mockup controls over page-local wrappers."
+          ],
+          "gaps": [
+            "Several visually important surfaces were recently extracted into primitives, but the broad convergence goal still required the example-app controls and docs code figure to move into shared kit APIs rather than staying app/page-local.",
+            "Dark-mode and accessibility quality are generally improved, but most hierarchy still depends on shared CSS vocabulary rather than deeply prop-driven variants, so each newly extracted surface must preserve those states carefully.",
+            "Storybook coverage needed to expose shared controls and newly extracted motifs directly, not only through composed page previews."
+          ],
+          "reusableSurfaces": [
+            "MockupPreviews gallery and shared controls",
+            "Seraph primitives including specimen and ledger variants",
+            "Codex docs/dashboard primitives including docs code figures",
+            "CodeBlock, CodeEditor, DiffViewer, DiffFileTabs, DiffFileView"
+          ],
+          "runtimeCallPaths": [
+            ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx/CodexPrimitives.tsx -> src/mockups/mockups.css",
+            ".storybook/main.ts -> src/mockups/SeraphPrimitives.stories.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+            ".storybook/main.ts -> src/mockups/CodexPrimitives.stories.tsx -> src/mockups/CodexPrimitives.tsx -> src/mockups/mockups.css",
+            ".storybook/main.ts -> src/components/Code/Code.stories.tsx -> src/components/Code/Code.tsx -> src/components/components.css",
+            "examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/mockups/MockupPreviews.tsx -> shared mockup/components CSS"
+          ],
+          "specAnchors": [
+            "project/uploads/image.png",
+            "project/uploads/image2.png",
+            "shared mockup source in src/mockups",
+            "shared code surface source in src/components/Code"
+          ],
+          "targetFiles": [
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/MockupPreviews.stories.tsx",
+            "src/mockups/SeraphPrimitives.tsx",
+            "src/mockups/SeraphPrimitives.stories.tsx",
+            "src/mockups/CodexPrimitives.tsx",
+            "src/mockups/CodexPrimitives.stories.tsx",
+            "src/mockups/mockups.css",
+            "src/components/Code/Code.tsx",
+            "src/components/Code/Code.stories.tsx",
+            "src/components/components.css",
+            "examples/basic-usage/src/App.tsx",
+            "examples/basic-usage/src/App.css"
+          ]
+        },
+        "exampleDir": "examples/basic-usage",
+        "projectDir": ".",
+        "round": 1,
+        "targetSurfaces": [
+          "Mockup previews",
+          "Seraph and Codex primitives",
+          "Code / diff / editor surfaces",
+          "Storybook controls and motifs",
+          "Example app parity",
+          "Dark mode and accessibility states"
+        ]
+      },
+      "instructions": [
+        "USER REQUEST (verbatim):",
+        "---",
+        "Refactor and improve the kit to match specs and improve reusability across use cases. Componentize more of the mock-specific structures, converge visuals toward the local mocks, improve dark mode, fix accessibility issues, deepen Storybook controls and example parity, and iterate until completion.",
+        "---",
+        "Operate directly on repository files. Do not only describe changes.",
+        "Prioritize shared primitives, configurable sections/pages, and reusable styling vocabulary over page-local patches.",
+        "Push fidelity and componentization together: if a surface is visually important and still local, extract it.",
+        "Improve Storybook controls/motifs and keep example parity through the same source paths.",
+        "Fix dark-mode and accessibility-sensitive states where touched.",
+        "Prefer reusable code/editor/diff adoption in docs/chat/mock surfaces where appropriate.",
+        "Return JSON with keys: `filesChanged`, `fixesApplied`, `reusableSurfacesTouched`, `storybookSurfaces`, `exampleSurfaces`, `residualRisks`."
+      ],
+      "outputFormat": "JSON",
+      "role": "Senior React/CSS design-system engineer",
+      "task": "Implement the highest-value broad kit convergence work directly in the repository."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPZYZ6Q3WPX5FE8NMY6TX2CJ/input.json",
+    "outputJsonPath": "tasks/01KPZYZ6Q3WPX5FE8NMY6TX2CJ/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "convergence",
+    "design-system",
+    "implementation",
+    "reuse"
+  ],
+  "title": "Refactor pass 1",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPZYZ6Q3WPX5FE8NMY6TX2CJ",
+  "taskId": "refactor-pass",
+  "invocationKey": "design-system-kit-convergence-v2:S000002:refactor-pass",
+  "stepId": "S000002",
+  "inputs": {
+    "baseline": {
+      "constraints": [
+        "Preserve reconstructive React/CSS output and avoid image-based shortcuts.",
+        "Keep Storybook and example parity through shared source paths rather than forks.",
+        "Improve dark mode and accessibility-sensitive states without flattening the visual system.",
+        "Prefer shared reusable code/editor/diff and mockup controls over page-local wrappers."
+      ],
+      "gaps": [
+        "Several visually important surfaces were recently extracted into primitives, but the broad convergence goal still required the example-app controls and docs code figure to move into shared kit APIs rather than staying app/page-local.",
+        "Dark-mode and accessibility quality are generally improved, but most hierarchy still depends on shared CSS vocabulary rather than deeply prop-driven variants, so each newly extracted surface must preserve those states carefully.",
+        "Storybook coverage needed to expose shared controls and newly extracted motifs directly, not only through composed page previews."
+      ],
+      "reusableSurfaces": [
+        "MockupPreviews gallery and shared controls",
+        "Seraph primitives including specimen and ledger variants",
+        "Codex docs/dashboard primitives including docs code figures",
+        "CodeBlock, CodeEditor, DiffViewer, DiffFileTabs, DiffFileView"
+      ],
+      "runtimeCallPaths": [
+        ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx/CodexPrimitives.tsx -> src/mockups/mockups.css",
+        ".storybook/main.ts -> src/mockups/SeraphPrimitives.stories.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+        ".storybook/main.ts -> src/mockups/CodexPrimitives.stories.tsx -> src/mockups/CodexPrimitives.tsx -> src/mockups/mockups.css",
+        ".storybook/main.ts -> src/components/Code/Code.stories.tsx -> src/components/Code/Code.tsx -> src/components/components.css",
+        "examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/mockups/MockupPreviews.tsx -> shared mockup/components CSS"
+      ],
+      "specAnchors": [
+        "project/uploads/image.png",
+        "project/uploads/image2.png",
+        "shared mockup source in src/mockups",
+        "shared code surface source in src/components/Code"
+      ],
+      "targetFiles": [
+        "src/mockups/MockupPreviews.tsx",
+        "src/mockups/MockupPreviews.stories.tsx",
+        "src/mockups/SeraphPrimitives.tsx",
+        "src/mockups/SeraphPrimitives.stories.tsx",
+        "src/mockups/CodexPrimitives.tsx",
+        "src/mockups/CodexPrimitives.stories.tsx",
+        "src/mockups/mockups.css",
+        "src/components/Code/Code.tsx",
+        "src/components/Code/Code.stories.tsx",
+        "src/components/components.css",
+        "examples/basic-usage/src/App.tsx",
+        "examples/basic-usage/src/App.css"
+      ]
+    },
+    "exampleDir": "examples/basic-usage",
+    "projectDir": ".",
+    "requestText": "Refactor and improve the kit to match specs and improve reusability across use cases. Componentize more of the mock-specific structures, converge visuals toward the local mocks, improve dark mode, fix accessibility issues, deepen Storybook controls and example parity, and iterate until completion.",
+    "round": 1,
+    "targetSurfaces": [
+      "Mockup previews",
+      "Seraph and Codex primitives",
+      "Code / diff / editor surfaces",
+      "Storybook controls and motifs",
+      "Example app parity",
+      "Dark mode and accessibility states"
+    ]
+  }
+}

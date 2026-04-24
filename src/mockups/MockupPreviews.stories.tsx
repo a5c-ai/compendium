@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MockupPreviews, MOCKUP_NAMES } from './MockupPreviews';
+import { MockupPreviewControls, MockupPreviews, MOCKUP_NAMES } from './MockupPreviews';
 
 const meta: Meta<typeof MockupPreviews> = {
   title: 'Mockups/Project Previews',
@@ -48,6 +48,24 @@ export default meta;
 type Story = StoryObj<typeof MockupPreviews>;
 
 export const Gallery: Story = {};
+
+export const GalleryControlsOnly: StoryObj<typeof MockupPreviewControls> = {
+  render: (args) => <MockupPreviewControls {...args} />,
+  args: {
+    mockup: 'All',
+    columns: 2,
+    zoom: 0.72,
+    frameHeight: 840,
+    showDescription: true,
+    showSources: true,
+    onMockupChange: () => {},
+    onColumnsChange: () => {},
+    onZoomChange: () => {},
+    onFrameHeightChange: () => {},
+    onShowDescriptionChange: () => {},
+    onShowSourcesChange: () => {},
+  },
+};
 
 export const DarkGallery: Story = {
   args: { theme: 'void' },

@@ -7,8 +7,11 @@ import {
   DiffViewer,
   Input,
   Progress,
+  Select,
+  Slider,
   Tabs,
   Tag,
+  Toggle,
 } from '../components';
 import {
   GlyphModeForever,
@@ -1776,6 +1779,21 @@ export interface MockupPreviewsProps {
   theme?: MockupTheme;
 }
 
+export interface MockupPreviewControlsProps {
+  mockup: MockupSelection;
+  columns: 1 | 2 | 3;
+  zoom: number;
+  frameHeight: number;
+  showDescription: boolean;
+  showSources: boolean;
+  onMockupChange: (value: MockupSelection) => void;
+  onColumnsChange: (value: 1 | 2 | 3) => void;
+  onZoomChange: (value: number) => void;
+  onFrameHeightChange: (value: number) => void;
+  onShowDescriptionChange: (value: boolean) => void;
+  onShowSourcesChange: (value: boolean) => void;
+}
+
 function clampZoom(value: number): number {
   if (value < 0.4) return 0.4;
   if (value > 1.25) return 1.25;
@@ -1786,6 +1804,84 @@ function clampHeight(value: number): number {
   if (value < 420) return 420;
   if (value > 1800) return 1800;
   return value;
+}
+
+export function MockupPreviewControls({
+  mockup,
+  columns,
+  zoom,
+  frameHeight,
+  showDescription,
+  showSources,
+  onMockupChange,
+  onColumnsChange,
+  onZoomChange,
+  onFrameHeightChange,
+  onShowDescriptionChange,
+  onShowSourcesChange,
+}: MockupPreviewControlsProps) {
+  const columnValue = String(columns);
+  return (
+    <section className="mockup-controls">
+      <h1>Mockup Preview Gallery</h1>
+      <p>
+        Tune controls to inspect each reference page and compare fidelity against the preview set.
+      </p>
+      <div className="mockup-controls__grid">
+        <label className="mockup-controls__field">
+          <span>Mockup surface</span>
+          <Select
+            value={mockup}
+            options={[
+              { label: 'All Mockups', value: 'All' },
+              ...MOCKUP_NAMES.map((name) => ({ label: name, value: name })),
+            ]}
+            onChange={(value: string) => onMockupChange(value as MockupSelection)}
+          />
+        </label>
+        <label className="mockup-controls__field">
+          <span>Columns</span>
+          <Select
+            value={columnValue}
+            options={[
+              { label: '1 column', value: '1' },
+              { label: '2 columns', value: '2' },
+              { label: '3 columns', value: '3' },
+            ]}
+            onChange={(value: string) => onColumnsChange(Number(value) as 1 | 2 | 3)}
+          />
+        </label>
+        <label className="mockup-controls__field">
+          <span>Show descriptions</span>
+          <Toggle checked={showDescription} onChange={onShowDescriptionChange} />
+        </label>
+        <label className="mockup-controls__field">
+          <span>Show source links</span>
+          <Toggle checked={showSources} onChange={onShowSourcesChange} />
+        </label>
+      </div>
+      <label className="mockup-controls__slider">
+        <span>Zoom ({Math.round(zoom * 100)}%)</span>
+        <Slider
+          value={Math.round(zoom * 100)}
+          min={40}
+          max={125}
+          ticks={18}
+          onChange={(value) => onZoomChange(value / 100)}
+        />
+      </label>
+      <label className="mockup-controls__slider">
+        <span>Frame height ({frameHeight}px)</span>
+        <Slider
+          value={frameHeight}
+          min={420}
+          max={1800}
+          ticks={15}
+          onChange={onFrameHeightChange}
+        />
+      </label>
+    </section>
+  );
 }
 
 export function MockupPreviews({

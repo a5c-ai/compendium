@@ -1,0 +1,23 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T14:41:30.167Z",
+  "data": {
+    "effectId": "01KPZZ0KGBJ0ZY1AX8VKY2M84C",
+    "invocationKey": "design-system-kit-convergence-v2:S000003:kit-review",
+    "invocationHash": "c48ff72ce707bce8142b2b968bdf21150365c599561243c9caff09939baba6cd",
+    "stepId": "S000003",
+    "taskId": "kit-review",
+    "kind": "agent",
+    "label": "review",
+    "taskDefRef": "tasks/01KPZZ0KGBJ0ZY1AX8VKY2M84C/task.json",
+    "labels": [
+      "review",
+      "design-system",
+      "a11y",
+      "convergence"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "5aa0571a1c8c5ac4b0f87382deb0eed026888397dca2617fd44dce6aadcc5c9f"
+}
