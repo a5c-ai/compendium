@@ -733,7 +733,7 @@ function SeraphBestiarySurface() {
           <SeraphTask
             title="Calendar Tool"
             status="Scheduled"
-            leading={<><p>Event: Bestiary review</p><small>When: May 23, 2024 at 3:00 PM</small></>}
+            leading={<><p>Event: Bestiary review</p><small>When: May 23, 2026 at 3:00 PM</small></>}
             body={<p>I&apos;ll schedule a review so we can refine the creatures and choose names and habitats.</p>}
             ornament={<div className="mk-seraph__flora mk-seraph__flora--mushroom" />}
           />
