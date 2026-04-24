@@ -1,0 +1,23 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T12:39:06.469Z",
+  "data": {
+    "effectId": "01KPZR0FXHJXM7N99P2YBW04ZZ",
+    "invocationKey": "design-system-seraph-fidelity-max-v2:S000015:visual-and-a11y-review",
+    "invocationHash": "fd9aeea13e573a58cc20bb90cda7f6ec3cc16f7a46e8eb57d2ca4cada67aea71",
+    "stepId": "S000015",
+    "taskId": "visual-and-a11y-review",
+    "kind": "agent",
+    "label": "review",
+    "taskDefRef": "tasks/01KPZR0FXHJXM7N99P2YBW04ZZ/task.json",
+    "labels": [
+      "review",
+      "fidelity",
+      "a11y",
+      "seraph"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "3073e61e9e9c73f8461c1512f4c4e50689fc232b2f5dbc88da02c9b1268c89ce"
+}

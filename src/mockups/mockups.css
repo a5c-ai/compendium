@@ -3141,9 +3141,26 @@
   padding: 10px 12px;
   border: 1px solid #c7b496;
   background:
+    repeating-linear-gradient(90deg, rgba(142, 117, 82, .03) 0 2px, transparent 2px 19px),
     linear-gradient(180deg, rgba(255,255,255,.22), transparent 34%),
     rgba(250,246,238,.94);
   min-height: 110px;
+}
+
+.mk-seraph:not(.mk-seraph--bestiary) .mk-seraph__summary-row {
+  align-items: end;
+}
+
+.mk-seraph:not(.mk-seraph--bestiary) .mk-seraph__summary-row article:nth-child(2) {
+  margin-bottom: 12px;
+}
+
+.mk-seraph:not(.mk-seraph--bestiary) .mk-seraph__summary-row article:nth-child(3) {
+  margin-top: 10px;
+}
+
+.mk-seraph:not(.mk-seraph--bestiary) .mk-seraph__summary-row article:nth-child(4) {
+  margin-bottom: 6px;
 }
 
 .mk-seraph__summary-row article::before {
@@ -3214,6 +3231,7 @@
   padding: 12px 14px 14px;
   border: 1px solid #c7b496;
   background:
+    repeating-linear-gradient(90deg, rgba(142, 117, 82, .03) 0 2px, transparent 2px 19px),
     radial-gradient(circle at 100% 0, rgba(29, 89, 109, .08), transparent 28%),
     linear-gradient(180deg, rgba(255,255,255,.24), transparent 34%),
     rgba(249, 244, 234, .94);
@@ -3369,6 +3387,21 @@
   opacity: .88;
 }
 
+.mk-seraph__bestiary-stars::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  bottom: -14px;
+  width: 54px;
+  height: 54px;
+  background:
+    radial-gradient(circle at 50% 50%, #1f5768 0 7px, transparent 8px),
+    radial-gradient(circle at 50% 50%, transparent 0 14px, rgba(200, 108, 49, .88) 14px 16px, transparent 16px),
+    linear-gradient(90deg, transparent 48%, rgba(122, 86, 49, .55) 48% 52%, transparent 52%),
+    linear-gradient(180deg, transparent 48%, rgba(122, 86, 49, .55) 48% 52%, transparent 52%);
+  opacity: .7;
+}
+
 .mk-seraph__composer {
   display: grid;
   gap: 10px;
@@ -3409,6 +3442,22 @@
 .mk-seraph__task-stack {
   display: grid;
   gap: 9px;
+}
+
+.mk-seraph--bestiary .mk-seraph__task-stack .mk-seraph__task:nth-child(2) {
+  margin-left: 10px;
+}
+
+.mk-seraph--bestiary .mk-seraph__task-stack .mk-seraph__task:nth-child(3) {
+  margin-right: 14px;
+}
+
+.mk-seraph--bestiary .mk-seraph__task-stack .mk-seraph__task:nth-child(4) {
+  margin-left: 28px;
+}
+
+.mk-seraph--bestiary .mk-seraph__task-stack .mk-seraph__task:nth-child(5) {
+  margin-right: 10px;
 }
 
 .mk-seraph__task {
@@ -3639,6 +3688,11 @@
     repeating-radial-gradient(circle at 50% 50%, transparent 0 16px, rgba(123, 86, 49, .15) 16px 17px, transparent 17px 34px),
     linear-gradient(180deg, transparent 46%, #7a5631 46% 48%, transparent 48%),
     rgba(247,239,225,.92);
+}
+
+.mk-seraph__folio-border,
+.mk-seraph__folio-border--orb {
+  filter: saturate(.88) brightness(.985);
 }
 
 .mk-seraph__folio-border::before,
