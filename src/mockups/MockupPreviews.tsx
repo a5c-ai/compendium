@@ -111,6 +111,7 @@ import {
   CodexDocsArticle,
   CodexDocsCallout,
   CodexDocsChapterMark,
+  CodexDocsCodeFigure,
   CodexDocsFigure,
   CodexDocsMargin,
   CodexDocsShell,
@@ -1356,7 +1357,8 @@ function DocsSurface() {
             body={<><strong>If the manifest is silent on the question, defer.</strong><p>Agents that guess past their criteria are a form of drift.</p></>}
             action={<Button variant="ghost">Chap. VI</Button>}
           />
-          <CodeBlock
+          <CodexDocsCodeFigure
+            label="FIG. 3-3 · canonical verdict object"
             title="Canonical Gate"
             meta="verdict.example.ts"
             language="ts"

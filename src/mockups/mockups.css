@@ -5928,6 +5928,16 @@
   padding: 14px 16px;
 }
 
+.mk-docs__code-figure {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 22px;
+}
+
+.mk-docs__code-figure .mk-docs__figure {
+  margin: 0;
+}
+
 .mk-docs__figure-line {
   height: 72px;
   background:

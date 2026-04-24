@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
+import { CodeBlock, type CodeBlockProps } from '../components';
 
 export type CodexTabName = 'Philosophy' | 'UI Components' | 'Type' | 'Pigments' | 'Measure';
 
@@ -283,6 +284,38 @@ export function CodexDocsFigure({ label }: { label: ReactNode }) {
     <div className="mk-docs__figure">
       <div className="mk-docs__figure-line" />
       <span>{label}</span>
+    </div>
+  );
+}
+
+export function CodexDocsCodeFigure({
+  label,
+  title,
+  meta,
+  language = 'ts',
+  tone = 'default',
+  lineNumbers = true,
+  code,
+}: {
+  label: ReactNode;
+  code: string;
+  title?: CodeBlockProps['title'];
+  meta?: CodeBlockProps['meta'];
+  language?: CodeBlockProps['language'];
+  tone?: CodeBlockProps['tone'];
+  lineNumbers?: boolean;
+}) {
+  return (
+    <div className="mk-docs__code-figure">
+      <CodexDocsFigure label={label} />
+      <CodeBlock
+        code={code}
+        title={title}
+        meta={meta}
+        language={language}
+        tone={tone}
+        lineNumbers={lineNumbers}
+      />
     </div>
   );
 }
