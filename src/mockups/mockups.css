@@ -2264,6 +2264,16 @@
     linear-gradient(180deg, rgba(255,255,255,.28), transparent 18%, rgba(177, 142, 91, .06) 100%);
 }
 
+.mk-seraph__rail-caption {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #8a6f50;
+}
+
 .mk-seraph__rail::before,
 .mk-seraph__rail::after {
   content: "";
@@ -2764,6 +2774,45 @@
   box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
 }
 
+.mk-seraph__card--blueprint,
+.mk-seraph__task--blueprint {
+  border-color: rgba(53, 105, 126, .55);
+  background:
+    linear-gradient(rgba(127, 215, 255, .1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 215, 255, .1) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(18, 54, 73, .92), rgba(13, 43, 62, .96));
+  background-size: 18px 18px, 18px 18px, auto;
+  color: #ecf4f8;
+}
+
+.mk-seraph__card--botanic,
+.mk-seraph__task--botanic {
+  background:
+    radial-gradient(circle at 100% 100%, rgba(83, 125, 66, .08), transparent 24%),
+    linear-gradient(180deg, rgba(255,255,255,.26), transparent 38%),
+    rgba(246, 241, 229, .96);
+}
+
+.mk-seraph__eyebrow,
+.mk-seraph__footnote {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+
+.mk-seraph__eyebrow {
+  margin: 0 0 8px;
+  color: #8b7255;
+}
+
+.mk-seraph__footnote {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(188, 165, 131, 0.36);
+  color: #6c5d4a;
+}
+
 .mk-seraph__card h4,
 .mk-seraph__task h4,
 .mk-seraph__terminal h4,
@@ -2946,6 +2995,109 @@
   font-size: 13px;
   line-height: 1.45;
   color: #5d5348;
+}
+
+.mk-seraph__margin-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.mk-seraph__margin-note {
+  position: relative;
+  padding: 12px 14px 14px;
+  border: 1px solid #c7b496;
+  background:
+    radial-gradient(circle at 100% 0, rgba(29, 89, 109, .08), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,.24), transparent 34%),
+    rgba(249, 244, 234, .94);
+}
+
+.mk-seraph__margin-note::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(188, 165, 131, 0.24);
+  pointer-events: none;
+}
+
+.mk-seraph__margin-note h5 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: #4b3b2e;
+}
+
+.mk-seraph__margin-note-copy {
+  display: grid;
+  gap: 6px;
+  max-width: 34ch;
+}
+
+.mk-seraph__margin-note-copy p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5d5348;
+}
+
+.mk-seraph__section-plate {
+  position: relative;
+  padding: 12px 14px 14px;
+  border: 1px solid #c7b496;
+  background:
+    radial-gradient(circle at 100% 0, rgba(29, 89, 109, .08), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,.24), transparent 34%),
+    rgba(249, 244, 234, .94);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
+}
+
+.mk-seraph__section-plate::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(188, 165, 131, 0.24);
+  pointer-events: none;
+}
+
+.mk-seraph__section-plate--blueprint {
+  border-color: rgba(53, 105, 126, .55);
+  background:
+    linear-gradient(rgba(127, 215, 255, .1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 215, 255, .1) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(18, 54, 73, .92), rgba(13, 43, 62, .96));
+  background-size: 18px 18px, 18px 18px, auto;
+}
+
+.mk-seraph__section-plate-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.mk-seraph__section-plate-head h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1;
+  color: #4b3b2e;
+}
+
+.mk-seraph__section-plate-head span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #55713f;
+}
+
+.mk-seraph__section-plate--blueprint .mk-seraph__section-plate-head h4,
+.mk-seraph__section-plate--blueprint .mk-seraph__section-plate-head span,
+.mk-seraph__section-plate--blueprint .mk-seraph__eyebrow {
+  color: #e6f0f6;
 }
 
 .mk-seraph__composer {
@@ -3156,6 +3308,18 @@
   height: 56px;
 }
 
+.mk-seraph__folio-border--orb {
+  background:
+    radial-gradient(circle at 16% 58%, #c76c31 0 3px, transparent 4px),
+    radial-gradient(circle at 28% 42%, #1f5768 0 4px, transparent 5px),
+    radial-gradient(circle at 50% 54%, #d7bc7f 0 10px, transparent 11px),
+    radial-gradient(circle at 72% 42%, #1f5768 0 4px, transparent 5px),
+    radial-gradient(circle at 84% 58%, #c76c31 0 3px, transparent 4px),
+    repeating-radial-gradient(circle at 50% 50%, transparent 0 16px, rgba(123, 86, 49, .15) 16px 17px, transparent 17px 34px),
+    linear-gradient(180deg, transparent 46%, #7a5631 46% 48%, transparent 48%),
+    rgba(247,239,225,.92);
+}
+
 .mk-seraph__folio-border::before,
 .mk-seraph__folio-border::after {
   content: "";
@@ -3345,6 +3509,7 @@
 
   .mk-seraph__summary-row,
   .mk-seraph__cards,
+  .mk-seraph__margin-row,
   .mk-seraph__terminal,
   .mk-seraph__diff-grid {
     grid-template-columns: 1fr;

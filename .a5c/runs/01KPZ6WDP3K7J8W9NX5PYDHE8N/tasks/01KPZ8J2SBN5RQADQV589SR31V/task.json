@@ -1,0 +1,90 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "constraints": {
+          "type": "array"
+        },
+        "gaps": {
+          "type": "array"
+        },
+        "referenceAssets": {
+          "type": "array"
+        },
+        "reusableSurfaces": {
+          "type": "array"
+        },
+        "runtimeCallPaths": {
+          "type": "array"
+        },
+        "targetFiles": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "runtimeCallPaths",
+        "targetFiles",
+        "referenceAssets",
+        "reusableSurfaces",
+        "gaps",
+        "constraints"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "exampleDir": "examples/basic-usage",
+        "projectDir": ".",
+        "relatedRunId": "",
+        "relatedRunReason": "fresh-process-variant",
+        "targetMockups": [
+          "Seraph Refactor",
+          "Seraph Bestiary"
+        ]
+      },
+      "instructions": [
+        "USER REQUEST (verbatim):",
+        "---",
+        "Converge the reconstructed Seraph mock pages to effectively exact fidelity against the uploaded references, while preserving reusable and configurable design-system primitives, Storybook parity with controls, example parity, dark-mode adaptation, accessible states, and shared code/diff/code-editor surfaces. Use a fresh Babysitter process and no shell kind tasks.",
+        "---",
+        "Inspect the live runtime files and the local mock references only.",
+        "Read and trace: `src/mockups/MockupPreviews.tsx`, `src/mockups/SeraphPrimitives.tsx`, `src/mockups/mockups.css`, relevant stories in `src/mockups/*.stories.tsx`, exported code/diff primitives, example app entry files, and the uploaded reference images in `project/uploads/`.",
+        "Map the real shared surfaces that drive both Storybook and the example app.",
+        "Be explicit about gaps in: color system fit, decorations/ornaments, componentization, dark-mode support, code/diff component usage, and a11y risk areas.",
+        "Return JSON with keys: `runtimeCallPaths`, `targetFiles`, `referenceAssets`, `reusableSurfaces`, `gaps`, `constraints`."
+      ],
+      "outputFormat": "JSON",
+      "role": "Brownfield design-system investigator",
+      "task": "Trace the real runtime surfaces controlling the Seraph mock pages, Storybook previews, and example app usage."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPZ8J2SBN5RQADQV589SR31V/input.json",
+    "outputJsonPath": "tasks/01KPZ8J2SBN5RQADQV589SR31V/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "analysis",
+    "brownfield",
+    "fidelity",
+    "seraph"
+  ],
+  "title": "Trace live Seraph surfaces, reference anchors, and reusable architecture",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPZ8J2SBN5RQADQV589SR31V",
+  "taskId": "baseline-trace",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000001:baseline-trace",
+  "stepId": "S000001",
+  "inputs": {
+    "exampleDir": "examples/basic-usage",
+    "projectDir": ".",
+    "relatedRunId": "",
+    "relatedRunReason": "fresh-process-variant",
+    "requestText": "Converge the reconstructed Seraph mock pages to effectively exact fidelity against the uploaded references, while preserving reusable and configurable design-system primitives, Storybook parity with controls, example parity, dark-mode adaptation, accessible states, and shared code/diff/code-editor surfaces. Use a fresh Babysitter process and no shell kind tasks.",
+    "targetMockups": [
+      "Seraph Refactor",
+      "Seraph Bestiary"
+    ]
+  }
+}

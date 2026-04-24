@@ -1,0 +1,15 @@
+{
+  "runId": "01KPZ6WDP3K7J8W9NX5PYDHE8N",
+  "request": "design-system-seraph-fidelity-max-v2",
+  "processId": "design-system-seraph-fidelity-max-v2",
+  "harness": "codex",
+  "entrypoint": {
+    "importPath": "../../processes/design-system-seraph-fidelity-max-v2.js",
+    "exportName": "process"
+  },
+  "processPath": "../../processes/design-system-seraph-fidelity-max-v2.js",
+  "layoutVersion": "2026.01-storage-preview",
+  "createdAt": "2026-04-24T07:39:47.309Z",
+  "nonInteractive": true,
+  "completionProof": "ec7929d56415691e68e956148c8980f1"
+}

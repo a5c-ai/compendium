@@ -1,0 +1,39 @@
+{
+  "filesChanged": [
+    "src/mockups/SeraphPrimitives.tsx",
+    "src/mockups/MockupPreviews.tsx",
+    "src/mockups/SeraphPrimitives.stories.tsx",
+    "src/mockups/mockups.css",
+    "src/components/components.css"
+  ],
+  "mockupsImproved": [
+    "Seraph Refactor",
+    "Seraph Bestiary"
+  ],
+  "reusableSurfacesTouched": [
+    "SeraphSidebar rail caption support",
+    "SeraphCard eyebrow/footer/tone API",
+    "SeraphTask eyebrow/footer/tone API",
+    "SeraphSummaryRow eyebrow support",
+    "SeraphMarginNote primitive",
+    "SeraphFolioBorder variant support",
+    "shared Seraph manuscript ornament and margin-note CSS",
+    "shared Button primary state contrast styling",
+    "shared Diff tab state styling"
+  ],
+  "storybookSurfaces": [
+    "Mockups/Seraph Primitives",
+    "WindowScaffold",
+    "MarginAndBorders"
+  ],
+  "exampleSurfaces": [
+    "MockupPreviews via shared package exports",
+    "Seraph Refactor shared rendering path",
+    "Seraph Bestiary shared rendering path"
+  ],
+  "notes": [
+    "Deepened the Seraph primitive vocabulary so page fidelity can move through reusable props instead of page-only markup hacks.",
+    "Pushed both Seraph page compositions toward denser manuscript framing with margin notes, rail captions, gate eyebrows, and configurable footnotes.",
+    "Adjusted the primary button hover and active colors to keep readable foreground contrast, and improved diff tab states for dark surfaces."
+  ]
+}

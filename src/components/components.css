@@ -105,15 +105,15 @@
 .tkc-btn--primary {
   --bg: linear-gradient(180deg, #D04A3B 0%, #8A2519 100%);
   --bc: #5A120B;
-  --fg: var(--tkc-danger-fg);
+  --fg: #FFFDFC;
 }
 .tkc-btn--primary:hover {
-  --bg: linear-gradient(180deg, var(--tkc-danger-hover) 0%, var(--tkc-cinnabar-dark) 100%);
-  --fg: var(--tkc-danger-fg);
+  --bg: linear-gradient(180deg, #F06D5B 0%, #A72E22 100%);
+  --fg: #FFFDFC;
 }
 .tkc-btn--primary:active {
-  --bg: linear-gradient(180deg, var(--tkc-cinnabar-dark) 0%, var(--tkc-danger-active) 100%);
-  --fg: var(--tkc-danger-fg);
+  --bg: linear-gradient(180deg, #8A2519 0%, #68170F 100%);
+  --fg: #FFFDFC;
 }
 .tkc-btn--ghost {
   --bg: transparent;
@@ -1201,10 +1201,14 @@
   background: var(--tkc-panel-muted);
   color: var(--tkc-ink-quiet);
   cursor: pointer;
+  transition: background var(--tkc-dur-fast) var(--tkc-ease-out),
+              color var(--tkc-dur-fast) var(--tkc-ease-out),
+              border-color var(--tkc-dur-fast) var(--tkc-ease-out);
 }
 
 .tkc-diff__tabs .is-active {
-  background: var(--tkc-panel-strong);
+  background: color-mix(in oklab, var(--tkc-cinnabar) 12%, var(--tkc-panel-strong));
+  border-color: color-mix(in oklab, var(--tkc-cinnabar) 38%, var(--tkc-rule));
   color: var(--tkc-ink);
 }
 
@@ -1234,6 +1238,20 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+}
+
+.void .tkc-diff__tabs button,
+[data-theme="void"] .tkc-diff__tabs button {
+  background: color-mix(in oklab, var(--tkc-panel-muted) 82%, transparent);
+  border-color: color-mix(in oklab, var(--tkc-rule) 72%, transparent);
+  color: var(--tkc-ink-soft);
+}
+
+.void .tkc-diff__tabs .is-active,
+[data-theme="void"] .tkc-diff__tabs .is-active {
+  background: color-mix(in oklab, var(--tkc-cinnabar) 18%, var(--tkc-panel-strong));
+  border-color: color-mix(in oklab, var(--tkc-danger-hover) 56%, var(--tkc-rule));
+  color: var(--tkc-ink);
 }
 
 @media (max-width: 900px) {

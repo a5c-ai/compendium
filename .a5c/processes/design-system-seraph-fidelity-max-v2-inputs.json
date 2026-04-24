@@ -1,0 +1,9 @@
+{
+  "projectDir": ".",
+  "exampleDir": "examples/basic-usage",
+  "targetMockups": ["Seraph Refactor", "Seraph Bestiary"],
+  "targetQuality": 100,
+  "maxIterations": 8,
+  "requestText": "Converge the reconstructed Seraph mock pages to effectively exact fidelity against the uploaded references, while preserving reusable and configurable design-system primitives, Storybook parity with controls, example parity, dark-mode adaptation, accessible states, and shared code/diff/code-editor surfaces. Use a fresh Babysitter process and no shell kind tasks.",
+  "relatedRunReason": "fresh-process-variant"
+}
