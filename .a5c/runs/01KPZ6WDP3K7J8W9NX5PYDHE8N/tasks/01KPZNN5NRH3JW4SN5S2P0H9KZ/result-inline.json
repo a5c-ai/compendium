@@ -1,0 +1,29 @@
+{
+  "filesChanged": [
+    "src/mockups/MockupPreviews.tsx",
+    "src/mockups/mockups.css"
+  ],
+  "fixesApplied": [
+    "Pushed the refactor page away from an even card rhythm by making the top section more asymmetric and adding a lower tail note register.",
+    "Redesigned the bestiary page around a dominant reusable hero specimen plate plus supporting illuminated callout, so the creature artifact leads the page rather than sitting as one card among many.",
+    "Reduced the competition between the bestiary illustration panel and the research stack by turning the lower image-tool task into a rendering-notes panel instead of a second rival illustration block."
+  ],
+  "residualRisks": [
+    "The pages should now read closer to the references, but palette exactness and ornament choreography may still need one more pass.",
+    "Storybook motif-level configurability still lags behind the full page-level reconstruction work.",
+    "Some metadata and blueprint contrast combinations may still need another accessibility tightening pass."
+  ],
+  "reusableSurfacesTouched": [
+    "shared bestiary hero specimen composition on the page via existing reusable surfaces",
+    "shared asymmetric card rhythm styling",
+    "shared tail-note and hero-plate CSS vocabulary"
+  ],
+  "storybookSurfaces": [
+    "Mockups/Project Previews",
+    "Mockups/Seraph Primitives"
+  ],
+  "exampleSurfaces": [
+    "Seraph Refactor shared rendering path",
+    "Seraph Bestiary shared rendering path"
+  ]
+}

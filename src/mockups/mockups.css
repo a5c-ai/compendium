@@ -2760,6 +2760,14 @@
   gap: 12px;
 }
 
+.mk-seraph__cards--asymmetric {
+  grid-template-columns: 1.2fr .8fr 1fr;
+}
+
+.mk-seraph__cards--asymmetric .mk-seraph__card:first-child {
+  grid-row: span 2;
+}
+
 .mk-seraph__card,
 .mk-seraph__task {
   position: relative;
@@ -3003,6 +3011,10 @@
   gap: 10px;
 }
 
+.mk-seraph__margin-row--tail {
+  grid-template-columns: minmax(0, 1fr) 220px;
+}
+
 .mk-seraph__margin-note {
   position: relative;
   padding: 12px 14px 14px;
@@ -3100,6 +3112,40 @@
   color: #e6f0f6;
 }
 
+.mk-seraph__bestiary-hero {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.mk-seraph__bestiary-callout {
+  align-self: stretch;
+  padding: 14px 16px;
+  border: 1px solid rgba(188, 165, 131, 0.45);
+  background:
+    radial-gradient(circle at 100% 0, rgba(29, 89, 109, .08), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,.26), transparent 34%),
+    rgba(246, 238, 224, .96);
+}
+
+.mk-seraph__bestiary-callout h4 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1;
+  color: #4b3b2e;
+}
+
+.mk-seraph__bestiary-callout p,
+.mk-seraph__bestiary-caption {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5d5348;
+}
+
 .mk-seraph__composer {
   display: grid;
   gap: 10px;
@@ -3172,6 +3218,14 @@
   background: linear-gradient(180deg, #f4e7d1, #ecdfc7);
 }
 
+.mk-seraph__creature--hero {
+  min-height: 220px;
+  background:
+    radial-gradient(circle at 20% 24%, rgba(31, 87, 104, .12), transparent 22%),
+    radial-gradient(circle at 80% 72%, rgba(199, 108, 49, .12), transparent 22%),
+    linear-gradient(180deg, #f4e7d1, #ecdfc7);
+}
+
 .mk-seraph__creature-body {
   width: 236px;
   height: 58px;
@@ -3184,6 +3238,33 @@
     linear-gradient(180deg, #31779a 0%, #2f6f88 48%, #d18c39 49%, #d18c39 60%, #2f6f88 61%, #56904f 100%);
   position: relative;
   box-shadow: 0 0 0 2px #866138 inset;
+}
+
+.mk-seraph__creature-body--hero {
+  width: 360px;
+  height: 88px;
+  border-radius: 56px 98px 42px 38px;
+  background:
+    radial-gradient(circle at 26px 18px, #d6552d 0 4px, transparent 5px),
+    radial-gradient(circle at 74px 26px, #d6552d 0 4px, transparent 5px),
+    radial-gradient(circle at 130px 16px, #d6552d 0 4px, transparent 5px),
+    radial-gradient(circle at 184px 26px, #d6552d 0 4px, transparent 5px),
+    radial-gradient(circle at 244px 16px, #d6552d 0 4px, transparent 5px),
+    linear-gradient(180deg, #31779a 0%, #2f6f88 46%, #d18c39 47%, #d18c39 59%, #2f6f88 60%, #56904f 100%);
+}
+
+.mk-seraph__creature-body--hero::before {
+  right: -28px;
+  top: 28px;
+  width: 54px;
+  height: 26px;
+}
+
+.mk-seraph__creature-body--hero::after {
+  left: 32px;
+  bottom: -18px;
+  width: 250px;
+  height: 18px;
 }
 
 .mk-seraph__creature-body::before {
@@ -3213,6 +3294,10 @@
 
 .mk-seraph--bestiary .mk-seraph__task:nth-child(4) {
   grid-template-columns: 180px .95fr 260px;
+}
+
+.mk-seraph--bestiary .mk-seraph__task-stack .mk-seraph__task:nth-child(4) {
+  grid-template-columns: 180px 1fr;
 }
 
 .mk-seraph__aside .mk-seraph__dial--large {
@@ -3510,6 +3595,7 @@
   .mk-seraph__summary-row,
   .mk-seraph__cards,
   .mk-seraph__margin-row,
+  .mk-seraph__bestiary-hero,
   .mk-seraph__terminal,
   .mk-seraph__diff-grid {
     grid-template-columns: 1fr;

@@ -572,7 +572,7 @@ function SeraphRefactorSurface() {
           I&apos;ll inspect the codebase, run the tests, implement the refactor with request tracing,
           update tests, and show you the diff before committing.
         </p>
-        <div className="mk-seraph__cards">
+        <div className="mk-seraph__cards mk-seraph__cards--asymmetric">
           <SeraphCard eyebrow="Inspection · I" title="Repository Inspection" status="Completed" footer="Ledger reconciled against 214 files." ornament={<div className="mk-seraph__sprout" />}>
             <p>Scanned project files and dependencies.</p>
             <small>Files scanned: 214 · Language: TypeScript</small>
@@ -665,6 +665,14 @@ $ git status --porcelain
             ]}
           />
         </SeraphSectionPlate>
+        <div className="mk-seraph__margin-row mk-seraph__margin-row--tail">
+          <SeraphMarginNote
+            eyebrow="Clerk note · c"
+            title="Seal condition"
+            body={<p>No seal before the diff, lint trace, and final ledger agree. This lower register should feel like a postscript tucked under the main apparatus.</p>}
+            ornament={<div className="mk-seraph__icon mk-seraph__icon--lizard" />}
+          />
+        </div>
         <SeraphSummaryRow
           items={[
             { eyebrow: 'gate · i', title: 'Tests / Validation', body: '12 passed, 12 total · Coverage: 92%', iconClass: 'mk-seraph__icon--torch' },
@@ -724,6 +732,16 @@ function SeraphBestiarySurface() {
           A grand endeavor. I&apos;ll research desert adaptations, draft concepts, and illustrate.
         </p>
         <SeraphSectionPlate eyebrow="Bestiary folio · iii" title="Creature notebook" meta="research + synthesis">
+          <div className="mk-seraph__bestiary-hero">
+            <div className="mk-seraph__bestiary-callout">
+              <div className="mk-seraph__eyebrow">specimen · dominant plate</div>
+              <h4>Mirage stalker</h4>
+              <p>Electrostatic dust veil, folded heat crest, and mirrored abdominal scales. The illustration should read as the sovereign artifact of the page.</p>
+            </div>
+            <div className="mk-seraph__creature mk-seraph__creature--hero">
+              <div className="mk-seraph__creature-body mk-seraph__creature-body--hero" />
+            </div>
+          </div>
           <div className="mk-seraph__task-stack">
             <SeraphTask
             title="Web Search"
@@ -758,7 +776,7 @@ function SeraphBestiarySurface() {
             eyebrow="Illumination · IV"
             tone="blueprint"
             leading={<><p>Prompt: illuminated manuscript desert creature</p><small>Style: Codex Seraphinianus</small></>}
-            body={<div className="mk-seraph__creature"><div className="mk-seraph__creature-body" /></div>}
+            body={<div className="mk-seraph__bestiary-caption">Primary plate promoted above; this panel now records the prompt and rendering notes rather than competing with the hero artifact.</div>}
             footer="Plate revised toward a denser folio silhouette and colder teal anatomy."
           />
             <SeraphTask
