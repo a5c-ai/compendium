@@ -58,7 +58,8 @@
     "build": "vite build && tsc --emitDeclarationOnly --declaration --declarationDir dist",
     "build-storybook": "storybook build",
     "lint": "tsc --noEmit",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "prepublishOnly": "npm run build",
     "changeset": "changeset",
     "release": "changeset publish"

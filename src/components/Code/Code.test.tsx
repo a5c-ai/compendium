@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { CodeEditor, DiffViewer } from './Code';
+import { CodeBlock, CodeEditor, DiffViewer } from './Code';
 
 describe('Code surfaces', () => {
   it('renders metadata-heavy editor file facts and embedded framing', () => {
@@ -29,6 +29,32 @@ describe('Code surfaces', () => {
     expect(html).toContain('tkc-editor__file-facts');
     expect(html).toContain('handbook / chapter-3');
     expect(html).toContain('scroll-safe');
+  });
+
+  it('renders terminal and empty block states from the story matrix', () => {
+    const terminalHtml = renderToStaticMarkup(
+      <CodeBlock
+        tone="terminal"
+        language="bash"
+        title="Bash / Terminal"
+        lineNumbers
+        code={`$ npm test -- auth\nPASS tests/auth.test.ts`}
+      />,
+    );
+    const emptyHtml = renderToStaticMarkup(
+      <CodeBlock
+        tone="blueprint"
+        language="text"
+        code="   "
+        emptyLabel="No snippet available for this figure"
+      />,
+    );
+
+    expect(terminalHtml).toContain('tkc-code--terminal');
+    expect(terminalHtml).toContain('$ npm test -- auth');
+    expect(terminalHtml).toContain('tkc-code__ln');
+    expect(emptyHtml).toContain('No snippet available for this figure');
+    expect(emptyHtml).toContain('tkc-code--blueprint');
   });
 
   it('renders one-sided diff layouts without the redundant opposite column', () => {
@@ -81,5 +107,35 @@ describe('Code surfaces', () => {
 
     expect(html).toContain('No diff available for this specimen yet');
     expect(html).toContain('0 files changed');
+  });
+
+  it('honors docs variant and initial-file selection for multi-file diffs', () => {
+    const html = renderToStaticMarkup(
+      <DiffViewer
+        variant="docs"
+        initialFile="src/mockups/MockupGallery.tsx"
+        files={[
+          {
+            filename: 'src/mockups/CodexPrimitives.tsx',
+            meta: 'docs shell',
+            after: `+ export function CodexDocsMargin({ sections, tone = 'default' }) { ... }`,
+            language: 'diff',
+          },
+          {
+            filename: 'src/mockups/MockupGallery.tsx',
+            meta: 'added file',
+            beforeEmptyLabel: 'Brand-new shared export',
+            after: `+ export function MockupGalleryControls(props) { return null; }`,
+            language: 'diff',
+          },
+        ]}
+      />,
+    );
+
+    expect(html).toContain('tkc-diff--docs');
+    expect(html).toContain('tkc-diff__columns--after');
+    expect(html).toContain('>Added<');
+    expect(html).toContain('MockupGalleryControls');
+    expect(html).not.toContain(`CodexDocsMargin({ sections, tone = 'default' })`);
   });
 });

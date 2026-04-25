@@ -557,11 +557,13 @@ export function CodexDashboardKpis({
 export function CodexDashboardPanel({
   headIndex,
   title,
+  actions,
   className,
   children,
 }: {
   headIndex?: ReactNode;
   title: ReactNode;
+  actions?: ReactNode;
   className?: string;
   children: ReactNode;
 }) {
@@ -570,6 +572,7 @@ export function CodexDashboardPanel({
       <header>
         {headIndex ? <b>{headIndex}</b> : null}
         <h3>{title}</h3>
+        {actions ? <div>{actions}</div> : null}
       </header>
       {children}
     </section>
