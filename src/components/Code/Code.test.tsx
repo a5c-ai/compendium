@@ -3,16 +3,21 @@ import { describe, expect, it } from 'vitest';
 import { CodeEditor, DiffViewer } from './Code';
 
 describe('Code surfaces', () => {
-  it('renders metadata-heavy editor facts and footer', () => {
+  it('renders metadata-heavy editor file facts and embedded framing', () => {
     const html = renderToStaticMarkup(
       <CodeEditor
+        frame="embedded"
+        density="compact"
         tone="default"
         language="tsx"
         filename="docs/snippets/quality-gate.tsx"
         fileMeta="handbook / chapter-3"
         status="verified"
-        facts={[
+        fileFacts={[
           { label: 'surface', value: 'docs' },
+          { label: 'theme', value: 'vellum / void' },
+        ]}
+        facts={[
           { label: 'a11y', value: 'AA+', tone: 'success' },
         ]}
         footer={<><span>docs embed</span><span>scroll-safe</span></>}
@@ -20,19 +25,21 @@ describe('Code surfaces', () => {
       />,
     );
 
-    expect(html).toContain('tkc-code__facts');
+    expect(html).toContain('tkc-editor--frame-embedded');
+    expect(html).toContain('tkc-editor__file-facts');
     expect(html).toContain('handbook / chapter-3');
     expect(html).toContain('scroll-safe');
   });
 
-  it('renders placeholders for one-sided and empty diff states', () => {
+  it('renders one-sided diff layouts without the redundant opposite column', () => {
     const html = renderToStaticMarkup(
       <DiffViewer
-        title="Code changes"
+        frame="parchment"
         files={[
           {
             filename: 'src/mockups/MockupGallery.tsx',
             meta: 'new',
+            layout: 'after',
             after: `+ export const MOCKUP_COLUMN_OPTIONS = [];`,
             language: 'diff',
           },
@@ -40,8 +47,31 @@ describe('Code surfaces', () => {
       />,
     );
 
-    expect(html).toContain('No previous revision');
+    expect(html).toContain('tkc-diff--frame-parchment');
+    expect(html).toContain('tkc-diff__columns--after');
     expect(html).toContain('MOCKUP_COLUMN_OPTIONS');
+    expect(html).not.toContain('No previous revision');
+  });
+
+  it('renders explicit before-only diffs and preserves file metadata', () => {
+    const html = renderToStaticMarkup(
+      <DiffViewer
+        files={[
+          {
+            filename: 'src/legacy/exampleShell.tsx',
+            meta: 'removed',
+            layout: 'before',
+            facts: [{ label: 'reason', value: 'shared extraction' }],
+            before: `- export function ExampleShell() { return null }`,
+            language: 'diff',
+          },
+        ]}
+      />,
+    );
+
+    expect(html).toContain('tkc-diff__columns--before');
+    expect(html).toContain('shared extraction');
+    expect(html).not.toContain('No current revision');
   });
 
   it('renders the empty diff surface when no files are present', () => {

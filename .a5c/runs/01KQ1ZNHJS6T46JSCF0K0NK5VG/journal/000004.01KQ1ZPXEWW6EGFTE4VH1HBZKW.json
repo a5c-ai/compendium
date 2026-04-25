@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-25T09:32:10.076Z",
+  "data": {
+    "effectId": "01KQ1ZPXE8D2SHSW1443W5VRBR",
+    "invocationKey": "rebase-ads-conflict-resolution:S000002:rebase-resolve-ads-conflicts",
+    "invocationHash": "7824d90703908168676d516b71be1b1a125f5fd672f821f746587ebe4c8d4be2",
+    "stepId": "S000002",
+    "taskId": "rebase-resolve-ads-conflicts",
+    "kind": "agent",
+    "label": "rebase",
+    "taskDefRef": "tasks/01KQ1ZPXE8D2SHSW1443W5VRBR/task.json",
+    "labels": [
+      "rebase",
+      "implementation",
+      "conflicts"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc3f0-a90f-7f73-9fac-e5d083b47ff2"
+  },
+  "checksum": "95afa00458208106a65c7262a193e062ebc3fa846ba48fbf4c3964911f136605"
+}

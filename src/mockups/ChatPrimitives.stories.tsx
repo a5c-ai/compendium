@@ -124,10 +124,16 @@ export const WorkspaceScaffold: Story = {
                     body={(
                       <CodeEditor
                         tone="blueprint"
+                        frame="embedded"
+                        density="compact"
                         language="text"
                         filename="ledger.query"
                         fileMeta="carrier tariff · queue a"
                         status="rows=6 · 412ms"
+                        fileFacts={[
+                          { label: 'mode', value: 'read-only' },
+                          { label: 'surface', value: 'tool card' },
+                        ]}
                         facts={[
                           { label: 'review', value: '6 flagged' },
                           { label: 'confidence', value: 'high', tone: 'success' },

@@ -23,6 +23,15 @@ export interface AdsCardStanza {
   body: ReactNode;
 }
 
+export interface AdsSlotProps {
+  index: ReactNode;
+  size: ReactNode;
+  name: ReactNode;
+  notes?: ReactNode;
+  stackClassName?: string;
+  children: ReactNode;
+}
+
 export function AdsSlot({
   index,
   size,
@@ -30,14 +39,7 @@ export function AdsSlot({
   notes,
   stackClassName,
   children,
-}: {
-  index: ReactNode;
-  size: ReactNode;
-  name: ReactNode;
-  notes?: ReactNode;
-  stackClassName?: string;
-  children: ReactNode;
-}) {
+}: AdsSlotProps) {
   return (
     <article className="mk-ads-slot">
       <div className="mk-ads-slot__title">
@@ -55,15 +57,17 @@ export function AdsSlot({
   );
 }
 
+export interface AdsSheetProps {
+  label: ReactNode;
+  size: ReactNode;
+  children: ReactNode;
+}
+
 export function AdsSheet({
   label,
   size,
   children,
-}: {
-  label: ReactNode;
-  size: ReactNode;
-  children: ReactNode;
-}) {
+}: AdsSheetProps) {
   return (
     <div className="mk-ads-sheet">
       <div className="mk-ads-sheet__rule">
@@ -98,8 +102,8 @@ export function AdsSpecs({
 }) {
   return (
     <div className="mk-ads-specs">
-      {items.map((item) => (
-        <Fragment key={String(item.label)}>
+      {items.map((item, index) => (
+        <Fragment key={`${String(item.label)}-${index}`}>
           <span>{item.label}</span>
           <strong>{item.value}</strong>
         </Fragment>
@@ -308,4 +312,215 @@ export function AdsCard({
   children: ReactNode;
 }) {
   return <div className={adsCardClasses(variant, tone)}>{children}</div>;
+}
+
+export interface AdsSlotNoteSpec {
+  label: ReactNode;
+  value: ReactNode;
+}
+
+export interface AdsRule {
+  left: ReactNode;
+  right: ReactNode;
+}
+
+export interface AdsChapter {
+  number: ReactNode;
+  label: ReactNode;
+  detail: ReactNode;
+  stacked?: boolean;
+}
+
+export interface AdsCatalogCardBase {
+  kind: 'mr' | 'lb' | 'sky' | 'poster';
+  theme?: AdsCardTone;
+  folio?: ReactNode;
+}
+
+export interface AdsMediumRectangleCard extends AdsCatalogCardBase {
+  kind: 'mr';
+  chapter: AdsChapter;
+  headline: ReactNode;
+  brandTitle: ReactNode;
+  brandBody: ReactNode;
+  action: ReactNode;
+  tickerLeft: ReactNode;
+  tickerRight: ReactNode;
+}
+
+export interface AdsLeaderboardCard extends AdsCatalogCardBase {
+  kind: 'lb';
+  badge: { number: ReactNode; label: ReactNode };
+  eyebrow: ReactNode;
+  headline: ReactNode;
+  brandTitle: ReactNode;
+  action: ReactNode;
+}
+
+export interface AdsSkyscraperCard extends AdsCatalogCardBase {
+  kind: 'sky';
+  chapter: AdsChapter;
+  headline: ReactNode;
+  proof: ReactNode;
+  actions: readonly ReactNode[];
+}
+
+export interface AdsPosterCard extends AdsCatalogCardBase {
+  kind: 'poster';
+  chapter: AdsChapter;
+  headline: ReactNode;
+  figure: ReactNode;
+  figureTone?: 'default' | 'words';
+  stanzas: readonly AdsCardStanza[];
+  brandTitle: ReactNode;
+  brandBody: ReactNode;
+  action: ReactNode;
+}
+
+export type AdsCatalogCard =
+  | AdsMediumRectangleCard
+  | AdsLeaderboardCard
+  | AdsSkyscraperCard
+  | AdsPosterCard;
+
+export interface AdsSheetItem {
+  rule: AdsRule;
+  card: AdsCatalogCard;
+}
+
+export interface AdsSlotItem {
+  number: ReactNode;
+  size: ReactNode;
+  name: ReactNode;
+  orientation?: 'stack' | 'row';
+  sheets: readonly AdsSheetItem[];
+  note: ReactNode;
+  specs?: readonly AdsSlotNoteSpec[];
+}
+
+function renderCatalogCard(card: AdsCatalogCard) {
+  if (card.kind === 'mr') {
+    return (
+      <AdsCard variant="medium-rectangle" tone={card.theme}>
+        {card.folio ? <AdsCardFolio>{card.folio}</AdsCardFolio> : null}
+        <AdsChapterBand index={card.chapter.number} title={card.chapter.label} subtitle={card.chapter.detail} stacked={card.chapter.stacked} />
+        <h3>{card.headline}</h3>
+        <AdsCardFooter
+          brand={card.brandTitle}
+          body={card.brandBody}
+          cta={card.action}
+        />
+        <AdsCardTicker left={card.tickerLeft} right={card.tickerRight} />
+      </AdsCard>
+    );
+  }
+
+  if (card.kind === 'lb') {
+    return (
+      <AdsCard variant="leaderboard" tone={card.theme}>
+        <AdsLeaderboardBadge index={card.badge.number} label={card.badge.label} />
+        <AdsLeaderboardBody eyebrow={card.eyebrow} title={card.headline} />
+        <AdsLeaderboardDivider />
+        <AdsLeaderboardCta brand={card.brandTitle} cta={card.action} />
+      </AdsCard>
+    );
+  }
+
+  if (card.kind === 'sky') {
+    return (
+      <AdsCard variant="skyscraper" tone={card.theme}>
+        {card.folio ? <AdsCardFolio>{card.folio}</AdsCardFolio> : null}
+        <AdsChapterBand index={card.chapter.number} title={card.chapter.label} subtitle={card.chapter.detail} stacked={card.chapter.stacked} />
+        <AdsCardSpine title={card.headline} />
+        <AdsCardProof>{card.proof}</AdsCardProof>
+        <AdsCardActionColumn>
+          {card.actions.map((action, index) => (
+            <Fragment key={index}>{action}</Fragment>
+          ))}
+        </AdsCardActionColumn>
+      </AdsCard>
+    );
+  }
+
+  return (
+    <AdsCard variant="poster" tone={card.theme}>
+      {card.folio ? <AdsCardFolio>{card.folio}</AdsCardFolio> : null}
+      <AdsChapterBand index={card.chapter.number} title={card.chapter.label} subtitle={card.chapter.detail} stacked={card.chapter.stacked} />
+      <h3>{card.headline}</h3>
+      <AdsCardFigure label={card.figure} words={card.figureTone === 'words'} />
+      <AdsCardStanzas items={card.stanzas} />
+      <AdsCardFooter
+        brand={card.brandTitle}
+        body={card.brandBody}
+        cta={card.action}
+      />
+    </AdsCard>
+  );
+}
+
+function AdsCatalogSheet({ rule, card }: AdsSheetItem) {
+  return (
+    <AdsSheet label={rule.left} size={rule.right}>
+      {renderCatalogCard(card)}
+    </AdsSheet>
+  );
+}
+
+function AdsCatalogSlot({
+  number,
+  size,
+  name,
+  orientation = 'stack',
+  sheets,
+  note,
+  specs,
+}: AdsSlotItem) {
+  return (
+    <AdsSlot
+      index={number}
+      size={size}
+      name={name}
+      stackClassName={orientation === 'row' ? 'mk-ads-stack--row' : undefined}
+      notes={(
+        <AdsNotes
+          body={note}
+          specs={specs?.length ? <AdsSpecs items={specs} /> : undefined}
+        />
+      )}
+    >
+      {sheets.map((sheet, index) => (
+        <AdsCatalogSheet key={index} {...sheet} />
+      ))}
+    </AdsSlot>
+  );
+}
+
+export function AdsCatalog({
+  title,
+  emphasis,
+  meta,
+  slots,
+}: {
+  title: ReactNode;
+  emphasis: ReactNode;
+  meta: readonly ReactNode[];
+  slots: readonly AdsSlotItem[];
+}) {
+  return (
+    <section className="mk-ads">
+      <header className="mk-ads__head">
+        <h2>
+          {title} <em>{emphasis}</em>
+        </h2>
+        <div className="mk-ads__meta">
+          {meta.map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
+        </div>
+      </header>
+      {slots.map((slot, index) => (
+        <AdsCatalogSlot key={index} {...slot} />
+      ))}
+    </section>
+  );
 }

@@ -1,0 +1,268 @@
+{
+  "agent": {
+    "name": "design-system-architect",
+    "outputSchema": {
+      "properties": {
+        "apiChanges": {
+          "items": {
+            "properties": {
+              "change": {
+                "type": "string"
+              },
+              "component": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "component",
+              "change",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "implementationPlan": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "recurringWrappers": {
+          "items": {
+            "properties": {
+              "files": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "pattern": {
+                "type": "string"
+              },
+              "sharedApiOpportunity": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "pattern",
+              "files",
+              "sharedApiOpportunity"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "risks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "runtimeContexts": {
+          "items": {
+            "properties": {
+              "files": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "name": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "files",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "storyCoverage": {
+          "items": {
+            "properties": {
+              "reason": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "storyTarget": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "state",
+              "storyTarget",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "targetStateMatrix": {
+          "items": {
+            "properties": {
+              "context": {
+                "type": "string"
+              },
+              "diffShape": {
+                "type": "string"
+              },
+              "embedded": {
+                "type": "string"
+              },
+              "emptyState": {
+                "type": "string"
+              },
+              "framing": {
+                "type": "string"
+              },
+              "metadata": {
+                "type": "string"
+              },
+              "surface": {
+                "type": "string"
+              },
+              "themes": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "surface",
+              "context",
+              "framing",
+              "metadata",
+              "emptyState",
+              "diffShape",
+              "embedded",
+              "themes"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "testCoverage": {
+          "items": {
+            "properties": {
+              "reason": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "testTarget": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "state",
+              "testTarget",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "validationPlan": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "runtimeContexts",
+        "targetStateMatrix",
+        "recurringWrappers",
+        "apiChanges",
+        "storyCoverage",
+        "testCoverage",
+        "implementationPlan",
+        "validationPlan",
+        "risks"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "focusFiles": [
+          "src/components/Code/Code.tsx",
+          "src/components/Code/Code.stories.tsx",
+          "src/components/Code/Code.test.tsx",
+          "src/components/components.css",
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/ChatPrimitives.stories.tsx",
+          "src/mockups/CodexPrimitives.tsx",
+          "src/mockups/mockups.css"
+        ],
+        "projectDir": ".",
+        "targetThemes": [
+          "vellum",
+          "void"
+        ],
+        "ticket": "Deepen Code, Editor, and Diff primitives for metadata-heavy, embedded, and asymmetric contexts"
+      },
+      "instructions": [
+        "Treat this as a brownfield convergence pass on a shared component family, not a one-off mock cleanup.",
+        "Inspect the live reusable code paths first, then inspect the richer docs/chat/mock compositions that currently consume or work around them.",
+        "Produce an explicit targetStateMatrix covering documentation, chat, and mock contexts.",
+        "Each matrix item must name the surface, context, framing treatment, metadata density, empty-state behavior, diff symmetry, embedded requirements, and theme expectations.",
+        "Identify recurring composition-specific wrappers or surrounding markup that should be absorbed into the shared APIs.",
+        "Call out missing prop surfaces for file metadata, framing treatment, empty states, one-sided diffs, embedded usage, and asymmetric comparisons.",
+        "Produce an ordered file-level implementation plan, plus direct story and test coverage requirements for each high-risk state.",
+        "Do not propose speculative redesigns outside the code/editor/diff family and its direct shared consumers."
+      ],
+      "outputFormat": "JSON with:\n  runtimeContexts: Array<{ name: string, files: string[], reason: string }>,\n  targetStateMatrix: Array<{ surface: string, context: string, framing: string, metadata: string, emptyState: string, diffShape: string, embedded: string, themes: string[] }>,\n  recurringWrappers: Array<{ pattern: string, files: string[], sharedApiOpportunity: string }>,\n  apiChanges: Array<{ component: string, change: string, reason: string }>,\n  storyCoverage: Array<{ state: string, storyTarget: string, reason: string }>,\n  testCoverage: Array<{ state: string, testTarget: string, reason: string }>,\n  implementationPlan: string[],\n  validationPlan: string[],\n  risks: string[]",
+      "role": "principal frontend architect for brownfield design systems",
+      "task": "Audit the current code, editor, and diff primitives against the richer docs, chat, and mock compositions in the repo."
+    }
+  },
+  "description": "Build the target-state matrix and identify recurring composition wrappers that should become reusable APIs.",
+  "io": {
+    "inputJsonPath": "tasks/01KQ1XVQEFN38C5ZPKECWD26JB/input.json",
+    "outputJsonPath": "tasks/01KQ1XVQEFN38C5ZPKECWD26JB/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "audit",
+    "code-surface",
+    "compendium"
+  ],
+  "title": "Audit code, editor, and diff surfaces",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ1XVQEFN38C5ZPKECWD26JB",
+  "taskId": "code-surface-expansion-audit",
+  "invocationKey": "code-surface-expansion:S000001:code-surface-expansion-audit",
+  "stepId": "S000001",
+  "inputs": {
+    "focusFiles": [
+      "src/components/Code/Code.tsx",
+      "src/components/Code/Code.stories.tsx",
+      "src/components/Code/Code.test.tsx",
+      "src/components/components.css",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/ChatPrimitives.stories.tsx",
+      "src/mockups/CodexPrimitives.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "projectDir": ".",
+    "targetThemes": [
+      "vellum",
+      "void"
+    ],
+    "ticket": "Deepen Code, Editor, and Diff primitives for metadata-heavy, embedded, and asymmetric contexts"
+  }
+}

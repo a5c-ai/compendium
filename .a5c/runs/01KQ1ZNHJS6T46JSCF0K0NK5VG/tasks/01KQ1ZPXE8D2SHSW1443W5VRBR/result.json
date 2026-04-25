@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ1ZPXE8D2SHSW1443W5VRBR",
+  "taskId": "rebase-resolve-ads-conflicts",
+  "invocationKey": "rebase-ads-conflict-resolution:S000002:rebase-resolve-ads-conflicts",
+  "status": "ok",
+  "result": {
+    "changedFiles": [
+      "src/mockups/AdsPrimitives.tsx",
+      "src/mockups/AdsPrimitives.stories.tsx",
+      "src/mockups/MockupPreviews.tsx"
+    ],
+    "residualRisks": [
+      "The merged AdsCatalog layer now depends on the primitive renderer contracts, so later type or markup changes should update both layers together."
+    ],
+    "stagedFiles": [
+      "src/mockups/AdsPrimitives.tsx",
+      "src/mockups/AdsPrimitives.stories.tsx",
+      "src/mockups/MockupPreviews.tsx"
+    ],
+    "summary": "Merged the low-level Ads primitive exports with the higher-level AdsCatalog layer in a single module, kept both story entry styles available, and rewired MockupPreviews to stay on the shared catalog-driven AdsSurface."
+  },
+  "startedAt": "2026-04-25T09:32:23.078Z",
+  "finishedAt": "2026-04-25T09:32:23.078Z",
+  "value": {
+    "changedFiles": [
+      "src/mockups/AdsPrimitives.tsx",
+      "src/mockups/AdsPrimitives.stories.tsx",
+      "src/mockups/MockupPreviews.tsx"
+    ],
+    "residualRisks": [
+      "The merged AdsCatalog layer now depends on the primitive renderer contracts, so later type or markup changes should update both layers together."
+    ],
+    "stagedFiles": [
+      "src/mockups/AdsPrimitives.tsx",
+      "src/mockups/AdsPrimitives.stories.tsx",
+      "src/mockups/MockupPreviews.tsx"
+    ],
+    "summary": "Merged the low-level Ads primitive exports with the higher-level AdsCatalog layer in a single module, kept both story entry styles available, and rewired MockupPreviews to stay on the shared catalog-driven AdsSurface."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "runId": "01KQ1XVH984CJST6EGTE5R53MD",
+  "request": "code-surface-expansion",
+  "processId": "code-surface-expansion",
+  "harness": "codex",
+  "entrypoint": {
+    "importPath": "../../processes/code-surface-expansion.js",
+    "exportName": "process"
+  },
+  "processPath": "../../processes/code-surface-expansion.js",
+  "layoutVersion": "2026.01-storage-preview",
+  "createdAt": "2026-04-25T08:59:44.309Z",
+  "nonInteractive": true,
+  "completionProof": "db8191bea9b095ba87d0cb8c61258c36"
+}

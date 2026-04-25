@@ -95,8 +95,14 @@ export type {
   DiffFileViewProps,
   DiffViewerProps,
   DiffFile,
+  CodeFactItem,
   CodeTone,
   CodeLanguage,
+  CodeFrame,
+  CodeDensity,
+  CodeFactTone,
+  DiffFileLayout,
+  DiffViewerVariant,
 } from "./Code";
 
 /* Tooltip */

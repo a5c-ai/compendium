@@ -1,0 +1,97 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "conflictedFiles": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "fileDecisions": {
+          "items": {
+            "properties": {
+              "decision": {
+                "type": "string"
+              },
+              "file": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "file",
+              "decision"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "mergeDirection": {
+          "type": "string"
+        },
+        "risks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "conflictedFiles",
+        "mergeDirection",
+        "fileDecisions",
+        "risks"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "branch": "vk/47a9-deepen-code-edit",
+        "conflictedFiles": [
+          "src/mockups/AdsPrimitives.stories.tsx",
+          "src/mockups/AdsPrimitives.tsx",
+          "src/mockups/MockupPreviews.tsx"
+        ],
+        "onto": "main",
+        "repo": "compendium"
+      },
+      "instructions": [
+        "Keep the summary tightly scoped to the active rebase.",
+        "Identify the merge direction for each conflicted file.",
+        "Call out any API collisions or export risks that the resolution must preserve.",
+        "Return structured JSON only."
+      ],
+      "outputFormat": "JSON with:\n  conflictedFiles: string[],\n  mergeDirection: string,\n  fileDecisions: Array<{ file: string, decision: string }>,\n  risks: string[]",
+      "role": "senior engineer auditing an in-progress git rebase",
+      "task": "Summarize the current conflict state and the intended resolution direction."
+    }
+  },
+  "description": "Capture the active rebase position, intended merge direction, and conflicted files before editing.",
+  "io": {
+    "inputJsonPath": "tasks/01KQ1ZNV7D5S0TQYPFM9KVR9P8/input.json",
+    "outputJsonPath": "tasks/01KQ1ZNV7D5S0TQYPFM9KVR9P8/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "audit",
+    "conflicts",
+    "rebase"
+  ],
+  "title": "Audit current rebase conflict state",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ1ZNV7D5S0TQYPFM9KVR9P8",
+  "taskId": "rebase-audit-conflict-state",
+  "invocationKey": "rebase-ads-conflict-resolution:S000001:rebase-audit-conflict-state",
+  "stepId": "S000001",
+  "inputs": {
+    "branch": "vk/47a9-deepen-code-edit",
+    "conflictedFiles": [
+      "src/mockups/AdsPrimitives.stories.tsx",
+      "src/mockups/AdsPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx"
+    ],
+    "onto": "main",
+    "repo": "compendium"
+  }
+}

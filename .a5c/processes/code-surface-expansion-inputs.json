@@ -1,0 +1,11 @@
+{
+  "ticket": "Deepen Code, Editor, and Diff primitives for metadata-heavy, embedded, and asymmetric contexts",
+  "projectDir": ".",
+  "targetThemes": ["vellum", "void"],
+  "requiredCommands": [
+    "npm run lint",
+    "npm run test -- --run",
+    "npm run build",
+    "npm run build-storybook"
+  ]
+}

@@ -43,6 +43,14 @@ const meta: Meta<typeof CodeBlock> = {
       control: "select",
       options: ["ts", "tsx", "js", "jsx", "json", "bash", "diff", "text"],
     },
+    frame: {
+      control: "inline-radio",
+      options: ["default", "embedded", "parchment"],
+    },
+    density: {
+      control: "inline-radio",
+      options: ["default", "compact"],
+    },
     lineNumbers: {
       control: "boolean",
     },
@@ -50,6 +58,8 @@ const meta: Meta<typeof CodeBlock> = {
   args: {
     tone: "default",
     language: "ts",
+    frame: "default",
+    density: "default",
     lineNumbers: true,
     title: "Code Block",
     meta: "theme aware",
@@ -71,14 +81,30 @@ export const Terminal: Story = {
   },
 };
 
+export const EmbeddedDocsBlock: Story = {
+  args: {
+    frame: "embedded",
+    density: "compact",
+    title: "Canonical Gate",
+    meta: "docs embed · verdict.example.ts",
+    footer: <><span>embedded in article flow</span><span>vellum / void aware</span></>,
+    code: `export const verdict = {\n  decision: "defer",\n  reason: "manifest is silent on pricing policy",\n  nextStep: "summon human reviewer",\n};`,
+  },
+};
+
 export const BlueprintEditor: StoryObj<typeof CodeEditor> = {
   render: (args) => <CodeEditor {...args} />,
   args: {
     tone: "blueprint",
     language: "text",
+    density: "compact",
     filename: "ledger.query",
     fileMeta: "warehouse/eu-west-2",
     status: "rows=6 · 412ms",
+    fileFacts: [
+      { label: "mode", value: "read only" },
+      { label: "latency", value: "412ms" },
+    ],
     facts: [
       { label: "owner", value: "archivist-04" },
       { label: "confidence", value: "high", tone: "success" },
@@ -92,18 +118,25 @@ export const MetadataHeavyEditor: StoryObj<typeof CodeEditor> = {
   render: () => (
     <CodeEditor
       tone="default"
+      frame="embedded"
+      density="compact"
       language="tsx"
       title="docs/snippets/quality-gate.tsx"
       filename="docs/snippets/quality-gate.tsx"
       fileMeta="source · handbook / chapter-3"
       status="verified · 2026-04-24"
-      facts={[
+      fileFacts={[
         { label: "surface", value: "docs embed" },
-        { label: "theme", value: "vellum" },
+        { label: "theme", value: "vellum / void" },
+        { label: "sync", value: "storybook", tone: "success" },
+      ]}
+      facts={[
+        { label: "owner", value: "editor-11" },
         { label: "a11y", value: "AA+", tone: "success" },
+        { label: "open threads", value: "2", tone: "warning" },
       ]}
       footer={<><span>Inline in docs and Storybook MDX</span><span>scroll-safe</span></>}
-      code={`export function QualityGateNotice() {\n  return <aside data-tone=\"pass\">Proof required before seal.</aside>;\n}`}
+      code={`export function QualityGateNotice() {\n  return <aside data-tone="pass">Proof required before seal.</aside>;\n}`}
       lineNumbers
     />
   ),
@@ -134,28 +167,30 @@ export const SideBySideDiff: StoryObj<typeof DiffViewer> = {
   ),
 };
 
-export const DocsEmbeddedDiff: StoryObj<typeof DiffViewer> = {
+export const AlternateFrameDiff: StoryObj<typeof DiffViewer> = {
   render: () => (
     <DiffViewer
-      variant="docs"
-      title="Documentation figure · multi-surface diff"
-      meta="2 files · metadata-heavy"
+      frame="parchment"
+      title="Refactor diff · request tracing"
+      meta="2 files · auth flow"
       files={[
         {
-          filename: "src/mockups/CodexPrimitives.tsx",
-          label: "Codex docs frame",
-          meta: "docs shell",
-          note: "Adds an explicit metadata rail so the same frame can host long-form docs and dense preview explanations without wrapper markup.",
-          before: `- export function CodexDocsMargin({ sections }) { ... }`,
-          after: `+ export function CodexDocsMargin({ sections, tone = 'default' }) { ... }`,
+          filename: "src/middleware/auth.ts",
+          meta: "middleware",
+          note: "Auth failures now carry the same request id used by the tracing helper and downstream docs examples.",
+          facts: [
+            { label: "impact", value: "api + docs" },
+            { label: "risk", value: "low", tone: "success" },
+          ],
+          before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
+          after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
           language: "diff",
         },
         {
-          filename: "src/mockups/MockupGallery.tsx",
-          label: "New gallery control surface",
-          meta: "added file",
-          beforeEmptyLabel: "Brand-new shared export",
-          after: `+ export function MockupGalleryControls(props) {\n+   return <section className=\"mk-gallery-controls\">…</section>;\n+ }`,
+          filename: "tests/auth.test.ts",
+          meta: "vitest",
+          layout: "after",
+          after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
           language: "diff",
         },
       ]}
@@ -163,36 +198,76 @@ export const DocsEmbeddedDiff: StoryObj<typeof DiffViewer> = {
   ),
 };
 
-export const EmptyAndOneSidedStates: StoryObj<typeof DiffViewer> = {
+export const OneSidedAndAsymmetricDiffs: StoryObj<typeof DiffViewer> = {
   render: () => (
     <div className="tkc-demo__grid-2">
       <DiffViewer
         variant="chat"
+        frame="embedded"
+        density="compact"
         title="Chat attachment diff"
         meta="one-sided states"
         files={[
           {
-            filename: "src/components/Code/Code.tsx",
-            meta: "modified",
-            before: `- export interface DiffFile { filename: string }`,
-            after: `+ export interface DiffFile { filename: string; meta?: ReactNode }`,
-            language: "diff",
-          },
-          {
             filename: "src/mockups/MockupGallery.tsx",
             meta: "new",
-            beforeEmptyLabel: "Introduced in this revision",
-            after: `+ export const MOCKUP_COLUMN_OPTIONS = [...]`,
+            layout: "after",
+            afterEmptyLabel: "Current revision is the source of truth",
+            after: `+ export const MOCKUP_COLUMN_OPTIONS = ['All', 'Docs', 'Chat'];`,
             language: "diff",
           },
           {
             filename: "src/legacy/exampleShell.tsx",
             meta: "removed",
+            layout: "before",
             before: `- export function ExampleShell() { return null }`,
-            afterEmptyLabel: "Removed after shared extraction",
+            beforeEmptyLabel: "Archived for migration notes",
+            language: "diff",
+          },
+          {
+            filename: "src/components/Code/Code.tsx",
+            meta: "modified",
+            before: `- export interface DiffFile { filename: string }`,
+            after: `+ export interface DiffFile { filename: string; layout?: DiffFileLayout }`,
             language: "diff",
           },
         ]}
+      />
+      <DiffViewer
+        frame="parchment"
+        title="Focused after-state"
+        meta="explicit asymmetric layout"
+        files={[
+          {
+            filename: "src/components/Code/Code.tsx",
+            meta: "after emphasis",
+            layout: "after",
+            before: `- export interface CodeEditorProps extends CodeBlockProps { fileMeta?: React.ReactNode }`,
+            after: `+ export interface CodeEditorProps extends CodeBlockProps { fileMeta?: React.ReactNode; fileFacts?: readonly CodeFactItem[] }`,
+            language: "diff",
+          },
+        ]}
+      />
+    </div>
+  ),
+};
+
+export const EmptyStates: StoryObj<typeof DiffViewer> = {
+  render: () => (
+    <div className="tkc-demo__grid-2">
+      <CodeEditor
+        frame="embedded"
+        density="compact"
+        language="tsx"
+        filename="docs/snippets/pending.tsx"
+        fileMeta="awaiting first draft"
+        status="empty"
+        fileFacts={[
+          { label: "surface", value: "docs" },
+          { label: "state", value: "queued", tone: "warning" },
+        ]}
+        emptyLabel="Snippet body has not been authored yet"
+        code=""
       />
       <DiffViewer
         title="Empty diff surface"

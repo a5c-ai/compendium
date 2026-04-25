@@ -25,14 +25,9 @@ import {
   SeraphCard,
   SeraphComposer,
   SeraphCrest,
-  SeraphDivider,
   SeraphFolioBorder,
-  SeraphHeroPlate,
-  SeraphMarginNote,
   SeraphPromptBar,
-  SeraphSectionPlate,
   SeraphSidebar,
-  SeraphSpecimenPlate,
   SeraphSummaryRow,
   SeraphTask,
   SeraphWindow,
@@ -142,7 +137,7 @@ import {
   AdsSpecs,
 } from './AdsPrimitives';
 import {
-  MockupGalleryControls,
+  MockupGalleryControls as SharedMockupGalleryControls,
   MockupSpecList,
 } from './MockupPreviewPrimitives';
 import './mockups.css';
@@ -169,6 +164,7 @@ export interface MockupDefinition {
   render: () => ReactElement;
   sourceLabel?: string;
 }
+
 function AdsSurface() {
   return (
     <section className="mk-ads">
@@ -532,10 +528,16 @@ function ChatSurface() {
                     body={(
                       <CodeEditor
                         tone="blueprint"
+                        frame="embedded"
+                        density="compact"
                         language="text"
                         filename="ledger.query"
                         fileMeta="carrier tariff · queue a"
                         status="rows=6 · 412ms"
+                        fileFacts={[
+                          { label: 'mode', value: 'read-only' },
+                          { label: 'surface', value: 'tool card' },
+                        ]}
                         facts={[
                           { label: 'review', value: '6 flagged' },
                           { label: 'confidence', value: '92%', tone: 'success' },
@@ -609,7 +611,7 @@ function SeraphRefactorSurface() {
   return (
     <SeraphWindow>
       <SeraphSidebar
-        rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic', caption: 'folio · vii' }}
+        rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic' }}
         crest={<SeraphCrest />}
         threads={conversations.map(([title, subtitle, when, current]) => ({ title, subtitle, when, current }))}
         medallion="✺"
@@ -632,19 +634,12 @@ function SeraphRefactorSurface() {
           I&apos;ll inspect the codebase, run the tests, implement the refactor with request tracing,
           update tests, and show you the diff before committing.
         </p>
-        <SeraphHeroPlate
-          eyebrow="Commission · opening plate"
-          title={<>Refactor, trace, and <em>show the leaves</em>.</>}
-          body={<p>The brief is not only to make the middleware correct, but to leave behind a readable instrument: what changed, why it changed, and which seals were earned.</p>}
-          aside={<div className="mk-seraph__hero-seal">✺<small>refactor folio</small></div>}
-        />
-        <SeraphDivider label="working register" />
-        <div className="mk-seraph__cards mk-seraph__cards--asymmetric mk-seraph__cards--folio">
-          <SeraphCard eyebrow="Inspection · I" title="Repository Inspection" status="Completed" footer="Ledger reconciled against 214 files." ornament={<div className="mk-seraph__sprout" />}>
+        <div className="mk-seraph__cards">
+          <SeraphCard title="Repository Inspection" status="Completed" ornament={<div className="mk-seraph__sprout" />}>
             <p>Scanned project files and dependencies.</p>
             <small>Files scanned: 214 · Language: TypeScript</small>
           </SeraphCard>
-          <SeraphCard eyebrow="Runtime path · II" title="Key Files Found" footer="Primary execution seam traced to auth middleware." ornament={<div className="mk-seraph__sprout mk-seraph__sprout--small" />}>
+          <SeraphCard title="Key Files Found" ornament={<div className="mk-seraph__sprout mk-seraph__sprout--small" />}>
             <ul>
               <li>`src/middleware/auth.ts`</li>
               <li>`src/lib/requestTracing.ts`</li>
@@ -652,7 +647,7 @@ function SeraphRefactorSurface() {
               <li>`src/server.ts`</li>
             </ul>
           </SeraphCard>
-          <SeraphCard eyebrow="Action register · III" title="Plan" status="Completed" tone="botanic" footer="Outcome must remain reviewable before any seal." ornament={<div className="mk-seraph__tree" />}>
+          <SeraphCard title="Plan" status="Completed" ornament={<div className="mk-seraph__tree" />}>
             <ol>
               <li>Analyze existing middleware</li>
               <li>Add request tracing</li>
@@ -662,34 +657,14 @@ function SeraphRefactorSurface() {
               <li>Show diff</li>
             </ol>
           </SeraphCard>
-          <div className="mk-seraph__cards-note">
-            <div className="mk-seraph__eyebrow">folio note · iii-b</div>
-            <p>Operational proof accumulates unevenly. The reference page tightens on the left first, then descends into the machine register and ledger in a deliberately hand-set sequence.</p>
-          </div>
         </div>
-        <div className="mk-seraph__margin-row">
-          <SeraphMarginNote
-            eyebrow="Marginalia · a"
-            title="Review posture"
-            body={<p>Three surfaces carry the proof: the terminal trace, the diff book, and the final ledger. The page should read like a bound instrument, not a generic chat shell.</p>}
-            ornament={<div className="mk-seraph__icon mk-seraph__icon--vine" />}
-          />
-          <SeraphMarginNote
-            eyebrow="Marginalia · b"
-            title="Palette"
-            body={<p>Brass, teal, cinnabar, and faded paper need to stay visibly separated. The reference relies on dense but disciplined contrast, especially around rails and medallions.</p>}
-            ornament={<div className="mk-seraph__icon mk-seraph__icon--totem" />}
-          />
-        </div>
-        <SeraphSectionPlate eyebrow="Mechanical trace · iv" title="Repository instrumentation" meta="terminal + worktree" tone="blueprint">
-          <div className="mk-seraph__terminal">
-            <div className="mk-seraph__terminal-main">
-              <CodeBlock
-                tone="terminal"
-                language="bash"
-                title="Bash / Terminal"
-                meta="completed"
-                code={`$ rg "authMiddleware|requestId" src tests
+        <div className="mk-seraph__terminal">
+          <div className="mk-seraph__terminal-main">
+            <h4>Bash / Terminal <span>Completed</span></h4>
+            <CodeBlock
+              tone="terminal"
+              language="bash"
+              code={`$ rg "authMiddleware|requestId" src tests
 src/middleware/auth.ts: export function authMiddleware
 src/lib/requestTracing.ts: export function requestId
 
@@ -698,15 +673,13 @@ PASS tests/auth.test.ts
   ✓ rejects missing token
   ✓ accepts valid token
   ✓ attaches user to request`}
-              />
-            </div>
-            <div className="mk-seraph__terminal-side">
-              <CodeBlock
-                tone="terminal"
-                language="bash"
-                title="Secondary check"
-                meta="lint + git state"
-                code={`$ npm run lint
+            />
+          </div>
+          <div className="mk-seraph__terminal-side">
+            <CodeBlock
+              tone="terminal"
+              language="bash"
+              code={`$ npm run lint
 ✔ No problems found
 
 $ git status --porcelain
@@ -714,53 +687,46 @@ $ git status --porcelain
  A src/lib/requestTracing.ts
  M tests/auth.test.ts
  M src/server.ts`}
-              />
-              <div className="mk-seraph__machine" />
-            </div>
+            />
+            <div className="mk-seraph__machine" />
           </div>
-        </SeraphSectionPlate>
-        <SeraphSectionPlate eyebrow="Diff folio · v" title="Changed leaves" meta="2 files shown">
-          <DiffViewer
-            variant="docs"
-            title="Refactor diff · request tracing"
-            meta="2 files · auth flow"
-            files={[
-              {
-                filename: "src/middleware/auth.ts",
-                meta: 'middleware',
-                note: 'Auth failures now carry the same request id used by the tracing helper and downstream docs examples.',
-                before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
-                after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
-                language: "diff",
-              },
-              {
-                filename: "tests/auth.test.ts",
-                meta: 'vitest',
-                beforeEmptyLabel: 'New assertions in this revision',
-                after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
-                language: "diff",
-              },
-            ]}
-          />
-        </SeraphSectionPlate>
-        <div className="mk-seraph__margin-row mk-seraph__margin-row--tail">
-          <SeraphMarginNote
-            eyebrow="Clerk note · c"
-            title="Seal condition"
-            body={<p>No seal before the diff, lint trace, and final ledger agree. This lower register should feel like a postscript tucked under the main apparatus.</p>}
-            ornament={<div className="mk-seraph__icon mk-seraph__icon--lizard" />}
-          />
         </div>
-        <SeraphSummaryRow
-          variant="staggered"
-          items={[
-            { eyebrow: 'gate · i', title: 'Tests / Validation', body: '12 passed, 12 total · Coverage: 92%', iconClass: 'mk-seraph__icon--torch' },
-            { eyebrow: 'gate · ii', title: 'Lint', body: 'No problems found', iconClass: 'mk-seraph__icon--totem' },
-            { eyebrow: 'gate · iii', title: 'Type Check', body: 'No type errors', iconClass: 'mk-seraph__icon--vine' },
-            { eyebrow: 'seal · note', title: 'Summary', body: 'Refactor complete. Added request tracing, simplified token parsing, and updated 3 tests.', iconClass: 'mk-seraph__icon--lizard' },
+        <DiffViewer
+          variant="docs"
+          frame="parchment"
+          title="Refactor diff · request tracing"
+          meta="2 files · auth flow"
+          files={[
+            {
+              filename: "src/middleware/auth.ts",
+              meta: 'middleware',
+              note: 'Auth failures now carry the same request id used by the tracing helper and downstream docs examples.',
+              facts: [
+                { label: 'impact', value: 'api + docs' },
+                { label: 'risk', value: 'low', tone: 'success' },
+              ],
+              before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
+              after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
+              language: "diff",
+            },
+            {
+              filename: "tests/auth.test.ts",
+              meta: 'vitest',
+              layout: 'after',
+              beforeEmptyLabel: 'New assertions in this revision',
+              after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
+              language: "diff",
+            },
           ]}
         />
-        <SeraphDivider label="seal register" variant="orb" />
+        <SeraphSummaryRow
+          items={[
+            { title: 'Tests / Validation', body: '12 passed, 12 total · Coverage: 92%', iconClass: 'mk-seraph__icon--torch' },
+            { title: 'Lint', body: 'No problems found', iconClass: 'mk-seraph__icon--totem' },
+            { title: 'Type Check', body: 'No type errors', iconClass: 'mk-seraph__icon--vine' },
+            { title: 'Summary', body: 'Refactor complete. Added request tracing, simplified token parsing, and updated 3 tests.', iconClass: 'mk-seraph__icon--lizard' },
+          ]}
+        />
         <SeraphComposer
           placeholder="Message Codex Seraphinianus…"
           tools={['Web Search', 'Bash', 'File Reader', 'Diff', 'Tests', 'Git']}
@@ -788,7 +754,7 @@ function SeraphBestiarySurface() {
   return (
     <SeraphWindow variant="mk-seraph--bestiary">
       <SeraphSidebar
-        rail={{ sigil: '☼', topTotemClass: 'mk-seraph__totem--owl', bottomTotemClass: 'mk-seraph__totem--serpent', caption: 'atlas · ix' }}
+        rail={{ sigil: '☼', topTotemClass: 'mk-seraph__totem--owl', bottomTotemClass: 'mk-seraph__totem--serpent' }}
         crest={<SeraphCrest className="mk-seraph__crest--orb" sunClass="mk-seraph__sun--blue" />}
         threads={threads.map(([title, subtitle, when, current]) => ({ title, subtitle, when, current }))}
         medallion="☉"
@@ -811,74 +777,42 @@ function SeraphBestiarySurface() {
         <p className="mk-seraph__lead">
           A grand endeavor. I&apos;ll research desert adaptations, draft concepts, and illustrate.
         </p>
-        <SeraphHeroPlate
-          eyebrow="Commission · specimen plate"
-          title={<>Draft three creatures, then <em>illuminate one</em>.</>}
-          body={<p>The page should revolve around one chosen beast and the research that justifies it. The kit needs to support an artifact-first manuscript rhythm, not only utility cards.</p>}
-          aside={<div className="mk-seraph__hero-seal mk-seraph__hero-seal--orb">☉<small>bestiary folio</small></div>}
-          tone="orb"
-        />
-        <SeraphDivider label="field notebook" variant="orb" />
-        <SeraphSectionPlate eyebrow="Bestiary folio · iii" title="Creature notebook" meta="research + synthesis">
-          <SeraphSpecimenPlate
-            eyebrow="specimen · dominant plate"
-            title="Mirage stalker"
-            description="Electrostatic dust veil, folded heat crest, and mirrored abdominal scales. The artifact needs to look pinned into the folio, with the annotation reading as a side gloss rather than a separate card."
-            glossEyebrow="illumination register"
-            gloss={<p>Side view · desert folio · colder teal anatomy</p>}
-          >
-            <div className="mk-seraph__creature mk-seraph__creature--hero">
-              <div className="mk-seraph__creature-body mk-seraph__creature-body--hero" />
-            </div>
-          </SeraphSpecimenPlate>
-          <div className="mk-seraph__task-stack">
-            <SeraphTask
+        <div className="mk-seraph__task-stack">
+          <SeraphTask
             title="Web Search"
             status="Completed"
-            eyebrow="Source gathering · I"
             leading={<><p>Query: desert animal adaptations</p><small>Sources: 12</small></>}
             body={<ul><li>National Geographic: Desert Animals</li><li>Smithsonian: Desert Biology Overview</li><li>BBC Earth: Survivors of the Desert</li><li>… and 9 more</li></ul>}
-            footer="Cross-reference with morphology notes before synthesis."
             ornament={<div className="mk-seraph__flora mk-seraph__flora--tuft" />}
           />
-            <SeraphTask
+          <SeraphTask
             title="File Reader"
             status="Completed"
-            eyebrow="Archive reading · II"
             leading={<><p>File: desert_creatures_notes.pdf</p><small>Pages: 1–14</small></>}
             body={<ul><li>Water retention strategies</li><li>Burrowing & thermoregulation</li><li>Nocturnal behaviors</li></ul>}
-            footer="Marginalia copied into the illuminated notebook."
             ornament={<div className="mk-seraph__flora mk-seraph__flora--bells" />}
           />
-            <SeraphTask
+          <SeraphTask
             title="Code Runner"
             status="Completed"
-            eyebrow="Trait synthesis · III"
             leading={<><p>Language: Python</p><small>Generated 27 unique trait sets.</small></>}
             body={<ol><li>Sand-burrower, reflective plates, air sacs</li><li>Dune skimmer, electrostatic dust repellent</li><li>Mirage stalker, heat funnel crest</li></ol>}
-            footer="Three candidates promoted to the sketch register."
             ornament={<div className="mk-seraph__icon mk-seraph__icon--beetle" />}
           />
-            <SeraphTask
+          <SeraphTask
             title="Image Tool"
             status="Completed"
-            eyebrow="Illumination · IV"
-            tone="blueprint"
             leading={<><p>Prompt: illuminated manuscript desert creature</p><small>Style: Codex Seraphinianus</small></>}
-            body={<div className="mk-seraph__bestiary-caption">Primary plate promoted above; this panel now records the prompt and rendering notes rather than competing with the hero artifact.</div>}
-            footer="Plate revised toward a denser folio silhouette and colder teal anatomy."
+            body={<div className="mk-seraph__creature"><div className="mk-seraph__creature-body" /></div>}
           />
-            <SeraphTask
-              title="Calendar Tool"
-              status="Scheduled"
-              eyebrow="Review gate · V"
-              leading={<><p>Event: Bestiary review</p><small>When: May 23, 2026 at 3:00 PM</small></>}
-              body={<p>I&apos;ll schedule a review so we can refine the creatures and choose names and habitats.</p>}
-              footer="Human review remains the final naming authority."
+          <SeraphTask
+            title="Calendar Tool"
+            status="Scheduled"
+            leading={<><p>Event: Bestiary review</p><small>When: May 23, 2024 at 3:00 PM</small></>}
+            body={<p>I&apos;ll schedule a review so we can refine the creatures and choose names and habitats.</p>}
             ornament={<div className="mk-seraph__flora mk-seraph__flora--mushroom" />}
-            />
-          </div>
-        </SeraphSectionPlate>
+          />
+        </div>
         <p className="mk-seraph__closing">
           All set! Three concepts are drafted, and one is illustrated.
           <br />
@@ -888,7 +822,7 @@ function SeraphBestiarySurface() {
           placeholder="Message Codex Seraphinianus…"
           tools={['Web Search', 'Code Runner', 'File Reader', 'Image Tool', 'Calendar']}
         />
-        <SeraphFolioBorder variant="orb" />
+        <SeraphFolioBorder />
       </main>
       <SeraphAside
         scribbles={['ϟ Ϙ ϰ ϟ Ϙ ϰ', '⟐ ꙮ ⟡ ꙮ ⟐', 'ϰ Ϙ ϟ ϰ Ϙ ϟ']}
@@ -1422,10 +1356,11 @@ function DocsSurface() {
             body={<><strong>If the manifest is silent on the question, defer.</strong><p>Agents that guess past their criteria are a form of drift.</p></>}
             action={<Button variant="ghost">Chap. VI</Button>}
           />
-          <CodexDocsCodeFigure
-            label="FIG. 3-3 · canonical verdict object"
+          <CodeBlock
             title="Canonical Gate"
             meta="verdict.example.ts"
+            frame="embedded"
+            density="compact"
             language="ts"
             lineNumbers
             code={`export const verdict = {\n  decision: "defer",\n  reason: "manifest is silent on pricing policy",\n  nextStep: "summon human reviewer",\n};`}
@@ -1855,6 +1790,9 @@ export interface MockupPreviewsProps {
   theme?: MockupTheme;
 }
 
+export type { MockupGalleryControlsProps } from './MockupPreviewPrimitives';
+export { MockupGalleryControls } from './MockupPreviewPrimitives';
+
 export interface MockupPreviewControlsProps {
   mockup: MockupSelection;
   columns: 1 | 2 | 3;
@@ -1868,17 +1806,6 @@ export interface MockupPreviewControlsProps {
   onFrameHeightChange: (value: number) => void;
   onShowDescriptionChange: (value: boolean) => void;
   onShowSourcesChange: (value: boolean) => void;
-}
-function clampZoom(value: number): number {
-  if (value < 0.4) return 0.4;
-  if (value > 1.25) return 1.25;
-  return value;
-}
-
-function clampHeight(value: number): number {
-  if (value < 420) return 420;
-  if (value > 1800) return 1800;
-  return value;
 }
 
 export function MockupPreviewControls({
@@ -1896,7 +1823,7 @@ export function MockupPreviewControls({
   onShowSourcesChange,
 }: MockupPreviewControlsProps) {
   return (
-    <MockupGalleryControls
+    <SharedMockupGalleryControls
       mockup={mockup}
       mockupNames={MOCKUP_NAMES}
       columnsValue={String(columns)}
@@ -1907,16 +1834,27 @@ export function MockupPreviewControls({
       onMockupChange={onMockupChange}
       onColumnsValueChange={(value) => {
         const parsed = Number(value);
-        onColumnsChange(parsed === 1 || parsed === 2 || parsed === 3 ? parsed : 2);
+        if (parsed === 1 || parsed === 2 || parsed === 3) {
+          onColumnsChange(parsed);
+        }
       }}
       onShowDescriptionChange={onShowDescriptionChange}
       onShowSourcesChange={onShowSourcesChange}
       onZoomChange={onZoomChange}
       onFrameHeightChange={onFrameHeightChange}
-      title="Mockup Preview Gallery"
-      description="Tune controls to inspect each reference page and compare fidelity against the preview set."
     />
   );
+}
+function clampZoom(value: number): number {
+  if (value < 0.4) return 0.4;
+  if (value > 1.25) return 1.25;
+  return value;
+}
+
+function clampHeight(value: number): number {
+  if (value < 420) return 420;
+  if (value > 1800) return 1800;
+  return value;
 }
 
 export function MockupPreviews({

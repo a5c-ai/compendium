@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 import { CodeBlock, type CodeBlockProps } from '../components';
 import './mockups.css';
+import { CodeBlock, type CodeBlockProps } from '../components';
 
 export type CodexTabName = 'Philosophy' | 'UI Components' | 'Type' | 'Pigments' | 'Measure';
 

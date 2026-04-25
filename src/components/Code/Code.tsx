@@ -1,10 +1,13 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { cx } from "../utils";
 
 export type CodeTone = "default" | "terminal" | "blueprint";
 export type CodeLanguage = "ts" | "tsx" | "js" | "jsx" | "json" | "bash" | "diff" | "text";
+export type CodeFrame = "default" | "embedded" | "parchment";
+export type CodeDensity = "default" | "compact";
 export type CodeFactTone = "default" | "success" | "warning" | "danger";
 export type DiffViewerVariant = "default" | "docs" | "chat";
+export type DiffFileLayout = "auto" | "split" | "before" | "after";
 
 export interface CodeFactItem {
   label: React.ReactNode;
@@ -16,6 +19,8 @@ export interface CodeBlockProps {
   code: string;
   language?: CodeLanguage;
   tone?: CodeTone;
+  frame?: CodeFrame;
+  density?: CodeDensity;
   title?: React.ReactNode;
   meta?: React.ReactNode;
   facts?: readonly CodeFactItem[];
@@ -29,6 +34,7 @@ export interface CodeEditorProps extends CodeBlockProps {
   status?: React.ReactNode;
   filename?: string;
   fileMeta?: React.ReactNode;
+  fileFacts?: readonly CodeFactItem[];
 }
 
 export interface DiffFile {
@@ -39,11 +45,13 @@ export interface DiffFile {
   label?: string;
   meta?: React.ReactNode;
   note?: React.ReactNode;
+  facts?: readonly CodeFactItem[];
   beforeLabel?: React.ReactNode;
   afterLabel?: React.ReactNode;
   beforeEmptyLabel?: React.ReactNode;
   afterEmptyLabel?: React.ReactNode;
   tone?: CodeTone;
+  layout?: DiffFileLayout;
 }
 
 export interface DiffViewerProps {
@@ -53,6 +61,8 @@ export interface DiffViewerProps {
   meta?: React.ReactNode;
   initialFile?: string;
   variant?: DiffViewerVariant;
+  frame?: CodeFrame;
+  density?: CodeDensity;
   emptyLabel?: React.ReactNode;
 }
 
@@ -65,6 +75,8 @@ export interface DiffFileTabsProps {
 
 export interface DiffFileViewProps {
   file: DiffFile;
+  frame?: CodeFrame;
+  density?: CodeDensity;
   panelId?: string;
   labelledBy?: string;
 }
@@ -146,9 +158,27 @@ function renderEmptyState(label?: React.ReactNode) {
   return <div className="tkc-code__empty">{label ?? "No content available"}</div>;
 }
 
-function CodeFacts({ facts }: { facts: readonly CodeFactItem[] }) {
+function surfaceClasses(baseClassName: string, tone: CodeTone, frame: CodeFrame, density: CodeDensity, className?: string) {
+  return cx(
+    baseClassName,
+    `tkc-code--${tone}`,
+    `${baseClassName}--frame-${frame}`,
+    `${baseClassName}--density-${density}`,
+    className,
+  );
+}
+
+function CodeFacts({
+  facts,
+  className,
+  density = "default",
+}: {
+  facts: readonly CodeFactItem[];
+  className?: string;
+  density?: CodeDensity;
+}) {
   return (
-    <div className="tkc-code__facts">
+    <div className={cx("tkc-code__facts", density === "compact" && "tkc-code__facts--compact", className)}>
       {facts.map((fact, index) => (
         <div key={`${index}-${String(fact.label)}`} className={cx("tkc-code__fact", fact.tone && `tkc-code__fact--${fact.tone}`)}>
           <span>{fact.label}</span>
@@ -163,6 +193,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   code,
   language = "text",
   tone = "default",
+  frame = "default",
+  density = "default",
   title,
   meta,
   facts,
@@ -171,28 +203,33 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   lineNumbers,
   className,
 }) => (
-  <section className={cx("tkc-code", `tkc-code--${tone}`, className)}>
+  <section className={surfaceClasses("tkc-code", tone, frame, density, className)}>
     {title || meta ? (
       <header className="tkc-code__head">
         <strong>{title}</strong>
         <span>{meta}</span>
       </header>
     ) : null}
-    {facts?.length ? <CodeFacts facts={facts} /> : null}
+    {facts?.length ? <CodeFacts facts={facts} density={density} /> : null}
     {code.trim().length ? renderCode(code, language, lineNumbers) : renderEmptyState(emptyLabel)}
     {footer ? <footer className="tkc-code__foot">{footer}</footer> : null}
   </section>
 );
 
 export const CodeEditor: React.FC<CodeEditorProps> = ({
+  tone = "default",
+  frame = "default",
+  density = "default",
+  className,
   title,
   meta,
   status,
   filename,
   fileMeta,
+  fileFacts,
   ...rest
 }) => (
-  <section className="tkc-editor">
+  <section className={surfaceClasses("tkc-editor", tone, frame, density, className)}>
     <header className="tkc-editor__head">
       <div className="tkc-editor__dots"><span /><span /><span /></div>
       <strong>{title ?? filename}</strong>
@@ -204,12 +241,29 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         {fileMeta ? <em>{fileMeta}</em> : null}
       </div>
     ) : null}
-    <CodeBlock {...rest} className="tkc-editor__body" />
+    {fileFacts?.length ? <CodeFacts facts={fileFacts} density="compact" className="tkc-editor__file-facts" /> : null}
+    <CodeBlock {...rest} tone={tone} frame="embedded" density={density} className="tkc-editor__body" />
   </section>
 );
 
 function toDomId(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function resolveDiffLayout(file: DiffFile) {
+  if (file.layout && file.layout !== "auto") return file.layout;
+  if (typeof file.before === "string" && typeof file.after === "string") return "split";
+  if (typeof file.before === "string") return "before";
+  return "after";
+}
+
+function resolveSideTitle(file: DiffFile, side: "before" | "after", layout: Exclude<DiffFileLayout, "auto">) {
+  if (side === "before") {
+    if (file.beforeLabel) return file.beforeLabel;
+    return layout === "before" && typeof file.after !== "string" ? "Removed" : "Before";
+  }
+  if (file.afterLabel) return file.afterLabel;
+  return layout === "after" && typeof file.before !== "string" ? "Added" : "After";
 }
 
 export const DiffFileTabs: React.FC<DiffFileTabsProps> = ({ files, activeFile, panelIdForFile, onChange }) => (
@@ -236,11 +290,13 @@ export const DiffFileTabs: React.FC<DiffFileTabsProps> = ({ files, activeFile, p
   </div>
 );
 
-export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, panelId, labelledBy }) => {
+export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, frame = "default", density = "default", panelId, labelledBy }) => {
   const tone = file.tone ?? "default";
   const language = file.language ?? "diff";
   const hasBefore = typeof file.before === "string";
   const hasAfter = typeof file.after === "string";
+  const layout = resolveDiffLayout(file);
+  const panelFrame = frame === "default" ? "default" : "embedded";
 
   return (
     <article className="tkc-diff__file" id={panelId} role="tabpanel" aria-labelledby={labelledBy}>
@@ -249,23 +305,32 @@ export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, panelId, label
         {file.meta ? <div className="tkc-diff__meta">{file.meta}</div> : null}
       </div>
       {file.note ? <p className="tkc-diff__note">{file.note}</p> : null}
-      <div className="tkc-diff__columns">
-        <CodeBlock
-          code={file.before ?? ""}
-          language={language}
-          tone={tone}
-          lineNumbers={hasBefore}
-          title={file.beforeLabel ?? "Before"}
-          emptyLabel={file.beforeEmptyLabel ?? "No previous revision"}
-        />
-        <CodeBlock
-          code={file.after ?? ""}
-          language={language}
-          tone={tone}
-          lineNumbers={hasAfter}
-          title={file.afterLabel ?? (hasBefore ? "After" : "Changes")}
-          emptyLabel={file.afterEmptyLabel ?? "No current revision"}
-        />
+      {file.facts?.length ? <CodeFacts facts={file.facts} density="compact" className="tkc-diff__facts" /> : null}
+      <div className={cx("tkc-diff__columns", `tkc-diff__columns--${layout}`)}>
+        {layout !== "after" ? (
+          <CodeBlock
+            code={file.before ?? ""}
+            language={language}
+            tone={tone}
+            frame={panelFrame}
+            density={density}
+            lineNumbers={hasBefore}
+            title={resolveSideTitle(file, "before", layout)}
+            emptyLabel={file.beforeEmptyLabel ?? "No previous revision"}
+          />
+        ) : null}
+        {layout !== "before" ? (
+          <CodeBlock
+            code={file.after ?? ""}
+            language={language}
+            tone={tone}
+            frame={panelFrame}
+            density={density}
+            lineNumbers={hasAfter}
+            title={resolveSideTitle(file, "after", layout)}
+            emptyLabel={file.afterEmptyLabel ?? "No current revision"}
+          />
+        ) : null}
       </div>
     </article>
   );
@@ -278,6 +343,8 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
   meta,
   initialFile,
   variant = "default",
+  frame = "default",
+  density = "default",
   emptyLabel,
 }) => {
   const defaultFile = useMemo(
@@ -285,11 +352,16 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
     [files, initialFile]
   );
   const [activeFile, setActiveFile] = useState(defaultFile);
+
+  useEffect(() => {
+    setActiveFile(defaultFile);
+  }, [defaultFile]);
+
   const current = files.find((file) => file.filename === activeFile) ?? files[0];
 
   if (!current) {
     return (
-      <section className={cx("tkc-diff", `tkc-diff--${variant}`, className)}>
+      <section className={cx("tkc-diff", `tkc-diff--${variant}`, `tkc-diff--frame-${frame}`, `tkc-diff--density-${density}`, className)}>
         <header className="tkc-diff__head">
           <strong>{title}</strong>
           <span>{meta ?? "0 files changed"}</span>
@@ -303,7 +375,7 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
   const activeTabId = `tkc-diff-tab-${toDomId(current.filename)}`;
 
   return (
-    <section className={cx("tkc-diff", `tkc-diff--${variant}`, className)}>
+    <section className={cx("tkc-diff", `tkc-diff--${variant}`, `tkc-diff--frame-${frame}`, `tkc-diff--density-${density}`, className)}>
       <header className="tkc-diff__head">
         <strong>{title}</strong>
         <span>{meta ?? `${files.length} files changed`}</span>
@@ -315,7 +387,7 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
         onChange={setActiveFile}
       />
       <div className="tkc-diff__grid">
-        <DiffFileView file={current} panelId={activePanelId} labelledBy={activeTabId} />
+        <DiffFileView file={current} frame={frame} density={density} panelId={activePanelId} labelledBy={activeTabId} />
       </div>
     </section>
   );

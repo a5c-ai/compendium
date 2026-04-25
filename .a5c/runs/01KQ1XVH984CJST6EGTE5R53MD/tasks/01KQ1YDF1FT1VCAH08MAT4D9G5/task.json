@@ -1,0 +1,151 @@
+{
+  "agent": {
+    "name": "quality-engineer",
+    "outputSchema": {
+      "properties": {
+        "allPassed": {
+          "type": "boolean"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "checks": {
+          "items": {
+            "properties": {
+              "command": {
+                "type": "string"
+              },
+              "passed": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "command",
+              "passed",
+              "summary"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "checks",
+        "allPassed",
+        "blockers"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "implementation": {
+          "changedFiles": [
+            "src/components/Code/Code.tsx",
+            "src/components/components.css",
+            "src/components/Code/Code.stories.tsx",
+            "src/components/Code/Code.test.tsx",
+            "src/components/Code/index.ts",
+            "src/components/index.ts",
+            "src/mockups/ChatPrimitives.stories.tsx",
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/mockups.css"
+          ],
+          "residualRisks": [
+            "The new parchment and embedded frame treatments rely on token-driven mixes and should still be spot-checked in any external host surfaces beyond the repo stories and mock previews."
+          ],
+          "storyTargets": [
+            "src/components/Code/Code.stories.tsx"
+          ],
+          "summary": "Expanded the shared CodeBlock, CodeEditor, and DiffViewer APIs with reusable frame, density, file metadata, and asymmetric diff layout controls; updated the direct stories/tests to cover metadata-heavy, embedded, alternate-frame, empty, and one-sided states; and replaced the recurring Seraph/chat wrapper patterns with the shared surface APIs.",
+          "testTargets": [
+            "src/components/Code/Code.test.tsx"
+          ],
+          "validationsRun": [
+            "npm run lint",
+            "npm run test -- --run",
+            "npm run build",
+            "npm run build-storybook"
+          ]
+        },
+        "projectDir": ".",
+        "requiredCommands": [
+          "npm run lint",
+          "npm run test -- --run",
+          "npm run build",
+          "npm run build-storybook"
+        ]
+      },
+      "instructions": [
+        "Run each required command in the repository and capture whether it passed.",
+        "Required commands are part of the acceptance criteria: lint, tests, package build, and Storybook build.",
+        "If a command fails, include the failing command, the important error summary, and whether the failure blocks acceptance.",
+        "Do not skip a command because a previous one failed; run the full sweep unless the repo becomes unusable.",
+        "Return strict JSON only."
+      ],
+      "outputFormat": "JSON with:\n  checks: Array<{ command: string, passed: boolean, summary: string }>,\n  allPassed: boolean,\n  blockers: string[]",
+      "role": "frontend quality engineer validating a reusable component family",
+      "task": "Run the required local validation gates for the code-surface expansion and report the results."
+    }
+  },
+  "description": "Run the required local validation commands and report pass/fail details without using shell-kind subtasks.",
+  "io": {
+    "inputJsonPath": "tasks/01KQ1YDF1FT1VCAH08MAT4D9G5/input.json",
+    "outputJsonPath": "tasks/01KQ1YDF1FT1VCAH08MAT4D9G5/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "code-surface",
+    "compendium",
+    "validation"
+  ],
+  "title": "Validate lint, test, build, and Storybook gates",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ1YDF1FT1VCAH08MAT4D9G5",
+  "taskId": "code-surface-expansion-validation",
+  "invocationKey": "code-surface-expansion:S000003:code-surface-expansion-validation",
+  "stepId": "S000003",
+  "inputs": {
+    "implementation": {
+      "changedFiles": [
+        "src/components/Code/Code.tsx",
+        "src/components/components.css",
+        "src/components/Code/Code.stories.tsx",
+        "src/components/Code/Code.test.tsx",
+        "src/components/Code/index.ts",
+        "src/components/index.ts",
+        "src/mockups/ChatPrimitives.stories.tsx",
+        "src/mockups/MockupPreviews.tsx",
+        "src/mockups/mockups.css"
+      ],
+      "residualRisks": [
+        "The new parchment and embedded frame treatments rely on token-driven mixes and should still be spot-checked in any external host surfaces beyond the repo stories and mock previews."
+      ],
+      "storyTargets": [
+        "src/components/Code/Code.stories.tsx"
+      ],
+      "summary": "Expanded the shared CodeBlock, CodeEditor, and DiffViewer APIs with reusable frame, density, file metadata, and asymmetric diff layout controls; updated the direct stories/tests to cover metadata-heavy, embedded, alternate-frame, empty, and one-sided states; and replaced the recurring Seraph/chat wrapper patterns with the shared surface APIs.",
+      "testTargets": [
+        "src/components/Code/Code.test.tsx"
+      ],
+      "validationsRun": [
+        "npm run lint",
+        "npm run test -- --run",
+        "npm run build",
+        "npm run build-storybook"
+      ]
+    },
+    "projectDir": ".",
+    "requiredCommands": [
+      "npm run lint",
+      "npm run test -- --run",
+      "npm run build",
+      "npm run build-storybook"
+    ]
+  }
+}
