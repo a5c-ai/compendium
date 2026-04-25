@@ -22,7 +22,6 @@ import {
   CodexDocsChapterMark,
   CodexDocsDefinition,
   CodexDocsCodeFigure,
-  CodexDocsDefinition,
   CodexDocsFigure,
   CodexDocsMargin,
   CodexDocsShell,

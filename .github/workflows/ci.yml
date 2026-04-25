@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ci:
-    name: Lint, Build & Storybook
+  validate:
+    name: Validation Contract
     runs-on: ubuntu-latest
 
     steps:
@@ -30,11 +30,37 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint (tsc --noEmit)
-        run: npm run lint
+      - name: Install Playwright browser
+        run: npm run playwright:install
 
-      - name: Build (vite + declarations)
-        run: npm run build
+      - name: Run validation contract
+        run: npm run validate
 
-      - name: Build Storybook
-        run: npm run build-storybook
+  chromatic:
+    name: Chromatic
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
+    env:
+      CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Assert Chromatic token is configured
+        run: test -n "$CHROMATIC_PROJECT_TOKEN"
+
+      - name: Publish visual baseline to Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: true

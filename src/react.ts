@@ -8,6 +8,7 @@ export * from './mockups/ColorPrimitives';
 export * from './mockups/ComponentPrimitives';
 export * from './mockups/CodexPrimitives';
 export * from './mockups/ChatPrimitives';
+export * from './mockups/MockupPreviewPrimitives';
 export * from './mockups/MockupPreviews';
 export * from './mockups/SeraphPrimitives';
 export * from './mockups/SpacingPrimitives';

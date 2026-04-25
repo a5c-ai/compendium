@@ -111,6 +111,7 @@ export function MockupGalleryControls({
           min={40}
           max={125}
           ticks={18}
+          ariaLabel="Zoom"
           onChange={(value) => onZoomChange(value / 100)}
         />
       </label>
@@ -121,6 +122,7 @@ export function MockupGalleryControls({
           min={420}
           max={1800}
           ticks={15}
+          ariaLabel="Frame height"
           onChange={onFrameHeightChange}
         />
       </label>

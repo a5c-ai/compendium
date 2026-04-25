@@ -559,12 +559,14 @@ export function CodexDashboardPanel({
   title,
   actions,
   className,
+  actions,
   children,
 }: {
   headIndex?: ReactNode;
   title: ReactNode;
   actions?: ReactNode;
   className?: string;
+  actions?: ReactNode;
   children: ReactNode;
 }) {
   return (
