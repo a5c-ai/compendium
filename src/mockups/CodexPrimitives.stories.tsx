@@ -80,7 +80,7 @@ export const DocsCodeFigure: Story = {
         title="Replay Payload"
         meta="payload.json"
         language="json"
-        code={`{\n  \"runId\": \"r-8842\",\n  \"decision\": \"iterate\",\n  \"nextStep\": \"open replay worktree\",\n  \"requestedBy\": \"verifier-03\"\n}`}
+        code={`{\n  "runId": "r-8842",\n  "decision": "iterate",\n  "nextStep": "open replay worktree",\n  "requestedBy": "verifier-03"\n}`}
       />
     </div>
   ),

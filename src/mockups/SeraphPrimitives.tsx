@@ -47,7 +47,6 @@ export interface SeraphSummaryRowProps {
   items: readonly SeraphSummaryItem[];
   variant?: 'default' | 'staggered';
 }
-
 export interface SeraphMarginNoteProps {
   eyebrow?: ReactNode;
   title: ReactNode;
@@ -80,7 +79,6 @@ export interface SeraphSpecimenPlateProps {
   stars?: boolean;
   children: ReactNode;
 }
-
 export interface SeraphDividerProps {
   label?: ReactNode;
   variant?: 'default' | 'orb';
@@ -359,7 +357,6 @@ export function SeraphSpecimenPlate({
     </div>
   );
 }
-
 export function SeraphDivider({ label, variant = 'default' }: SeraphDividerProps) {
   return (
     <div className={`mk-seraph__divider ${variant === 'orb' ? 'mk-seraph__divider--orb' : ''}`.trim()}>
@@ -369,7 +366,6 @@ export function SeraphDivider({ label, variant = 'default' }: SeraphDividerProps
     </div>
   );
 }
-
 export function SeraphFolioBorder({ variant }: { variant?: 'default' | 'orb' }) {
   return <div className={`mk-seraph__folio-border ${variant === 'orb' ? 'mk-seraph__folio-border--orb' : ''}`.trim()} />;
 }

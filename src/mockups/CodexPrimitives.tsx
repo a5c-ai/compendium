@@ -340,7 +340,6 @@ export function CodexDocsDefinition({
     </div>
   );
 }
-
 export function CodexDocsCallout({
   icon = '!',
   body,
@@ -411,11 +410,11 @@ export function CodexDashboardRail({
   footer?: ReactNode;
 }) {
   return (
-    <aside className="mk-dashboard__side-rail">
+    <aside className="mk-dashboard__rail">
       <div className="mk-dashboard__brand">{brand}</div>
       {sections.map((section) => (
         <div key={section.title} className="mk-dashboard__nav-section">
-          <span>{section.title}</span>
+          <small>{section.title}</small>
           {section.items.map((item) => (
             <button key={item.label} type="button" className={item.current ? 'current' : undefined}>
               {item.label}
@@ -438,18 +437,20 @@ export function CodexDashboardHero({
   crumbs: ReactNode;
   title: ReactNode;
   body: ReactNode;
-  dim: ReactNode;
-  actions: ReactNode;
+  dim?: ReactNode;
+  actions?: ReactNode;
 }) {
   return (
     <header className="mk-dashboard__hero">
-      <div>
-        <div className="mk-dashboard__crumbs">{crumbs}</div>
-        <h2>{title}</h2>
-        <p>{body}</p>
-        <div className="mk-dashboard__dim">{dim}</div>
+      <small>{crumbs}</small>
+      <div className="mk-dashboard__hero-main">
+        <div>
+          <h1>{title}</h1>
+          <p>{body}</p>
+        </div>
+        {actions}
       </div>
-      <div className="mk-dashboard__hero-actions">{actions}</div>
+      {dim ? <div className="mk-dashboard__dim">{dim}</div> : null}
     </header>
   );
 }
@@ -459,21 +460,19 @@ export function CodexDashboardToolbar({
   filters,
   search,
 }: {
-  segments: ReactNode;
-  filters: ReactNode;
-  search: ReactNode;
+  segments?: ReactNode;
+  filters?: ReactNode;
+  search?: ReactNode;
 }) {
   return (
-    <div className="mk-dashboard__tools">
-      {segments}
-      <div className="mk-dashboard__filters">{filters}</div>
+    <div className="mk-dashboard__toolbar">
+      <div className="mk-dashboard__toolbar-left">
+        {segments}
+        {filters}
+      </div>
       {search}
     </div>
   );
-}
-
-export function CodexDashboardStatus({ children }: { children: ReactNode }) {
-  return <div className="mk-dashboard__stamp">{children}</div>;
 }
 
 export function CodexDashboardSegmentedControl({
@@ -511,43 +510,8 @@ export function CodexDashboardSearch({
   );
 }
 
-export function CodexDashboardKpis({ items }: { items: readonly CodexKpi[] }) {
-  return (
-    <div className="mk-dashboard__kpis">
-      {items.map((item) => (
-        <article key={item.label}>
-          <span>{item.label}</span>
-          <strong>{item.value}</strong>
-          {item.delta ? <small>{item.delta}</small> : null}
-        </article>
-      ))}
-    </div>
-  );
-}
-
-export function CodexDashboardPanel({
-  className,
-  headIndex,
-  title,
-  actions,
-  children,
-}: {
-  className: string;
-  headIndex?: ReactNode;
-  title: ReactNode;
-  actions?: ReactNode;
-  children: ReactNode;
-}) {
-  return (
-    <section className={className}>
-      <header>
-        {headIndex ? <span>{headIndex}</span> : <span />}
-        <strong>{title}</strong>
-        <div>{actions}</div>
-      </header>
-      {children}
-    </section>
-  );
+export function CodexDashboardStatus({ children }: { children: ReactNode }) {
+  return <div className="mk-dashboard__stamp">{children}</div>;
 }
 
 export function CodexDashboardBody({
@@ -571,25 +535,69 @@ export function CodexDashboardColumn({
   return <div className="mk-dashboard__col-main">{children}</div>;
 }
 
-export function CodexDashboardChart({ bars }: { bars: readonly number[] }) {
+export function CodexDashboardKpis({
+  items,
+}: {
+  items: readonly CodexKpi[];
+}) {
   return (
-    <div className="mk-dashboard__chart-body">
-      <div className="mk-dashboard__gridlines">
-        {bars.map((height, index) => (
-          <i key={index} style={{ height: `${height}px` }} />
-        ))}
-      </div>
+    <div className="mk-dashboard__kpis">
+      {items.map((item) => (
+        <div key={String(item.label)} className="mk-dashboard__kpi">
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+          {item.delta ? <i>{item.delta}</i> : null}
+        </div>
+      ))}
     </div>
   );
 }
 
-export function CodexDashboardGauges({ items }: { items: readonly CodexGaugeMetric[] }) {
+export function CodexDashboardPanel({
+  headIndex,
+  title,
+  className,
+  children,
+}: {
+  headIndex?: ReactNode;
+  title: ReactNode;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className={['mk-dashboard__panel', className].filter(Boolean).join(' ')}>
+      <header>
+        {headIndex ? <b>{headIndex}</b> : null}
+        <h3>{title}</h3>
+      </header>
+      {children}
+    </section>
+  );
+}
+
+export function CodexDashboardChart({ bars }: { bars: readonly number[] }) {
+  return (
+    <div className="mk-dashboard__chart-bars">
+      {bars.map((height, index) => (
+        <span key={index} style={{ height }} />
+      ))}
+    </div>
+  );
+}
+
+export function CodexDashboardGauges({
+  items,
+}: {
+  items: readonly CodexGaugeMetric[];
+}) {
   return (
     <div className="mk-dashboard__gauges">
       {items.map((item) => (
-        <div key={String(item.label)}>
-          <span>{item.label}</span>
-          <strong>{item.value}</strong>
+        <div key={String(item.label)} className="mk-dashboard__gauge">
+          <div>
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+          </div>
           {item.meter}
         </div>
       ))}
@@ -597,17 +605,21 @@ export function CodexDashboardGauges({ items }: { items: readonly CodexGaugeMetr
   );
 }
 
-export function CodexDashboardFeed({ items }: { items: readonly CodexFeedItem[] }) {
+export function CodexDashboardFeed({
+  items,
+}: {
+  items: readonly CodexFeedItem[];
+}) {
   return (
-    <>
+    <div className="mk-dashboard__feed-items">
       {items.map((item) => (
-        <article key={`${item.index}-${item.timestamp}`}>
+        <div key={`${item.index}-${item.timestamp}`} className="mk-dashboard__feed-item">
           <b>{item.index}</b>
-          <p>{item.body}</p>
+          <div>{item.body}</div>
           <span>{item.timestamp}</span>
-        </article>
+        </div>
       ))}
-    </>
+    </div>
   );
 }
 
@@ -623,19 +635,17 @@ export function CodexDashboardCommandPalette({
   items: readonly CodexCommandItem[];
 }) {
   return (
-    <section className="mk-dashboard__cmd">
+    <section className="mk-dashboard__palette">
       <header>
-        <span>{icon}</span>
+        <b>{icon}</b>
         <strong>{title}</strong>
-        <i>{shortcut}</i>
+        <span>{shortcut}</span>
       </header>
-      <div>
-        {items.map((item) => (
-          <button key={item.label} type="button" className={item.current ? 'current' : undefined}>
-            {item.label}
-          </button>
-        ))}
-      </div>
+      {items.map((item) => (
+        <button key={item.label} type="button" className={item.current ? 'current' : undefined}>
+          {item.label}
+        </button>
+      ))}
     </section>
   );
 }

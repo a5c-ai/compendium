@@ -6,6 +6,7 @@ const diffFiles = [
     filename: "src/middleware/auth.ts",
     label: "auth.ts",
     meta: "M · middleware",
+    note: "Request tracing is being threaded into auth failures so docs, chat, and API consumers all see the same request id.",
     before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
     after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
     language: "diff" as const,
@@ -14,6 +15,7 @@ const diffFiles = [
     filename: "tests/auth.test.ts",
     label: "auth.test.ts",
     meta: "A · tests",
+    note: "Regression coverage for request-id propagation.",
     after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
     language: "diff" as const,
   },
@@ -106,7 +108,6 @@ export const MetadataHeavyEditor: StoryObj<typeof CodeEditor> = {
     />
   ),
 };
-
 export const SideBySideDiff: StoryObj<typeof DiffViewer> = {
   argTypes: {
     initialFile: {

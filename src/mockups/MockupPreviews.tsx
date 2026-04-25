@@ -869,12 +869,12 @@ function SeraphBestiarySurface() {
             footer="Plate revised toward a denser folio silhouette and colder teal anatomy."
           />
             <SeraphTask
-            title="Calendar Tool"
-            status="Scheduled"
-            eyebrow="Review gate · V"
-            leading={<><p>Event: Bestiary review</p><small>When: May 23, 2026 at 3:00 PM</small></>}
-            body={<p>I&apos;ll schedule a review so we can refine the creatures and choose names and habitats.</p>}
-            footer="Human review remains the final naming authority."
+              title="Calendar Tool"
+              status="Scheduled"
+              eyebrow="Review gate · V"
+              leading={<><p>Event: Bestiary review</p><small>When: May 23, 2026 at 3:00 PM</small></>}
+              body={<p>I&apos;ll schedule a review so we can refine the creatures and choose names and habitats.</p>}
+              footer="Human review remains the final naming authority."
             ornament={<div className="mk-seraph__flora mk-seraph__flora--mushroom" />}
             />
           </div>
