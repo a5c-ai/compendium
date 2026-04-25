@@ -21,6 +21,8 @@ import {
   CodexDocsCallout,
   CodexDocsChapterMark,
   CodexDocsDefinition,
+  CodexDocsCodeFigure,
+  CodexDocsDefinition,
   CodexDocsFigure,
   CodexDocsMargin,
   CodexDocsShell,
@@ -56,10 +58,31 @@ export const DocsShell: Story = {
           </CodexDocsDefinition>
           <CodexDocsFigure label="FIG. 3-2 · editor → artefact → verifier → human" />
           <CodexDocsCallout body={<><strong>If the manifest is silent on the question, defer.</strong><p>Agents that guess past criteria are drift.</p></>} action={<Button variant="ghost">Chap. VI</Button>} />
+          <CodexDocsCodeFigure
+            label="FIG. 3-3 · canonical verdict object"
+            title="Canonical Gate"
+            meta="verdict.example.ts"
+            language="ts"
+            code={`export const verdict = {\n  decision: "defer",\n  reason: "manifest is silent on pricing policy",\n  nextStep: "summon human reviewer",\n};`}
+          />
         </CodexDocsArticle>
       )}
       margin={<CodexDocsMargin sections={[{ title: 'On this page', items: [<a className="current">§ 2 The four verdicts</a>] }]} />}
     />
+  ),
+};
+
+export const DocsCodeFigure: Story = {
+  render: () => (
+    <div style={{ padding: 24, background: '#f2ecdf' }}>
+      <CodexDocsCodeFigure
+        label="FIG. 1-1 · replay-worktree payload"
+        title="Replay Payload"
+        meta="payload.json"
+        language="json"
+        code={`{\n  \"runId\": \"r-8842\",\n  \"decision\": \"iterate\",\n  \"nextStep\": \"open replay worktree\",\n  \"requestedBy\": \"verifier-03\"\n}`}
+      />
+    </div>
   ),
 };
 

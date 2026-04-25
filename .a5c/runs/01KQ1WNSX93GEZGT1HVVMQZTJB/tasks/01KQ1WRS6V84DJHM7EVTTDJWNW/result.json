@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ1WRS6V84DJHM7EVTTDJWNW",
+  "taskId": "storybook-primitive-coverage-implementation",
+  "invocationKey": "compendium/storybook-primitive-coverage-pass:S000002:storybook-primitive-coverage-implementation",
+  "status": "ok",
+  "result": {
+    "darkModeStories": [
+      "motifs-preview-controls--gallery-controls-dark",
+      "motifs-chat--composer-states",
+      "motifs-chat--inspector-dark",
+      "motifs-seraph--composer-dark"
+    ],
+    "filesChanged": [
+      "src/mockups/ComponentPrimitives.stories.tsx",
+      "src/mockups/MockupPreviewPrimitives.stories.tsx",
+      "src/mockups/ChatPrimitives.stories.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/mockups/ComponentPrimitives.tsx",
+      "src/mockups/ChatPrimitives.tsx",
+      "src/mockups/SeraphPrimitives.tsx"
+    ],
+    "implementedStories": [
+      "motifs-component-system--mode-grid",
+      "motifs-component-system--navigation-and-gates",
+      "motifs-component-system--install-and-chips",
+      "motifs-component-system--gem-and-gauge-readouts",
+      "motifs-component-system--narrative-tabs",
+      "motifs-preview-controls--gallery-controls",
+      "motifs-preview-controls--gallery-controls-dark",
+      "motifs-preview-controls--interactive-gallery",
+      "motifs-preview-controls--spec-list",
+      "motifs-chat--workspace-scaffold",
+      "motifs-chat--rail-states",
+      "motifs-chat--conversation-parts",
+      "motifs-chat--memo-states",
+      "motifs-chat--composer-states",
+      "motifs-chat--inspector-dark",
+      "motifs-seraph--window-scaffold",
+      "motifs-seraph--sidebar-playground",
+      "motifs-seraph--prompt-and-crest",
+      "motifs-seraph--cards-and-task-states",
+      "motifs-seraph--summary-and-ornaments",
+      "motifs-seraph--composer-dark"
+    ],
+    "notes": [
+      "Retitled primitive story files under Motifs so direct reusable inspection sits above gallery browsing.",
+      "Added direct arg-driven stories for motif exports while preserving full-shell context stories.",
+      "Fixed isolated primitive rendering by importing mockup stylesheet in Component, Chat, and Seraph primitive modules."
+    ],
+    "stateStories": [
+      "motifs-component-system--navigation-and-gates",
+      "motifs-chat--memo-states",
+      "motifs-chat--composer-states",
+      "motifs-seraph--cards-and-task-states"
+    ]
+  },
+  "startedAt": "2026-04-25T08:49:05.530Z",
+  "finishedAt": "2026-04-25T08:49:05.530Z",
+  "value": {
+    "darkModeStories": [
+      "motifs-preview-controls--gallery-controls-dark",
+      "motifs-chat--composer-states",
+      "motifs-chat--inspector-dark",
+      "motifs-seraph--composer-dark"
+    ],
+    "filesChanged": [
+      "src/mockups/ComponentPrimitives.stories.tsx",
+      "src/mockups/MockupPreviewPrimitives.stories.tsx",
+      "src/mockups/ChatPrimitives.stories.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/mockups/ComponentPrimitives.tsx",
+      "src/mockups/ChatPrimitives.tsx",
+      "src/mockups/SeraphPrimitives.tsx"
+    ],
+    "implementedStories": [
+      "motifs-component-system--mode-grid",
+      "motifs-component-system--navigation-and-gates",
+      "motifs-component-system--install-and-chips",
+      "motifs-component-system--gem-and-gauge-readouts",
+      "motifs-component-system--narrative-tabs",
+      "motifs-preview-controls--gallery-controls",
+      "motifs-preview-controls--gallery-controls-dark",
+      "motifs-preview-controls--interactive-gallery",
+      "motifs-preview-controls--spec-list",
+      "motifs-chat--workspace-scaffold",
+      "motifs-chat--rail-states",
+      "motifs-chat--conversation-parts",
+      "motifs-chat--memo-states",
+      "motifs-chat--composer-states",
+      "motifs-chat--inspector-dark",
+      "motifs-seraph--window-scaffold",
+      "motifs-seraph--sidebar-playground",
+      "motifs-seraph--prompt-and-crest",
+      "motifs-seraph--cards-and-task-states",
+      "motifs-seraph--summary-and-ornaments",
+      "motifs-seraph--composer-dark"
+    ],
+    "notes": [
+      "Retitled primitive story files under Motifs so direct reusable inspection sits above gallery browsing.",
+      "Added direct arg-driven stories for motif exports while preserving full-shell context stories.",
+      "Fixed isolated primitive rendering by importing mockup stylesheet in Component, Chat, and Seraph primitive modules."
+    ],
+    "stateStories": [
+      "motifs-component-system--navigation-and-gates",
+      "motifs-chat--memo-states",
+      "motifs-chat--composer-states",
+      "motifs-seraph--cards-and-task-states"
+    ]
+  }
+}

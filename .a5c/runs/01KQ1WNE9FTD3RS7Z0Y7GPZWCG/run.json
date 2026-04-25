@@ -1,0 +1,15 @@
+{
+  "runId": "01KQ1WNE9FTD3RS7Z0Y7GPZWCG",
+  "request": "compendium/storybook-primitive-coverage-pass",
+  "processId": "compendium/storybook-primitive-coverage-pass",
+  "harness": "codex",
+  "entrypoint": {
+    "importPath": "../../processes/storybook-primitive-coverage-pass.js",
+    "exportName": "process"
+  },
+  "processPath": "../../processes/storybook-primitive-coverage-pass.js",
+  "layoutVersion": "2026.01-storage-preview",
+  "createdAt": "2026-04-25T08:38:56.102Z",
+  "nonInteractive": true,
+  "completionProof": "11caa054a85bee9cf7d3f38fbd8c8bef"
+}

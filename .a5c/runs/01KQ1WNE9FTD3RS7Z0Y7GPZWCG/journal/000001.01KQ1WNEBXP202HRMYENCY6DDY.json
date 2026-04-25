@@ -1,0 +1,16 @@
+{
+  "type": "RUN_CREATED",
+  "recordedAt": "2026-04-25T08:38:56.125Z",
+  "data": {
+    "runId": "01KQ1WNE9FTD3RS7Z0Y7GPZWCG",
+    "processId": "compendium/storybook-primitive-coverage-pass",
+    "entrypoint": {
+      "importPath": "../../processes/storybook-primitive-coverage-pass.js",
+      "exportName": "process"
+    },
+    "harness": "codex",
+    "inputsRef": "inputs.json",
+    "sessionId": "019dc3c7-241f-7ad0-8ba3-18ca01b230e7"
+  },
+  "checksum": "cdcd286610f2350d35b5f10c5790548eca3634597d5822d6a2219f9759ba763b"
+}

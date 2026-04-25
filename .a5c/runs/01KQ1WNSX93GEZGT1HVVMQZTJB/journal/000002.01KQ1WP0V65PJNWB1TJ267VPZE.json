@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-25T08:39:15.046Z",
+  "data": {
+    "effectId": "01KQ1WP0TMWPN30D4DN3W24P16",
+    "invocationKey": "compendium/storybook-primitive-coverage-pass:S000001:storybook-primitive-coverage-plan",
+    "invocationHash": "e0d14b9480e7cd0982448c16352ba1a29c8281b59e0ad0388a5e676a44575fdd",
+    "stepId": "S000001",
+    "taskId": "storybook-primitive-coverage-plan",
+    "kind": "agent",
+    "label": "storybook",
+    "taskDefRef": "tasks/01KQ1WP0TMWPN30D4DN3W24P16/task.json",
+    "labels": [
+      "storybook",
+      "planning",
+      "motifs"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc3c7-241f-7ad0-8ba3-18ca01b230e7"
+  },
+  "checksum": "b96d61b51997e182884cbf7cc5cbceb4a8747b32b71ff4533db1a202b1c22ff4"
+}

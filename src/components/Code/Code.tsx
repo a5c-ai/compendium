@@ -244,7 +244,10 @@ export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, panelId, label
 
   return (
     <article className="tkc-diff__file" id={panelId} role="tabpanel" aria-labelledby={labelledBy}>
-      <div className="tkc-diff__name">{file.filename}</div>
+      <div className="tkc-diff__file-head">
+        <div className="tkc-diff__name">{file.filename}</div>
+        {file.meta ? <div className="tkc-diff__meta">{file.meta}</div> : null}
+      </div>
       {file.note ? <p className="tkc-diff__note">{file.note}</p> : null}
       <div className="tkc-diff__columns">
         <CodeBlock

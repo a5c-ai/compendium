@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-25T08:40:45.553Z",
+  "data": {
+    "effectId": "01KQ1WRS6V84DJHM7EVTTDJWNW",
+    "invocationKey": "compendium/storybook-primitive-coverage-pass:S000002:storybook-primitive-coverage-implementation",
+    "invocationHash": "01e94ac10d899fd55b5806b1f1d9adff10aefda47022e59c2577d84549a88b5a",
+    "stepId": "S000002",
+    "taskId": "storybook-primitive-coverage-implementation",
+    "kind": "agent",
+    "label": "storybook",
+    "taskDefRef": "tasks/01KQ1WRS6V84DJHM7EVTTDJWNW/task.json",
+    "labels": [
+      "storybook",
+      "implementation",
+      "motifs"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc3c7-241f-7ad0-8ba3-18ca01b230e7"
+  },
+  "checksum": "e6edd02cff50fb041cc8252f0f755cf6d5bca841b4d445feec52281f6813b291"
+}

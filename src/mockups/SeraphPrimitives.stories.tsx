@@ -17,28 +17,40 @@ import {
   SeraphWindow,
 } from './SeraphPrimitives';
 
-const meta: Meta<typeof SeraphWindow> = {
-  title: 'Mockups/Seraph Primitives',
+const threads = [
+  { title: 'Auth middleware refactor', subtitle: 'Refactor, tracing, tests', when: '10:42 AM', current: true },
+  { title: 'Fix flaky tests', subtitle: 'Investigate and stabilize', when: '9:18 AM' },
+  { title: 'Deploy review', subtitle: 'Staging to production', when: 'Yesterday' },
+] as const;
+
+const summaryItems = [
+  { title: 'Tests', body: '12 passed, 12 total', iconClass: 'mk-seraph__icon--torch' },
+  { title: 'Lint', body: 'No problems found', iconClass: 'mk-seraph__icon--totem' },
+  { title: 'Summary', body: 'Composable summary cards for page footers.', iconClass: 'mk-seraph__icon--lizard' },
+] as const;
+
+const meta: Meta = {
+  title: 'Motifs/Seraph',
   component: SeraphWindow,
   parameters: {
-    layout: 'fullscreen',
+    layout: 'padded',
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof SeraphWindow>;
+
+type Story = StoryObj;
 
 export const WindowScaffold: Story = {
+  parameters: {
+    layout: 'fullscreen',
+  },
   render: () => (
     <SeraphWindow>
       <SeraphSidebar
         rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic', caption: 'folio · vii' }}
         crest={<SeraphCrest />}
-        threads={[
-          { title: 'Auth middleware refactor', subtitle: 'Refactor, tracing, tests', when: '10:42 AM', current: true },
-          { title: 'Fix flaky tests', subtitle: 'Investigate & stabilize', when: '9:18 AM' },
-          { title: 'Deploy review', subtitle: 'Staging → Production', when: 'Yesterday' },
-        ]}
+        threads={threads}
         medallion="✺"
         planTitle="Pro Plan"
         planSubtitle="Codex Seraphinianus"
@@ -79,13 +91,7 @@ export const WindowScaffold: Story = {
             ornament={<div className="mk-seraph__icon mk-seraph__icon--vine" />}
           />
         </div>
-        <SeraphSummaryRow
-          items={[
-            { eyebrow: 'gate · i', title: 'Tests', body: '12 passed, 12 total', iconClass: 'mk-seraph__icon--torch' },
-            { eyebrow: 'gate · ii', title: 'Lint', body: 'No problems found', iconClass: 'mk-seraph__icon--totem' },
-            { eyebrow: 'gate · iii', title: 'Summary', body: 'Composable summary cards for page footers.', iconClass: 'mk-seraph__icon--lizard' },
-          ]}
-        />
+        <SeraphSummaryRow items={summaryItems} />
         <SeraphComposer placeholder="Compose from a reusable footer…" tools={['Web Search', 'Bash', 'Diff']} />
         <SeraphFolioBorder />
       </main>
@@ -94,6 +100,118 @@ export const WindowScaffold: Story = {
         plantClass="mk-seraph__plant--circuit"
       />
     </SeraphWindow>
+  ),
+};
+
+export const SidebarPlayground: Story = {
+  args: {
+    sectionTitle: 'Today',
+    threads,
+    medallion: '✺',
+    planTitle: 'Pro Plan',
+    planSubtitle: 'Codex Seraphinianus',
+    searchShortcut: '⌘K',
+  },
+  argTypes: {
+    sectionTitle: { control: 'text' },
+    threads: { control: 'object' },
+    medallion: { control: 'text' },
+    planTitle: { control: 'text' },
+    planSubtitle: { control: 'text' },
+    searchShortcut: { control: 'text' },
+  },
+  render: (args) => (
+    <div style={{ maxWidth: 360 }}>
+      <SeraphSidebar
+        rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic' }}
+        crest={<SeraphCrest />}
+        sectionTitle={args.sectionTitle ?? 'Today'}
+        threads={args.threads ?? threads}
+        medallion={args.medallion ?? '✺'}
+        planTitle={args.planTitle ?? 'Pro Plan'}
+        planSubtitle={args.planSubtitle ?? 'Codex Seraphinianus'}
+        searchShortcut={args.searchShortcut ?? '⌘K'}
+      />
+    </div>
+  ),
+};
+
+export const PromptAndCrest: Story = {
+  args: {
+    seal: '✺',
+    prompt: 'Reusable prompt bar with configurable seal, copy, and timestamp.',
+    time: '10:42 AM',
+    sunClass: 'mk-seraph__sun--eclipse',
+  },
+  argTypes: {
+    seal: { control: 'text' },
+    prompt: { control: 'text' },
+    time: { control: 'text' },
+    sunClass: { control: 'text' },
+  },
+  render: (args) => (
+    <div style={{ display: 'grid', gap: 20 }}>
+      <SeraphCrest sunClass={args.sunClass ?? 'mk-seraph__sun--eclipse'} />
+      <SeraphPromptBar
+        seal={args.seal ?? '✺'}
+        prompt={args.prompt ?? 'Reusable prompt bar with configurable seal, copy, and timestamp.'}
+        time={args.time ?? '10:42 AM'}
+      />
+    </div>
+  ),
+};
+
+export const CardsAndTaskStates: Story = {
+  args: {
+    cardTitle: 'Repository Inspection',
+    cardStatus: 'Completed',
+    taskTitle: 'Task Section',
+    taskStatus: 'Pending',
+  },
+  argTypes: {
+    cardTitle: { control: 'text' },
+    cardStatus: { control: 'text' },
+    taskTitle: { control: 'text' },
+    taskStatus: { control: 'text' },
+  },
+  render: (args) => (
+    <div style={{ display: 'grid', gap: 20 }}>
+      <div className="mk-seraph__cards">
+        <SeraphCard title={args.cardTitle ?? 'Repository Inspection'} status={args.cardStatus ?? 'Completed'} ornament={<div className="mk-seraph__sprout" />}>
+          <p>Scanned project files and dependencies.</p>
+          <small>Files scanned: 214 · Language: TypeScript</small>
+        </SeraphCard>
+        <SeraphCard title="Key Files Found" ornament={<div className="mk-seraph__sprout mk-seraph__sprout--small" />}>
+          <ul>
+            <li>`src/middleware/auth.ts`</li>
+            <li>`src/lib/requestTracing.ts`</li>
+            <li>`tests/auth.test.ts`</li>
+          </ul>
+        </SeraphCard>
+      </div>
+      <SeraphTask
+        title={args.taskTitle ?? 'Task Section'}
+        status={args.taskStatus ?? 'Pending'}
+        leading={<><p>Leading copy block</p><small>Configurable detail</small></>}
+        body={<ul><li>Reusable item one</li><li>Reusable item two</li></ul>}
+        ornament={<div className="mk-seraph__flora mk-seraph__flora--bells" />}
+      />
+    </div>
+  ),
+};
+
+export const SummaryAndOrnaments: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 20 }}>
+      <SeraphSummaryRow items={summaryItems} />
+      <div style={{ minHeight: 320, position: 'relative' }}>
+        <SeraphAside
+          scribbles={['ᚠ ᚨ ᚦ ᚱ ᚲ ᚷ', '⟐ ⟡ ⊹ ⊹ ⟡ ⟐', 'ᚷ ᚲ ᚱ ᚦ ᚨ ᚠ']}
+          plantClass="mk-seraph__plant--circuit"
+        />
+      </div>
+      <SeraphFolioBorder />
+    </div>
   ),
 };
 
@@ -207,7 +325,10 @@ export const LedgerVariants: Story = {
   },
 };
 
-export const ComposerOnly: Story = {
+export const ComposerDark: Story = {
+  globals: {
+    theme: 'void',
+  },
   render: () => (
     <div data-theme="void" className="void" style={{ padding: 24, background: '#0B0A0F' }}>
       <SeraphComposer

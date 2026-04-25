@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Input, Tag } from '../components';
+import './mockups.css';
 
 export interface SeraphThreadItem {
   title: string;
