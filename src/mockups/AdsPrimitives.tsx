@@ -1,218 +1,311 @@
 import { Fragment, ReactNode } from 'react';
+import './mockups.css';
 
-export interface AdsSlotNoteSpec {
-  label: string;
-  value: string;
+export type AdsCardVariant =
+  | 'medium-rectangle'
+  | 'leaderboard'
+  | 'skyscraper'
+  | 'poster';
+
+export type AdsCardTone =
+  | 'paper'
+  | 'blueprint'
+  | 'ink'
+  | 'cinnabar';
+
+export interface AdsSpecItem {
+  label: ReactNode;
+  value: ReactNode;
 }
 
-export interface AdsRule {
-  left: string;
-  right: string;
-}
-
-export interface AdsChapter {
-  number: string;
-  label: string;
-  detail: string;
-  stacked?: boolean;
-}
-
-export interface AdsCardBase {
-  kind: 'mr' | 'lb' | 'sky' | 'poster';
-  theme?: 'paper' | 'blueprint' | 'ink' | 'cinnabar';
-  folio?: string;
-}
-
-export interface AdsMediumRectangleCard extends AdsCardBase {
-  kind: 'mr';
-  chapter: AdsChapter;
-  headline: ReactNode;
-  brandTitle: string;
-  brandBody: string;
-  action: ReactNode;
-  tickerLeft: string;
-  tickerRight: string;
-}
-
-export interface AdsLeaderboardCard extends AdsCardBase {
-  kind: 'lb';
-  badge: { number: string; label: string };
-  eyebrow: string;
-  headline: ReactNode;
-  brandTitle: string;
-  action: ReactNode;
-}
-
-export interface AdsSkyscraperCard extends AdsCardBase {
-  kind: 'sky';
-  chapter: AdsChapter;
-  headline: ReactNode;
-  proof: string;
-  actions: readonly ReactNode[];
-}
-
-export interface AdsPosterCard extends AdsCardBase {
-  kind: 'poster';
-  chapter: AdsChapter;
-  headline: ReactNode;
-  figure: ReactNode;
-  figureTone?: 'default' | 'words';
-  stanzas: readonly ReactNode[];
-  brandTitle: string;
-  brandBody: string;
-  action: ReactNode;
-}
-
-export type AdsCard =
-  | AdsMediumRectangleCard
-  | AdsLeaderboardCard
-  | AdsSkyscraperCard
-  | AdsPosterCard;
-
-export interface AdsSheetItem {
-  rule: AdsRule;
-  card: AdsCard;
-}
-
-export interface AdsSlotItem {
-  number: string;
-  size: string;
-  name: string;
-  orientation?: 'stack' | 'row';
-  sheets: readonly AdsSheetItem[];
-  note: string;
-  specs?: readonly AdsSlotNoteSpec[];
-}
-
-function adsCardClass(card: AdsCard) {
-  const themeClass =
-    card.theme === 'blueprint'
-      ? 'mk-ad-card--bp'
-      : card.theme === 'ink'
-        ? 'mk-ad-card--ink'
-        : card.theme === 'cinnabar'
-          ? 'mk-ad-card--cin'
-          : '';
-  return ['mk-ad-card', `mk-ad-card--${card.kind}`, themeClass].filter(Boolean).join(' ');
-}
-
-function AdsChapterView({ chapter }: { chapter: AdsChapter }) {
-  return (
-    <div className={`mk-ad-card__chapter ${chapter.stacked ? 'mk-ad-card__chapter--stack' : ''}`.trim()}>
-      <b>{chapter.number}</b>
-      <span>{chapter.label}<em>{chapter.detail}</em></span>
-    </div>
-  );
-}
-
-export function AdsSheet({ rule, card }: AdsSheetItem) {
-  return (
-    <div className="mk-ads-sheet">
-      <div className="mk-ads-sheet__rule"><span>{rule.left}</span><i /><span>{rule.right}</span></div>
-      {card.kind === 'mr' ? (
-        <div className={adsCardClass(card)}>
-          {card.folio ? <span className="mk-ad-card__folio">{card.folio}</span> : null}
-          <AdsChapterView chapter={card.chapter} />
-          <h3>{card.headline}</h3>
-          <div className="mk-ad-card__bottom">
-            <p><strong>{card.brandTitle}</strong>{card.brandBody}</p>
-            {card.action}
-          </div>
-          <div className="mk-ad-card__ticker"><span>{card.tickerLeft}</span><span>{card.tickerRight}</span></div>
-        </div>
-      ) : null}
-      {card.kind === 'lb' ? (
-        <div className={adsCardClass(card)}>
-          <div className="mk-ad-card__badge"><b>{card.badge.number}</b><span>{card.badge.label}</span></div>
-          <div className="mk-ad-card__body"><small>{card.eyebrow}</small><h3>{card.headline}</h3></div>
-          <i className="mk-ad-card__divider" />
-          <div className="mk-ad-card__cta-wrap"><strong>{card.brandTitle}</strong>{card.action}</div>
-        </div>
-      ) : null}
-      {card.kind === 'sky' ? (
-        <div className={adsCardClass(card)}>
-          {card.folio ? <span className="mk-ad-card__folio">{card.folio}</span> : null}
-          <AdsChapterView chapter={card.chapter} />
-          <div className="mk-ad-card__spine"><i /><h3>{card.headline}</h3></div>
-          <p className="mk-ad-card__proof">{card.proof}</p>
-          <div className="mk-ad-card__cta-column">{card.actions.map((action, index) => <div key={index}>{action}</div>)}</div>
-        </div>
-      ) : null}
-      {card.kind === 'poster' ? (
-        <div className={adsCardClass(card)}>
-          {card.folio ? <span className="mk-ad-card__folio">{card.folio}</span> : null}
-          <AdsChapterView chapter={card.chapter} />
-          <h3>{card.headline}</h3>
-          <div className={['mk-ad-card__figure', card.figureTone === 'words' ? 'mk-ad-card__figure--words' : ''].filter(Boolean).join(' ')}>{card.figure}</div>
-          <div className="mk-ad-card__stanzas">{card.stanzas.map((stanza, index) => <p key={index}>{stanza}</p>)}</div>
-          <div className="mk-ad-card__bottom">
-            <p><strong>{card.brandTitle}</strong>{card.brandBody}</p>
-            {card.action}
-          </div>
-        </div>
-      ) : null}
-    </div>
-  );
+export interface AdsCardStanza {
+  label: ReactNode;
+  body: ReactNode;
 }
 
 export function AdsSlot({
-  number,
+  index,
   size,
   name,
-  orientation = 'stack',
-  sheets,
-  note,
-  specs,
-}: AdsSlotItem) {
+  notes,
+  stackClassName,
+  children,
+}: {
+  index: ReactNode;
+  size: ReactNode;
+  name: ReactNode;
+  notes?: ReactNode;
+  stackClassName?: string;
+  children: ReactNode;
+}) {
   return (
     <article className="mk-ads-slot">
       <div className="mk-ads-slot__title">
-        <span className="num">{number}</span>
+        <span className="num">{index}</span>
         <span className="size">{size}</span>
         <span className="name">{name}</span>
       </div>
       <div className="mk-ads-slot__row">
-        <div className={`mk-ads-stack ${orientation === 'row' ? 'mk-ads-stack--row' : ''}`.trim()}>
-          {sheets.map((sheet, index) => <AdsSheet key={`${sheet.rule.left}-${index}`} {...sheet} />)}
+        <div className={['mk-ads-stack', stackClassName].filter(Boolean).join(' ')}>
+          {children}
         </div>
-        <aside className="mk-ads-notes">
-          <p>{note}</p>
-          {specs?.length ? (
-            <div className="mk-ads-specs">
-              {specs.map((spec) => (
-                <Fragment key={spec.label}>
-                  <span>{spec.label}</span>
-                  <strong>{spec.value}</strong>
-                </Fragment>
-              ))}
-            </div>
-          ) : null}
-        </aside>
+        {notes}
       </div>
     </article>
   );
 }
 
-export function AdsCatalog({
-  title,
-  emphasis,
-  meta,
-  slots,
+export function AdsSheet({
+  label,
+  size,
+  children,
 }: {
-  title: ReactNode;
-  emphasis: ReactNode;
-  meta: readonly string[];
-  slots: readonly AdsSlotItem[];
+  label: ReactNode;
+  size: ReactNode;
+  children: ReactNode;
 }) {
   return (
-    <section className="mk-ads">
-      <header className="mk-ads__head">
-        <h2>{title} <em>{emphasis}</em></h2>
-        <div className="mk-ads__meta">
-          {meta.map((item) => <span key={item}>{item}</span>)}
-        </div>
-      </header>
-      {slots.map((slot) => <AdsSlot key={`${slot.number}-${slot.size}`} {...slot} />)}
-    </section>
+    <div className="mk-ads-sheet">
+      <div className="mk-ads-sheet__rule">
+        <span>{label}</span>
+        <i />
+        <span>{size}</span>
+      </div>
+      {children}
+    </div>
   );
+}
+
+export function AdsNotes({
+  body,
+  specs,
+}: {
+  body: ReactNode;
+  specs?: ReactNode;
+}) {
+  return (
+    <aside className="mk-ads-notes">
+      <p>{body}</p>
+      {specs}
+    </aside>
+  );
+}
+
+export function AdsSpecs({
+  items,
+}: {
+  items: readonly AdsSpecItem[];
+}) {
+  return (
+    <div className="mk-ads-specs">
+      {items.map((item) => (
+        <Fragment key={String(item.label)}>
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+export function AdsChapterBand({
+  index,
+  title,
+  subtitle,
+  stacked,
+}: {
+  index: ReactNode;
+  title: ReactNode;
+  subtitle: ReactNode;
+  stacked?: boolean;
+}) {
+  return (
+    <div className={`mk-ad-card__chapter ${stacked ? 'mk-ad-card__chapter--stack' : ''}`.trim()}>
+      <b>{index}</b>
+      <span>
+        {title}
+        <em>{subtitle}</em>
+      </span>
+    </div>
+  );
+}
+
+export function AdsCardFolio({ children }: { children: ReactNode }) {
+  return <span className="mk-ad-card__folio">{children}</span>;
+}
+
+export function AdsCardFooter({
+  brand,
+  body,
+  cta,
+}: {
+  brand: ReactNode;
+  body: ReactNode;
+  cta: ReactNode;
+}) {
+  return (
+    <div className="mk-ad-card__bottom">
+      <p>
+        <strong>{brand}</strong>
+        {body}
+      </p>
+      {cta}
+    </div>
+  );
+}
+
+export function AdsCardTicker({
+  left,
+  right,
+}: {
+  left: ReactNode;
+  right: ReactNode;
+}) {
+  return (
+    <div className="mk-ad-card__ticker">
+      <span>{left}</span>
+      <span>{right}</span>
+    </div>
+  );
+}
+
+export function AdsLeaderboardBadge({
+  index,
+  label,
+}: {
+  index: ReactNode;
+  label: ReactNode;
+}) {
+  return (
+    <div className="mk-ad-card__badge">
+      <b>{index}</b>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+export function AdsLeaderboardBody({
+  eyebrow,
+  title,
+}: {
+  eyebrow: ReactNode;
+  title: ReactNode;
+}) {
+  return (
+    <div className="mk-ad-card__body">
+      <small>{eyebrow}</small>
+      <h3>{title}</h3>
+    </div>
+  );
+}
+
+export function AdsLeaderboardDivider() {
+  return <i className="mk-ad-card__divider" />;
+}
+
+export function AdsLeaderboardCta({
+  brand,
+  cta,
+}: {
+  brand: ReactNode;
+  cta: ReactNode;
+}) {
+  return (
+    <div className="mk-ad-card__cta-wrap">
+      <strong>{brand}</strong>
+      {cta}
+    </div>
+  );
+}
+
+export function AdsCardSpine({ title }: { title: ReactNode }) {
+  return (
+    <div className="mk-ad-card__spine">
+      <i />
+      <h3>{title}</h3>
+    </div>
+  );
+}
+
+export function AdsCardProof({ children }: { children: ReactNode }) {
+  return <p className="mk-ad-card__proof">{children}</p>;
+}
+
+export function AdsCardActionColumn({ children }: { children: ReactNode }) {
+  return <div className="mk-ad-card__cta-column">{children}</div>;
+}
+
+export function AdsCardFigure({
+  label,
+  words,
+}: {
+  label: ReactNode;
+  words?: boolean;
+}) {
+  if (words) {
+    return (
+      <div className="mk-ad-card__figure mk-ad-card__figure--words">
+        <span>{label}</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mk-ad-card__figure">
+      <div className="mk-ad-card__figure-line" />
+      <span>{label}</span>
+    </div>
+  );
+}
+
+export function AdsCardStanzas({
+  items,
+}: {
+  items: readonly AdsCardStanza[];
+}) {
+  return (
+    <div className="mk-ad-card__stanzas">
+      {items.map((item, index) => (
+        <p key={index}>
+          <b>{item.label}</b>
+          {' — '}
+          {item.body}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+function adsCardClasses(variant: AdsCardVariant, tone?: AdsCardTone) {
+  const variantClass =
+    variant === 'medium-rectangle'
+      ? 'mk-ad-card--mr'
+      : variant === 'leaderboard'
+        ? 'mk-ad-card--lb'
+        : variant === 'skyscraper'
+          ? 'mk-ad-card--sky'
+          : 'mk-ad-card--poster';
+
+  const toneClass =
+    tone === 'blueprint'
+      ? 'mk-ad-card--bp'
+      : tone === 'ink'
+        ? 'mk-ad-card--ink'
+        : tone === 'cinnabar'
+          ? 'mk-ad-card--cin'
+          : null;
+
+  return ['mk-ad-card', variantClass, toneClass].filter(Boolean).join(' ');
+}
+
+export function AdsCard({
+  variant,
+  tone,
+  children,
+}: {
+  variant: AdsCardVariant;
+  tone?: AdsCardTone;
+  children: ReactNode;
+}) {
+  return <div className={adsCardClasses(variant, tone)}>{children}</div>;
 }

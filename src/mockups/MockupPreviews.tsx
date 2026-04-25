@@ -1,4 +1,4 @@
-import { CSSProperties, Fragment, ReactElement, ReactNode } from 'react';
+import { CSSProperties, ReactElement } from 'react';
 import {
   Button,
   CodeBlock,
@@ -7,11 +7,8 @@ import {
   DiffViewer,
   Input,
   Progress,
-  Select,
-  Slider,
   Tabs,
   Tag,
-  Toggle,
 } from '../components';
 import {
   GlyphModeForever,
@@ -28,14 +25,9 @@ import {
   SeraphCard,
   SeraphComposer,
   SeraphCrest,
-  SeraphDivider,
   SeraphFolioBorder,
-  SeraphHeroPlate,
-  SeraphMarginNote,
   SeraphPromptBar,
-  SeraphSectionPlate,
   SeraphSidebar,
-  SeraphSpecimenPlate,
   SeraphSummaryRow,
   SeraphTask,
   SeraphWindow,
@@ -55,10 +47,6 @@ import {
   ChatTyping,
   ChatWall,
 } from './ChatPrimitives';
-import {
-  AdsCatalog,
-  AdsSlotItem,
-} from './AdsPrimitives';
 import {
   BrandGlyphAtlas,
   BrandHero,
@@ -103,18 +91,23 @@ import {
   CodexChapterHeader,
   CodexDashboardChart,
   CodexDashboardCommandPalette,
+  CodexDashboardBody,
+  CodexDashboardColumn,
   CodexDashboardFeed,
   CodexDashboardGauges,
   CodexDashboardHero,
   CodexDashboardKpis,
   CodexDashboardPanel,
   CodexDashboardRail,
+  CodexDashboardSearch,
   CodexDashboardShell,
+  CodexDashboardSegmentedControl,
+  CodexDashboardStatus,
   CodexDashboardToolbar,
   CodexDocsArticle,
   CodexDocsCallout,
   CodexDocsChapterMark,
-  CodexDocsCodeFigure,
+  CodexDocsDefinition,
   CodexDocsFigure,
   CodexDocsMargin,
   CodexDocsShell,
@@ -122,6 +115,29 @@ import {
   CodexFrame,
   CodexPlate,
 } from './CodexPrimitives';
+import {
+  AdsCardActionColumn,
+  AdsCard,
+  AdsCardFigure,
+  AdsCardFolio,
+  AdsCardFooter,
+  AdsCardProof,
+  AdsCardStanzas,
+  AdsCardTicker,
+  AdsChapterBand,
+  AdsLeaderboardBadge,
+  AdsLeaderboardBody,
+  AdsLeaderboardCta,
+  AdsLeaderboardDivider,
+  AdsNotes,
+  AdsSheet,
+  AdsCardSpine,
+  AdsSlot,
+  AdsSpecs,
+} from './AdsPrimitives';
+import {
+  MockupSpecList,
+} from './MockupPreviewPrimitives';
 import './mockups.css';
 
 export type MockupName =
@@ -147,165 +163,167 @@ export interface MockupDefinition {
   sourceLabel?: string;
 }
 
-export interface MockupSpecItem {
-  label: ReactNode;
-  value: ReactNode;
-}
-
-export function MockupSpecList({
-  items,
-}: {
-  items: readonly MockupSpecItem[];
-}) {
-  return (
-    <dl className="mk-specs">
-      {items.map((item) => (
-        <Fragment key={String(item.label)}>
-          <dt>{item.label}</dt>
-          <dd>{item.value}</dd>
-        </Fragment>
-      ))}
-    </dl>
-  );
-}
-
-
 function AdsSurface() {
-  const slots: AdsSlotItem[] = [
-    {
-      number: 'I.',
-      size: '300 × 250',
-      name: 'medium rectangle',
-      note: 'The medium rectangle carries the most weight in the set. Chapter numeral earns its height and the CTA stays isolated at the lower right.',
-      specs: [
-        { label: 'Format', value: 'JPG · 40 KB ceiling' },
-        { label: 'Type stack', value: 'Cormorant · JetBrains Mono' },
-        { label: 'Safe area', value: '10 px inset' },
-      ],
-      sheets: [
-        {
-          rule: { left: 'Var. A · paper ground', right: '300 × 250' },
-          card: {
-            kind: 'mr',
-            folio: 'Leaflet Nº I · mr-01',
-            chapter: { number: '03', label: 'Chapter III', detail: 'Gates & verdicts' },
-            headline: <>Every agent turn ends in a <em>written verdict</em>.</>,
-            brandTitle: 'a5c.ai',
-            brandBody: 'The foundry for multi-agent work',
-            action: <Button variant="primary">Request a demo</Button>,
-            tickerLeft: 'Ed. 4.2 · Aug 26',
-            tickerRight: 'Vellum ground',
-          },
-        },
-        {
-          rule: { left: 'Var. B · blueprint ground', right: '300 × 250' },
-          card: {
-            kind: 'mr',
-            theme: 'blueprint',
-            folio: 'Leaflet Nº I · mr-02',
-            chapter: { number: '03', label: 'Chapter III', detail: 'Gates & verdicts' },
-            headline: <>Two strangers, <em>same answer</em>. The rest is ornament.</>,
-            brandTitle: 'a5c.ai',
-            brandBody: 'Convergence, in plain prose',
-            action: <Button variant="default">Read chapter III</Button>,
-            tickerLeft: 'Ed. 4.2 · Aug 26',
-            tickerRight: 'Blueprint ground',
-          },
-        },
-      ],
-    },
-    {
-      number: 'II.',
-      size: '728 × 90',
-      name: 'leaderboard',
-      note: 'A leaderboard lives above the fold. The chapter badge does the identity work on the left so the headline can stay short.',
-      sheets: [
-        {
-          rule: { left: 'Var. A · ink badge', right: '728 × 90' },
-          card: {
-            kind: 'lb',
-            badge: { number: '§ iii', label: 'Chap. III' },
-            eyebrow: 'Book I · Foundations',
-            headline: <>Every run ends in a <em>written verdict</em>. Not a score.</>,
-            brandTitle: 'a·5·c·ai',
-            action: <Button variant="primary">Open the foundry</Button>,
-          },
-        },
-      ],
-    },
-    {
-      number: 'III.',
-      size: '160 × 600',
-      name: 'wide skyscraper',
-      orientation: 'row',
-      note: 'The skyscraper rewards vertical architecture. The spine acts like a dimension line so the ad reads like a measured elevation.',
-      sheets: [
-        {
-          rule: { left: 'Var. A · paper', right: '160 × 600' },
-          card: {
-            kind: 'sky',
-            folio: 'sky-01',
-            chapter: { number: '02', label: 'Chapter II', detail: 'Agents & seats', stacked: true },
-            headline: <><em>Seats</em>, not seats of software.</>,
-            proof: 'An agent is a seat in a room; replay is how the room remembers.',
-            actions: [<Button variant="ghost">Chapter II</Button>, <Button variant="primary">Try a5c.ai</Button>],
-          },
-        },
-        {
-          rule: { left: 'Var. B · ink', right: '160 × 600' },
-          card: {
-            kind: 'sky',
-            theme: 'ink',
-            folio: 'sky-02',
-            chapter: { number: '06', label: 'Chapter VI', detail: 'Safety & seals', stacked: true },
-            headline: <>Least <em>scope</em>, by default.</>,
-            proof: 'Every tool an agent can reach was granted, in writing, by a human.',
-            actions: [<Button variant="ghost">Chapter VI</Button>, <Button variant="default">See the seal</Button>],
-          },
-        },
-      ],
-    },
-    {
-      number: 'IV.',
-      size: '300 × 600',
-      name: 'half-page poster',
-      orientation: 'row',
-      note: 'The half-page is the largest surface and the only one that can carry a three-stanza proof.',
-      sheets: [
-        {
-          rule: { left: 'Var. A · figure-driven', right: '300 × 600' },
-          card: {
-            kind: 'poster',
-            folio: 'poster-01',
-            chapter: { number: '01', label: 'Book I · Foundations', detail: 'A first acquaintance' },
-            headline: <>The foundry, <em>in one page</em>.</>,
-            figure: <><div className="mk-ad-card__figure-line" /><span>FIG. A · editor → artefact → verifier → human</span></>,
-            stanzas: [<> <b>Seat</b> — an agent, a manifest, a room.</>, <><b>Verdict</b> — a written decision, by someone else.</>, <><b>Seal</b> — a cinnabar mark, and a replay if it cracks.</>],
-            brandTitle: 'a5c.ai',
-            brandBody: 'The foundry for multi-agent work',
-            action: <Button variant="primary">Request a demo</Button>,
-          },
-        },
-        {
-          rule: { left: 'Var. B · cinnabar ground', right: '300 × 600' },
-          card: {
-            kind: 'poster',
-            theme: 'cinnabar',
-            folio: 'poster-02',
-            chapter: { number: '03', label: 'Book I · Chapter III', detail: 'Gates & verdicts' },
-            headline: <>Pass. Iterate. Fail. <em>Defer.</em></>,
-            figure: <span>pass · iterate · fail · defer</span>,
-            figureTone: 'words',
-            stanzas: [<><b>Two strangers</b>, same answer.</>, <><b>One paragraph</b>, not a score.</>, <><b>Every seal</b>, a replay if it cracks.</>],
-            brandTitle: 'a5c.ai',
-            brandBody: 'Read chapter III in the encyclopedia',
-            action: <Button variant="default">Open chapter III</Button>,
-          },
-        },
-      ],
-    },
-  ];
-  return <AdsCatalog title="Standard display" emphasis="ad set" meta={['Four IAB standard slots', 'Non-animated · legible at 100%']} slots={slots} />;
+  return (
+    <section className="mk-ads">
+      <header className="mk-ads__head">
+        <h2>
+          Standard display <em>ad set</em>
+        </h2>
+        <div className="mk-ads__meta">
+          <span>Four IAB standard slots</span>
+          <span>Non-animated · legible at 100%</span>
+        </div>
+      </header>
+      <AdsSlot
+        index="I."
+        size="300 × 250"
+        name="medium rectangle"
+        notes={(
+          <AdsNotes
+            body="The medium rectangle carries the most weight in the set. Chapter numeral earns its height and the CTA stays isolated at the lower right."
+            specs={(
+              <AdsSpecs
+                items={[
+                  { label: 'Format', value: 'JPG · 40 KB ceiling' },
+                  { label: 'Type stack', value: 'Cormorant · JetBrains Mono' },
+                  { label: 'Safe area', value: '10 px inset' },
+                ]}
+              />
+            )}
+          />
+        )}
+      >
+        <AdsSheet label="Var. A · paper ground" size="300 × 250">
+          <AdsCard variant="medium-rectangle">
+            <AdsCardFolio>Leaflet Nº I · mr-01</AdsCardFolio>
+            <AdsChapterBand index="03" title="Chapter III" subtitle="Gates & verdicts" />
+            <h3>Every agent turn ends in a <em>written verdict</em>.</h3>
+            <AdsCardFooter
+              brand="a5c.ai"
+              body="The foundry for multi-agent work"
+              cta={<Button variant="primary">Request a demo</Button>}
+            />
+            <AdsCardTicker left="Ed. 4.2 · Aug 26" right="Vellum ground" />
+          </AdsCard>
+        </AdsSheet>
+        <AdsSheet label="Var. B · blueprint ground" size="300 × 250">
+          <AdsCard variant="medium-rectangle" tone="blueprint">
+            <AdsCardFolio>Leaflet Nº I · mr-02</AdsCardFolio>
+            <AdsChapterBand index="03" title="Chapter III" subtitle="Gates & verdicts" />
+            <h3>Two strangers, <em>same answer</em>. The rest is ornament.</h3>
+            <AdsCardFooter
+              brand="a5c.ai"
+              body="Convergence, in plain prose"
+              cta={<Button variant="default">Read chapter III</Button>}
+            />
+            <AdsCardTicker left="Ed. 4.2 · Aug 26" right="Blueprint ground" />
+          </AdsCard>
+        </AdsSheet>
+      </AdsSlot>
+      <AdsSlot
+        index="II."
+        size="728 × 90"
+        name="leaderboard"
+        notes={<AdsNotes body="A leaderboard lives above the fold. The chapter badge does the identity work on the left so the headline can stay short." />}
+      >
+        <AdsSheet label="Var. A · ink badge" size="728 × 90">
+          <AdsCard variant="leaderboard">
+            <AdsLeaderboardBadge index="§ iii" label="Chap. III" />
+            <AdsLeaderboardBody
+              eyebrow="Book I · Foundations"
+              title={<>Every run ends in a <em>written verdict</em>. Not a score.</>}
+            />
+            <AdsLeaderboardDivider />
+            <AdsLeaderboardCta
+              brand="a·5·c·ai"
+              cta={<Button variant="primary">Open the foundry</Button>}
+            />
+          </AdsCard>
+        </AdsSheet>
+      </AdsSlot>
+      <AdsSlot
+        index="III."
+        size="160 × 600"
+        name="wide skyscraper"
+        stackClassName="mk-ads-stack--row"
+        notes={<AdsNotes body="The skyscraper rewards vertical architecture. The spine acts like a dimension line so the ad reads like a measured elevation." />}
+      >
+        <AdsSheet label="Var. A · paper" size="160 × 600">
+          <AdsCard variant="skyscraper">
+            <AdsCardFolio>sky-01</AdsCardFolio>
+            <AdsChapterBand index="02" title="Chapter II" subtitle="Agents & seats" stacked />
+            <AdsCardSpine title={<><em>Seats</em>, not seats of software.</>} />
+            <AdsCardProof>An agent is a seat in a room; replay is how the room remembers.</AdsCardProof>
+            <AdsCardActionColumn>
+              <Button variant="ghost">Chapter II</Button>
+              <Button variant="primary">Try a5c.ai</Button>
+            </AdsCardActionColumn>
+          </AdsCard>
+        </AdsSheet>
+        <AdsSheet label="Var. B · ink" size="160 × 600">
+          <AdsCard variant="skyscraper" tone="ink">
+            <AdsCardFolio>sky-02</AdsCardFolio>
+            <AdsChapterBand index="06" title="Chapter VI" subtitle="Safety & seals" stacked />
+            <AdsCardSpine title={<>Least <em>scope</em>, by default.</>} />
+            <AdsCardProof>Every tool an agent can reach was granted, in writing, by a human.</AdsCardProof>
+            <AdsCardActionColumn>
+              <Button variant="ghost">Chapter VI</Button>
+              <Button variant="default">See the seal</Button>
+            </AdsCardActionColumn>
+          </AdsCard>
+        </AdsSheet>
+      </AdsSlot>
+      <AdsSlot
+        index="IV."
+        size="300 × 600"
+        name="half-page poster"
+        stackClassName="mk-ads-stack--row"
+        notes={<AdsNotes body="The half-page is the largest surface and the only one that can carry a three-stanza proof." />}
+      >
+        <AdsSheet label="Var. A · figure-driven" size="300 × 600">
+          <AdsCard variant="poster">
+            <AdsCardFolio>poster-01</AdsCardFolio>
+            <AdsChapterBand index="01" title="Book I · Foundations" subtitle="A first acquaintance" />
+            <h3>The foundry, <em>in one page</em>.</h3>
+            <AdsCardFigure label="FIG. A · editor → artefact → verifier → human" />
+            <AdsCardStanzas
+              items={[
+                { label: 'Seat', body: 'an agent, a manifest, a room.' },
+                { label: 'Verdict', body: 'a written decision, by someone else.' },
+                { label: 'Seal', body: 'a cinnabar mark, and a replay if it cracks.' },
+              ]}
+            />
+            <AdsCardFooter
+              brand="a5c.ai"
+              body="The foundry for multi-agent work"
+              cta={<Button variant="primary">Request a demo</Button>}
+            />
+          </AdsCard>
+        </AdsSheet>
+        <AdsSheet label="Var. B · cinnabar ground" size="300 × 600">
+          <AdsCard variant="poster" tone="cinnabar">
+            <AdsCardFolio>poster-02</AdsCardFolio>
+            <AdsChapterBand index="03" title="Book I · Chapter III" subtitle="Gates & verdicts" />
+            <h3>Pass. Iterate. Fail. <em>Defer.</em></h3>
+            <AdsCardFigure label="pass · iterate · fail · defer" words />
+            <AdsCardStanzas
+              items={[
+                { label: 'Two strangers', body: 'same answer.' },
+                { label: 'One paragraph', body: 'not a score.' },
+                { label: 'Every seal', body: 'a replay if it cracks.' },
+              ]}
+            />
+            <AdsCardFooter
+              brand="a5c.ai"
+              body="Read chapter III in the encyclopedia"
+              cta={<Button variant="default">Open chapter III</Button>}
+            />
+          </AdsCard>
+        </AdsSheet>
+      </AdsSlot>
+    </section>
+  );
 }
 
 function BrandSurface() {
@@ -585,7 +603,7 @@ function SeraphRefactorSurface() {
   return (
     <SeraphWindow>
       <SeraphSidebar
-        rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic', caption: 'folio · vii' }}
+        rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic' }}
         crest={<SeraphCrest />}
         threads={conversations.map(([title, subtitle, when, current]) => ({ title, subtitle, when, current }))}
         medallion="✺"
@@ -608,19 +626,12 @@ function SeraphRefactorSurface() {
           I&apos;ll inspect the codebase, run the tests, implement the refactor with request tracing,
           update tests, and show you the diff before committing.
         </p>
-        <SeraphHeroPlate
-          eyebrow="Commission · opening plate"
-          title={<>Refactor, trace, and <em>show the leaves</em>.</>}
-          body={<p>The brief is not only to make the middleware correct, but to leave behind a readable instrument: what changed, why it changed, and which seals were earned.</p>}
-          aside={<div className="mk-seraph__hero-seal">✺<small>refactor folio</small></div>}
-        />
-        <SeraphDivider label="working register" />
-        <div className="mk-seraph__cards mk-seraph__cards--asymmetric mk-seraph__cards--folio">
-          <SeraphCard eyebrow="Inspection · I" title="Repository Inspection" status="Completed" footer="Ledger reconciled against 214 files." ornament={<div className="mk-seraph__sprout" />}>
+        <div className="mk-seraph__cards">
+          <SeraphCard title="Repository Inspection" status="Completed" ornament={<div className="mk-seraph__sprout" />}>
             <p>Scanned project files and dependencies.</p>
             <small>Files scanned: 214 · Language: TypeScript</small>
           </SeraphCard>
-          <SeraphCard eyebrow="Runtime path · II" title="Key Files Found" footer="Primary execution seam traced to auth middleware." ornament={<div className="mk-seraph__sprout mk-seraph__sprout--small" />}>
+          <SeraphCard title="Key Files Found" ornament={<div className="mk-seraph__sprout mk-seraph__sprout--small" />}>
             <ul>
               <li>`src/middleware/auth.ts`</li>
               <li>`src/lib/requestTracing.ts`</li>
@@ -628,7 +639,7 @@ function SeraphRefactorSurface() {
               <li>`src/server.ts`</li>
             </ul>
           </SeraphCard>
-          <SeraphCard eyebrow="Action register · III" title="Plan" status="Completed" tone="botanic" footer="Outcome must remain reviewable before any seal." ornament={<div className="mk-seraph__tree" />}>
+          <SeraphCard title="Plan" status="Completed" ornament={<div className="mk-seraph__tree" />}>
             <ol>
               <li>Analyze existing middleware</li>
               <li>Add request tracing</li>
@@ -638,34 +649,14 @@ function SeraphRefactorSurface() {
               <li>Show diff</li>
             </ol>
           </SeraphCard>
-          <div className="mk-seraph__cards-note">
-            <div className="mk-seraph__eyebrow">folio note · iii-b</div>
-            <p>Operational proof accumulates unevenly. The reference page tightens on the left first, then descends into the machine register and ledger in a deliberately hand-set sequence.</p>
-          </div>
         </div>
-        <div className="mk-seraph__margin-row">
-          <SeraphMarginNote
-            eyebrow="Marginalia · a"
-            title="Review posture"
-            body={<p>Three surfaces carry the proof: the terminal trace, the diff book, and the final ledger. The page should read like a bound instrument, not a generic chat shell.</p>}
-            ornament={<div className="mk-seraph__icon mk-seraph__icon--vine" />}
-          />
-          <SeraphMarginNote
-            eyebrow="Marginalia · b"
-            title="Palette"
-            body={<p>Brass, teal, cinnabar, and faded paper need to stay visibly separated. The reference relies on dense but disciplined contrast, especially around rails and medallions.</p>}
-            ornament={<div className="mk-seraph__icon mk-seraph__icon--totem" />}
-          />
-        </div>
-        <SeraphSectionPlate eyebrow="Mechanical trace · iv" title="Repository instrumentation" meta="terminal + worktree" tone="blueprint">
-          <div className="mk-seraph__terminal">
-            <div className="mk-seraph__terminal-main">
-              <CodeBlock
-                tone="terminal"
-                language="bash"
-                title="Bash / Terminal"
-                meta="completed"
-                code={`$ rg "authMiddleware|requestId" src tests
+        <div className="mk-seraph__terminal">
+          <div className="mk-seraph__terminal-main">
+            <h4>Bash / Terminal <span>Completed</span></h4>
+            <CodeBlock
+              tone="terminal"
+              language="bash"
+              code={`$ rg "authMiddleware|requestId" src tests
 src/middleware/auth.ts: export function authMiddleware
 src/lib/requestTracing.ts: export function requestId
 
@@ -674,15 +665,13 @@ PASS tests/auth.test.ts
   ✓ rejects missing token
   ✓ accepts valid token
   ✓ attaches user to request`}
-              />
-            </div>
-            <div className="mk-seraph__terminal-side">
-              <CodeBlock
-                tone="terminal"
-                language="bash"
-                title="Secondary check"
-                meta="lint + git state"
-                code={`$ npm run lint
+            />
+          </div>
+          <div className="mk-seraph__terminal-side">
+            <CodeBlock
+              tone="terminal"
+              language="bash"
+              code={`$ npm run lint
 ✔ No problems found
 
 $ git status --porcelain
@@ -690,12 +679,11 @@ $ git status --porcelain
  A src/lib/requestTracing.ts
  M tests/auth.test.ts
  M src/server.ts`}
-              />
-              <div className="mk-seraph__machine" />
-            </div>
+            />
+            <div className="mk-seraph__machine" />
           </div>
-        </SeraphSectionPlate>
-        <SeraphSectionPlate eyebrow="Diff folio · v" title="Changed leaves" meta="2 files shown">
+        </div>
+        <div className="mk-seraph__diff">
           <DiffViewer
             variant="docs"
             title="Refactor diff · request tracing"
@@ -718,25 +706,15 @@ $ git status --porcelain
               },
             ]}
           />
-        </SeraphSectionPlate>
-        <div className="mk-seraph__margin-row mk-seraph__margin-row--tail">
-          <SeraphMarginNote
-            eyebrow="Clerk note · c"
-            title="Seal condition"
-            body={<p>No seal before the diff, lint trace, and final ledger agree. This lower register should feel like a postscript tucked under the main apparatus.</p>}
-            ornament={<div className="mk-seraph__icon mk-seraph__icon--lizard" />}
-          />
         </div>
         <SeraphSummaryRow
-          variant="staggered"
           items={[
-            { eyebrow: 'gate · i', title: 'Tests / Validation', body: '12 passed, 12 total · Coverage: 92%', iconClass: 'mk-seraph__icon--torch' },
-            { eyebrow: 'gate · ii', title: 'Lint', body: 'No problems found', iconClass: 'mk-seraph__icon--totem' },
-            { eyebrow: 'gate · iii', title: 'Type Check', body: 'No type errors', iconClass: 'mk-seraph__icon--vine' },
-            { eyebrow: 'seal · note', title: 'Summary', body: 'Refactor complete. Added request tracing, simplified token parsing, and updated 3 tests.', iconClass: 'mk-seraph__icon--lizard' },
+            { title: 'Tests / Validation', body: '12 passed, 12 total · Coverage: 92%', iconClass: 'mk-seraph__icon--torch' },
+            { title: 'Lint', body: 'No problems found', iconClass: 'mk-seraph__icon--totem' },
+            { title: 'Type Check', body: 'No type errors', iconClass: 'mk-seraph__icon--vine' },
+            { title: 'Summary', body: 'Refactor complete. Added request tracing, simplified token parsing, and updated 3 tests.', iconClass: 'mk-seraph__icon--lizard' },
           ]}
         />
-        <SeraphDivider label="seal register" variant="orb" />
         <SeraphComposer
           placeholder="Message Codex Seraphinianus…"
           tools={['Web Search', 'Bash', 'File Reader', 'Diff', 'Tests', 'Git']}
@@ -764,7 +742,7 @@ function SeraphBestiarySurface() {
   return (
     <SeraphWindow variant="mk-seraph--bestiary">
       <SeraphSidebar
-        rail={{ sigil: '☼', topTotemClass: 'mk-seraph__totem--owl', bottomTotemClass: 'mk-seraph__totem--serpent', caption: 'atlas · ix' }}
+        rail={{ sigil: '☼', topTotemClass: 'mk-seraph__totem--owl', bottomTotemClass: 'mk-seraph__totem--serpent' }}
         crest={<SeraphCrest className="mk-seraph__crest--orb" sunClass="mk-seraph__sun--blue" />}
         threads={threads.map(([title, subtitle, when, current]) => ({ title, subtitle, when, current }))}
         medallion="☉"
@@ -787,74 +765,42 @@ function SeraphBestiarySurface() {
         <p className="mk-seraph__lead">
           A grand endeavor. I&apos;ll research desert adaptations, draft concepts, and illustrate.
         </p>
-        <SeraphHeroPlate
-          eyebrow="Commission · specimen plate"
-          title={<>Draft three creatures, then <em>illuminate one</em>.</>}
-          body={<p>The page should revolve around one chosen beast and the research that justifies it. The kit needs to support an artifact-first manuscript rhythm, not only utility cards.</p>}
-          aside={<div className="mk-seraph__hero-seal mk-seraph__hero-seal--orb">☉<small>bestiary folio</small></div>}
-          tone="orb"
-        />
-        <SeraphDivider label="field notebook" variant="orb" />
-        <SeraphSectionPlate eyebrow="Bestiary folio · iii" title="Creature notebook" meta="research + synthesis">
-          <SeraphSpecimenPlate
-            eyebrow="specimen · dominant plate"
-            title="Mirage stalker"
-            description="Electrostatic dust veil, folded heat crest, and mirrored abdominal scales. The artifact needs to look pinned into the folio, with the annotation reading as a side gloss rather than a separate card."
-            glossEyebrow="illumination register"
-            gloss={<p>Side view · desert folio · colder teal anatomy</p>}
-          >
-            <div className="mk-seraph__creature mk-seraph__creature--hero">
-              <div className="mk-seraph__creature-body mk-seraph__creature-body--hero" />
-            </div>
-          </SeraphSpecimenPlate>
-          <div className="mk-seraph__task-stack">
-            <SeraphTask
+        <div className="mk-seraph__task-stack">
+          <SeraphTask
             title="Web Search"
             status="Completed"
-            eyebrow="Source gathering · I"
             leading={<><p>Query: desert animal adaptations</p><small>Sources: 12</small></>}
             body={<ul><li>National Geographic: Desert Animals</li><li>Smithsonian: Desert Biology Overview</li><li>BBC Earth: Survivors of the Desert</li><li>… and 9 more</li></ul>}
-            footer="Cross-reference with morphology notes before synthesis."
             ornament={<div className="mk-seraph__flora mk-seraph__flora--tuft" />}
           />
-            <SeraphTask
+          <SeraphTask
             title="File Reader"
             status="Completed"
-            eyebrow="Archive reading · II"
             leading={<><p>File: desert_creatures_notes.pdf</p><small>Pages: 1–14</small></>}
             body={<ul><li>Water retention strategies</li><li>Burrowing & thermoregulation</li><li>Nocturnal behaviors</li></ul>}
-            footer="Marginalia copied into the illuminated notebook."
             ornament={<div className="mk-seraph__flora mk-seraph__flora--bells" />}
           />
-            <SeraphTask
+          <SeraphTask
             title="Code Runner"
             status="Completed"
-            eyebrow="Trait synthesis · III"
             leading={<><p>Language: Python</p><small>Generated 27 unique trait sets.</small></>}
             body={<ol><li>Sand-burrower, reflective plates, air sacs</li><li>Dune skimmer, electrostatic dust repellent</li><li>Mirage stalker, heat funnel crest</li></ol>}
-            footer="Three candidates promoted to the sketch register."
             ornament={<div className="mk-seraph__icon mk-seraph__icon--beetle" />}
           />
-            <SeraphTask
+          <SeraphTask
             title="Image Tool"
             status="Completed"
-            eyebrow="Illumination · IV"
-            tone="blueprint"
             leading={<><p>Prompt: illuminated manuscript desert creature</p><small>Style: Codex Seraphinianus</small></>}
-            body={<div className="mk-seraph__bestiary-caption">Primary plate promoted above; this panel now records the prompt and rendering notes rather than competing with the hero artifact.</div>}
-            footer="Plate revised toward a denser folio silhouette and colder teal anatomy."
+            body={<div className="mk-seraph__creature"><div className="mk-seraph__creature-body" /></div>}
           />
-            <SeraphTask
+          <SeraphTask
             title="Calendar Tool"
             status="Scheduled"
-            eyebrow="Review gate · V"
-            leading={<><p>Event: Bestiary review</p><small>When: May 23, 2026 at 3:00 PM</small></>}
+            leading={<><p>Event: Bestiary review</p><small>When: May 23, 2024 at 3:00 PM</small></>}
             body={<p>I&apos;ll schedule a review so we can refine the creatures and choose names and habitats.</p>}
-            footer="Human review remains the final naming authority."
             ornament={<div className="mk-seraph__flora mk-seraph__flora--mushroom" />}
-            />
-          </div>
-        </SeraphSectionPlate>
+          />
+        </div>
         <p className="mk-seraph__closing">
           All set! Three concepts are drafted, and one is illustrated.
           <br />
@@ -864,7 +810,7 @@ function SeraphBestiarySurface() {
           placeholder="Message Codex Seraphinianus…"
           tools={['Web Search', 'Code Runner', 'File Reader', 'Image Tool', 'Calendar']}
         />
-        <SeraphFolioBorder variant="orb" />
+        <SeraphFolioBorder />
       </main>
       <SeraphAside
         scribbles={['ϟ Ϙ ϰ ϟ Ϙ ϰ', '⟐ ꙮ ⟡ ꙮ ⟐', 'ϰ Ϙ ϟ ϰ Ϙ ϟ']}
@@ -1232,7 +1178,7 @@ function DashboardSurface() {
           dim={<><span /><i>14 AUG 2026 · 00:00 → 23:59 · UTC</i><span /></>}
           actions={(
             <>
-              <div className="mk-dashboard__stamp">Live · reconciled 14:32 UTC</div>
+              <CodexDashboardStatus>Live · reconciled 14:32 UTC</CodexDashboardStatus>
               <div>
                 <Button variant="ghost">Export</Button>
                 <Button variant="default">Reconcile</Button>
@@ -1245,25 +1191,22 @@ function DashboardSurface() {
       tools={(
         <CodexDashboardToolbar
           segments={(
-            <div className="mk-dashboard__segs">
-              <button type="button" className="on">24 hr</button>
-              <button type="button">7 d</button>
-              <button type="button">30 d</button>
-              <button type="button">Custom</button>
-            </div>
+            <CodexDashboardSegmentedControl
+              items={[
+                { label: '24 hr', current: true },
+                { label: '7 d' },
+                { label: '30 d' },
+                { label: 'Custom' },
+              ]}
+            />
           )}
           filters={<><Tag>Tenant: Praxis Co.</Tag><Tag>Gate: Convergence</Tag><Tag>Verdict: Any</Tag></>}
-          search={(
-            <div className="mk-dashboard__search">
-              <span>Search runs, agents, gates…</span>
-              <i>⌘K</i>
-            </div>
-          )}
+          search={<CodexDashboardSearch label="Search runs, agents, gates…" shortcut="⌘K" />}
         />
       )}
       body={(
-        <div className="mk-dashboard__body">
-          <div className="mk-dashboard__col-main">
+        <CodexDashboardBody>
+          <CodexDashboardColumn>
             <CodexDashboardKpis
               items={[
                 { label: 'Convergence rate', value: '94.2%', delta: '▲ 2.4' },
@@ -1299,8 +1242,8 @@ function DashboardSurface() {
                 pageSize={4}
               />
             </CodexDashboardPanel>
-          </div>
-          <aside className="mk-dashboard__col-side">
+          </CodexDashboardColumn>
+          <CodexDashboardColumn side>
             <CodexDashboardPanel className="mk-dashboard__gauge-panel" title="III. Seat pool · utilisation">
               <CodexDashboardGauges
                 items={[
@@ -1330,8 +1273,8 @@ function DashboardSurface() {
                 { label: 'Disable janitor-01 write scope' },
               ]}
             />
-          </aside>
-        </div>
+          </CodexDashboardColumn>
+        </CodexDashboardBody>
       )}
     />
   );
@@ -1385,10 +1328,9 @@ function DocsSurface() {
           <p>Every run the foundry produces ends with a written verdict. The convergence gate is the canonical shape against which every other gate is measured.</p>
           <h3><span>§ 1</span>The shape of a convergence gate</h3>
           <p>A convergence gate takes three inputs: the artefact, the criteria written into the role manifest, and the history of prior iterations.</p>
-          <div className="mk-docs__defbox">
-            <strong>Definition</strong>
+          <CodexDocsDefinition>
             <p>Convergence: a written statement, by an agent not party to production, that an artefact is indistinguishable in its salient properties from what a second agent would have produced.</p>
-          </div>
+          </CodexDocsDefinition>
           <blockquote>“Two strangers, same answer. Everything else is ornament.”<cite>Praxis Foundry handbook, 2024</cite></blockquote>
           <h3><span>§ 2</span>The four verdicts, in order of appetite</h3>
           <ol>
@@ -1402,8 +1344,7 @@ function DocsSurface() {
             body={<><strong>If the manifest is silent on the question, defer.</strong><p>Agents that guess past their criteria are a form of drift.</p></>}
             action={<Button variant="ghost">Chap. VI</Button>}
           />
-          <CodexDocsCodeFigure
-            label="FIG. 3-3 · canonical verdict object"
+          <CodeBlock
             title="Canonical Gate"
             meta="verdict.example.ts"
             language="ts"
@@ -1825,12 +1766,6 @@ export interface MockupControlOption {
   value: string;
 }
 
-export const MOCKUP_COLUMN_OPTIONS: readonly MockupControlOption[] = [
-  { label: '1 column', value: '1' },
-  { label: '2 columns', value: '2' },
-  { label: '3 columns', value: '3' },
-];
-
 export interface MockupPreviewsProps {
   mockup?: MockupSelection;
   columns?: 1 | 2 | 3;
@@ -1839,115 +1774,6 @@ export interface MockupPreviewsProps {
   showDescription?: boolean;
   showSources?: boolean;
   theme?: MockupTheme;
-}
-
-export interface MockupPreviewControlsProps {
-  mockup: MockupSelection;
-  columns: 1 | 2 | 3;
-  zoom: number;
-  frameHeight: number;
-  showDescription: boolean;
-  showSources: boolean;
-  onMockupChange: (value: MockupSelection) => void;
-  onColumnsChange: (value: 1 | 2 | 3) => void;
-  onZoomChange: (value: number) => void;
-  onFrameHeightChange: (value: number) => void;
-  onShowDescriptionChange: (value: boolean) => void;
-  onShowSourcesChange: (value: boolean) => void;
-}
-
-export interface MockupGalleryControlsProps {
-  mockup: MockupSelection;
-  mockupNames?: readonly MockupName[];
-  columnsValue: string;
-  showDescription: boolean;
-  showSources: boolean;
-  zoom: number;
-  frameHeight: number;
-  onMockupChange: (value: MockupSelection) => void;
-  onColumnsValueChange: (value: string) => void;
-  onShowDescriptionChange: (value: boolean) => void;
-  onShowSourcesChange: (value: boolean) => void;
-  onZoomChange: (value: number) => void;
-  onFrameHeightChange: (value: number) => void;
-  title?: ReactNode;
-  description?: ReactNode;
-}
-
-export function MockupGalleryControls({
-  mockup,
-  mockupNames = MOCKUP_NAMES,
-  columnsValue,
-  showDescription,
-  showSources,
-  zoom,
-  frameHeight,
-  onMockupChange,
-  onColumnsValueChange,
-  onShowDescriptionChange,
-  onShowSourcesChange,
-  onZoomChange,
-  onFrameHeightChange,
-  title = 'Mockup Preview Gallery',
-  description = 'Tune controls to inspect each reference page and compare fidelity against the preview set.',
-}: MockupGalleryControlsProps) {
-  const mockupOptions: readonly MockupControlOption[] = [
-    { label: 'All Mockups', value: 'All' },
-    ...mockupNames.map((name) => ({ label: name, value: name })),
-  ];
-
-  return (
-    <section className="mk-gallery-controls" aria-label="Mockup gallery controls">
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <div className="mk-gallery-controls__grid">
-        <label className="mk-gallery-controls__field">
-          <span>Mockup surface</span>
-          <Select
-            value={mockup}
-            options={[...mockupOptions]}
-            onChange={(value: string) => onMockupChange(value as MockupSelection)}
-          />
-        </label>
-        <label className="mk-gallery-controls__field">
-          <span>Columns</span>
-          <Select
-            value={columnsValue}
-            options={[...MOCKUP_COLUMN_OPTIONS]}
-            onChange={onColumnsValueChange}
-          />
-        </label>
-        <label className="mk-gallery-controls__field">
-          <span>Show descriptions</span>
-          <Toggle checked={showDescription} onChange={onShowDescriptionChange} />
-        </label>
-        <label className="mk-gallery-controls__field">
-          <span>Show source links</span>
-          <Toggle checked={showSources} onChange={onShowSourcesChange} />
-        </label>
-      </div>
-      <label className="mk-gallery-controls__slider">
-        <span>Zoom ({Math.round(zoom * 100)}%)</span>
-        <Slider
-          value={Math.round(zoom * 100)}
-          min={40}
-          max={125}
-          ticks={18}
-          onChange={(value) => onZoomChange(value / 100)}
-        />
-      </label>
-      <label className="mk-gallery-controls__slider">
-        <span>Frame height ({frameHeight}px)</span>
-        <Slider
-          value={frameHeight}
-          min={420}
-          max={1800}
-          ticks={15}
-          onChange={onFrameHeightChange}
-        />
-      </label>
-    </section>
-  );
 }
 
 function clampZoom(value: number): number {
@@ -1960,84 +1786,6 @@ function clampHeight(value: number): number {
   if (value < 420) return 420;
   if (value > 1800) return 1800;
   return value;
-}
-
-export function MockupPreviewControls({
-  mockup,
-  columns,
-  zoom,
-  frameHeight,
-  showDescription,
-  showSources,
-  onMockupChange,
-  onColumnsChange,
-  onZoomChange,
-  onFrameHeightChange,
-  onShowDescriptionChange,
-  onShowSourcesChange,
-}: MockupPreviewControlsProps) {
-  const columnValue = String(columns);
-  return (
-    <section className="mockup-controls">
-      <h1>Mockup Preview Gallery</h1>
-      <p>
-        Tune controls to inspect each reference page and compare fidelity against the preview set.
-      </p>
-      <div className="mockup-controls__grid">
-        <label className="mockup-controls__field">
-          <span>Mockup surface</span>
-          <Select
-            value={mockup}
-            options={[
-              { label: 'All Mockups', value: 'All' },
-              ...MOCKUP_NAMES.map((name) => ({ label: name, value: name })),
-            ]}
-            onChange={(value: string) => onMockupChange(value as MockupSelection)}
-          />
-        </label>
-        <label className="mockup-controls__field">
-          <span>Columns</span>
-          <Select
-            value={columnValue}
-            options={[
-              { label: '1 column', value: '1' },
-              { label: '2 columns', value: '2' },
-              { label: '3 columns', value: '3' },
-            ]}
-            onChange={(value: string) => onColumnsChange(Number(value) as 1 | 2 | 3)}
-          />
-        </label>
-        <label className="mockup-controls__field">
-          <span>Show descriptions</span>
-          <Toggle checked={showDescription} onChange={onShowDescriptionChange} />
-        </label>
-        <label className="mockup-controls__field">
-          <span>Show source links</span>
-          <Toggle checked={showSources} onChange={onShowSourcesChange} />
-        </label>
-      </div>
-      <label className="mockup-controls__slider">
-        <span>Zoom ({Math.round(zoom * 100)}%)</span>
-        <Slider
-          value={Math.round(zoom * 100)}
-          min={40}
-          max={125}
-          ticks={18}
-          onChange={(value) => onZoomChange(value / 100)}
-        />
-      </label>
-      <label className="mockup-controls__slider">
-        <span>Frame height ({frameHeight}px)</span>
-        <Slider
-          value={frameHeight}
-          min={420}
-          max={1800}
-          ticks={15}
-          onChange={onFrameHeightChange}
-        />
-      </label>
-    </section>
-  );
 }
 
 export function MockupPreviews({

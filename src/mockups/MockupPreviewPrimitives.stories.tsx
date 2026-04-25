@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  MOCKUP_NAMES,
   MockupGalleryControls,
-  MockupPreviews,
   MockupSpecList,
+} from './MockupPreviewPrimitives';
+import {
+  MOCKUP_NAMES,
+  MockupPreviews,
   type MockupSelection,
 } from './MockupPreviews';
 

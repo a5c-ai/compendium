@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { MockupGalleryControls, MockupPreviews, MockupSpecList } from './MockupPreviews';
+import { MockupPreviews } from './MockupPreviews';
+import { MockupGalleryControls, MockupSpecList } from './MockupPreviewPrimitives';
 
 describe('MockupPreviews theme support', () => {
   it('adds void theme markers when requested', () => {

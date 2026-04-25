@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { CodeBlock, type CodeBlockProps } from '../components';
+import './mockups.css';
 
 export type CodexTabName = 'Philosophy' | 'UI Components' | 'Type' | 'Pigments' | 'Measure';
 
@@ -41,6 +41,11 @@ export interface CodexFeedItem {
 
 export interface CodexCommandItem {
   label: string;
+  current?: boolean;
+}
+
+export interface CodexSegmentedControlItem {
+  label: ReactNode;
   current?: boolean;
 }
 
@@ -288,34 +293,17 @@ export function CodexDocsFigure({ label }: { label: ReactNode }) {
   );
 }
 
-export function CodexDocsCodeFigure({
-  label,
-  title,
-  meta,
-  language = 'ts',
-  tone = 'default',
-  lineNumbers = true,
-  code,
+export function CodexDocsDefinition({
+  title = 'Definition',
+  children,
 }: {
-  label: ReactNode;
-  code: string;
-  title?: CodeBlockProps['title'];
-  meta?: CodeBlockProps['meta'];
-  language?: CodeBlockProps['language'];
-  tone?: CodeBlockProps['tone'];
-  lineNumbers?: boolean;
+  title?: ReactNode;
+  children: ReactNode;
 }) {
   return (
-    <div className="mk-docs__code-figure">
-      <CodexDocsFigure label={label} />
-      <CodeBlock
-        code={code}
-        title={title}
-        meta={meta}
-        language={language}
-        tone={tone}
-        lineNumbers={lineNumbers}
-      />
+    <div className="mk-docs__defbox">
+      <strong>{title}</strong>
+      {children}
     </div>
   );
 }
@@ -451,6 +439,45 @@ export function CodexDashboardToolbar({
   );
 }
 
+export function CodexDashboardStatus({ children }: { children: ReactNode }) {
+  return <div className="mk-dashboard__stamp">{children}</div>;
+}
+
+export function CodexDashboardSegmentedControl({
+  items,
+}: {
+  items: readonly CodexSegmentedControlItem[];
+}) {
+  return (
+    <div className="mk-dashboard__segs">
+      {items.map((item) => (
+        <button
+          key={String(item.label)}
+          type="button"
+          className={item.current ? 'on' : undefined}
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function CodexDashboardSearch({
+  label,
+  shortcut,
+}: {
+  label: ReactNode;
+  shortcut: ReactNode;
+}) {
+  return (
+    <div className="mk-dashboard__search">
+      <span>{label}</span>
+      <i>{shortcut}</i>
+    </div>
+  );
+}
+
 export function CodexDashboardKpis({ items }: { items: readonly CodexKpi[] }) {
   return (
     <div className="mk-dashboard__kpis">
@@ -488,6 +515,27 @@ export function CodexDashboardPanel({
       {children}
     </section>
   );
+}
+
+export function CodexDashboardBody({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return <div className="mk-dashboard__body">{children}</div>;
+}
+
+export function CodexDashboardColumn({
+  side,
+  children,
+}: {
+  side?: boolean;
+  children: ReactNode;
+}) {
+  if (side) {
+    return <aside className="mk-dashboard__col-side">{children}</aside>;
+  }
+  return <div className="mk-dashboard__col-main">{children}</div>;
 }
 
 export function CodexDashboardChart({ bars }: { bars: readonly number[] }) {
