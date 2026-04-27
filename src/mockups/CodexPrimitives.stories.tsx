@@ -54,6 +54,49 @@ export const DocsShell: Story = {
   ),
 };
 
+export const DocsLeftRail: Story = {
+  render: () => (
+    <div style={{ width: 320, border: '1px solid color-mix(in oklab, #1B1611 18%, transparent)', boxShadow: '0 14px 28px rgba(27,22,17,.08)' }}>
+      <CodexDocsToc
+        searchLabel="Search the encyclopedia…"
+        bookLabel="Book I · Foundations"
+        title="Of the Foundry and its Rites"
+        chapters={[
+          {
+            num: 'I.',
+            title: 'Orientation & scope',
+            pages: 'pp. 1 – 18',
+            items: [
+              { label: 'The foundry at a glance' },
+              { label: 'Roles, seats, and rituals' },
+            ],
+          },
+          {
+            num: 'III.',
+            title: 'Gates & verdicts',
+            pages: 'pp. 45 – 82',
+            current: true,
+            items: [
+              { label: 'Convergence · the canonical gate', current: true },
+              { label: 'Authoring a custom verdict' },
+              { label: 'When the manifest is silent' },
+            ],
+          },
+          {
+            num: 'VI.',
+            title: 'Stewardship & review',
+            pages: 'pp. 143 – 168',
+            items: [
+              { label: 'Editorial ownership' },
+              { label: 'Release notes & folios' },
+            ],
+          },
+        ]}
+      />
+    </div>
+  ),
+};
+
 export const DashboardShell: Story = {
   render: () => (
     <CodexDashboardShell

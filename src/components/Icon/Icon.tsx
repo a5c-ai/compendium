@@ -3,6 +3,7 @@ import React from "react";
 export interface IconProps {
   name: string;
   size?: number;
+  strokeWidth?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -14,6 +15,7 @@ const paths: Record<string, string | [string, null]> = {
   x: "M4 4l8 8M12 4l-8 8",
   plus: "M8 3v10M3 8h10",
   minus: "M3 8h10",
+  grid: "M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z",
   search: [
     "M7.5 13a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zM11.5 11.5L14 14",
     null,
@@ -35,6 +37,7 @@ const paths: Record<string, string | [string, null]> = {
     "M8 1.5A6.5 6.5 0 1 0 8 14.5 6.5 6.5 0 0 0 8 1.5zM8 7v4.5M8 5h.01",
     null,
   ],
+  sun: "M8 1.75v2M8 12.25v2M1.75 8h2M12.25 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6",
   chevronRight: "M6 3l5 5-5 5",
   chevronDown: "M3 6l5 5 5-5",
 };
@@ -42,6 +45,7 @@ const paths: Record<string, string | [string, null]> = {
 export const Icon: React.FC<IconProps> = ({
   name,
   size = 14,
+  strokeWidth = 1.5,
   className = "",
   style,
 }) => {
@@ -54,7 +58,7 @@ export const Icon: React.FC<IconProps> = ({
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5"
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
       style={{ display: "inline-block", verticalAlign: "middle", ...style }}
