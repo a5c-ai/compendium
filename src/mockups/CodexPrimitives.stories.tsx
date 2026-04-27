@@ -28,7 +28,7 @@ const meta: Meta<typeof CodexFrame> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof CodexFrame>;
+type Story = StoryObj<typeof meta>;
 
 export const DocsShell: Story = {
   render: () => (
@@ -49,7 +49,7 @@ export const DocsShell: Story = {
           <CodexDocsCallout body={<><strong>If the manifest is silent on the question, defer.</strong><p>Agents that guess past criteria are drift.</p></>} action={<Button variant="ghost">Chap. VI</Button>} />
         </CodexDocsArticle>
       )}
-      margin={<CodexDocsMargin sections={[{ title: 'On this page', items: [<a className="current">§ 2 The four verdicts</a>] }]} />}
+      margin={<CodexDocsMargin sections={[{ title: 'On this page', items: [<a key="four-verdicts" className="current">§ 2 The four verdicts</a>] }]} />}
     />
   ),
 };
