@@ -102,6 +102,22 @@
   opacity: 1;
 }
 
+.void .tkc-btn,
+[data-theme="void"] .tkc-btn {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.32),
+    0 2px 0 color-mix(in oklab, var(--tkc-rule) 76%, black);
+}
+
+.void .tkc-btn--ghost:hover,
+.void .tkc-btn--ghost:focus-visible,
+[data-theme="void"] .tkc-btn--ghost:hover,
+[data-theme="void"] .tkc-btn--ghost:focus-visible {
+  --bg: color-mix(in oklab, var(--tkc-cinnabar) 14%, var(--tkc-panel-muted));
+  color: var(--tkc-ink);
+}
+
 .tkc-btn--primary {
   --bg: linear-gradient(180deg, #D04A3B 0%, #8A2519 100%);
   --bc: #5A120B;
@@ -182,6 +198,20 @@
   color: var(--tkc-disabled-fg);
   cursor: not-allowed;
   opacity: 1;
+}
+
+.void .tkc-input:hover,
+.void .tkc-textarea:hover,
+[data-theme="void"] .tkc-input:hover,
+[data-theme="void"] .tkc-textarea:hover {
+  border-color: color-mix(in oklab, var(--tkc-cinnabar) 48%, var(--tkc-rule));
+}
+
+.void .tkc-input:focus,
+.void .tkc-textarea:focus,
+[data-theme="void"] .tkc-input:focus,
+[data-theme="void"] .tkc-textarea:focus {
+  background: color-mix(in oklab, var(--tkc-panel-strong) 92%, black);
 }
 
 .tkc-input--invalid {
@@ -482,6 +512,12 @@
 .tkc-select[data-open="true"] .tkc-select__caret { transform: translateY(-50%) rotate(180deg); }
 .tkc-select__placeholder { color: var(--tkc-ink-quiet); font-style: italic; }
 
+.void .tkc-select,
+[data-theme="void"] .tkc-select {
+  background: color-mix(in oklab, var(--tkc-surface-strong) 92%, black);
+  border-color: color-mix(in oklab, var(--tkc-rule) 74%, transparent);
+}
+
 .tkc-pop {
   position: absolute;
   z-index: 1000;
@@ -523,6 +559,18 @@
   padding-left: 10px;
 }
 .tkc-pop__check { margin-left: auto; color: var(--tkc-cinnabar); opacity: 0; }
+
+.void .tkc-pop__item:hover,
+.void .tkc-pop__item[data-active="true"],
+[data-theme="void"] .tkc-pop__item:hover,
+[data-theme="void"] .tkc-pop__item[data-active="true"] {
+  background: linear-gradient(90deg, color-mix(in oklab, var(--tkc-cinnabar) 28%, transparent), transparent 78%);
+}
+
+.void .tkc-pop__item[data-selected="true"],
+[data-theme="void"] .tkc-pop__item[data-selected="true"] {
+  color: var(--tkc-danger-fg);
+}
 .tkc-pop__group {
   font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
   color: var(--tkc-ink-quiet); padding: 8px 10px 4px;
@@ -1126,6 +1174,7 @@
 .tkc-diff__head span,
 .tkc-editor__file,
 .tkc-diff__name,
+.tkc-diff__meta,
 .tkc-code__fact span,
 .tkc-code__foot {
   color: var(--tkc-ink-quiet);
@@ -1167,6 +1216,20 @@
 .tkc-editor__file em {
   font-style: normal;
   color: var(--tkc-ink);
+}
+
+.tkc-diff__file-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.tkc-diff__meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
 .tkc-editor__file-facts,
@@ -1325,6 +1388,11 @@
   background: var(--tkc-panel-muted);
   color: var(--tkc-ink-quiet);
   cursor: pointer;
+  border-radius: 6px 6px 0 0;
+  transition: background var(--tkc-dur-fast) var(--tkc-ease-out),
+              color var(--tkc-dur-fast) var(--tkc-ease-out),
+              border-color var(--tkc-dur-fast) var(--tkc-ease-out),
+              transform var(--tkc-dur-fast) var(--tkc-ease-out);
 }
 
 .tkc-diff__tabs button strong {
@@ -1336,6 +1404,7 @@
   background: var(--tkc-panel-strong);
   color: var(--tkc-ink);
   border-color: color-mix(in oklab, var(--tkc-cinnabar) 26%, var(--tkc-rule));
+  transform: translateY(1px);
 }
 
 .tkc-diff__tabs button:hover {
@@ -1409,7 +1478,24 @@
 [data-theme="void"] .tkc-diff__tabs .is-active {
   background: color-mix(in oklab, var(--tkc-cinnabar) 18%, var(--tkc-panel-strong));
   border-color: color-mix(in oklab, var(--tkc-danger-hover) 56%, var(--tkc-rule));
-  color: var(--tkc-ink);
+  color: var(--tkc-danger-fg);
+}
+
+.void .tkc-editor__file,
+.void .tkc-editor__file-facts,
+.void .tkc-diff__facts,
+.void .tkc-code__facts,
+[data-theme="void"] .tkc-editor__file,
+[data-theme="void"] .tkc-editor__file-facts,
+[data-theme="void"] .tkc-diff__facts,
+[data-theme="void"] .tkc-code__facts {
+  background: color-mix(in oklab, var(--tkc-panel-muted) 82%, transparent);
+}
+
+.void .tkc-code__fact,
+[data-theme="void"] .tkc-code__fact {
+  background: color-mix(in oklab, var(--tkc-surface-strong) 90%, black);
+  border-color: color-mix(in oklab, var(--tkc-rule) 52%, transparent);
 }
 
 .tkc-code--density-compact .tkc-code__head,

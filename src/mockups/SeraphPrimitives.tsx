@@ -136,14 +136,19 @@ export function SeraphSidebar({
       <div className="mk-seraph__section-title">{sectionTitle}</div>
       <div className="mk-seraph__thread-list">
         {threads.map(({ title, subtitle, when, current }) => (
-          <article key={`${title}-${when}`} className={`mk-seraph__thread ${current ? 'is-current' : ''}`}>
+          <button
+            key={`${title}-${when}`}
+            type="button"
+            className={`mk-seraph__thread ${current ? 'is-current' : ''}`}
+            aria-current={current ? 'true' : undefined}
+          >
             <div className="mk-seraph__thread-glyph">{current ? '☼' : '✺'}</div>
             <div>
               <strong>{title}</strong>
               <p>{subtitle}</p>
             </div>
             <span>{when}</span>
-          </article>
+          </button>
         ))}
       </div>
       <div className="mk-seraph__search">

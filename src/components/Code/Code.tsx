@@ -299,7 +299,7 @@ export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, frame = "defau
   const panelFrame = frame === "default" ? "default" : "embedded";
 
   return (
-    <article className="tkc-diff__file" id={panelId} role="tabpanel" aria-labelledby={labelledBy}>
+    <section className="tkc-diff__file" id={panelId} role="tabpanel" aria-labelledby={labelledBy}>
       <div className="tkc-diff__file-head">
         <div className="tkc-diff__name">{file.filename}</div>
         {file.meta ? <div className="tkc-diff__meta">{file.meta}</div> : null}
@@ -332,7 +332,7 @@ export const DiffFileView: React.FC<DiffFileViewProps> = ({ file, frame = "defau
           />
         ) : null}
       </div>
-    </article>
+    </section>
   );
 };
 

@@ -278,3 +278,64 @@ export const EmptyStates: StoryObj<typeof DiffViewer> = {
     </div>
   ),
 };
+
+export const DarkModeAudit: StoryObj<typeof DiffViewer> = {
+  globals: {
+    theme: 'void',
+  },
+  render: () => (
+    <div data-theme="void" className="void" style={{ display: "grid", gap: 16 }}>
+      <CodeEditor
+        tone="default"
+        frame="embedded"
+        density="compact"
+        language="tsx"
+        title="docs/snippets/quality-gate.tsx"
+        filename="docs/snippets/quality-gate.tsx"
+        fileMeta="source · handbook / chapter-3"
+        status="verified · 2026-04-24"
+        fileFacts={[
+          { label: "surface", value: "docs embed" },
+          { label: "theme", value: "void audit" },
+          { label: "sync", value: "storybook", tone: "success" },
+        ]}
+        facts={[
+          { label: "owner", value: "editor-11" },
+          { label: "a11y", value: "AA+", tone: "success" },
+          { label: "open threads", value: "2", tone: "warning" },
+        ]}
+        footer={<><span>Inline in docs and Storybook MDX</span><span>scroll-safe</span></>}
+        code={`export function QualityGateNotice() {\n  return <aside data-tone="pass">Proof required before seal.</aside>;\n}`}
+        lineNumbers
+      />
+      <DiffViewer
+        variant="chat"
+        frame="embedded"
+        density="compact"
+        title="Chat attachment diff"
+        meta="selected tab + metadata audit"
+        files={[
+          {
+            filename: "src/mockups/MockupGallery.tsx",
+            meta: "new",
+            layout: "after",
+            facts: [
+              { label: "contrast", value: "verified", tone: "success" },
+              { label: "risk", value: "dense", tone: "warning" },
+            ],
+            afterEmptyLabel: "Current revision is the source of truth",
+            after: `+ export const MOCKUP_COLUMN_OPTIONS = ['All', 'Docs', 'Chat'];`,
+            language: "diff",
+          },
+          {
+            filename: "src/components/Code/Code.tsx",
+            meta: "modified",
+            before: `- export interface DiffFile { filename: string }`,
+            after: `+ export interface DiffFile { filename: string; layout?: DiffFileLayout }`,
+            language: "diff",
+          },
+        ]}
+      />
+    </div>
+  ),
+};

@@ -37,8 +37,8 @@ const meta: Meta<typeof CodexFrame> = {
 export default meta;
 type Story = StoryObj<typeof CodexFrame>;
 
-export const DocsShell: Story = {
-  render: () => (
+function renderDocsShell() {
+  return (
     <CodexDocsShell
       runningLeft={<><span className="folio">xii</span><span>Book I · Foundations</span></>}
       title={<>Encyclopedia § <em>of the foundry and its rites</em></>}
@@ -66,8 +66,36 @@ export const DocsShell: Story = {
           />
         </CodexDocsArticle>
       )}
-      margin={<CodexDocsMargin sections={[{ title: 'On this page', items: [<a className="current">§ 2 The four verdicts</a>] }]} />}
+      margin={(
+        <CodexDocsMargin
+          sections={[
+            {
+              title: 'On this page',
+              items: [
+                <button key="section-2" type="button" className="current" aria-current="true">
+                  § 2 The four verdicts
+                </button>,
+              ],
+            },
+          ]}
+        />
+      )}
     />
+  );
+}
+
+export const DocsShell: Story = {
+  render: () => renderDocsShell(),
+};
+
+export const DocsShellDark: Story = {
+  globals: {
+    theme: 'void',
+  },
+  render: () => (
+    <div data-theme="void" className="void">
+      {renderDocsShell()}
+    </div>
   ),
 };
 

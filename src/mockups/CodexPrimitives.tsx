@@ -1,13 +1,13 @@
 import { ReactElement, ReactNode } from 'react';
 import { CodeBlock, type CodeBlockProps } from '../components';
 import './mockups.css';
-import { CodeBlock, type CodeBlockProps } from '../components';
 
 export type CodexTabName = 'Philosophy' | 'UI Components' | 'Type' | 'Pigments' | 'Measure';
 
 export interface CodexChapterItem {
   label: string;
   current?: boolean;
+  disabled?: boolean;
 }
 
 export interface CodexDocsChapter {
@@ -216,7 +216,7 @@ export function CodexDocsToc({
         <i>{shortcut}</i>
       </div>
       <small>{bookLabel}</small>
-      <h4>{title}</h4>
+      <h3>{title}</h3>
       {chapters.map((row) => (
         <div key={row.num} className={`mk-docs__chapter ${row.current ? 'current' : ''}`}>
           <div className="mk-docs__chapter-head">
@@ -227,9 +227,15 @@ export function CodexDocsToc({
           {row.items?.length ? (
             <div className="mk-docs__chapter-items">
               {row.items.map((item) => (
-                <a key={item.label} className={item.current ? 'current' : undefined}>
+                <button
+                  key={item.label}
+                  type="button"
+                  className={item.current ? 'current' : undefined}
+                  aria-current={item.current ? 'true' : undefined}
+                  disabled={item.disabled}
+                >
                   {item.label}
-                </a>
+                </button>
               ))}
             </div>
           ) : null}
@@ -368,7 +374,7 @@ export function CodexDocsMargin({
     <aside className="mk-docs__margin">
       {sections.map((section) => (
         <div key={section.title}>
-          <h4>{section.title}</h4>
+          <h3>{section.title}</h3>
           {section.items.map((item, index) => (
             <div key={index}>{item}</div>
           ))}
@@ -559,14 +565,12 @@ export function CodexDashboardPanel({
   title,
   actions,
   className,
-  actions,
   children,
 }: {
   headIndex?: ReactNode;
   title: ReactNode;
   actions?: ReactNode;
   className?: string;
-  actions?: ReactNode;
   children: ReactNode;
 }) {
   return (

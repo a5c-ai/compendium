@@ -337,3 +337,43 @@ export const ComposerDark: Story = {
     </div>
   ),
 };
+
+export const DarkSurfaceAudit: Story = {
+  globals: {
+    theme: 'void',
+  },
+  render: () => (
+    <div data-theme="void" className="void" style={{ padding: 24, background: '#0B0A0F', display: 'grid', gap: 20 }}>
+      <div style={{ maxWidth: 360 }}>
+        <SeraphSidebar
+          rail={{ sigil: '✺', topTotemClass: 'mk-seraph__totem--serpent', bottomTotemClass: 'mk-seraph__totem--relic', caption: 'folio · vii' }}
+          crest={<SeraphCrest sunClass="mk-seraph__sun--blue" />}
+          threads={threads}
+          medallion="✺"
+          planTitle="Pro Plan"
+          planSubtitle="Codex Seraphinianus"
+        />
+      </div>
+      <div style={{ display: 'grid', gap: 14 }}>
+        <SeraphPromptBar
+          seal="✺"
+          time="10:42 AM"
+          prompt="Dark-mode manuscript hierarchy audit for ornate cards, metadata, and selected rows."
+        />
+        <div className="mk-seraph__cards">
+          <SeraphCard eyebrow="Inspection · I" title="Repository Inspection" status="Completed" footer="Dark-mode state audit.">
+            <p>Metadata, border contrast, and callout hierarchy stay legible on void grounds.</p>
+            <small>Files scanned: 214 · Language: TypeScript</small>
+          </SeraphCard>
+          <SeraphCard title="Key Files Found" tone="botanic">
+            <ul>
+              <li>`src/components/Code/Code.tsx`</li>
+              <li>`src/mockups/CodexPrimitives.tsx`</li>
+              <li>`src/mockups/ChatPrimitives.tsx`</li>
+            </ul>
+          </SeraphCard>
+        </div>
+      </div>
+    </div>
+  ),
+};

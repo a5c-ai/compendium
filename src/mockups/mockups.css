@@ -2506,17 +2506,33 @@
 }
 
 .mk-seraph__thread {
+  appearance: none;
   display: grid;
   grid-template-columns: 28px 1fr auto;
   gap: 10px;
   align-items: start;
   padding: 10px 8px;
   border-top: 1px solid #d7c6ab;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
   transition: background-color .16s ease, border-color .16s ease;
 }
 
-.mk-seraph__thread:hover {
+.mk-seraph__thread:hover,
+.mk-seraph__thread:focus-visible {
   background: rgba(249, 242, 229, .72);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(28, 84, 99, .14);
+}
+
+.mk-seraph__thread:active {
+  background: rgba(236, 225, 205, .9);
 }
 
 .mk-seraph__thread.is-current {
@@ -3664,8 +3680,8 @@
   --mk-chat-rail-bg: #140f12;
   --mk-chat-rail-border: rgba(240, 230, 209, .14);
   --mk-chat-rail-text: #f0e6d1;
-  --mk-chat-rail-muted: #b8a890;
-  --mk-chat-rail-soft: #d1c0a7;
+  --mk-chat-rail-muted: #c7b8a2;
+  --mk-chat-rail-soft: #dccab1;
   --mk-chat-rail-strong: #fff4df;
   --mk-chat-avatar-bg: #2a211b;
   --mk-chat-avatar-fg: #f0e6d1;
@@ -3741,7 +3757,7 @@
   gap: 10px;
   align-items: start;
   border-bottom: 1px dashed rgba(232, 217, 184, .06);
-  transition: background-color .16s ease, color .16s ease, border-color .16s ease;
+  transition: background-color .16s ease, color .16s ease, border-color .16s ease, transform .16s ease, box-shadow .16s ease;
 }
 
 .mk-chat-rail__item:hover,
@@ -3750,6 +3766,12 @@
   background: linear-gradient(90deg, color-mix(in oklab, var(--tk-cyan) 18%, transparent), transparent 72%);
   box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--tk-cyan) 18%, transparent);
   outline: none;
+  transform: translateX(1px);
+}
+
+.mk-chat-rail__item:active {
+  border-left-color: var(--tk-cinnabar);
+  background: linear-gradient(90deg, color-mix(in oklab, var(--tk-cinnabar) 24%, transparent), transparent 72%);
 }
 
 .mk-chat-rail__item b {
@@ -3775,6 +3797,7 @@
 .mk-chat-rail__item.current {
   border-left-color: var(--tk-cinnabar);
   background: linear-gradient(90deg, rgba(192, 58, 43, .18), transparent 70%);
+  box-shadow: inset 0 0 0 1px rgba(240, 117, 97, .2);
 }
 
 .mk-chat-rail__item small {
@@ -3899,13 +3922,18 @@
   font-style: italic;
 }
 
+.void .mk-chat-wall__head h2 em,
+[data-theme='void'] .mk-chat-wall__head h2 em {
+  color: var(--tkc-danger-hover);
+}
+
 .mk-chat-wall__head p {
   margin: 2px 0 0;
   font-family: var(--font-mono);
   font-size: 9.5px;
   letter-spacing: .22em;
   text-transform: uppercase;
-  color: var(--tk-line-soft);
+  color: color-mix(in oklab, var(--tk-line-soft) 88%, white 12%);
 }
 
 .mk-chat-wall__tools {
@@ -3935,7 +3963,7 @@
 
 .mk-chat-turn__gutter small {
   text-align: center;
-  color: var(--tk-line-soft);
+  color: color-mix(in oklab, var(--tk-line-soft) 88%, white 12%);
   font-family: var(--font-mono);
   font-size: 8.5px;
   letter-spacing: .22em;
@@ -4167,7 +4195,7 @@
   font-size: 9.5px;
   letter-spacing: .22em;
   text-transform: uppercase;
-  color: color-mix(in oklab, var(--tk-line) 78%, white 22%);
+  color: color-mix(in oklab, var(--tk-line) 68%, white 32%);
 }
 
 .mk-chat-composer__bar > div {
@@ -4226,7 +4254,7 @@
   font-size: 9px;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: color-mix(in oklab, var(--tk-line) 72%, white 28%);
+  color: color-mix(in oklab, var(--tk-line) 64%, white 36%);
 }
 
 .mk-chat-inspector article p {
@@ -4932,7 +4960,7 @@
   color: var(--tk-line-soft);
 }
 
-.mk-docs__toc h4 {
+.mk-docs__toc h3 {
   margin: 0 0 18px;
   font-family: var(--font-display);
   font-size: 26px;
@@ -4980,24 +5008,29 @@
   padding: 8px 0 0 38px;
 }
 
-.mk-docs__chapter-items a,
-.mk-docs__margin a {
+.mk-docs__chapter-items button,
+.mk-docs__margin button {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   width: fit-content;
   padding: 2px 6px;
   margin-left: -6px;
+  border: 0;
+  background: transparent;
   border-radius: 4px;
   color: var(--tk-line-soft);
   font-size: 13.5px;
   text-decoration: none;
+  cursor: pointer;
+  font: inherit;
   transition: color .16s ease, background-color .16s ease, box-shadow .16s ease;
 }
 
-.mk-docs__chapter-items a:hover,
-.mk-docs__chapter-items a:focus-visible,
-.mk-docs__margin a:hover,
-.mk-docs__margin a:focus-visible {
+.mk-docs__chapter-items button:hover,
+.mk-docs__chapter-items button:focus-visible,
+.mk-docs__margin button:hover,
+.mk-docs__margin button:focus-visible {
   color: var(--tk-line);
   background: color-mix(in oklab, var(--tk-cinnabar) 9%, transparent);
   box-shadow: 0 0 0 1px color-mix(in oklab, var(--tk-cinnabar) 24%, transparent);
@@ -5005,8 +5038,8 @@
 }
 
 .mk-docs__chapter.current .mk-docs__chapter-head strong,
-.mk-docs__chapter-items a.current,
-.mk-docs__margin a.current {
+.mk-docs__chapter-items button.current,
+.mk-docs__margin button.current {
   color: var(--tk-cinnabar);
 }
 
@@ -5088,7 +5121,198 @@
   font-size: 10px;
   letter-spacing: .22em;
   text-transform: uppercase;
-  color: color-mix(in oklab, var(--tk-line) 72%, white 28%);
+  color: color-mix(in oklab, var(--tk-line) 62%, white 38%);
+}
+
+.void .mk-docs,
+[data-theme='void'] .mk-docs {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), transparent 22%),
+    linear-gradient(180deg, #151317 0%, #0f0d11 100%);
+  color: var(--glyph-bone);
+  border-color: color-mix(in oklab, var(--glyph-fade) 28%, transparent);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 14px 40px rgba(0,0,0,.34);
+}
+
+.void .mk-docs__running,
+.void .mk-docs__toc,
+.void .mk-docs__margin,
+[data-theme='void'] .mk-docs__running,
+[data-theme='void'] .mk-docs__toc,
+[data-theme='void'] .mk-docs__margin {
+  background: color-mix(in oklab, var(--ground-ink) 86%, var(--ground-void));
+  border-color: color-mix(in oklab, var(--glyph-fade) 24%, transparent);
+}
+
+.void .mk-docs__chapter-head strong,
+.void .mk-docs__article h2,
+[data-theme='void'] .mk-docs__chapter-head strong,
+[data-theme='void'] .mk-docs__article h2 {
+  color: var(--glyph-bone);
+}
+
+.void .mk-docs__running .folio,
+.void .mk-docs__chapter-head b,
+.void .mk-docs__chapter.current .mk-docs__chapter-head strong,
+.void .mk-docs__article h2 em,
+[data-theme='void'] .mk-docs__running .folio,
+[data-theme='void'] .mk-docs__chapter-head b,
+[data-theme='void'] .mk-docs__chapter.current .mk-docs__chapter-head strong,
+[data-theme='void'] .mk-docs__article h2 em {
+  color: var(--tkc-danger-hover);
+}
+
+.void .mk-docs__chapter-head span,
+.void .mk-docs__chapter-mark small,
+.void .mk-docs__chapter-mark span,
+.void .mk-docs__chapter-mark p,
+.void .mk-docs__article .lead,
+.void .mk-docs__meta span,
+.void .mk-docs__chapter-items button,
+.void .mk-docs__margin button,
+[data-theme='void'] .mk-docs__chapter-head span,
+[data-theme='void'] .mk-docs__chapter-mark small,
+[data-theme='void'] .mk-docs__chapter-mark span,
+[data-theme='void'] .mk-docs__chapter-mark p,
+[data-theme='void'] .mk-docs__article .lead,
+[data-theme='void'] .mk-docs__meta span,
+[data-theme='void'] .mk-docs__chapter-items button,
+[data-theme='void'] .mk-docs__margin button {
+  color: color-mix(in oklab, var(--glyph-bone) 72%, var(--glyph-fade));
+}
+
+.void .mk-docs__chapter-items button:hover,
+.void .mk-docs__chapter-items button:focus-visible,
+.void .mk-docs__margin button:hover,
+.void .mk-docs__margin button:focus-visible,
+[data-theme='void'] .mk-docs__chapter-items button:hover,
+[data-theme='void'] .mk-docs__chapter-items button:focus-visible,
+[data-theme='void'] .mk-docs__margin button:hover,
+[data-theme='void'] .mk-docs__margin button:focus-visible {
+  color: var(--glyph-bone);
+  background: color-mix(in oklab, var(--accent-cinnabar) 18%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent-cinnabar) 28%, transparent);
+}
+
+.void .mk-seraph,
+[data-theme='void'] .mk-seraph {
+  background:
+    radial-gradient(circle at 16% 8%, rgba(197, 151, 83, .1), transparent 18%),
+    radial-gradient(circle at 82% 88%, rgba(62, 122, 142, .1), transparent 20%),
+    repeating-linear-gradient(90deg, rgba(136, 101, 60, .03) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(180deg, rgba(136, 101, 60, .03) 0 1px, transparent 1px 22px),
+    linear-gradient(180deg, rgba(255,255,255,.03) 0%, transparent 22%),
+    linear-gradient(180deg, #171217 0%, #0d0b10 100%);
+  color: var(--glyph-bone);
+  border-color: color-mix(in oklab, var(--glyph-fade) 28%, transparent);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 16px 44px rgba(0,0,0,.4);
+}
+
+.void .mk-seraph__chrome,
+[data-theme='void'] .mk-seraph__chrome {
+  color: color-mix(in oklab, var(--glyph-bone) 72%, var(--glyph-fade));
+  border-bottom-color: color-mix(in oklab, var(--glyph-fade) 22%, transparent);
+  background: linear-gradient(180deg, rgba(33, 28, 34, .92), rgba(21, 18, 23, .72));
+}
+
+.void .mk-seraph__sidebar,
+.void .mk-seraph__main,
+.void .mk-seraph__aside,
+[data-theme='void'] .mk-seraph__sidebar,
+[data-theme='void'] .mk-seraph__main,
+[data-theme='void'] .mk-seraph__aside {
+  border-color: color-mix(in oklab, var(--glyph-fade) 24%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), transparent 22%),
+    radial-gradient(circle at 50% 0, rgba(255,255,255,.05), transparent 32%),
+    rgba(26, 21, 27, .84);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+.void .mk-seraph__section-title,
+.void .mk-seraph__thread p,
+.void .mk-seraph__thread span,
+.void .mk-seraph__profile small,
+.void .mk-seraph__prompt-bar span,
+.void .mk-seraph__card li,
+.void .mk-seraph__task li,
+.void .mk-seraph__card p,
+.void .mk-seraph__task p,
+.void .mk-seraph__card small,
+.void .mk-seraph__task small,
+.void .mk-seraph__code .file,
+.void .mk-seraph__summary-row p,
+[data-theme='void'] .mk-seraph__section-title,
+[data-theme='void'] .mk-seraph__thread p,
+[data-theme='void'] .mk-seraph__thread span,
+[data-theme='void'] .mk-seraph__profile small,
+[data-theme='void'] .mk-seraph__prompt-bar span,
+[data-theme='void'] .mk-seraph__card li,
+[data-theme='void'] .mk-seraph__task li,
+[data-theme='void'] .mk-seraph__card p,
+[data-theme='void'] .mk-seraph__task p,
+[data-theme='void'] .mk-seraph__card small,
+[data-theme='void'] .mk-seraph__task small,
+[data-theme='void'] .mk-seraph__code .file,
+[data-theme='void'] .mk-seraph__summary-row p {
+  color: color-mix(in oklab, var(--glyph-bone) 70%, var(--glyph-fade));
+}
+
+.void .mk-seraph__thread strong,
+.void .mk-seraph__profile strong,
+.void .mk-seraph__prompt,
+.void .mk-seraph__card h4,
+.void .mk-seraph__task h4,
+.void .mk-seraph__summary-row h5,
+[data-theme='void'] .mk-seraph__thread strong,
+[data-theme='void'] .mk-seraph__profile strong,
+[data-theme='void'] .mk-seraph__prompt,
+[data-theme='void'] .mk-seraph__card h4,
+[data-theme='void'] .mk-seraph__task h4,
+[data-theme='void'] .mk-seraph__summary-row h5 {
+  color: var(--glyph-bone);
+}
+
+.void .mk-seraph__new,
+[data-theme='void'] .mk-seraph__new {
+  border-color: color-mix(in oklab, var(--glyph-fade) 28%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 2px 0 rgba(0,0,0,.42);
+}
+
+.void .mk-seraph__thread:hover,
+.void .mk-seraph__thread:focus-visible,
+[data-theme='void'] .mk-seraph__thread:hover,
+[data-theme='void'] .mk-seraph__thread:focus-visible {
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent-cinnabar) 20%, transparent);
+}
+
+.void .mk-seraph__thread.is-current,
+[data-theme='void'] .mk-seraph__thread.is-current {
+  background:
+    radial-gradient(circle at 18px 18px, rgba(84, 177, 205, .14), transparent 22px),
+    linear-gradient(90deg, rgba(240, 117, 97, .16), transparent 42%),
+    rgba(40, 31, 36, .98);
+  border: 1px solid color-mix(in oklab, var(--accent-cinnabar) 44%, var(--glyph-fade));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 1px 0 rgba(0,0,0,.28);
+}
+
+.void .mk-seraph__search,
+.void .mk-seraph__profile,
+.void .mk-seraph__card,
+.void .mk-seraph__task,
+.void .mk-seraph__summary-row article,
+.void .mk-seraph__code,
+[data-theme='void'] .mk-seraph__search,
+[data-theme='void'] .mk-seraph__profile,
+[data-theme='void'] .mk-seraph__card,
+[data-theme='void'] .mk-seraph__task,
+[data-theme='void'] .mk-seraph__summary-row article,
+[data-theme='void'] .mk-seraph__code {
+  border-color: color-mix(in oklab, var(--glyph-fade) 26%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), transparent 34%),
+    rgba(34, 27, 31, .94);
 }
 
 .mk-docs__columns {
@@ -5234,7 +5458,7 @@
   align-content: start;
 }
 
-.mk-docs__margin h4 {
+.mk-docs__margin h3 {
   margin: 0;
   font-family: var(--font-mono);
   font-size: 9px;

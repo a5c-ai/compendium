@@ -14,6 +14,22 @@ const stories = [
     id: 'mockups-project-previews--gallery-controls-only',
     text: 'Mockup Preview Gallery',
   },
+  {
+    id: 'components-code--dark-mode-audit',
+    text: 'Chat attachment diff',
+  },
+  {
+    id: 'motifs-chat--dark-state-audit',
+    text: 'Freight claims',
+  },
+  {
+    id: 'motifs-seraph--dark-surface-audit',
+    text: 'Dark-mode manuscript hierarchy audit',
+  },
+  {
+    id: 'mockups-codex-primitives--docs-shell-dark',
+    text: 'Convergence',
+  },
 ];
 
 for (const story of stories) {

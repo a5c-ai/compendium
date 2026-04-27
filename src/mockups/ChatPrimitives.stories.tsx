@@ -331,6 +331,73 @@ export const ComposerStates: Story = {
   ),
 };
 
+export const DarkStateAudit: Story = {
+  globals: {
+    theme: 'void',
+  },
+  render: () => (
+    <ChatShell
+      theme="dark"
+      rail={(
+        <ChatRail
+          brand="Atelier."
+          pinned={pinnedThreads}
+          today={todayThreads}
+          foot={<ChatBudgetFoot initial="E" name="Elena Varga" role="Praxis · Ops" budget="$42.18" usage="Budget · 71%" />}
+        />
+      )}
+      wall={(
+        <ChatWall
+          title={<>Freight claims <em>Oct batch review</em></>}
+          subtitle="Dark-mode metadata and selected-state audit"
+          tools={
+            <>
+              <Tag>3 agents seated</Tag>
+              <Button variant="ghost">Replay</Button>
+              <Button variant="primary">Seal verdict</Button>
+            </>
+          }
+          composer={<ChatComposer attachments={composerAttachments} placeholder="Ask archivist something…" footerLabel="seated · archivist · verifier-03" />}
+        >
+          <ChatTurn avatar={<ChatAvatar>E</ChatAvatar>} label="Principal" timestamp="14:01" user>
+            <ChatMessageBody>
+              Walk the October freight-claims batch. Cite the claim IDs and do not make up numbers.
+            </ChatMessageBody>
+          </ChatTurn>
+          <ChatTurn avatar={<ChatAvatar agent>A</ChatAvatar>} label="archivist" timestamp="14:02">
+            <ChatMemo
+              title="Memo · 01"
+              seat="archivist · ledger reconciler"
+              timestamp="14:02:11 UTC"
+              footnote="Seat 03 · 1.42s · ¢3.8"
+              actions={[{ label: 'Reply', variant: 'primary' }, { label: 'Copy' }, { label: 'Branch' }]}
+              body={
+                <>
+                  <p>Thirty-six are internally consistent. Six need direct carrier follow-up.</p>
+                  <ChatToolCard
+                    title="Tool"
+                    meta="ledger.query · rows=6"
+                    latency="412ms"
+                    body={<p>Metadata audit surface for dense, read-heavy rows.</p>}
+                  />
+                </>
+              }
+            />
+          </ChatTurn>
+          <ChatTyping>verifier-03 is reconciling the tariff table. ETA ~4 s.</ChatTyping>
+        </ChatWall>
+      )}
+      inspector={(
+        <ChatInspector
+          title="Worktree · context"
+          items={inspectorItems}
+          footer={<><div className="mk-chat-seal">✓</div><p>Not yet sealed · verdict pending</p></>}
+        />
+      )}
+    />
+  ),
+};
+
 export const InspectorDark: Story = {
   args: {
     title: 'Worktree · context',

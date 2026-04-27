@@ -53,7 +53,8 @@ describe('Codex primitive surfaces', () => {
     );
 
     expect(html).toContain('mk-docs__chapter current');
-    expect(html).toContain('class="current">Convergence · the canonical gate<');
+    expect(html).toContain('class="current" aria-current="true">Convergence · the canonical gate<');
+    expect(html).toContain('type="button"');
     expect(html).toContain('Authoring a custom verdict');
   });
 });
