@@ -49,11 +49,11 @@ const TreeNode: React.FC<TreeNodeProps> = ({
           {hasKids ? <Icon name="chevronRight" size={11} /> : null}
         </span>
         <Icon
+          className="tkc-tree__glyph"
           name={hasKids ? "folder" : "file"}
           size={13}
-          style={{ color: "var(--tkc-ink-soft)" }}
         />
-        <span>{node.label}</span>
+        <span className="tkc-tree__label">{node.label}</span>
         {node.count != null && (
           <span className="tkc-tree__count">{node.count}</span>
         )}
@@ -181,12 +181,12 @@ export const NavItem: React.FC<NavItemProps> = ({
       >
         {item.icon && (
           <Icon
+            className="tkc-tree__glyph"
             name={item.icon}
             size={13}
-            style={{ color: "var(--tkc-ink-soft)" }}
           />
         )}
-        <span>{item.label}</span>
+        <span className="tkc-tree__label">{item.label}</span>
         {hasKids && (
           <span className="tkc-tree__caret">
             <Icon name="chevronRight" size={11} />

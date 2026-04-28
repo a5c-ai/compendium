@@ -50,7 +50,8 @@
   font-weight: 500;
   font-style: italic;
   font-size: 15px;
-  line-height: 1;
+  line-height: 1.12;
+  text-align: center;
   color: var(--fg);
   background: var(--bg);
   border: 1.5px solid var(--bc);
@@ -66,6 +67,11 @@
               box-shadow var(--tkc-dur-fast) var(--tkc-ease-out),
               background var(--tkc-dur) var(--tkc-ease-out),
               color var(--tkc-dur) var(--tkc-ease-out);
+}
+.tkc-btn__label {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .tkc-btn:hover {
   background: var(--tkc-surface-hover);
@@ -155,7 +161,38 @@
   text-shadow: 0 1px 0 rgba(0,0,0,.28);
 }
 .tkc-btn--sm { padding: 5px 10px; font-size: 13px; }
-.tkc-btn--icon { padding: 7px; }
+.tkc-btn--icon {
+  width: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  padding: 0;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.tkc-btn--icon.tkc-btn--sm {
+  width: 32px;
+  min-width: 32px;
+  min-height: 32px;
+}
+.tkc-btn__icon {
+  transition: transform var(--tkc-dur-fast) var(--tkc-ease-out),
+              filter var(--tkc-dur-fast) var(--tkc-ease-out),
+              color var(--tkc-dur-fast) var(--tkc-ease-out);
+}
+.tkc-btn:hover .tkc-btn__icon,
+.tkc-btn:focus-visible .tkc-btn__icon {
+  transform: translateY(-.5px);
+}
+.tkc-btn--primary .tkc-btn__icon {
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.22));
+}
+.tkc-btn--primary:hover .tkc-btn__icon,
+.tkc-btn--primary:focus-visible .tkc-btn__icon {
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.26)) drop-shadow(0 0 .4px rgba(42,22,7,.6));
+}
+.tkc-btn:active .tkc-btn__icon {
+  transform: translateY(0);
+}
 
 /* Loading state */
 .tkc-btn[data-loading="true"] { pointer-events: none; }
@@ -830,14 +867,34 @@
   align-items: center;
   padding: 3px 6px; cursor: pointer;
   border-radius: 3px;
-  transition: background var(--tkc-dur-fast) var(--tkc-ease-out);
+  transition: background var(--tkc-dur-fast) var(--tkc-ease-out),
+              color var(--tkc-dur-fast) var(--tkc-ease-out);
 }
 .tkc-tree__node:hover { background: color-mix(in oklab, var(--tkc-ink) 10%, transparent); }
 .tkc-tree__node[data-selected="true"] { background: color-mix(in oklab, var(--tkc-cinnabar) 18%, transparent); color: var(--tkc-cinnabar); }
-.tkc-tree__caret { transition: transform var(--tkc-dur) var(--tkc-ease); color: var(--tkc-ink-soft); }
+.tkc-tree__caret {
+  transition: transform var(--tkc-dur) var(--tkc-ease),
+              color var(--tkc-dur-fast) var(--tkc-ease-out);
+  color: var(--tkc-ink-soft);
+}
+.tkc-tree__glyph {
+  color: var(--tkc-ink-soft);
+  transition: color var(--tkc-dur-fast) var(--tkc-ease-out),
+              filter var(--tkc-dur-fast) var(--tkc-ease-out);
+}
+.tkc-tree__label { min-width: 0; }
+.tkc-tree__node:hover .tkc-tree__caret,
+.tkc-tree__node:hover .tkc-tree__glyph {
+  color: var(--tkc-ink);
+}
 .tkc-tree__node[data-open="true"] > .tkc-tree__caret { transform: rotate(90deg); }
 .tkc-tree__kids { padding-left: 22px; }
 .tkc-tree__count { font-size: 10px; color: var(--tkc-ink-quiet); letter-spacing: .1em; }
+.tkc-tree__node[data-selected="true"] .tkc-tree__caret,
+.tkc-tree__node[data-selected="true"] .tkc-tree__glyph,
+.tkc-tree__node[data-selected="true"] .tkc-tree__count {
+  color: currentColor;
+}
 
 .tkc-crumbs {
   display: flex; align-items: center; gap: 6px;

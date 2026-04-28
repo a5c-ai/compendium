@@ -41,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {loading && <span className="tkc-btn__spin" />}
       {!loading && leading}
-      {children}
+      <span className="tkc-btn__label">{children}</span>
       {!loading && trailing}
     </button>
   );
@@ -50,14 +50,16 @@ export const Button: React.FC<ButtonProps> = ({
 export interface IconButtonProps extends ButtonProps {
   icon: string;
   label: string;
+  iconSize?: number;
 }
 
 export const IconButton: React.FC<IconButtonProps> = ({
   icon,
   label,
+  iconSize = 15,
   ...rest
 }) => (
   <Button className="tkc-btn--icon" aria-label={label} title={label} {...rest}>
-    <Icon name={icon} size={14} />
+    <Icon className="tkc-btn__icon" name={icon} size={iconSize} strokeWidth={1.75} />
   </Button>
 );
