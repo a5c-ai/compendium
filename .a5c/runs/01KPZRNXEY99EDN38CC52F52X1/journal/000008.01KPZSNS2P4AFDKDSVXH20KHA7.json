@@ -1,0 +1,23 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T13:08:12.502Z",
+  "data": {
+    "effectId": "01KPZSNS1CW14511KZ0C15P9RD",
+    "invocationKey": "design-system-kit-refactor-v1:S000004:repair-pass",
+    "invocationHash": "894d366120ea167f5316142201f96be33ee6a51746d4d859961229b9e60d1118",
+    "stepId": "S000004",
+    "taskId": "repair-pass",
+    "kind": "agent",
+    "label": "repair",
+    "taskDefRef": "tasks/01KPZSNS1CW14511KZ0C15P9RD/task.json",
+    "labels": [
+      "repair",
+      "design-system",
+      "kit",
+      "reuse"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "3a95057ee80f0b1fa6bfaa1acbaa4d14077c5cc14bcec82e596c7ad16dd8a192"
+}

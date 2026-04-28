@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZSNS1CW14511KZ0C15P9RD",
+  "taskId": "repair-pass",
+  "invocationKey": "design-system-kit-refactor-v1:S000004:repair-pass",
+  "status": "ok",
+  "result": {
+    "exampleSurfaces": [
+      "Seraph refactor preview through shared summary-row variant",
+      "MockupPreviews/example app shared runtime"
+    ],
+    "filesChanged": [
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/mockups/mockups.css",
+      "src/components/Code/Code.tsx",
+      "src/components/Code/Code.stories.tsx",
+      "src/components/components.css"
+    ],
+    "fixesApplied": [
+      "Extracted the refactor-page lower proof band into a reusable SeraphSummaryRow variant so the staggered ledger rhythm is now component-level API instead of page-local alignment behavior.",
+      "Added Storybook coverage for ledger variants so the reusable footer/proof cadence is inspectable outside the page previews.",
+      "Extended DiffFile and DiffFileView with file-level metadata framing and wired that through Storybook so docs/chat/mock consumers can compose richer diff panels without custom wrappers."
+    ],
+    "residualRisks": [
+      "The code surface family is still intentionally lightweight compared with a full IDE model; further expansion would be about breadth rather than fixing an active reuse blocker.",
+      "Some dark-mode hierarchy remains CSS-led rather than prop-driven, though the current shared surfaces stay theme-aware."
+    ],
+    "reusableSurfacesTouched": [
+      "Seraph summary/ledger cadence",
+      "Seraph primitive story coverage",
+      "Diff file metadata framing"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Seraph Primitives",
+      "Components/Code"
+    ]
+  },
+  "startedAt": "2026-04-24T13:10:42.700Z",
+  "finishedAt": "2026-04-24T13:10:42.700Z",
+  "value": {
+    "exampleSurfaces": [
+      "Seraph refactor preview through shared summary-row variant",
+      "MockupPreviews/example app shared runtime"
+    ],
+    "filesChanged": [
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/mockups/mockups.css",
+      "src/components/Code/Code.tsx",
+      "src/components/Code/Code.stories.tsx",
+      "src/components/components.css"
+    ],
+    "fixesApplied": [
+      "Extracted the refactor-page lower proof band into a reusable SeraphSummaryRow variant so the staggered ledger rhythm is now component-level API instead of page-local alignment behavior.",
+      "Added Storybook coverage for ledger variants so the reusable footer/proof cadence is inspectable outside the page previews.",
+      "Extended DiffFile and DiffFileView with file-level metadata framing and wired that through Storybook so docs/chat/mock consumers can compose richer diff panels without custom wrappers."
+    ],
+    "residualRisks": [
+      "The code surface family is still intentionally lightweight compared with a full IDE model; further expansion would be about breadth rather than fixing an active reuse blocker.",
+      "Some dark-mode hierarchy remains CSS-led rather than prop-driven, though the current shared surfaces stay theme-aware."
+    ],
+    "reusableSurfacesTouched": [
+      "Seraph summary/ledger cadence",
+      "Seraph primitive story coverage",
+      "Diff file metadata framing"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Seraph Primitives",
+      "Components/Code"
+    ]
+  }
+}

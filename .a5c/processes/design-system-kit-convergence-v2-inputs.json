@@ -1,0 +1,17 @@
+{
+  "projectDir": ".",
+  "exampleDir": "examples/basic-usage",
+  "targetSurfaces": [
+    "Mockup previews",
+    "Seraph and Codex primitives",
+    "Code / diff / editor surfaces",
+    "Storybook controls and motifs",
+    "Example app parity",
+    "Dark mode and accessibility states"
+  ],
+  "targetQuality": 100,
+  "maxIterations": 10,
+  "relatedRunId": "01KPZRNXEY99EDN38CC52F52X1",
+  "relatedRunReason": "prior-kit-refactor-run-completed",
+  "requestText": "Refactor and improve the kit to match specs and improve reusability across use cases. Componentize more of the mock-specific structures, converge visuals toward the local mocks, improve dark mode, fix accessibility issues, deepen Storybook controls and example parity, and iterate until completion."
+}

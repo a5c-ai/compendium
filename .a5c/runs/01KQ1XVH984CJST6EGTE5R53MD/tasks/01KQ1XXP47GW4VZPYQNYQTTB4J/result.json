@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ1XXP47GW4VZPYQNYQTTB4J",
+  "taskId": "code-surface-expansion-implementation",
+  "invocationKey": "code-surface-expansion:S000002:code-surface-expansion-implementation",
+  "status": "ok",
+  "result": {
+    "changedFiles": [
+      "src/components/Code/Code.tsx",
+      "src/components/components.css",
+      "src/components/Code/Code.stories.tsx",
+      "src/components/Code/Code.test.tsx",
+      "src/components/Code/index.ts",
+      "src/components/index.ts",
+      "src/mockups/ChatPrimitives.stories.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "residualRisks": [
+      "The new parchment and embedded frame treatments rely on token-driven mixes and should still be spot-checked in any external host surfaces beyond the repo stories and mock previews."
+    ],
+    "storyTargets": [
+      "src/components/Code/Code.stories.tsx"
+    ],
+    "summary": "Expanded the shared CodeBlock, CodeEditor, and DiffViewer APIs with reusable frame, density, file metadata, and asymmetric diff layout controls; updated the direct stories/tests to cover metadata-heavy, embedded, alternate-frame, empty, and one-sided states; and replaced the recurring Seraph/chat wrapper patterns with the shared surface APIs.",
+    "testTargets": [
+      "src/components/Code/Code.test.tsx"
+    ],
+    "validationsRun": [
+      "npm run lint",
+      "npm run test -- --run",
+      "npm run build",
+      "npm run build-storybook"
+    ]
+  },
+  "startedAt": "2026-04-25T09:09:25.837Z",
+  "finishedAt": "2026-04-25T09:09:25.837Z",
+  "value": {
+    "changedFiles": [
+      "src/components/Code/Code.tsx",
+      "src/components/components.css",
+      "src/components/Code/Code.stories.tsx",
+      "src/components/Code/Code.test.tsx",
+      "src/components/Code/index.ts",
+      "src/components/index.ts",
+      "src/mockups/ChatPrimitives.stories.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "residualRisks": [
+      "The new parchment and embedded frame treatments rely on token-driven mixes and should still be spot-checked in any external host surfaces beyond the repo stories and mock previews."
+    ],
+    "storyTargets": [
+      "src/components/Code/Code.stories.tsx"
+    ],
+    "summary": "Expanded the shared CodeBlock, CodeEditor, and DiffViewer APIs with reusable frame, density, file metadata, and asymmetric diff layout controls; updated the direct stories/tests to cover metadata-heavy, embedded, alternate-frame, empty, and one-sided states; and replaced the recurring Seraph/chat wrapper patterns with the shared surface APIs.",
+    "testTargets": [
+      "src/components/Code/Code.test.tsx"
+    ],
+    "validationsRun": [
+      "npm run lint",
+      "npm run test -- --run",
+      "npm run build",
+      "npm run build-storybook"
+    ]
+  }
+}

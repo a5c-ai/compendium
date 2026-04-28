@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ01WW1V26A0DDWKR18QE40P",
+  "taskId": "compendium-build-storybook",
+  "invocationKey": "compendium-maturation-pass:S000006:compendium-build-storybook",
+  "status": "ok",
+  "result": {
+    "command": "npm run build-storybook",
+    "exitCode": 0,
+    "summary": "Storybook build passed with the new preview-primitives and expanded code stories. Remaining warnings were upstream Storybook eval/chunk-size warnings only."
+  },
+  "startedAt": "2026-04-24T15:32:22.203Z",
+  "finishedAt": "2026-04-24T15:32:22.203Z",
+  "value": {
+    "command": "npm run build-storybook",
+    "exitCode": 0,
+    "summary": "Storybook build passed with the new preview-primitives and expanded code stories. Remaining warnings were upstream Storybook eval/chunk-size warnings only."
+  }
+}

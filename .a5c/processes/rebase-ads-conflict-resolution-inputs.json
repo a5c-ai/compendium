@@ -1,0 +1,10 @@
+{
+  "repo": "compendium",
+  "branch": "vk/47a9-deepen-code-edit",
+  "onto": "main",
+  "conflictedFiles": [
+    "src/mockups/AdsPrimitives.stories.tsx",
+    "src/mockups/AdsPrimitives.tsx",
+    "src/mockups/MockupPreviews.tsx"
+  ]
+}

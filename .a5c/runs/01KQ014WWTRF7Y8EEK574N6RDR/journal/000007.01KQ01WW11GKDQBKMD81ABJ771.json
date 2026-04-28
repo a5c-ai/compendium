@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T15:31:53.506Z",
+  "data": {
+    "effectId": "01KQ01WW0S8MJHCSYH30PT2P9D",
+    "invocationKey": "compendium-maturation-pass:S000004:compendium-test",
+    "invocationHash": "dc511d155a8fd05c64f7086d43b5621874264d3946c63bad764cadc7c168570b",
+    "stepId": "S000004",
+    "taskId": "compendium-test",
+    "kind": "shell",
+    "label": "compendium",
+    "taskDefRef": "tasks/01KQ01WW0S8MJHCSYH30PT2P9D/task.json",
+    "labels": [
+      "compendium",
+      "verify",
+      "test"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc008-9b40-7993-887e-1f1709083b97"
+  },
+  "checksum": "5f841ac9f14f1ab59c2909abdc8cb63e3538e707bae2157350a3cd6703a18993"
+}

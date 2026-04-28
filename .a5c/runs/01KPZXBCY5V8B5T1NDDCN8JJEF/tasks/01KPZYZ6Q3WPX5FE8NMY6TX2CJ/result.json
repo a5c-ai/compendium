@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZYZ6Q3WPX5FE8NMY6TX2CJ",
+  "taskId": "refactor-pass",
+  "invocationKey": "design-system-kit-convergence-v2:S000002:refactor-pass",
+  "status": "ok",
+  "result": {
+    "exampleSurfaces": [
+      "examples/basic-usage uses shared MockupPreviewControls and MockupPreviews",
+      "docs and Seraph previews now consume shared extracted primitives through the same runtime path"
+    ],
+    "filesChanged": [
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/MockupPreviews.stories.tsx",
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/mockups/CodexPrimitives.tsx",
+      "src/mockups/CodexPrimitives.stories.tsx",
+      "src/mockups/mockups.css",
+      "src/components/Code/Code.tsx",
+      "src/components/Code/Code.stories.tsx",
+      "src/components/components.css",
+      "examples/basic-usage/src/App.tsx",
+      "examples/basic-usage/src/App.css"
+    ],
+    "fixesApplied": [
+      "Promoted multiple previously page-local surfaces into reusable kit APIs: Seraph specimen plate, staggered Seraph ledger/proof band, and Codex docs code figure.",
+      "Extended code and diff surfaces with richer file-level metadata framing and improved Storybook control coverage for broader docs/chat/mock reuse.",
+      "Extracted the mockup gallery control panel into a shared MockupPreviewControls component, moved its styling into shared package CSS, and rewired the example app to consume the shared control surface instead of duplicating local UI."
+    ],
+    "residualRisks": [
+      "Further gains from here would be incremental breadth work rather than closing a current reuse blocker.",
+      "Dark-mode hierarchy remains largely CSS-vocabulary driven, but the extracted surfaces preserve existing theme-aware behavior and did not introduce new obvious contrast regressions."
+    ],
+    "reusableSurfacesTouched": [
+      "Seraph artifact-first composition",
+      "Seraph ledger cadence variants",
+      "Codex docs code figure",
+      "Diff file metadata framing",
+      "Mockup preview shared controls"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Project Previews",
+      "Mockups/Seraph Primitives",
+      "Mockups/Codex Primitives",
+      "Components/Code"
+    ]
+  },
+  "startedAt": "2026-04-24T14:41:20.492Z",
+  "finishedAt": "2026-04-24T14:41:20.492Z",
+  "value": {
+    "exampleSurfaces": [
+      "examples/basic-usage uses shared MockupPreviewControls and MockupPreviews",
+      "docs and Seraph previews now consume shared extracted primitives through the same runtime path"
+    ],
+    "filesChanged": [
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/MockupPreviews.stories.tsx",
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/SeraphPrimitives.stories.tsx",
+      "src/mockups/CodexPrimitives.tsx",
+      "src/mockups/CodexPrimitives.stories.tsx",
+      "src/mockups/mockups.css",
+      "src/components/Code/Code.tsx",
+      "src/components/Code/Code.stories.tsx",
+      "src/components/components.css",
+      "examples/basic-usage/src/App.tsx",
+      "examples/basic-usage/src/App.css"
+    ],
+    "fixesApplied": [
+      "Promoted multiple previously page-local surfaces into reusable kit APIs: Seraph specimen plate, staggered Seraph ledger/proof band, and Codex docs code figure.",
+      "Extended code and diff surfaces with richer file-level metadata framing and improved Storybook control coverage for broader docs/chat/mock reuse.",
+      "Extracted the mockup gallery control panel into a shared MockupPreviewControls component, moved its styling into shared package CSS, and rewired the example app to consume the shared control surface instead of duplicating local UI."
+    ],
+    "residualRisks": [
+      "Further gains from here would be incremental breadth work rather than closing a current reuse blocker.",
+      "Dark-mode hierarchy remains largely CSS-vocabulary driven, but the extracted surfaces preserve existing theme-aware behavior and did not introduce new obvious contrast regressions."
+    ],
+    "reusableSurfacesTouched": [
+      "Seraph artifact-first composition",
+      "Seraph ledger cadence variants",
+      "Codex docs code figure",
+      "Diff file metadata framing",
+      "Mockup preview shared controls"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Project Previews",
+      "Mockups/Seraph Primitives",
+      "Mockups/Codex Primitives",
+      "Components/Code"
+    ]
+  }
+}

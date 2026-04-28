@@ -1,0 +1,14 @@
+{
+  "type": "EFFECT_RESOLVED",
+  "recordedAt": "2026-04-24T08:23:46.816Z",
+  "data": {
+    "effectId": "01KPZ96MHHTDRM0AS2N5GSC659",
+    "status": "ok",
+    "resultRef": "tasks/01KPZ96MHHTDRM0AS2N5GSC659/result.json",
+    "startedAt": "2026-04-24T08:23:46.762Z",
+    "finishedAt": "2026-04-24T08:23:46.762Z",
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "2e77bfc7cad906ca3e85030c2594170ed009aa7c041d427e4fa022f1f7899b1a"
+}

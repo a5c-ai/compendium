@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZQ2APAM5AS9RQGXVZXAP3A",
+  "taskId": "visual-and-a11y-review",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000009:visual-and-a11y-review",
+  "status": "ok",
+  "result": {
+    "a11yRisks": [
+      "Small blueprint and parchment metadata still deserves another contrast-tightening pass.",
+      "Dark-mode adaptation is stronger than before but still not exhaustive across every newly introduced Seraph motif state."
+    ],
+    "approved": false,
+    "issues": [
+      "The Seraph kit is now materially more reusable, but the pages still do not yet reach near-exact reference matching. The remaining gap is less about missing primitives and more about the final visual calibration of palette, ornament density, and page-specific composition tension.",
+      "The refactor page still reads slightly too orderly compared with the reference. It needs a bit more irregular manuscript energy and stronger contrast between dominant and subordinate sections.",
+      "The bestiary page is much closer, but the ornament/frame relationship around the hero specimen can still be pushed further toward the reference feel.",
+      "Storybook motif coverage is improved, but some of the newly reusable visual language still lives more strongly in the pages than in isolated configurable stories."
+    ],
+    "nextEdits": [
+      "Use the stronger kit to do one more calibration pass on the two pages: palette tuning, ornament balance, and section hierarchy tension.",
+      "Expose at least one more configurable Seraph motif story that isolates the hero/divider/frame language for reuse.",
+      "Tighten small-text contrast on the Seraph-specific metadata and blueprint-toned surfaces while preserving the manuscript look."
+    ],
+    "overallScore": 88,
+    "strengths": [
+      "The kit now has explicit HeroPlate, Divider, SectionPlate, MarginNote, and richer card/task variants, which substantially improves reuse across future Seraph-like use cases.",
+      "The bestiary page now has a real focal artifact and much stronger manuscript hierarchy.",
+      "The run improved both visual fidelity and system reusability together instead of trading one off against the other.",
+      "The component/system-level accessibility fixes from earlier passes remain intact."
+    ]
+  },
+  "startedAt": "2026-04-24T12:23:32.933Z",
+  "finishedAt": "2026-04-24T12:23:32.933Z",
+  "value": {
+    "a11yRisks": [
+      "Small blueprint and parchment metadata still deserves another contrast-tightening pass.",
+      "Dark-mode adaptation is stronger than before but still not exhaustive across every newly introduced Seraph motif state."
+    ],
+    "approved": false,
+    "issues": [
+      "The Seraph kit is now materially more reusable, but the pages still do not yet reach near-exact reference matching. The remaining gap is less about missing primitives and more about the final visual calibration of palette, ornament density, and page-specific composition tension.",
+      "The refactor page still reads slightly too orderly compared with the reference. It needs a bit more irregular manuscript energy and stronger contrast between dominant and subordinate sections.",
+      "The bestiary page is much closer, but the ornament/frame relationship around the hero specimen can still be pushed further toward the reference feel.",
+      "Storybook motif coverage is improved, but some of the newly reusable visual language still lives more strongly in the pages than in isolated configurable stories."
+    ],
+    "nextEdits": [
+      "Use the stronger kit to do one more calibration pass on the two pages: palette tuning, ornament balance, and section hierarchy tension.",
+      "Expose at least one more configurable Seraph motif story that isolates the hero/divider/frame language for reuse.",
+      "Tighten small-text contrast on the Seraph-specific metadata and blueprint-toned surfaces while preserving the manuscript look."
+    ],
+    "overallScore": 88,
+    "strengths": [
+      "The kit now has explicit HeroPlate, Divider, SectionPlate, MarginNote, and richer card/task variants, which substantially improves reuse across future Seraph-like use cases.",
+      "The bestiary page now has a real focal artifact and much stronger manuscript hierarchy.",
+      "The run improved both visual fidelity and system reusability together instead of trading one off against the other.",
+      "The component/system-level accessibility fixes from earlier passes remain intact."
+    ]
+  }
+}

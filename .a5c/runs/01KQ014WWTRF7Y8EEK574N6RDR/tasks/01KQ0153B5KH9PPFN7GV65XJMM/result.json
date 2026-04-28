@@ -1,0 +1,343 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ0153B5KH9PPFN7GV65XJMM",
+  "taskId": "compendium-maturation-plan",
+  "invocationKey": "compendium-maturation-pass:S000001:compendium-maturation-plan",
+  "status": "ok",
+  "result": {
+    "focusAreas": [
+      {
+        "files": [
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/mockups.css",
+          "src/index.ts",
+          "src/react.ts",
+          "examples/basic-usage/src/App.tsx",
+          "examples/basic-usage/src/App.css"
+        ],
+        "label": "Preview controls extraction and consumer parity",
+        "reason": "The example app currently owns preview control composition that should be sharable and story-consumable as an exported mockup-gallery surface."
+      },
+      {
+        "files": [
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/CodexPrimitives.tsx",
+          "src/mockups/ComponentPrimitives.tsx",
+          "src/mockups/ChatPrimitives.tsx",
+          "src/mockups/SeraphPrimitives.tsx",
+          "src/mockups/mockups.css"
+        ],
+        "label": "Page-local mock structure extraction",
+        "reason": "Several visually important structures are still implicit page composition plus CSS convention instead of reusable primitives or explicit variants."
+      },
+      {
+        "files": [
+          "src/components/Code/Code.tsx",
+          "src/components/Code/Code.stories.tsx",
+          "src/components/components.css",
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/CodexPrimitives.stories.tsx",
+          "src/mockups/ChatPrimitives.stories.tsx"
+        ],
+        "label": "Code/editor/diff family maturity",
+        "reason": "The current APIs are too shallow for richer metadata, alternate framing, embedded docs/chat usage, and one-sided or metadata-heavy diff states."
+      },
+      {
+        "files": [
+          "src/components/components.css",
+          "src/mockups/mockups.css",
+          "src/mockups/ChatPrimitives.stories.tsx",
+          "src/mockups/SeraphPrimitives.stories.tsx",
+          "src/mockups/CodexPrimitives.stories.tsx",
+          ".storybook/preview.ts"
+        ],
+        "label": "Dark mode and accessibility hardening",
+        "reason": "Interactive states, dense metadata, chips, tabs, and dark surfaces still need contrast and focus-state strengthening with inspection coverage."
+      },
+      {
+        "files": [
+          "src/components/Code/Code.stories.tsx",
+          "src/mockups/CodexPrimitives.stories.tsx",
+          "src/mockups/ChatPrimitives.stories.tsx",
+          "src/mockups/SeraphPrimitives.stories.tsx",
+          "src/mockups/MockupPreviews.stories.tsx"
+        ],
+        "label": "Storybook completion",
+        "reason": "Important extracted motifs and state variants are not all directly inspectable today, especially for dark mode and state-sensitive surfaces."
+      }
+    ],
+    "implementationSteps": [
+      "Extract a shared mockup-gallery control surface from the example app into src/mockups so Storybook and the example both exercise the same exported controls and labels.",
+      "Componentize the remaining page-local structures discovered in MockupPreviews by adding focused exported primitives or explicit variants instead of composition-only CSS tricks.",
+      "Expand the code/editor/diff APIs for richer headers, metadata rows, framing variants, empty and one-sided states, and better embedding across docs/chat/mock surfaces; update consumers to use the richer shared surface rather than ad hoc wrappers.",
+      "Harden dark-mode and accessibility styling in shared CSS for tabs, buttons, chips, metadata, docs margins, chat rails, tool cards, inspector panels, and code surfaces, including focus-visible and selected states.",
+      "Add Storybook stories for the new or expanded shared motifs and for dark-mode or accessibility-sensitive states so each important variant is directly inspectable.",
+      "Update the example app to consume only exported package surfaces and shared preview controls, then remove local duplication that became package-level API."
+    ],
+    "risks": [
+      "MockupPreviews is large, so extraction work must stay targeted to structures that clearly repeat or are required by the example/story surfaces.",
+      "The code/diff API expansion touches shared CSS and multiple stories, so there is moderate regression risk around layout density and dark-theme contrast.",
+      "Storybook and example parity changes may reveal missing exports or package-entry assumptions that the current demo shell was hiding."
+    ],
+    "runtimeCallPaths": [
+      {
+        "entryPoint": "src/index.ts",
+        "paths": [
+          "src/index.ts",
+          "src/components/index.ts",
+          "src/components/Code/Code.tsx",
+          "src/mockups/BrandPrimitives.tsx",
+          "src/mockups/ColorPrimitives.tsx",
+          "src/mockups/ComponentPrimitives.tsx",
+          "src/mockups/CodexPrimitives.tsx",
+          "src/mockups/ChatPrimitives.tsx",
+          "src/mockups/SeraphPrimitives.tsx",
+          "src/mockups/SpacingPrimitives.tsx",
+          "src/mockups/TypePrimitives.tsx",
+          "src/tokens/index.css",
+          "src/components/components.css",
+          "src/mockups/mockups.css"
+        ],
+        "reason": "The package entry point defines the public export surface and the CSS loaded by downstream consumers; any reusable primitive or API change must remain coherent here."
+      },
+      {
+        "entryPoint": "src/react.ts",
+        "paths": [
+          "src/react.ts",
+          "src/components/index.ts",
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/CodexPrimitives.tsx",
+          "src/mockups/ChatPrimitives.tsx",
+          "src/mockups/SeraphPrimitives.tsx",
+          "src/mockups/ComponentPrimitives.tsx"
+        ],
+        "reason": "The React-only consumer entry point is what the example app uses for shared surfaces, so parity and ergonomics issues show up here first."
+      },
+      {
+        "entryPoint": "src/mockups/MockupPreviews.tsx",
+        "paths": [
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/CodexPrimitives.tsx",
+          "src/mockups/ChatPrimitives.tsx",
+          "src/mockups/SeraphPrimitives.tsx",
+          "src/mockups/ComponentPrimitives.tsx",
+          "src/mockups/BrandPrimitives.tsx",
+          "src/mockups/ColorPrimitives.tsx",
+          "src/mockups/SpacingPrimitives.tsx",
+          "src/mockups/TypePrimitives.tsx",
+          "src/mockups/mockups.css"
+        ],
+        "reason": "MockupPreviews is still the densest composition surface and currently holds several page-local structures that should become reusable exported primitives or clearer variants."
+      },
+      {
+        "entryPoint": "src/components/Code/Code.tsx",
+        "paths": [
+          "src/components/Code/Code.tsx",
+          "src/components/components.css",
+          "src/components/Code/Code.stories.tsx",
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/ChatPrimitives.stories.tsx"
+        ],
+        "reason": "The code/editor/diff family is reused by docs, chat, and preview surfaces; API and theme-depth changes need to land here and then be exercised by stories and mockups."
+      },
+      {
+        "entryPoint": "examples/basic-usage/src/App.tsx",
+        "paths": [
+          "examples/basic-usage/src/App.tsx",
+          "examples/basic-usage/src/App.css",
+          "src/react.ts",
+          "src/mockups/MockupPreviews.tsx"
+        ],
+        "reason": "The example app is the real package-consumer validation surface and must stop carrying package-worthy preview UI logic locally."
+      },
+      {
+        "entryPoint": ".storybook/preview.ts + src/**/*.stories.tsx",
+        "paths": [
+          ".storybook/preview.ts",
+          "src/mockups/MockupPreviews.stories.tsx",
+          "src/mockups/CodexPrimitives.stories.tsx",
+          "src/mockups/ChatPrimitives.stories.tsx",
+          "src/mockups/SeraphPrimitives.stories.tsx",
+          "src/components/Code/Code.stories.tsx"
+        ],
+        "reason": "Storybook is the primary inspection surface for reusable kit maturity, so direct stories and dark-mode renderings need to cover the extracted motifs and interaction states."
+      }
+    ],
+    "validationPlan": [
+      "npm run lint",
+      "npm run test -- --run",
+      "npm run build",
+      "npm run build-storybook",
+      "npm --prefix examples/basic-usage run build"
+    ]
+  },
+  "startedAt": "2026-04-24T15:19:39.480Z",
+  "finishedAt": "2026-04-24T15:19:39.480Z",
+  "value": {
+    "focusAreas": [
+      {
+        "files": [
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/mockups.css",
+          "src/index.ts",
+          "src/react.ts",
+          "examples/basic-usage/src/App.tsx",
+          "examples/basic-usage/src/App.css"
+        ],
+        "label": "Preview controls extraction and consumer parity",
+        "reason": "The example app currently owns preview control composition that should be sharable and story-consumable as an exported mockup-gallery surface."
+      },
+      {
+        "files": [
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/CodexPrimitives.tsx",
+          "src/mockups/ComponentPrimitives.tsx",
+          "src/mockups/ChatPrimitives.tsx",
+          "src/mockups/SeraphPrimitives.tsx",
+          "src/mockups/mockups.css"
+        ],
+        "label": "Page-local mock structure extraction",
+        "reason": "Several visually important structures are still implicit page composition plus CSS convention instead of reusable primitives or explicit variants."
+      },
+      {
+        "files": [
+          "src/components/Code/Code.tsx",
+          "src/components/Code/Code.stories.tsx",
+          "src/components/components.css",
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/CodexPrimitives.stories.tsx",
+          "src/mockups/ChatPrimitives.stories.tsx"
+        ],
+        "label": "Code/editor/diff family maturity",
+        "reason": "The current APIs are too shallow for richer metadata, alternate framing, embedded docs/chat usage, and one-sided or metadata-heavy diff states."
+      },
+      {
+        "files": [
+          "src/components/components.css",
+          "src/mockups/mockups.css",
+          "src/mockups/ChatPrimitives.stories.tsx",
+          "src/mockups/SeraphPrimitives.stories.tsx",
+          "src/mockups/CodexPrimitives.stories.tsx",
+          ".storybook/preview.ts"
+        ],
+        "label": "Dark mode and accessibility hardening",
+        "reason": "Interactive states, dense metadata, chips, tabs, and dark surfaces still need contrast and focus-state strengthening with inspection coverage."
+      },
+      {
+        "files": [
+          "src/components/Code/Code.stories.tsx",
+          "src/mockups/CodexPrimitives.stories.tsx",
+          "src/mockups/ChatPrimitives.stories.tsx",
+          "src/mockups/SeraphPrimitives.stories.tsx",
+          "src/mockups/MockupPreviews.stories.tsx"
+        ],
+        "label": "Storybook completion",
+        "reason": "Important extracted motifs and state variants are not all directly inspectable today, especially for dark mode and state-sensitive surfaces."
+      }
+    ],
+    "implementationSteps": [
+      "Extract a shared mockup-gallery control surface from the example app into src/mockups so Storybook and the example both exercise the same exported controls and labels.",
+      "Componentize the remaining page-local structures discovered in MockupPreviews by adding focused exported primitives or explicit variants instead of composition-only CSS tricks.",
+      "Expand the code/editor/diff APIs for richer headers, metadata rows, framing variants, empty and one-sided states, and better embedding across docs/chat/mock surfaces; update consumers to use the richer shared surface rather than ad hoc wrappers.",
+      "Harden dark-mode and accessibility styling in shared CSS for tabs, buttons, chips, metadata, docs margins, chat rails, tool cards, inspector panels, and code surfaces, including focus-visible and selected states.",
+      "Add Storybook stories for the new or expanded shared motifs and for dark-mode or accessibility-sensitive states so each important variant is directly inspectable.",
+      "Update the example app to consume only exported package surfaces and shared preview controls, then remove local duplication that became package-level API."
+    ],
+    "risks": [
+      "MockupPreviews is large, so extraction work must stay targeted to structures that clearly repeat or are required by the example/story surfaces.",
+      "The code/diff API expansion touches shared CSS and multiple stories, so there is moderate regression risk around layout density and dark-theme contrast.",
+      "Storybook and example parity changes may reveal missing exports or package-entry assumptions that the current demo shell was hiding."
+    ],
+    "runtimeCallPaths": [
+      {
+        "entryPoint": "src/index.ts",
+        "paths": [
+          "src/index.ts",
+          "src/components/index.ts",
+          "src/components/Code/Code.tsx",
+          "src/mockups/BrandPrimitives.tsx",
+          "src/mockups/ColorPrimitives.tsx",
+          "src/mockups/ComponentPrimitives.tsx",
+          "src/mockups/CodexPrimitives.tsx",
+          "src/mockups/ChatPrimitives.tsx",
+          "src/mockups/SeraphPrimitives.tsx",
+          "src/mockups/SpacingPrimitives.tsx",
+          "src/mockups/TypePrimitives.tsx",
+          "src/tokens/index.css",
+          "src/components/components.css",
+          "src/mockups/mockups.css"
+        ],
+        "reason": "The package entry point defines the public export surface and the CSS loaded by downstream consumers; any reusable primitive or API change must remain coherent here."
+      },
+      {
+        "entryPoint": "src/react.ts",
+        "paths": [
+          "src/react.ts",
+          "src/components/index.ts",
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/CodexPrimitives.tsx",
+          "src/mockups/ChatPrimitives.tsx",
+          "src/mockups/SeraphPrimitives.tsx",
+          "src/mockups/ComponentPrimitives.tsx"
+        ],
+        "reason": "The React-only consumer entry point is what the example app uses for shared surfaces, so parity and ergonomics issues show up here first."
+      },
+      {
+        "entryPoint": "src/mockups/MockupPreviews.tsx",
+        "paths": [
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/CodexPrimitives.tsx",
+          "src/mockups/ChatPrimitives.tsx",
+          "src/mockups/SeraphPrimitives.tsx",
+          "src/mockups/ComponentPrimitives.tsx",
+          "src/mockups/BrandPrimitives.tsx",
+          "src/mockups/ColorPrimitives.tsx",
+          "src/mockups/SpacingPrimitives.tsx",
+          "src/mockups/TypePrimitives.tsx",
+          "src/mockups/mockups.css"
+        ],
+        "reason": "MockupPreviews is still the densest composition surface and currently holds several page-local structures that should become reusable exported primitives or clearer variants."
+      },
+      {
+        "entryPoint": "src/components/Code/Code.tsx",
+        "paths": [
+          "src/components/Code/Code.tsx",
+          "src/components/components.css",
+          "src/components/Code/Code.stories.tsx",
+          "src/mockups/MockupPreviews.tsx",
+          "src/mockups/ChatPrimitives.stories.tsx"
+        ],
+        "reason": "The code/editor/diff family is reused by docs, chat, and preview surfaces; API and theme-depth changes need to land here and then be exercised by stories and mockups."
+      },
+      {
+        "entryPoint": "examples/basic-usage/src/App.tsx",
+        "paths": [
+          "examples/basic-usage/src/App.tsx",
+          "examples/basic-usage/src/App.css",
+          "src/react.ts",
+          "src/mockups/MockupPreviews.tsx"
+        ],
+        "reason": "The example app is the real package-consumer validation surface and must stop carrying package-worthy preview UI logic locally."
+      },
+      {
+        "entryPoint": ".storybook/preview.ts + src/**/*.stories.tsx",
+        "paths": [
+          ".storybook/preview.ts",
+          "src/mockups/MockupPreviews.stories.tsx",
+          "src/mockups/CodexPrimitives.stories.tsx",
+          "src/mockups/ChatPrimitives.stories.tsx",
+          "src/mockups/SeraphPrimitives.stories.tsx",
+          "src/components/Code/Code.stories.tsx"
+        ],
+        "reason": "Storybook is the primary inspection surface for reusable kit maturity, so direct stories and dark-mode renderings need to cover the extracted motifs and interaction states."
+      }
+    ],
+    "validationPlan": [
+      "npm run lint",
+      "npm run test -- --run",
+      "npm run build",
+      "npm run build-storybook",
+      "npm --prefix examples/basic-usage run build"
+    ]
+  }
+}

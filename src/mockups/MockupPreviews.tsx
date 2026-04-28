@@ -1,4 +1,4 @@
-import { CSSProperties, ReactElement, ReactNode } from 'react';
+import { CSSProperties, ReactElement } from 'react';
 import {
   Button,
   CodeBlock,
@@ -91,17 +91,24 @@ import {
   CodexChapterHeader,
   CodexDashboardChart,
   CodexDashboardCommandPalette,
+  CodexDashboardBody,
+  CodexDashboardColumn,
   CodexDashboardFeed,
   CodexDashboardGauges,
   CodexDashboardHero,
   CodexDashboardKpis,
   CodexDashboardPanel,
   CodexDashboardRail,
+  CodexDashboardSearch,
   CodexDashboardShell,
+  CodexDashboardSegmentedControl,
+  CodexDashboardStatus,
   CodexDashboardToolbar,
   CodexDocsArticle,
   CodexDocsCallout,
   CodexDocsChapterMark,
+  CodexDocsDefinition,
+  CodexDocsCodeFigure,
   CodexDocsFigure,
   CodexDocsMargin,
   CodexDocsShell,
@@ -109,6 +116,30 @@ import {
   CodexFrame,
   CodexPlate,
 } from './CodexPrimitives';
+import {
+  AdsCardActionColumn,
+  AdsCard,
+  AdsCardFigure,
+  AdsCardFolio,
+  AdsCardFooter,
+  AdsCardProof,
+  AdsCardStanzas,
+  AdsCardTicker,
+  AdsChapterBand,
+  AdsLeaderboardBadge,
+  AdsLeaderboardBody,
+  AdsLeaderboardCta,
+  AdsLeaderboardDivider,
+  AdsNotes,
+  AdsSheet,
+  AdsCardSpine,
+  AdsSlot,
+  AdsSpecs,
+} from './AdsPrimitives';
+import {
+  MockupGalleryControls as SharedMockupGalleryControls,
+  MockupSpecList,
+} from './MockupPreviewPrimitives';
 import './mockups.css';
 
 export type MockupName =
@@ -134,7 +165,6 @@ export interface MockupDefinition {
   sourceLabel?: string;
 }
 
-
 function AdsSurface() {
   return (
     <section className="mk-ads">
@@ -147,144 +177,153 @@ function AdsSurface() {
           <span>Non-animated · legible at 100%</span>
         </div>
       </header>
-      <article className="mk-ads-slot">
-        <div className="mk-ads-slot__title">
-          <span className="num">I.</span>
-          <span className="size">300 × 250</span>
-          <span className="name">medium rectangle</span>
-        </div>
-        <div className="mk-ads-slot__row">
-          <div className="mk-ads-stack">
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. A · paper ground</span><i /><span>300 × 250</span></div>
-              <div className="mk-ad-card mk-ad-card--mr">
-                <span className="mk-ad-card__folio">Leaflet Nº I · mr-01</span>
-                <div className="mk-ad-card__chapter"><b>03</b><span>Chapter III<em>Gates & verdicts</em></span></div>
-                <h3>Every agent turn ends in a <em>written verdict</em>.</h3>
-                <div className="mk-ad-card__bottom">
-                  <p><strong>a5c.ai</strong>The foundry for multi-agent work</p>
-                  <Button variant="primary">Request a demo</Button>
-                </div>
-                <div className="mk-ad-card__ticker"><span>Ed. 4.2 · Aug 26</span><span>Vellum ground</span></div>
-              </div>
-            </div>
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. B · blueprint ground</span><i /><span>300 × 250</span></div>
-              <div className="mk-ad-card mk-ad-card--mr mk-ad-card--bp">
-                <span className="mk-ad-card__folio">Leaflet Nº I · mr-02</span>
-                <div className="mk-ad-card__chapter"><b>03</b><span>Chapter III<em>Gates & verdicts</em></span></div>
-                <h3>Two strangers, <em>same answer</em>. The rest is ornament.</h3>
-                <div className="mk-ad-card__bottom">
-                  <p><strong>a5c.ai</strong>Convergence, in plain prose</p>
-                  <Button variant="default">Read chapter III</Button>
-                </div>
-                <div className="mk-ad-card__ticker"><span>Ed. 4.2 · Aug 26</span><span>Blueprint ground</span></div>
-              </div>
-            </div>
-          </div>
-          <aside className="mk-ads-notes">
-            <p>The medium rectangle carries the most weight in the set. Chapter numeral earns its height and the CTA stays isolated at the lower right.</p>
-            <div className="mk-ads-specs">
-              <span>Format</span><strong>JPG · 40 KB ceiling</strong>
-              <span>Type stack</span><strong>Cormorant · JetBrains Mono</strong>
-              <span>Safe area</span><strong>10 px inset</strong>
-            </div>
-          </aside>
-        </div>
-      </article>
-      <article className="mk-ads-slot">
-        <div className="mk-ads-slot__title">
-          <span className="num">II.</span>
-          <span className="size">728 × 90</span>
-          <span className="name">leaderboard</span>
-        </div>
-        <div className="mk-ads-slot__row">
-          <div className="mk-ads-stack">
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. A · ink badge</span><i /><span>728 × 90</span></div>
-              <div className="mk-ad-card mk-ad-card--lb">
-                <div className="mk-ad-card__badge"><b>§ iii</b><span>Chap. III</span></div>
-                <div className="mk-ad-card__body"><small>Book I · Foundations</small><h3>Every run ends in a <em>written verdict</em>. Not a score.</h3></div>
-                <i className="mk-ad-card__divider" />
-                <div className="mk-ad-card__cta-wrap"><strong>a·5·c·ai</strong><Button variant="primary">Open the foundry</Button></div>
-              </div>
-            </div>
-          </div>
-          <aside className="mk-ads-notes">
-            <p>A leaderboard lives above the fold. The chapter badge does the identity work on the left so the headline can stay short.</p>
-          </aside>
-        </div>
-      </article>
-      <article className="mk-ads-slot">
-        <div className="mk-ads-slot__title">
-          <span className="num">III.</span>
-          <span className="size">160 × 600</span>
-          <span className="name">wide skyscraper</span>
-        </div>
-        <div className="mk-ads-slot__row">
-          <div className="mk-ads-stack mk-ads-stack--row">
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. A · paper</span><i /><span>160 × 600</span></div>
-              <div className="mk-ad-card mk-ad-card--sky">
-                <span className="mk-ad-card__folio">sky-01</span>
-                <div className="mk-ad-card__chapter mk-ad-card__chapter--stack"><b>02</b><span>Chapter II<em>Agents & seats</em></span></div>
-                <div className="mk-ad-card__spine"><i /><h3><em>Seats</em>, not seats of software.</h3></div>
-                <p className="mk-ad-card__proof">An agent is a seat in a room; replay is how the room remembers.</p>
-                <div className="mk-ad-card__cta-column"><Button variant="ghost">Chapter II</Button><Button variant="primary">Try a5c.ai</Button></div>
-              </div>
-            </div>
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. B · ink</span><i /><span>160 × 600</span></div>
-              <div className="mk-ad-card mk-ad-card--sky mk-ad-card--ink">
-                <span className="mk-ad-card__folio">sky-02</span>
-                <div className="mk-ad-card__chapter mk-ad-card__chapter--stack"><b>06</b><span>Chapter VI<em>Safety & seals</em></span></div>
-                <div className="mk-ad-card__spine"><i /><h3>Least <em>scope</em>, by default.</h3></div>
-                <p className="mk-ad-card__proof">Every tool an agent can reach was granted, in writing, by a human.</p>
-                <div className="mk-ad-card__cta-column"><Button variant="ghost">Chapter VI</Button><Button variant="default">See the seal</Button></div>
-              </div>
-            </div>
-          </div>
-          <aside className="mk-ads-notes">
-            <p>The skyscraper rewards vertical architecture. The spine acts like a dimension line so the ad reads like a measured elevation.</p>
-          </aside>
-        </div>
-      </article>
-      <article className="mk-ads-slot">
-        <div className="mk-ads-slot__title">
-          <span className="num">IV.</span>
-          <span className="size">300 × 600</span>
-          <span className="name">half-page poster</span>
-        </div>
-        <div className="mk-ads-slot__row">
-          <div className="mk-ads-stack mk-ads-stack--row">
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. A · figure-driven</span><i /><span>300 × 600</span></div>
-              <div className="mk-ad-card mk-ad-card--poster">
-                <span className="mk-ad-card__folio">poster-01</span>
-                <div className="mk-ad-card__chapter"><b>01</b><span>Book I · Foundations<em>A first acquaintance</em></span></div>
-                <h3>The foundry, <em>in one page</em>.</h3>
-                <div className="mk-ad-card__figure"><div className="mk-ad-card__figure-line" /><span>FIG. A · editor → artefact → verifier → human</span></div>
-                <div className="mk-ad-card__stanzas"><p><b>Seat</b> — an agent, a manifest, a room.</p><p><b>Verdict</b> — a written decision, by someone else.</p><p><b>Seal</b> — a cinnabar mark, and a replay if it cracks.</p></div>
-                <div className="mk-ad-card__bottom"><p><strong>a5c.ai</strong>The foundry for multi-agent work</p><Button variant="primary">Request a demo</Button></div>
-              </div>
-            </div>
-            <div className="mk-ads-sheet">
-              <div className="mk-ads-sheet__rule"><span>Var. B · cinnabar ground</span><i /><span>300 × 600</span></div>
-              <div className="mk-ad-card mk-ad-card--poster mk-ad-card--cin">
-                <span className="mk-ad-card__folio">poster-02</span>
-                <div className="mk-ad-card__chapter"><b>03</b><span>Book I · Chapter III<em>Gates & verdicts</em></span></div>
-                <h3>Pass. Iterate. Fail. <em>Defer.</em></h3>
-                <div className="mk-ad-card__figure mk-ad-card__figure--words"><span>pass · iterate · fail · defer</span></div>
-                <div className="mk-ad-card__stanzas"><p><b>Two strangers</b>, same answer.</p><p><b>One paragraph</b>, not a score.</p><p><b>Every seal</b>, a replay if it cracks.</p></div>
-                <div className="mk-ad-card__bottom"><p><strong>a5c.ai</strong>Read chapter III in the encyclopedia</p><Button variant="default">Open chapter III</Button></div>
-              </div>
-            </div>
-          </div>
-          <aside className="mk-ads-notes">
-            <p>The half-page is the largest surface and the only one that can carry a three-stanza proof.</p>
-          </aside>
-        </div>
-      </article>
+      <AdsSlot
+        index="I."
+        size="300 × 250"
+        name="medium rectangle"
+        notes={(
+          <AdsNotes
+            body="The medium rectangle carries the most weight in the set. Chapter numeral earns its height and the CTA stays isolated at the lower right."
+            specs={(
+              <AdsSpecs
+                items={[
+                  { label: 'Format', value: 'JPG · 40 KB ceiling' },
+                  { label: 'Type stack', value: 'Cormorant · JetBrains Mono' },
+                  { label: 'Safe area', value: '10 px inset' },
+                ]}
+              />
+            )}
+          />
+        )}
+      >
+        <AdsSheet label="Var. A · paper ground" size="300 × 250">
+          <AdsCard variant="medium-rectangle">
+            <AdsCardFolio>Leaflet Nº I · mr-01</AdsCardFolio>
+            <AdsChapterBand index="03" title="Chapter III" subtitle="Gates & verdicts" />
+            <h3>Every agent turn ends in a <em>written verdict</em>.</h3>
+            <AdsCardFooter
+              brand="a5c.ai"
+              body="The foundry for multi-agent work"
+              cta={<Button variant="primary">Request a demo</Button>}
+            />
+            <AdsCardTicker left="Ed. 4.2 · Aug 26" right="Vellum ground" />
+          </AdsCard>
+        </AdsSheet>
+        <AdsSheet label="Var. B · blueprint ground" size="300 × 250">
+          <AdsCard variant="medium-rectangle" tone="blueprint">
+            <AdsCardFolio>Leaflet Nº I · mr-02</AdsCardFolio>
+            <AdsChapterBand index="03" title="Chapter III" subtitle="Gates & verdicts" />
+            <h3>Two strangers, <em>same answer</em>. The rest is ornament.</h3>
+            <AdsCardFooter
+              brand="a5c.ai"
+              body="Convergence, in plain prose"
+              cta={<Button variant="default">Read chapter III</Button>}
+            />
+            <AdsCardTicker left="Ed. 4.2 · Aug 26" right="Blueprint ground" />
+          </AdsCard>
+        </AdsSheet>
+      </AdsSlot>
+      <AdsSlot
+        index="II."
+        size="728 × 90"
+        name="leaderboard"
+        notes={<AdsNotes body="A leaderboard lives above the fold. The chapter badge does the identity work on the left so the headline can stay short." />}
+      >
+        <AdsSheet label="Var. A · ink badge" size="728 × 90">
+          <AdsCard variant="leaderboard">
+            <AdsLeaderboardBadge index="§ iii" label="Chap. III" />
+            <AdsLeaderboardBody
+              eyebrow="Book I · Foundations"
+              title={<>Every run ends in a <em>written verdict</em>. Not a score.</>}
+            />
+            <AdsLeaderboardDivider />
+            <AdsLeaderboardCta
+              brand="a·5·c·ai"
+              cta={<Button variant="primary">Open the foundry</Button>}
+            />
+          </AdsCard>
+        </AdsSheet>
+      </AdsSlot>
+      <AdsSlot
+        index="III."
+        size="160 × 600"
+        name="wide skyscraper"
+        stackClassName="mk-ads-stack--row"
+        notes={<AdsNotes body="The skyscraper rewards vertical architecture. The spine acts like a dimension line so the ad reads like a measured elevation." />}
+      >
+        <AdsSheet label="Var. A · paper" size="160 × 600">
+          <AdsCard variant="skyscraper">
+            <AdsCardFolio>sky-01</AdsCardFolio>
+            <AdsChapterBand index="02" title="Chapter II" subtitle="Agents & seats" stacked />
+            <AdsCardSpine title={<><em>Seats</em>, not seats of software.</>} />
+            <AdsCardProof>An agent is a seat in a room; replay is how the room remembers.</AdsCardProof>
+            <AdsCardActionColumn>
+              <Button variant="ghost">Chapter II</Button>
+              <Button variant="primary">Try a5c.ai</Button>
+            </AdsCardActionColumn>
+          </AdsCard>
+        </AdsSheet>
+        <AdsSheet label="Var. B · ink" size="160 × 600">
+          <AdsCard variant="skyscraper" tone="ink">
+            <AdsCardFolio>sky-02</AdsCardFolio>
+            <AdsChapterBand index="06" title="Chapter VI" subtitle="Safety & seals" stacked />
+            <AdsCardSpine title={<>Least <em>scope</em>, by default.</>} />
+            <AdsCardProof>Every tool an agent can reach was granted, in writing, by a human.</AdsCardProof>
+            <AdsCardActionColumn>
+              <Button variant="ghost">Chapter VI</Button>
+              <Button variant="default">See the seal</Button>
+            </AdsCardActionColumn>
+          </AdsCard>
+        </AdsSheet>
+      </AdsSlot>
+      <AdsSlot
+        index="IV."
+        size="300 × 600"
+        name="half-page poster"
+        stackClassName="mk-ads-stack--row"
+        notes={<AdsNotes body="The half-page is the largest surface and the only one that can carry a three-stanza proof." />}
+      >
+        <AdsSheet label="Var. A · figure-driven" size="300 × 600">
+          <AdsCard variant="poster">
+            <AdsCardFolio>poster-01</AdsCardFolio>
+            <AdsChapterBand index="01" title="Book I · Foundations" subtitle="A first acquaintance" />
+            <h3>The foundry, <em>in one page</em>.</h3>
+            <AdsCardFigure label="FIG. A · editor → artefact → verifier → human" />
+            <AdsCardStanzas
+              items={[
+                { label: 'Seat', body: 'an agent, a manifest, a room.' },
+                { label: 'Verdict', body: 'a written decision, by someone else.' },
+                { label: 'Seal', body: 'a cinnabar mark, and a replay if it cracks.' },
+              ]}
+            />
+            <AdsCardFooter
+              brand="a5c.ai"
+              body="The foundry for multi-agent work"
+              cta={<Button variant="primary">Request a demo</Button>}
+            />
+          </AdsCard>
+        </AdsSheet>
+        <AdsSheet label="Var. B · cinnabar ground" size="300 × 600">
+          <AdsCard variant="poster" tone="cinnabar">
+            <AdsCardFolio>poster-02</AdsCardFolio>
+            <AdsChapterBand index="03" title="Book I · Chapter III" subtitle="Gates & verdicts" />
+            <h3>Pass. Iterate. Fail. <em>Defer.</em></h3>
+            <AdsCardFigure label="pass · iterate · fail · defer" words />
+            <AdsCardStanzas
+              items={[
+                { label: 'Two strangers', body: 'same answer.' },
+                { label: 'One paragraph', body: 'not a score.' },
+                { label: 'Every seal', body: 'a replay if it cracks.' },
+              ]}
+            />
+            <AdsCardFooter
+              brand="a5c.ai"
+              body="Read chapter III in the encyclopedia"
+              cta={<Button variant="default">Open chapter III</Button>}
+            />
+          </AdsCard>
+        </AdsSheet>
+      </AdsSlot>
     </section>
   );
 }
@@ -489,9 +528,22 @@ function ChatSurface() {
                     body={(
                       <CodeEditor
                         tone="blueprint"
+                        frame="embedded"
+                        density="compact"
                         language="text"
                         filename="ledger.query"
+                        fileMeta="carrier tariff · queue a"
                         status="rows=6 · 412ms"
+                        fileFacts={[
+                          { label: 'mode', value: 'read-only' },
+                          { label: 'surface', value: 'tool card' },
+                        ]}
+                        facts={[
+                          { label: 'review', value: '6 flagged' },
+                          { label: 'confidence', value: '92%', tone: 'success' },
+                          { label: 'carrier follow-up', value: '2 cases', tone: 'warning' },
+                        ]}
+                        footer={<><span>workspace · claims/oct</span><span>read-only query</span></>}
                         code={`CLM-10412 · surcharge 18.2% vs tariff 14.0%\nCLM-10477 · weight rounded up one bracket\nCLM-10544 · duplicate line item\nCLM-10602 · fuel surcharge applied twice`}
                       />
                     )}
@@ -639,23 +691,34 @@ $ git status --porcelain
             <div className="mk-seraph__machine" />
           </div>
         </div>
-        <div className="mk-seraph__diff">
-          <DiffViewer
-            files={[
-              {
-                filename: "src/middleware/auth.ts",
-                before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
-                after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
-                language: "diff",
-              },
-              {
-                filename: "tests/auth.test.ts",
-                after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
-                language: "diff",
-              },
-            ]}
-          />
-        </div>
+        <DiffViewer
+          variant="docs"
+          frame="parchment"
+          title="Refactor diff · request tracing"
+          meta="2 files · auth flow"
+          files={[
+            {
+              filename: "src/middleware/auth.ts",
+              meta: 'middleware',
+              note: 'Auth failures now carry the same request id used by the tracing helper and downstream docs examples.',
+              facts: [
+                { label: 'impact', value: 'api + docs' },
+                { label: 'risk', value: 'low', tone: 'success' },
+              ],
+              before: `- export function authMiddleware(req, res, next) {\n    const token = authSplit(req);\n-   if (!token) return res.status(401).json(...)`,
+              after: `+ export function authMiddleware(req, res, next) {\n+   const requestId = startRequest(req, res);\n    const token = authSplit(req);\n+   if (!token) return res.status(401).json({ error: 'Missing token', requestId })`,
+              language: "diff",
+            },
+            {
+              filename: "tests/auth.test.ts",
+              meta: 'vitest',
+              layout: 'after',
+              beforeEmptyLabel: 'New assertions in this revision',
+              after: `+ import { getRequestId } from '../lib/requestTracing';\n...\n+ expect(requestId).toMatch(/req_/);\n+ expect(res.body.requestId).toBeDefined();`,
+              language: "diff",
+            },
+          ]}
+        />
         <SeraphSummaryRow
           items={[
             { title: 'Tests / Validation', body: '12 passed, 12 total · Coverage: 92%', iconClass: 'mk-seraph__icon--torch' },
@@ -817,10 +880,12 @@ function ColorsSurface() {
           <div className="mk-catalog-cap">grounds · α</div>
           <ColorGroundGrid items={grounds} />
         </div>
-        <dl className="mk-specs">
-          <dt>Rule of two</dt><dd>Any page uses at most two grounds: vellum + parchment, or void + ink. Never mix registers.</dd>
-          <dt>Contrast</dt><dd>Ink on vellum and bone on void remain the primary readable pairs. Fade registers are secondary only.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Rule of two', value: 'Any page uses at most two grounds: vellum + parchment, or void + ink. Never mix registers.' },
+            { label: 'Contrast', value: 'Ink on vellum and bone on void remain the primary readable pairs. Fade registers are secondary only.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">II</span>
           <div>
@@ -843,10 +908,12 @@ function ColorsSurface() {
           <span className="mk-codex-meta">brass · ring</span>
         </header>
         <ColorBrassRow items={['light · #F2C88F', 'gilt · #D9A96A', 'brass · #B37E3E', 'deep · #8E5A26', 'leather · #5B3817', 'mahogany · #2A1607']} />
-        <dl className="mk-specs">
-          <dt>Use</dt><dd>Casings, navigation, primary buttons, rivets, compass rings, and watch-dial surfaces.</dd>
-          <dt>Never</dt><dd>No gradients on text and no brass as decorative plate fill.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Use', value: 'Casings, navigation, primary buttons, rivets, compass rings, and watch-dial surfaces.' },
+            { label: 'Never', value: 'No gradients on text and no brass as decorative plate fill.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">IV</span>
           <div>
@@ -859,10 +926,12 @@ function ColorsSurface() {
           <div className="mk-catalog-cap">gem shelf · γ</div>
           <ColorGemShelf items={gems} />
         </div>
-        <dl className="mk-specs">
-          <dt>Rule</dt><dd>A gemstone only appears when it means something. Emerald decorates nothing; it verifies.</dd>
-          <dt>Density</dt><dd>No more than three distinct gems per surface.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Rule', value: 'A gemstone only appears when it means something. Emerald decorates nothing; it verifies.' },
+            { label: 'Density', value: 'No more than three distinct gems per surface.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">V</span>
           <div>
@@ -1121,7 +1190,7 @@ function DashboardSurface() {
           dim={<><span /><i>14 AUG 2026 · 00:00 → 23:59 · UTC</i><span /></>}
           actions={(
             <>
-              <div className="mk-dashboard__stamp">Live · reconciled 14:32 UTC</div>
+              <CodexDashboardStatus>Live · reconciled 14:32 UTC</CodexDashboardStatus>
               <div>
                 <Button variant="ghost">Export</Button>
                 <Button variant="default">Reconcile</Button>
@@ -1134,25 +1203,22 @@ function DashboardSurface() {
       tools={(
         <CodexDashboardToolbar
           segments={(
-            <div className="mk-dashboard__segs">
-              <button type="button" className="on">24 hr</button>
-              <button type="button">7 d</button>
-              <button type="button">30 d</button>
-              <button type="button">Custom</button>
-            </div>
+            <CodexDashboardSegmentedControl
+              items={[
+                { label: '24 hr', current: true },
+                { label: '7 d' },
+                { label: '30 d' },
+                { label: 'Custom' },
+              ]}
+            />
           )}
           filters={<><Tag>Tenant: Praxis Co.</Tag><Tag>Gate: Convergence</Tag><Tag>Verdict: Any</Tag></>}
-          search={(
-            <div className="mk-dashboard__search">
-              <span>Search runs, agents, gates…</span>
-              <i>⌘K</i>
-            </div>
-          )}
+          search={<CodexDashboardSearch label="Search runs, agents, gates…" shortcut="⌘K" />}
         />
       )}
       body={(
-        <div className="mk-dashboard__body">
-          <div className="mk-dashboard__col-main">
+        <CodexDashboardBody>
+          <CodexDashboardColumn>
             <CodexDashboardKpis
               items={[
                 { label: 'Convergence rate', value: '94.2%', delta: '▲ 2.4' },
@@ -1188,8 +1254,8 @@ function DashboardSurface() {
                 pageSize={4}
               />
             </CodexDashboardPanel>
-          </div>
-          <aside className="mk-dashboard__col-side">
+          </CodexDashboardColumn>
+          <CodexDashboardColumn side>
             <CodexDashboardPanel className="mk-dashboard__gauge-panel" title="III. Seat pool · utilisation">
               <CodexDashboardGauges
                 items={[
@@ -1219,8 +1285,8 @@ function DashboardSurface() {
                 { label: 'Disable janitor-01 write scope' },
               ]}
             />
-          </aside>
-        </div>
+          </CodexDashboardColumn>
+        </CodexDashboardBody>
       )}
     />
   );
@@ -1274,10 +1340,9 @@ function DocsSurface() {
           <p>Every run the foundry produces ends with a written verdict. The convergence gate is the canonical shape against which every other gate is measured.</p>
           <h3><span>§ 1</span>The shape of a convergence gate</h3>
           <p>A convergence gate takes three inputs: the artefact, the criteria written into the role manifest, and the history of prior iterations.</p>
-          <div className="mk-docs__defbox">
-            <strong>Definition</strong>
+          <CodexDocsDefinition>
             <p>Convergence: a written statement, by an agent not party to production, that an artefact is indistinguishable in its salient properties from what a second agent would have produced.</p>
-          </div>
+          </CodexDocsDefinition>
           <blockquote>“Two strangers, same answer. Everything else is ornament.”<cite>Praxis Foundry handbook, 2024</cite></blockquote>
           <h3><span>§ 2</span>The four verdicts, in order of appetite</h3>
           <ol>
@@ -1294,6 +1359,8 @@ function DocsSurface() {
           <CodeBlock
             title="Canonical Gate"
             meta="verdict.example.ts"
+            frame="embedded"
+            density="compact"
             language="ts"
             lineNumbers
             code={`export const verdict = {\n  decision: "defer",\n  reason: "manifest is silent on pricing policy",\n  nextStep: "summon human reviewer",\n};`}
@@ -1365,10 +1432,12 @@ function SpacingSurface() {
           <span className="mk-codex-meta">ruler · Σ</span>
         </header>
         <SpacingLadder cap="ruler · Σ" items={ladder} />
-        <dl className="mk-specs">
-          <dt>Base unit</dt><dd>4 px. Every value on the ladder is a multiple. No 5px, 15px, or 20px.</dd>
-          <dt>Rhythm</dt><dd>Vertical stacks prefer s-4 → s-5 → s-6. Never skip two steps.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Base unit', value: '4 px. Every value on the ladder is a multiple. No 5px, 15px, or 20px.' },
+            { label: 'Rhythm', value: 'Vertical stacks prefer s-4 → s-5 → s-6. Never skip two steps.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">II</span>
           <div>
@@ -1417,10 +1486,12 @@ function SpacingSurface() {
             { level: 3, mark: 'iii', spec: 'panel · 0 6px 0 ink' },
           ]}
         />
-        <dl className="mk-specs">
-          <dt>Rule</dt><dd>No diffuse browser shadows. Use a hard offset in ink.</dd>
-          <dt>Hover</dt><dd>Increment by one register on hover: e-1 → e-2. Never invert.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Rule', value: 'No diffuse browser shadows. Use a hard offset in ink.' },
+            { label: 'Hover', value: 'Increment by one register on hover: e-1 → e-2. Never invert.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">V</span>
           <div>
@@ -1489,11 +1560,13 @@ function TypeSurface() {
           <p className="mk-type-alphabet mk-type-alphabet--alt">a b c d e f g h i j k l m n o p q r s t u v w x y z</p>
           <p className="mk-type-numerals">0 1 2 3 4 5 6 7 8 9 · &amp; · ¶ · † · ‡</p>
         </div>
-        <dl className="mk-specs">
-          <dt>Family</dt><dd><code>Cormorant Garamond</code> · weights 400, 500, 600 · italic 400, 500.</dd>
-          <dt>Use</dt><dd>Headlines, display, pull quotes, and section titles. Never below 20px.</dd>
-          <dt>Tracking</dt><dd>Display at -.02em, headings at -.01em. Never letter-space the display weight.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Family', value: <><code>Cormorant Garamond</code> · weights 400, 500, 600 · italic 400, 500.</> },
+            { label: 'Use', value: 'Headlines, display, pull quotes, and section titles. Never below 20px.' },
+            { label: 'Tracking', value: 'Display at -.02em, headings at -.01em. Never letter-space the display weight.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">II</span>
           <div>
@@ -1544,12 +1617,14 @@ function TypeSurface() {
             },
           ]}
         />
-        <dl className="mk-specs">
-          <dt>Family</dt><dd><code>EB Garamond</code> · 400, 500, italic 400.</dd>
-          <dt>Measure</dt><dd>Target 58ch. Never below 45ch and never above 75ch.</dd>
-          <dt>Leading</dt><dd>1.62 at 17px. Increase to 1.7 for long-form reading.</dd>
-          <dt>Figures</dt><dd>Old-style figures on by default.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Family', value: <><code>EB Garamond</code> · 400, 500, italic 400.</> },
+            { label: 'Measure', value: 'Target 58ch. Never below 45ch and never above 75ch.' },
+            { label: 'Leading', value: '1.62 at 17px. Increase to 1.7 for long-form reading.' },
+            { label: 'Figures', value: 'Old-style figures on by default.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">IV</span>
           <div>
@@ -1565,11 +1640,13 @@ function TypeSurface() {
             code={`$ babysitter call "add OAuth to /login"\n↻ planning · iteration 1 of 4 …\n✓ gate · lint — 0 issues\n✓ gate · test — 24 / 24 passing\n⚠ gate · audit — advisory, revising\n⟡ the seal is struck — proof-of-done issued`}
           />
         </CodexPlate>
-        <dl className="mk-specs">
-          <dt>Family</dt><dd><code>JetBrains Mono</code> · 400, 500, 700.</dd>
-          <dt>Use</dt><dd>Code, commands, gate chips, folio numbers, and figure labels.</dd>
-          <dt>Tracking</dt><dd>Labels at .24em to .3em uppercase. Code at 0.</dd>
-        </dl>
+        <MockupSpecList
+          items={[
+            { label: 'Family', value: <><code>JetBrains Mono</code> · 400, 500, 700.</> },
+            { label: 'Use', value: 'Code, commands, gate chips, folio numbers, and figure labels.' },
+            { label: 'Tracking', value: 'Labels at .24em to .3em uppercase. Code at 0.' },
+          ]}
+        />
         <header className="mk-chapter__head mk-chapter__head--wide">
           <span className="mk-chapter__num">V</span>
           <div>
@@ -1698,6 +1775,10 @@ export const MOCKUP_DEFINITIONS: MockupDefinition[] = [
 
 export const MOCKUP_NAMES = MOCKUP_DEFINITIONS.map((item) => item.name);
 export type MockupSelection = MockupName | 'All';
+export interface MockupControlOption {
+  label: string;
+  value: string;
+}
 
 export interface MockupPreviewsProps {
   mockup?: MockupSelection;
@@ -1709,6 +1790,61 @@ export interface MockupPreviewsProps {
   theme?: MockupTheme;
 }
 
+export type { MockupGalleryControlsProps } from './MockupPreviewPrimitives';
+export { MockupGalleryControls } from './MockupPreviewPrimitives';
+
+export interface MockupPreviewControlsProps {
+  mockup: MockupSelection;
+  columns: 1 | 2 | 3;
+  zoom: number;
+  frameHeight: number;
+  showDescription: boolean;
+  showSources: boolean;
+  onMockupChange: (value: MockupSelection) => void;
+  onColumnsChange: (value: 1 | 2 | 3) => void;
+  onZoomChange: (value: number) => void;
+  onFrameHeightChange: (value: number) => void;
+  onShowDescriptionChange: (value: boolean) => void;
+  onShowSourcesChange: (value: boolean) => void;
+}
+
+export function MockupPreviewControls({
+  mockup,
+  columns,
+  zoom,
+  frameHeight,
+  showDescription,
+  showSources,
+  onMockupChange,
+  onColumnsChange,
+  onZoomChange,
+  onFrameHeightChange,
+  onShowDescriptionChange,
+  onShowSourcesChange,
+}: MockupPreviewControlsProps) {
+  return (
+    <SharedMockupGalleryControls
+      mockup={mockup}
+      mockupNames={MOCKUP_NAMES}
+      columnsValue={String(columns)}
+      showDescription={showDescription}
+      showSources={showSources}
+      zoom={zoom}
+      frameHeight={frameHeight}
+      onMockupChange={onMockupChange}
+      onColumnsValueChange={(value) => {
+        const parsed = Number(value);
+        if (parsed === 1 || parsed === 2 || parsed === 3) {
+          onColumnsChange(parsed);
+        }
+      }}
+      onShowDescriptionChange={onShowDescriptionChange}
+      onShowSourcesChange={onShowSourcesChange}
+      onZoomChange={onZoomChange}
+      onFrameHeightChange={onFrameHeightChange}
+    />
+  );
+}
 function clampZoom(value: number): number {
   if (value < 0.4) return 0.4;
   if (value > 1.25) return 1.25;

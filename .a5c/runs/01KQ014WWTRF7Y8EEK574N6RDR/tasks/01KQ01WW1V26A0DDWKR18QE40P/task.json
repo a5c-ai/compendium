@@ -1,0 +1,25 @@
+{
+  "description": "Verify story organization and direct story coverage compile correctly.",
+  "expectedExitCode": 0,
+  "io": {
+    "inputJsonPath": "tasks/01KQ01WW1V26A0DDWKR18QE40P/input.json",
+    "outputJsonPath": "tasks/01KQ01WW1V26A0DDWKR18QE40P/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "compendium",
+    "storybook",
+    "verify"
+  ],
+  "shell": {
+    "command": "npm run build-storybook",
+    "outputPath": "tasks/01KQ01WW1V26A0DDWKR18QE40P/result.json"
+  },
+  "title": "Build Storybook",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ01WW1V26A0DDWKR18QE40P",
+  "taskId": "compendium-build-storybook",
+  "invocationKey": "compendium-maturation-pass:S000006:compendium-build-storybook",
+  "stepId": "S000006",
+  "inputs": {}
+}

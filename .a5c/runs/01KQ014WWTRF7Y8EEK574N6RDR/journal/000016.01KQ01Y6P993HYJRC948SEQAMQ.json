@@ -1,0 +1,21 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T15:32:37.193Z",
+  "data": {
+    "effectId": "01KQ01Y6NQ6A5KYG7FPHHXSQVX",
+    "invocationKey": "compendium-maturation-pass:S000008:compendium-final-review",
+    "invocationHash": "8900dfa849f48641efbc53ac08432c9ac94891561ec81199f36befbccb28b857",
+    "stepId": "S000008",
+    "taskId": "compendium-final-review",
+    "kind": "agent",
+    "label": "compendium",
+    "taskDefRef": "tasks/01KQ01Y6NQ6A5KYG7FPHHXSQVX/task.json",
+    "labels": [
+      "compendium",
+      "review"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc008-9b40-7993-887e-1f1709083b97"
+  },
+  "checksum": "83dba2d221ee2f1104675c63efd71288bc2327ec758c687ce3c6db14ab66865f"
+}

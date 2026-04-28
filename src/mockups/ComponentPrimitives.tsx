@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Tabs, Tag } from '../components';
+import './mockups.css';
 
 export interface ComponentModeItem {
   num: string;

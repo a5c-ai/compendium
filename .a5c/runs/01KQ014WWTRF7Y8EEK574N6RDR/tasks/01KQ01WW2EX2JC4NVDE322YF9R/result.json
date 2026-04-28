@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ01WW2EX2JC4NVDE322YF9R",
+  "taskId": "compendium-example-build",
+  "invocationKey": "compendium-maturation-pass:S000007:compendium-example-build",
+  "status": "ok",
+  "result": {
+    "command": "npm --prefix examples/basic-usage run build",
+    "exitCode": 0,
+    "summary": "Example app build passed after installing its local file-based package dependency, validating the shared exported consumer surface."
+  },
+  "startedAt": "2026-04-24T15:32:22.206Z",
+  "finishedAt": "2026-04-24T15:32:22.206Z",
+  "value": {
+    "command": "npm --prefix examples/basic-usage run build",
+    "exitCode": 0,
+    "summary": "Example app build passed after installing its local file-based package dependency, validating the shared exported consumer surface."
+  }
+}

@@ -1,10 +1,13 @@
 import { ReactElement, ReactNode } from 'react';
+import { CodeBlock, type CodeBlockProps } from '../components';
+import './mockups.css';
 
 export type CodexTabName = 'Philosophy' | 'UI Components' | 'Type' | 'Pigments' | 'Measure';
 
 export interface CodexChapterItem {
   label: string;
   current?: boolean;
+  disabled?: boolean;
 }
 
 export interface CodexDocsChapter {
@@ -40,6 +43,11 @@ export interface CodexFeedItem {
 
 export interface CodexCommandItem {
   label: string;
+  current?: boolean;
+}
+
+export interface CodexSegmentedControlItem {
+  label: ReactNode;
   current?: boolean;
 }
 
@@ -208,7 +216,7 @@ export function CodexDocsToc({
         <i>{shortcut}</i>
       </div>
       <small>{bookLabel}</small>
-      <h4>{title}</h4>
+      <h3>{title}</h3>
       {chapters.map((row) => (
         <div key={row.num} className={`mk-docs__chapter ${row.current ? 'current' : ''}`}>
           <div className="mk-docs__chapter-head">
@@ -219,9 +227,15 @@ export function CodexDocsToc({
           {row.items?.length ? (
             <div className="mk-docs__chapter-items">
               {row.items.map((item) => (
-                <a key={item.label} className={item.current ? 'current' : undefined}>
+                <button
+                  key={item.label}
+                  type="button"
+                  className={item.current ? 'current' : undefined}
+                  aria-current={item.current ? 'true' : undefined}
+                  disabled={item.disabled}
+                >
                   {item.label}
-                </a>
+                </button>
               ))}
             </div>
           ) : null}
@@ -287,6 +301,52 @@ export function CodexDocsFigure({ label }: { label: ReactNode }) {
   );
 }
 
+export function CodexDocsCodeFigure({
+  label,
+  title,
+  meta,
+  language = 'ts',
+  tone = 'default',
+  lineNumbers = true,
+  code,
+}: {
+  label: ReactNode;
+  code: string;
+  title?: CodeBlockProps['title'];
+  meta?: CodeBlockProps['meta'];
+  language?: CodeBlockProps['language'];
+  tone?: CodeBlockProps['tone'];
+  lineNumbers?: boolean;
+}) {
+  return (
+    <div className="mk-docs__code-figure">
+      <CodexDocsFigure label={label} />
+      <CodeBlock
+        code={code}
+        title={title}
+        meta={meta}
+        language={language}
+        tone={tone}
+        lineNumbers={lineNumbers}
+      />
+    </div>
+  );
+}
+
+export function CodexDocsDefinition({
+  title = 'Definition',
+  children,
+}: {
+  title?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <div className="mk-docs__defbox">
+      <strong>{title}</strong>
+      {children}
+    </div>
+  );
+}
 export function CodexDocsCallout({
   icon = '!',
   body,
@@ -314,7 +374,7 @@ export function CodexDocsMargin({
     <aside className="mk-docs__margin">
       {sections.map((section) => (
         <div key={section.title}>
-          <h4>{section.title}</h4>
+          <h3>{section.title}</h3>
           {section.items.map((item, index) => (
             <div key={index}>{item}</div>
           ))}
@@ -357,11 +417,11 @@ export function CodexDashboardRail({
   footer?: ReactNode;
 }) {
   return (
-    <aside className="mk-dashboard__side-rail">
+    <aside className="mk-dashboard__rail">
       <div className="mk-dashboard__brand">{brand}</div>
       {sections.map((section) => (
         <div key={section.title} className="mk-dashboard__nav-section">
-          <span>{section.title}</span>
+          <small>{section.title}</small>
           {section.items.map((item) => (
             <button key={item.label} type="button" className={item.current ? 'current' : undefined}>
               {item.label}
@@ -384,18 +444,20 @@ export function CodexDashboardHero({
   crumbs: ReactNode;
   title: ReactNode;
   body: ReactNode;
-  dim: ReactNode;
-  actions: ReactNode;
+  dim?: ReactNode;
+  actions?: ReactNode;
 }) {
   return (
     <header className="mk-dashboard__hero">
-      <div>
-        <div className="mk-dashboard__crumbs">{crumbs}</div>
-        <h2>{title}</h2>
-        <p>{body}</p>
-        <div className="mk-dashboard__dim">{dim}</div>
+      <small>{crumbs}</small>
+      <div className="mk-dashboard__hero-main">
+        <div>
+          <h1>{title}</h1>
+          <p>{body}</p>
+        </div>
+        {actions}
       </div>
-      <div className="mk-dashboard__hero-actions">{actions}</div>
+      {dim ? <div className="mk-dashboard__dim">{dim}</div> : null}
     </header>
   );
 }
@@ -405,52 +467,118 @@ export function CodexDashboardToolbar({
   filters,
   search,
 }: {
-  segments: ReactNode;
-  filters: ReactNode;
-  search: ReactNode;
+  segments?: ReactNode;
+  filters?: ReactNode;
+  search?: ReactNode;
 }) {
   return (
-    <div className="mk-dashboard__tools">
-      {segments}
-      <div className="mk-dashboard__filters">{filters}</div>
+    <div className="mk-dashboard__toolbar">
+      <div className="mk-dashboard__toolbar-left">
+        {segments}
+        {filters}
+      </div>
       {search}
     </div>
   );
 }
 
-export function CodexDashboardKpis({ items }: { items: readonly CodexKpi[] }) {
+export function CodexDashboardSegmentedControl({
+  items,
+}: {
+  items: readonly CodexSegmentedControlItem[];
+}) {
+  return (
+    <div className="mk-dashboard__segs">
+      {items.map((item) => (
+        <button
+          key={String(item.label)}
+          type="button"
+          className={item.current ? 'on' : undefined}
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function CodexDashboardSearch({
+  label,
+  shortcut,
+}: {
+  label: ReactNode;
+  shortcut: ReactNode;
+}) {
+  return (
+    <div className="mk-dashboard__search">
+      <span>{label}</span>
+      <i>{shortcut}</i>
+    </div>
+  );
+}
+
+export function CodexDashboardStatus({ children }: { children: ReactNode }) {
+  return <div className="mk-dashboard__stamp">{children}</div>;
+}
+
+export function CodexDashboardBody({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return <div className="mk-dashboard__body">{children}</div>;
+}
+
+export function CodexDashboardColumn({
+  side,
+  children,
+}: {
+  side?: boolean;
+  children: ReactNode;
+}) {
+  if (side) {
+    return <aside className="mk-dashboard__col-side">{children}</aside>;
+  }
+  return <div className="mk-dashboard__col-main">{children}</div>;
+}
+
+export function CodexDashboardKpis({
+  items,
+}: {
+  items: readonly CodexKpi[];
+}) {
   return (
     <div className="mk-dashboard__kpis">
       {items.map((item) => (
-        <article key={item.label}>
+        <div key={String(item.label)} className="mk-dashboard__kpi">
           <span>{item.label}</span>
           <strong>{item.value}</strong>
-          {item.delta ? <small>{item.delta}</small> : null}
-        </article>
+          {item.delta ? <i>{item.delta}</i> : null}
+        </div>
       ))}
     </div>
   );
 }
 
 export function CodexDashboardPanel({
-  className,
   headIndex,
   title,
   actions,
+  className,
   children,
 }: {
-  className: string;
   headIndex?: ReactNode;
   title: ReactNode;
   actions?: ReactNode;
+  className?: string;
   children: ReactNode;
 }) {
   return (
-    <section className={className}>
+    <section className={['mk-dashboard__panel', className].filter(Boolean).join(' ')}>
       <header>
-        {headIndex ? <span>{headIndex}</span> : <span />}
-        <strong>{title}</strong>
-        <div>{actions}</div>
+        {headIndex ? <b>{headIndex}</b> : null}
+        <h3>{title}</h3>
+        {actions ? <div>{actions}</div> : null}
       </header>
       {children}
     </section>
@@ -459,23 +587,27 @@ export function CodexDashboardPanel({
 
 export function CodexDashboardChart({ bars }: { bars: readonly number[] }) {
   return (
-    <div className="mk-dashboard__chart-body">
-      <div className="mk-dashboard__gridlines">
-        {bars.map((height, index) => (
-          <i key={index} style={{ height: `${height}px` }} />
-        ))}
-      </div>
+    <div className="mk-dashboard__chart-bars">
+      {bars.map((height, index) => (
+        <span key={index} style={{ height }} />
+      ))}
     </div>
   );
 }
 
-export function CodexDashboardGauges({ items }: { items: readonly CodexGaugeMetric[] }) {
+export function CodexDashboardGauges({
+  items,
+}: {
+  items: readonly CodexGaugeMetric[];
+}) {
   return (
     <div className="mk-dashboard__gauges">
       {items.map((item) => (
-        <div key={String(item.label)}>
-          <span>{item.label}</span>
-          <strong>{item.value}</strong>
+        <div key={String(item.label)} className="mk-dashboard__gauge">
+          <div>
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+          </div>
           {item.meter}
         </div>
       ))}
@@ -483,17 +615,21 @@ export function CodexDashboardGauges({ items }: { items: readonly CodexGaugeMetr
   );
 }
 
-export function CodexDashboardFeed({ items }: { items: readonly CodexFeedItem[] }) {
+export function CodexDashboardFeed({
+  items,
+}: {
+  items: readonly CodexFeedItem[];
+}) {
   return (
-    <>
+    <div className="mk-dashboard__feed-items">
       {items.map((item) => (
-        <article key={`${item.index}-${item.timestamp}`}>
+        <div key={`${item.index}-${item.timestamp}`} className="mk-dashboard__feed-item">
           <b>{item.index}</b>
-          <p>{item.body}</p>
+          <div>{item.body}</div>
           <span>{item.timestamp}</span>
-        </article>
+        </div>
       ))}
-    </>
+    </div>
   );
 }
 
@@ -509,19 +645,17 @@ export function CodexDashboardCommandPalette({
   items: readonly CodexCommandItem[];
 }) {
   return (
-    <section className="mk-dashboard__cmd">
+    <section className="mk-dashboard__palette">
       <header>
-        <span>{icon}</span>
+        <b>{icon}</b>
         <strong>{title}</strong>
-        <i>{shortcut}</i>
+        <span>{shortcut}</span>
       </header>
-      <div>
-        {items.map((item) => (
-          <button key={item.label} type="button" className={item.current ? 'current' : undefined}>
-            {item.label}
-          </button>
-        ))}
-      </div>
+      {items.map((item) => (
+        <button key={item.label} type="button" className={item.current ? 'current' : undefined}>
+          {item.label}
+        </button>
+      ))}
     </section>
   );
 }

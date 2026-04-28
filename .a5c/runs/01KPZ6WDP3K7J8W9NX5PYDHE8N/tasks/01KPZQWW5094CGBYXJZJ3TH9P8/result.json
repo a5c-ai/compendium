@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZQWW5094CGBYXJZJ3TH9P8",
+  "taskId": "repair-pass",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000014:repair-pass",
+  "status": "ok",
+  "result": {
+    "exampleSurfaces": [
+      "examples/basic-usage Seraph previews through shared MockupPreviews styling"
+    ],
+    "filesChanged": [
+      "src/mockups/mockups.css"
+    ],
+    "fixesApplied": [
+      "Weathered the parchment treatment and footer ornament run so brass and teal accents read closer to the aged manuscript references.",
+      "Made the refactor lower ledger feel less boxed by introducing uneven summary-row cadence and more folio-like section texture.",
+      "Added slight incidental rhythm shifts and extra specimen-adjacent ornament density on the bestiary page so the lower tool rows read less mechanically aligned."
+    ],
+    "residualRisks": [
+      "This remains a judgment-based convergence loop without deterministic visual diffing against the uploaded reference pages.",
+      "Further fidelity gains from here are likely to be increasingly incremental unless the remaining geometry is redrawn even more literally."
+    ],
+    "reusableSurfacesTouched": [
+      "shared Seraph parchment weathering",
+      "shared lower-ledger cadence",
+      "shared bestiary incidental ornament rhythm"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Mockup Previews via shared Seraph CSS",
+      "Mockups/Seraph Primitives via shared Seraph CSS"
+    ]
+  },
+  "startedAt": "2026-04-24T12:38:57.341Z",
+  "finishedAt": "2026-04-24T12:38:57.341Z",
+  "value": {
+    "exampleSurfaces": [
+      "examples/basic-usage Seraph previews through shared MockupPreviews styling"
+    ],
+    "filesChanged": [
+      "src/mockups/mockups.css"
+    ],
+    "fixesApplied": [
+      "Weathered the parchment treatment and footer ornament run so brass and teal accents read closer to the aged manuscript references.",
+      "Made the refactor lower ledger feel less boxed by introducing uneven summary-row cadence and more folio-like section texture.",
+      "Added slight incidental rhythm shifts and extra specimen-adjacent ornament density on the bestiary page so the lower tool rows read less mechanically aligned."
+    ],
+    "residualRisks": [
+      "This remains a judgment-based convergence loop without deterministic visual diffing against the uploaded reference pages.",
+      "Further fidelity gains from here are likely to be increasingly incremental unless the remaining geometry is redrawn even more literally."
+    ],
+    "reusableSurfacesTouched": [
+      "shared Seraph parchment weathering",
+      "shared lower-ledger cadence",
+      "shared bestiary incidental ornament rhythm"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Mockup Previews via shared Seraph CSS",
+      "Mockups/Seraph Primitives via shared Seraph CSS"
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Input, Tag } from '../components';
+import './mockups.css';
 
 export interface SeraphThreadItem {
   title: string;
@@ -12,6 +13,7 @@ export interface SeraphRailProps {
   sigil: ReactNode;
   topTotemClass: string;
   bottomTotemClass: string;
+  caption?: ReactNode;
 }
 
 export interface SeraphAsideProps {
@@ -27,6 +29,9 @@ export interface SeraphCrestProps {
 export interface SeraphCardProps {
   title: ReactNode;
   status?: ReactNode;
+  eyebrow?: ReactNode;
+  footer?: ReactNode;
+  tone?: 'default' | 'blueprint' | 'botanic';
   ornament?: ReactNode;
   children: ReactNode;
 }
@@ -35,6 +40,48 @@ export interface SeraphSummaryItem {
   title: string;
   body: ReactNode;
   iconClass: string;
+  eyebrow?: string;
+}
+
+export interface SeraphSummaryRowProps {
+  items: readonly SeraphSummaryItem[];
+  variant?: 'default' | 'staggered';
+}
+export interface SeraphMarginNoteProps {
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  body: ReactNode;
+  ornament?: ReactNode;
+}
+
+export interface SeraphSectionPlateProps {
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  meta?: ReactNode;
+  tone?: 'default' | 'blueprint' | 'botanic';
+  children: ReactNode;
+}
+
+export interface SeraphHeroPlateProps {
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  body: ReactNode;
+  aside?: ReactNode;
+  tone?: 'default' | 'orb' | 'blueprint';
+}
+
+export interface SeraphSpecimenPlateProps {
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  description: ReactNode;
+  glossEyebrow?: ReactNode;
+  gloss?: ReactNode;
+  stars?: boolean;
+  children: ReactNode;
+}
+export interface SeraphDividerProps {
+  label?: ReactNode;
+  variant?: 'default' | 'orb';
 }
 
 export function SeraphWindow({
@@ -81,6 +128,7 @@ export function SeraphSidebar({
         <div className="mk-seraph__dial" />
         <div className="mk-seraph__sigil">{rail.sigil}</div>
         <div className={`mk-seraph__totem ${rail.topTotemClass}`} />
+        {rail.caption ? <div className="mk-seraph__rail-caption">{rail.caption}</div> : null}
         <div className={`mk-seraph__totem ${rail.bottomTotemClass}`} />
       </div>
       {crest}
@@ -88,14 +136,19 @@ export function SeraphSidebar({
       <div className="mk-seraph__section-title">{sectionTitle}</div>
       <div className="mk-seraph__thread-list">
         {threads.map(({ title, subtitle, when, current }) => (
-          <article key={`${title}-${when}`} className={`mk-seraph__thread ${current ? 'is-current' : ''}`}>
+          <button
+            key={`${title}-${when}`}
+            type="button"
+            className={`mk-seraph__thread ${current ? 'is-current' : ''}`}
+            aria-current={current ? 'true' : undefined}
+          >
             <div className="mk-seraph__thread-glyph">{current ? '☼' : '✺'}</div>
             <div>
               <strong>{title}</strong>
               <p>{subtitle}</p>
             </div>
             <span>{when}</span>
-          </article>
+          </button>
         ))}
       </div>
       <div className="mk-seraph__search">
@@ -141,11 +194,13 @@ export function SeraphCrest({ sunClass, className }: SeraphCrestProps) {
   );
 }
 
-export function SeraphCard({ title, status, ornament, children }: SeraphCardProps) {
+export function SeraphCard({ title, status, eyebrow, footer, tone = 'default', ornament, children }: SeraphCardProps) {
   return (
-    <article className="mk-seraph__card">
+    <article className={`mk-seraph__card ${tone !== 'default' ? `mk-seraph__card--${tone}` : ''}`.trim()}>
+      {eyebrow ? <div className="mk-seraph__eyebrow">{eyebrow}</div> : null}
       <h4>{title}{status ? <span>{status}</span> : null}</h4>
       {children}
+      {footer ? <div className="mk-seraph__footnote">{footer}</div> : null}
       {ornament}
     </article>
   );
@@ -154,31 +209,40 @@ export function SeraphCard({ title, status, ornament, children }: SeraphCardProp
 export function SeraphTask({
   title,
   status,
+  eyebrow,
   leading,
   body,
+  footer,
+  tone = 'default',
   ornament,
 }: {
   title: ReactNode;
   status?: ReactNode;
+  eyebrow?: ReactNode;
   leading: ReactNode;
   body: ReactNode;
+  footer?: ReactNode;
+  tone?: 'default' | 'blueprint' | 'botanic';
   ornament?: ReactNode;
 }) {
   return (
-    <article className="mk-seraph__task">
+    <article className={`mk-seraph__task ${tone !== 'default' ? `mk-seraph__task--${tone}` : ''}`.trim()}>
+      {eyebrow ? <div className="mk-seraph__eyebrow">{eyebrow}</div> : null}
       <h4>{title}{status ? <span>{status}</span> : null}</h4>
       <div className="mk-seraph__task-copy">{leading}</div>
       {body}
+      {footer ? <div className="mk-seraph__footnote">{footer}</div> : null}
       {ornament}
     </article>
   );
 }
 
-export function SeraphSummaryRow({ items }: { items: readonly SeraphSummaryItem[] }) {
+export function SeraphSummaryRow({ items, variant = 'default' }: SeraphSummaryRowProps) {
   return (
-    <div className="mk-seraph__summary-row">
+    <div className={`mk-seraph__summary-row ${variant !== 'default' ? `mk-seraph__summary-row--${variant}` : ''}`.trim()}>
       {items.map((item) => (
         <article key={item.title}>
+          {item.eyebrow ? <div className="mk-seraph__eyebrow">{item.eyebrow}</div> : null}
           <h5>{item.title}</h5>
           <p>{item.body}</p>
           <div className={`mk-seraph__icon ${item.iconClass}`} />
@@ -218,6 +282,95 @@ export function SeraphAside({ scribbles, plantClass }: SeraphAsideProps) {
   );
 }
 
-export function SeraphFolioBorder() {
-  return <div className="mk-seraph__folio-border" />;
+export function SeraphMarginNote({ eyebrow, title, body, ornament }: SeraphMarginNoteProps) {
+  return (
+    <article className="mk-seraph__margin-note">
+      {eyebrow ? <div className="mk-seraph__eyebrow">{eyebrow}</div> : null}
+      <h5>{title}</h5>
+      <div className="mk-seraph__margin-note-copy">{body}</div>
+      {ornament}
+    </article>
+  );
+}
+
+export function SeraphSectionPlate({
+  eyebrow,
+  title,
+  meta,
+  tone = 'default',
+  children,
+}: SeraphSectionPlateProps) {
+  return (
+    <section className={`mk-seraph__section-plate ${tone !== 'default' ? `mk-seraph__section-plate--${tone}` : ''}`.trim()}>
+      <header className="mk-seraph__section-plate-head">
+        <div>
+          {eyebrow ? <div className="mk-seraph__eyebrow">{eyebrow}</div> : null}
+          <h4>{title}</h4>
+        </div>
+        {meta ? <span>{meta}</span> : null}
+      </header>
+      <div className="mk-seraph__section-plate-body">{children}</div>
+    </section>
+  );
+}
+
+export function SeraphHeroPlate({
+  eyebrow,
+  title,
+  body,
+  aside,
+  tone = 'default',
+}: SeraphHeroPlateProps) {
+  return (
+    <section className={`mk-seraph__hero-plate ${tone !== 'default' ? `mk-seraph__hero-plate--${tone}` : ''}`.trim()}>
+      <div className="mk-seraph__hero-copy">
+        {eyebrow ? <div className="mk-seraph__eyebrow">{eyebrow}</div> : null}
+        <h3>{title}</h3>
+        <div className="mk-seraph__hero-body">{body}</div>
+      </div>
+      {aside ? <div className="mk-seraph__hero-aside">{aside}</div> : null}
+    </section>
+  );
+}
+
+export function SeraphSpecimenPlate({
+  eyebrow,
+  title,
+  description,
+  glossEyebrow,
+  gloss,
+  stars = true,
+  children,
+}: SeraphSpecimenPlateProps) {
+  return (
+    <div className="mk-seraph__bestiary-hero">
+      <div className="mk-seraph__bestiary-callout">
+        {eyebrow ? <div className="mk-seraph__eyebrow">{eyebrow}</div> : null}
+        <h4>{title}</h4>
+        <p>{description}</p>
+      </div>
+      <div className="mk-seraph__bestiary-canvas">
+        {gloss ? (
+          <div className="mk-seraph__bestiary-gloss">
+            {glossEyebrow ? <div className="mk-seraph__eyebrow">{glossEyebrow}</div> : null}
+            {gloss}
+          </div>
+        ) : null}
+        {children}
+        {stars ? <div className="mk-seraph__bestiary-stars" /> : null}
+      </div>
+    </div>
+  );
+}
+export function SeraphDivider({ label, variant = 'default' }: SeraphDividerProps) {
+  return (
+    <div className={`mk-seraph__divider ${variant === 'orb' ? 'mk-seraph__divider--orb' : ''}`.trim()}>
+      <span />
+      {label ? <i>{label}</i> : null}
+      <span />
+    </div>
+  );
+}
+export function SeraphFolioBorder({ variant }: { variant?: 'default' | 'orb' }) {
+  return <div className={`mk-seraph__folio-border ${variant === 'orb' ? 'mk-seraph__folio-border--orb' : ''}`.trim()} />;
 }

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZQVCXTTB1KNW682YTJ3BC9",
+  "taskId": "visual-and-a11y-review",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000013:visual-and-a11y-review",
+  "status": "ok",
+  "result": {
+    "a11yRisks": [
+      "Small metadata lines on parchment surfaces should still be watched in hover/selected states if more palette weathering is introduced.",
+      "No deterministic contrast audit or visual diff is part of this loop, so the final decision is still judgment-based."
+    ],
+    "approved": false,
+    "issues": [
+      "The bestiary page is closer after fusing the specimen into the folio, but the page still reads a bit more composed and polished than the reference. The source image relies on denser incidental ornament and a slightly more incidental task rhythm.",
+      "The refactor page improved in the middle-to-lower transition, but the lower ledger and diff register are still a touch more rectangular and evenly spaced than the original manuscript-like composition.",
+      "Palette hierarchy is strong now, yet a few brass and teal accents still read slightly cleaner and less weathered than the reference images, especially around the specimen framing and footer ornament run."
+    ],
+    "nextEdits": [
+      "Push one more fidelity pass on the refactor lower register so the diff and summary band feel slightly less boxed and more manually composed.",
+      "Increase decorative incidental density on the bestiary page around the specimen and lower tool rows without turning it into noise.",
+      "Weather a few brass/teal accents and tighten footer ornament spacing so the surface lands closer to the original images' aged manuscript tone."
+    ],
+    "overallScore": 94,
+    "strengths": [
+      "The Seraph kit is materially reusable now, with better shared vocabulary for manuscript hero surfaces and irregular folio rhythm.",
+      "The bestiary dominant artifact no longer feels boxed off as a modern card and is much closer to the reference family.",
+      "Storybook/example parity remains intact because the changes stayed inside the shared Seraph rendering path.",
+      "A11y-sensitive contrast improvements from previous passes still hold while the manuscript palette remains legible and distinctive."
+    ]
+  },
+  "startedAt": "2026-04-24T12:36:59.717Z",
+  "finishedAt": "2026-04-24T12:36:59.717Z",
+  "value": {
+    "a11yRisks": [
+      "Small metadata lines on parchment surfaces should still be watched in hover/selected states if more palette weathering is introduced.",
+      "No deterministic contrast audit or visual diff is part of this loop, so the final decision is still judgment-based."
+    ],
+    "approved": false,
+    "issues": [
+      "The bestiary page is closer after fusing the specimen into the folio, but the page still reads a bit more composed and polished than the reference. The source image relies on denser incidental ornament and a slightly more incidental task rhythm.",
+      "The refactor page improved in the middle-to-lower transition, but the lower ledger and diff register are still a touch more rectangular and evenly spaced than the original manuscript-like composition.",
+      "Palette hierarchy is strong now, yet a few brass and teal accents still read slightly cleaner and less weathered than the reference images, especially around the specimen framing and footer ornament run."
+    ],
+    "nextEdits": [
+      "Push one more fidelity pass on the refactor lower register so the diff and summary band feel slightly less boxed and more manually composed.",
+      "Increase decorative incidental density on the bestiary page around the specimen and lower tool rows without turning it into noise.",
+      "Weather a few brass/teal accents and tighten footer ornament spacing so the surface lands closer to the original images' aged manuscript tone."
+    ],
+    "overallScore": 94,
+    "strengths": [
+      "The Seraph kit is materially reusable now, with better shared vocabulary for manuscript hero surfaces and irregular folio rhythm.",
+      "The bestiary dominant artifact no longer feels boxed off as a modern card and is much closer to the reference family.",
+      "Storybook/example parity remains intact because the changes stayed inside the shared Seraph rendering path.",
+      "A11y-sensitive contrast improvements from previous passes still hold while the manuscript palette remains legible and distinctive."
+    ]
+  }
+}

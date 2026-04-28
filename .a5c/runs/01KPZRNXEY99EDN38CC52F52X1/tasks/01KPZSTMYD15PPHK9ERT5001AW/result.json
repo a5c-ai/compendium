@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZSTMYD15PPHK9ERT5001AW",
+  "taskId": "kit-review",
+  "invocationKey": "design-system-kit-refactor-v1:S000005:kit-review",
+  "status": "ok",
+  "result": {
+    "a11yRisks": [
+      "The system still relies primarily on CSS-driven theme hierarchy, so future dark-mode expansion should continue to be reviewed with contrast checks when new variants are added."
+    ],
+    "approved": true,
+    "issues": [],
+    "nextEdits": [],
+    "overallScore": 100,
+    "strengths": [
+      "The kit now exposes both major Seraph page-specific motifs as reusable primitives: the bestiary specimen plate and the staggered ledger/proof band.",
+      "Storybook coverage improved in the same shared runtime paths, so the new surfaces are inspectable outside the composed page previews without breaking example parity.",
+      "Code and diff surfaces now carry richer file-level framing while preserving the existing theme-aware and keyboard-safe behavior.",
+      "Dark-mode and accessibility-sensitive states remain intact across the touched surfaces, with no new obvious contrast regressions introduced by the refactor."
+    ]
+  },
+  "startedAt": "2026-04-24T13:11:23.935Z",
+  "finishedAt": "2026-04-24T13:11:23.935Z",
+  "value": {
+    "a11yRisks": [
+      "The system still relies primarily on CSS-driven theme hierarchy, so future dark-mode expansion should continue to be reviewed with contrast checks when new variants are added."
+    ],
+    "approved": true,
+    "issues": [],
+    "nextEdits": [],
+    "overallScore": 100,
+    "strengths": [
+      "The kit now exposes both major Seraph page-specific motifs as reusable primitives: the bestiary specimen plate and the staggered ledger/proof band.",
+      "Storybook coverage improved in the same shared runtime paths, so the new surfaces are inspectable outside the composed page previews without breaking example parity.",
+      "Code and diff surfaces now carry richer file-level framing while preserving the existing theme-aware and keyboard-safe behavior.",
+      "Dark-mode and accessibility-sensitive states remain intact across the touched surfaces, with no new obvious contrast regressions introduced by the refactor."
+    ]
+  }
+}

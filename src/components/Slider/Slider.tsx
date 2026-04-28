@@ -15,6 +15,7 @@ export interface SliderProps {
   step?: number;
   ticks?: number;
   format?: (value: number) => React.ReactNode;
+  ariaLabel?: string;
 }
 
 export const Slider: React.FC<SliderProps> = ({
@@ -26,6 +27,7 @@ export const Slider: React.FC<SliderProps> = ({
   step = 1,
   ticks,
   format,
+  ariaLabel,
 }) => {
   const [v, set] = useCtrl(value, defaultValue, onChange);
   const ref = useRef<HTMLDivElement>(null);
@@ -115,6 +117,7 @@ export const Slider: React.FC<SliderProps> = ({
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={v}
+        aria-label={ariaLabel}
         tabIndex={0}
         onKeyDown={key}
       >

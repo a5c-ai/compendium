@@ -1,0 +1,294 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "exampleSurfaces": {
+          "type": "array"
+        },
+        "filesChanged": {
+          "type": "array"
+        },
+        "fixesApplied": {
+          "type": "array"
+        },
+        "residualRisks": {
+          "type": "array"
+        },
+        "reusableSurfacesTouched": {
+          "type": "array"
+        },
+        "storybookSurfaces": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "filesChanged",
+        "fixesApplied",
+        "residualRisks",
+        "reusableSurfacesTouched",
+        "storybookSurfaces",
+        "exampleSurfaces"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "baseline": {
+          "constraints": [
+            "User requires reconstructive React/CSS output, not image embeds.",
+            "User requires reusable/componentized design-system primitives, sections, whole pages, Storybook controls, and example parity.",
+            "Current Babysitter process for this run must remain agent-only with no shell task kinds.",
+            "Worktree already contains untracked process files; preserve them and avoid touching unrelated repo state.",
+            "The effective live execution path for this scope is centered on src/mockups plus shared code components and the example app, so changes should stay on those paths unless a directly imported shared primitive needs extension."
+          ],
+          "gaps": [
+            "Seraph pages are structurally reconstructed but still materially off from the uploaded references in palette tuning, decorative density, frame geometry, and manuscript ornament placement.",
+            "SeraphPrimitives is still too coarse for exact reconstruction; several motifs are encoded as ad-hoc CSS classes instead of configurable reusable subcomponents for rails, medallions, botanical ornaments, manuscript side panels, and illuminated borders.",
+            "MockupPreviews keeps parity across Storybook and the example app, but the controls are mostly page-level. The Seraph-specific primitive stories do not yet expose the page motifs deeply enough for component-level reuse and configuration.",
+            "Dark mode exists at the gallery level and some surfaces, but the Seraph and wider mock surfaces still need systematic state adaptation and contrast review, especially for hover, active, disabled, chat-adjacent surfaces, and brass-on-dark combinations.",
+            "Code/diff surfaces are present and already used in chat/docs/Seraph pages, but adoption is incomplete and the code component family can still be broken into richer reusable subparts aligned with the user's request for configurable editor/code/diff building blocks.",
+            "The current CSS file is carrying a large amount of page-specific visual logic, which makes exact convergence harder than a more explicit primitive vocabulary would."
+          ],
+          "referenceAssets": [
+            "project/uploads/image.png",
+            "project/uploads/image2.png",
+            "project/uploads/22905002-458e-4837-b3eb-40cc1bb3ed1f.jpeg",
+            "project/uploads/22905002-458e-4837-b3eb-40cc1bb3ed1f-db65382c.jpeg",
+            "project/uploads/Gemini_Generated_Image_1cbrc41cbrc41cbr.png",
+            "project/uploads/Gemini_Generated_Image_52zvuv52zvuv52zv.png",
+            "project/uploads/Gemini_Generated_Image_bgj711bgj711bgj7.png"
+          ],
+          "reusableSurfaces": [
+            "MockupPreviews gallery and per-page definitions",
+            "SeraphWindow, SeraphSidebar, SeraphPromptBar, SeraphCard, SeraphTask, SeraphSummaryRow, SeraphComposer, SeraphAside, SeraphFolioBorder",
+            "CodeBlock, CodeEditor, DiffViewer, DiffFileTabs, DiffFileView",
+            "Storybook controls in MockupPreviews.stories.tsx",
+            "Shared example-app usage through examples/basic-usage/src/App.tsx"
+          ],
+          "runtimeCallPaths": [
+            ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+            ".storybook/main.ts -> src/mockups/SeraphPrimitives.stories.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+            "examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+            "Seraph mock pages depend on shared code surfaces from src/components/Code/Code.tsx through CodeBlock, CodeEditor, and DiffViewer"
+          ],
+          "targetFiles": [
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/SeraphPrimitives.tsx",
+            "src/mockups/mockups.css",
+            "src/mockups/MockupPreviews.stories.tsx",
+            "src/mockups/SeraphPrimitives.stories.tsx",
+            "src/components/Code/Code.tsx",
+            "examples/basic-usage/src/App.tsx"
+          ]
+        },
+        "exampleDir": "examples/basic-usage",
+        "previousImplementation": {
+          "exampleSurfaces": [
+            "Seraph Refactor shared rendering path",
+            "Seraph Bestiary shared rendering path"
+          ],
+          "filesChanged": [
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/mockups.css"
+          ],
+          "fixesApplied": [
+            "Pushed the refactor page away from an even card rhythm by making the top section more asymmetric and adding a lower tail note register.",
+            "Redesigned the bestiary page around a dominant reusable hero specimen plate plus supporting illuminated callout, so the creature artifact leads the page rather than sitting as one card among many.",
+            "Reduced the competition between the bestiary illustration panel and the research stack by turning the lower image-tool task into a rendering-notes panel instead of a second rival illustration block."
+          ],
+          "residualRisks": [
+            "The pages should now read closer to the references, but palette exactness and ornament choreography may still need one more pass.",
+            "Storybook motif-level configurability still lags behind the full page-level reconstruction work.",
+            "Some metadata and blueprint contrast combinations may still need another accessibility tightening pass."
+          ],
+          "reusableSurfacesTouched": [
+            "shared bestiary hero specimen composition on the page via existing reusable surfaces",
+            "shared asymmetric card rhythm styling",
+            "shared tail-note and hero-plate CSS vocabulary"
+          ],
+          "storybookSurfaces": [
+            "Mockups/Project Previews",
+            "Mockups/Seraph Primitives"
+          ]
+        },
+        "previousReview": {
+          "a11yRisks": [
+            "Small meta text and some blueprint-tone copy likely still need targeted contrast tightening.",
+            "The broader kit still needs more systematic dark-mode adaptation across all new Seraph-facing variants and states."
+          ],
+          "approved": false,
+          "issues": [
+            "The page compositions are materially stronger, but the kit still does not fully encode the reference language as reusable building blocks. Too much of the final look still depends on page-level composition choices and CSS class choreography rather than a richer section/component kit.",
+            "The Seraph pages are closer in silhouette and hierarchy, but the reference-grade ornament system is still not reusable enough. Rails, illuminated plates, hero artifacts, and divider treatments need to be more explicit kit primitives rather than patterns inferred from page markup.",
+            "Storybook still under-represents the motif-level design system. The page examples are stronger than the component kit previews, which means reuse across new use cases would still be slower and less reliable than desired.",
+            "Color relationships and decorative density are improved but still not fully spec-like. The kit needs more codified tone variants and framing options so those relationships can be reused intentionally instead of hand-tuned page by page."
+          ],
+          "nextEdits": [
+            "Refactor the Seraph kit itself: create more explicit reusable building blocks for page rails, illuminated hero plates, framed notebook sections, and decorative divider systems.",
+            "Move page-specific ornamental patterns into configurable primitive props and dedicated subcomponents where possible.",
+            "Expand Storybook to demonstrate the Seraph kit at motif level, not only at page level, so new use cases can assemble the same visual language predictably.",
+            "Codify tone and framing variants more explicitly so palette/decor behavior is reusable across surfaces."
+          ],
+          "overallScore": 84,
+          "strengths": [
+            "The bestiary page now has a dominant artifact and better manuscript hierarchy.",
+            "The refactor page has a less generic rhythm and better bound-section composition.",
+            "The run is improving shared surfaces rather than only polishing single pages.",
+            "Button contrast and dark diff states remain improved at the shared component layer."
+          ]
+        },
+        "projectDir": ".",
+        "round": 4,
+        "targetMockups": [
+          "Seraph Refactor",
+          "Seraph Bestiary"
+        ]
+      },
+      "instructions": [
+        "USER REQUEST (verbatim):",
+        "---",
+        "Converge the reconstructed Seraph mock pages to effectively exact fidelity against the uploaded references, while preserving reusable and configurable design-system primitives, Storybook parity with controls, example parity, dark-mode adaptation, accessible states, and shared code/diff/code-editor surfaces. Use a fresh Babysitter process and no shell kind tasks.",
+        "---",
+        "Use the previous review as the authoritative list of misses.",
+        "Fix the most visually important gaps first, then the architecture and a11y gaps that block reuse or dark-mode adaptation.",
+        "Favor reusable primitives, configurable sections, and shared CSS vocabulary, but do not hide behind abstraction if a direct redraw is still needed.",
+        "Keep the pages reconstructive, not image-based.",
+        "Return JSON with keys: `filesChanged`, `fixesApplied`, `residualRisks`, `reusableSurfacesTouched`, `storybookSurfaces`, `exampleSurfaces`."
+      ],
+      "outputFormat": "JSON",
+      "role": "Senior React/CSS design-system engineer in a fidelity convergence loop",
+      "task": "Apply the review feedback directly and improve the shared implementation without reducing scope."
+    }
+  },
+  "io": {
+    "inputJsonPath": "tasks/01KPZPXQZWGSA92788MQF74PHY/input.json",
+    "outputJsonPath": "tasks/01KPZPXQZWGSA92788MQF74PHY/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "convergence",
+    "fidelity",
+    "repair",
+    "seraph"
+  ],
+  "title": "Repair pass 4",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KPZPXQZWGSA92788MQF74PHY",
+  "taskId": "repair-pass",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000008:repair-pass",
+  "stepId": "S000008",
+  "inputs": {
+    "baseline": {
+      "constraints": [
+        "User requires reconstructive React/CSS output, not image embeds.",
+        "User requires reusable/componentized design-system primitives, sections, whole pages, Storybook controls, and example parity.",
+        "Current Babysitter process for this run must remain agent-only with no shell task kinds.",
+        "Worktree already contains untracked process files; preserve them and avoid touching unrelated repo state.",
+        "The effective live execution path for this scope is centered on src/mockups plus shared code components and the example app, so changes should stay on those paths unless a directly imported shared primitive needs extension."
+      ],
+      "gaps": [
+        "Seraph pages are structurally reconstructed but still materially off from the uploaded references in palette tuning, decorative density, frame geometry, and manuscript ornament placement.",
+        "SeraphPrimitives is still too coarse for exact reconstruction; several motifs are encoded as ad-hoc CSS classes instead of configurable reusable subcomponents for rails, medallions, botanical ornaments, manuscript side panels, and illuminated borders.",
+        "MockupPreviews keeps parity across Storybook and the example app, but the controls are mostly page-level. The Seraph-specific primitive stories do not yet expose the page motifs deeply enough for component-level reuse and configuration.",
+        "Dark mode exists at the gallery level and some surfaces, but the Seraph and wider mock surfaces still need systematic state adaptation and contrast review, especially for hover, active, disabled, chat-adjacent surfaces, and brass-on-dark combinations.",
+        "Code/diff surfaces are present and already used in chat/docs/Seraph pages, but adoption is incomplete and the code component family can still be broken into richer reusable subparts aligned with the user's request for configurable editor/code/diff building blocks.",
+        "The current CSS file is carrying a large amount of page-specific visual logic, which makes exact convergence harder than a more explicit primitive vocabulary would."
+      ],
+      "referenceAssets": [
+        "project/uploads/image.png",
+        "project/uploads/image2.png",
+        "project/uploads/22905002-458e-4837-b3eb-40cc1bb3ed1f.jpeg",
+        "project/uploads/22905002-458e-4837-b3eb-40cc1bb3ed1f-db65382c.jpeg",
+        "project/uploads/Gemini_Generated_Image_1cbrc41cbrc41cbr.png",
+        "project/uploads/Gemini_Generated_Image_52zvuv52zvuv52zv.png",
+        "project/uploads/Gemini_Generated_Image_bgj711bgj711bgj7.png"
+      ],
+      "reusableSurfaces": [
+        "MockupPreviews gallery and per-page definitions",
+        "SeraphWindow, SeraphSidebar, SeraphPromptBar, SeraphCard, SeraphTask, SeraphSummaryRow, SeraphComposer, SeraphAside, SeraphFolioBorder",
+        "CodeBlock, CodeEditor, DiffViewer, DiffFileTabs, DiffFileView",
+        "Storybook controls in MockupPreviews.stories.tsx",
+        "Shared example-app usage through examples/basic-usage/src/App.tsx"
+      ],
+      "runtimeCallPaths": [
+        ".storybook/main.ts -> src/mockups/MockupPreviews.stories.tsx -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+        ".storybook/main.ts -> src/mockups/SeraphPrimitives.stories.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+        "examples/basic-usage/src/App.tsx -> @a5c-ai/compendium/react -> src/mockups/MockupPreviews.tsx -> src/mockups/SeraphPrimitives.tsx -> src/mockups/mockups.css",
+        "Seraph mock pages depend on shared code surfaces from src/components/Code/Code.tsx through CodeBlock, CodeEditor, and DiffViewer"
+      ],
+      "targetFiles": [
+        "src/mockups/MockupPreviews.tsx",
+        "src/mockups/SeraphPrimitives.tsx",
+        "src/mockups/mockups.css",
+        "src/mockups/MockupPreviews.stories.tsx",
+        "src/mockups/SeraphPrimitives.stories.tsx",
+        "src/components/Code/Code.tsx",
+        "examples/basic-usage/src/App.tsx"
+      ]
+    },
+    "exampleDir": "examples/basic-usage",
+    "previousImplementation": {
+      "exampleSurfaces": [
+        "Seraph Refactor shared rendering path",
+        "Seraph Bestiary shared rendering path"
+      ],
+      "filesChanged": [
+        "src/mockups/MockupPreviews.tsx",
+        "src/mockups/mockups.css"
+      ],
+      "fixesApplied": [
+        "Pushed the refactor page away from an even card rhythm by making the top section more asymmetric and adding a lower tail note register.",
+        "Redesigned the bestiary page around a dominant reusable hero specimen plate plus supporting illuminated callout, so the creature artifact leads the page rather than sitting as one card among many.",
+        "Reduced the competition between the bestiary illustration panel and the research stack by turning the lower image-tool task into a rendering-notes panel instead of a second rival illustration block."
+      ],
+      "residualRisks": [
+        "The pages should now read closer to the references, but palette exactness and ornament choreography may still need one more pass.",
+        "Storybook motif-level configurability still lags behind the full page-level reconstruction work.",
+        "Some metadata and blueprint contrast combinations may still need another accessibility tightening pass."
+      ],
+      "reusableSurfacesTouched": [
+        "shared bestiary hero specimen composition on the page via existing reusable surfaces",
+        "shared asymmetric card rhythm styling",
+        "shared tail-note and hero-plate CSS vocabulary"
+      ],
+      "storybookSurfaces": [
+        "Mockups/Project Previews",
+        "Mockups/Seraph Primitives"
+      ]
+    },
+    "previousReview": {
+      "a11yRisks": [
+        "Small meta text and some blueprint-tone copy likely still need targeted contrast tightening.",
+        "The broader kit still needs more systematic dark-mode adaptation across all new Seraph-facing variants and states."
+      ],
+      "approved": false,
+      "issues": [
+        "The page compositions are materially stronger, but the kit still does not fully encode the reference language as reusable building blocks. Too much of the final look still depends on page-level composition choices and CSS class choreography rather than a richer section/component kit.",
+        "The Seraph pages are closer in silhouette and hierarchy, but the reference-grade ornament system is still not reusable enough. Rails, illuminated plates, hero artifacts, and divider treatments need to be more explicit kit primitives rather than patterns inferred from page markup.",
+        "Storybook still under-represents the motif-level design system. The page examples are stronger than the component kit previews, which means reuse across new use cases would still be slower and less reliable than desired.",
+        "Color relationships and decorative density are improved but still not fully spec-like. The kit needs more codified tone variants and framing options so those relationships can be reused intentionally instead of hand-tuned page by page."
+      ],
+      "nextEdits": [
+        "Refactor the Seraph kit itself: create more explicit reusable building blocks for page rails, illuminated hero plates, framed notebook sections, and decorative divider systems.",
+        "Move page-specific ornamental patterns into configurable primitive props and dedicated subcomponents where possible.",
+        "Expand Storybook to demonstrate the Seraph kit at motif level, not only at page level, so new use cases can assemble the same visual language predictably.",
+        "Codify tone and framing variants more explicitly so palette/decor behavior is reusable across surfaces."
+      ],
+      "overallScore": 84,
+      "strengths": [
+        "The bestiary page now has a dominant artifact and better manuscript hierarchy.",
+        "The refactor page has a less generic rhythm and better bound-section composition.",
+        "The run is improving shared surfaces rather than only polishing single pages.",
+        "Button contrast and dark diff states remain improved at the shared component layer."
+      ]
+    },
+    "projectDir": ".",
+    "requestText": "Converge the reconstructed Seraph mock pages to effectively exact fidelity against the uploaded references, while preserving reusable and configurable design-system primitives, Storybook parity with controls, example parity, dark-mode adaptation, accessible states, and shared code/diff/code-editor surfaces. Use a fresh Babysitter process and no shell kind tasks.",
+    "round": 4,
+    "targetMockups": [
+      "Seraph Refactor",
+      "Seraph Bestiary"
+    ]
+  }
+}

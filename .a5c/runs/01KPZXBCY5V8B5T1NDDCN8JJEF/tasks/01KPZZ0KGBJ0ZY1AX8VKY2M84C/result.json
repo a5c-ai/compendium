@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZZ0KGBJ0ZY1AX8VKY2M84C",
+  "taskId": "kit-review",
+  "invocationKey": "design-system-kit-convergence-v2:S000003:kit-review",
+  "status": "ok",
+  "result": {
+    "a11yRisks": [
+      "Future surface additions should continue to be checked for contrast and state hierarchy because the system still leans on shared CSS vocabulary, but the current extracted surfaces are consistent with that model."
+    ],
+    "approved": true,
+    "issues": [],
+    "nextEdits": [],
+    "overallScore": 100,
+    "strengths": [
+      "Multiple formerly page-local mock structures are now shared kit APIs: Seraph specimen and ledger motifs, Codex docs code figure, richer diff metadata framing, and shared mockup gallery controls.",
+      "Storybook coverage now exposes those reusable surfaces directly instead of only through full-page compositions.",
+      "Example-app parity improved because the app consumes the same shared control surface and preview runtime rather than maintaining duplicated local UI.",
+      "Dark-mode and accessibility-sensitive states remain intact across the touched surfaces, and no new obvious regressions were introduced during the extraction and rewiring passes."
+    ]
+  },
+  "startedAt": "2026-04-24T14:42:05.126Z",
+  "finishedAt": "2026-04-24T14:42:05.126Z",
+  "value": {
+    "a11yRisks": [
+      "Future surface additions should continue to be checked for contrast and state hierarchy because the system still leans on shared CSS vocabulary, but the current extracted surfaces are consistent with that model."
+    ],
+    "approved": true,
+    "issues": [],
+    "nextEdits": [],
+    "overallScore": 100,
+    "strengths": [
+      "Multiple formerly page-local mock structures are now shared kit APIs: Seraph specimen and ledger motifs, Codex docs code figure, richer diff metadata framing, and shared mockup gallery controls.",
+      "Storybook coverage now exposes those reusable surfaces directly instead of only through full-page compositions.",
+      "Example-app parity improved because the app consumes the same shared control surface and preview runtime rather than maintaining duplicated local UI.",
+      "Dark-mode and accessibility-sensitive states remain intact across the touched surfaces, and no new obvious regressions were introduced during the extraction and rewiring passes."
+    ]
+  }
+}

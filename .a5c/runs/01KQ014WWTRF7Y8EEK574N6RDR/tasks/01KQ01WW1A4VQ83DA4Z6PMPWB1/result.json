@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ01WW1A4VQ83DA4Z6PMPWB1",
+  "taskId": "compendium-build",
+  "invocationKey": "compendium-maturation-pass:S000005:compendium-build",
+  "status": "ok",
+  "result": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "summary": "Package build passed and emitted dist bundles plus declarations."
+  },
+  "startedAt": "2026-04-24T15:32:22.216Z",
+  "finishedAt": "2026-04-24T15:32:22.216Z",
+  "value": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "summary": "Package build passed and emitted dist bundles plus declarations."
+  }
+}

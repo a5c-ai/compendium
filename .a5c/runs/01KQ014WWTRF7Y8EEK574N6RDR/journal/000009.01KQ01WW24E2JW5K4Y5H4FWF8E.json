@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T15:31:53.540Z",
+  "data": {
+    "effectId": "01KQ01WW1V26A0DDWKR18QE40P",
+    "invocationKey": "compendium-maturation-pass:S000006:compendium-build-storybook",
+    "invocationHash": "5248533953858c394136ffde6c2783e83950e7164b0b5bba23142e93d58605fe",
+    "stepId": "S000006",
+    "taskId": "compendium-build-storybook",
+    "kind": "shell",
+    "label": "compendium",
+    "taskDefRef": "tasks/01KQ01WW1V26A0DDWKR18QE40P/task.json",
+    "labels": [
+      "compendium",
+      "verify",
+      "storybook"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc008-9b40-7993-887e-1f1709083b97"
+  },
+  "checksum": "6a8fc003064c09f3bc678cf0b19c66ab22b1f84afb4651050f68c64da517690d"
+}

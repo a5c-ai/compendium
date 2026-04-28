@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ1X880HS1AE96N0JM2W5SPF",
+  "taskId": "storybook-primitive-coverage-verification",
+  "invocationKey": "compendium/storybook-primitive-coverage-pass:S000003:storybook-primitive-coverage-verification",
+  "status": "ok",
+  "result": {
+    "buildResults": [
+      {
+        "command": "npm run build",
+        "passed": true,
+        "summary": "Vite package build and declaration emit completed successfully after installing local dependencies."
+      },
+      {
+        "command": "npm run build-storybook",
+        "passed": true,
+        "summary": "Storybook static build completed successfully. Only existing large-chunk and eval warnings remained."
+      }
+    ],
+    "commandsRun": [
+      "npm install",
+      "npm run build",
+      "npm run build-storybook",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-chat-composer --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-chat--composer-states&viewMode=story .a5c/storybook-inspection/motifs-chat--composer-states.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-chat-inspector --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-chat--inspector-dark&viewMode=story .a5c/storybook-inspection/motifs-chat--inspector-dark.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-seraph__composer --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-seraph--composer-dark&viewMode=story .a5c/storybook-inspection/motifs-seraph--composer-dark.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-seraph__task --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-seraph--cards-and-task-states&viewMode=story .a5c/storybook-inspection/motifs-seraph--cards-and-task-states.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-components-nav --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-component-system--navigation-and-gates&viewMode=story .a5c/storybook-inspection/motifs-component-system--navigation-and-gates.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-gallery-controls --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-preview-controls--gallery-controls&viewMode=story .a5c/storybook-inspection/motifs-preview-controls--gallery-controls.png"
+    ],
+    "remainingGaps": [],
+    "success": true,
+    "visualCheckpoints": [
+      {
+        "notes": "Three composer states render with preserved dark contrast, attachment chips, footer metadata, and action buttons.",
+        "storyId": "motifs-chat--composer-states",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Inspector card renders with legible dark-mode headings, metadata rows, close affordance, and footer state.",
+        "storyId": "motifs-chat--inspector-dark",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Composer input and tool chips stay legible on void background with preserved ornamental framing.",
+        "storyId": "motifs-seraph--composer-dark",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Card and task surfaces render with styled framing, status labels, ornaments, and readable hierarchy.",
+        "storyId": "motifs-seraph--cards-and-task-states",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Direct reusable inspection shows branded navigation framing and mixed gate states without relying on the full catalog story.",
+        "storyId": "motifs-component-system--navigation-and-gates",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Selects, toggles, sliders, and title or description framing render as a standalone control surface.",
+        "storyId": "motifs-preview-controls--gallery-controls",
+        "verdict": "pass"
+      }
+    ]
+  },
+  "startedAt": "2026-04-25T08:49:34.930Z",
+  "finishedAt": "2026-04-25T08:49:34.930Z",
+  "value": {
+    "buildResults": [
+      {
+        "command": "npm run build",
+        "passed": true,
+        "summary": "Vite package build and declaration emit completed successfully after installing local dependencies."
+      },
+      {
+        "command": "npm run build-storybook",
+        "passed": true,
+        "summary": "Storybook static build completed successfully. Only existing large-chunk and eval warnings remained."
+      }
+    ],
+    "commandsRun": [
+      "npm install",
+      "npm run build",
+      "npm run build-storybook",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-chat-composer --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-chat--composer-states&viewMode=story .a5c/storybook-inspection/motifs-chat--composer-states.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-chat-inspector --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-chat--inspector-dark&viewMode=story .a5c/storybook-inspection/motifs-chat--inspector-dark.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-seraph__composer --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-seraph--composer-dark&viewMode=story .a5c/storybook-inspection/motifs-seraph--composer-dark.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-seraph__task --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-seraph--cards-and-task-states&viewMode=story .a5c/storybook-inspection/motifs-seraph--cards-and-task-states.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-components-nav --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-component-system--navigation-and-gates&viewMode=story .a5c/storybook-inspection/motifs-component-system--navigation-and-gates.png",
+      "npx playwright screenshot --browser chromium --viewport-size 1440,1200 --wait-for-selector .mk-gallery-controls --wait-for-timeout 1500 --full-page http://127.0.0.1:8123/iframe.html?id=motifs-preview-controls--gallery-controls&viewMode=story .a5c/storybook-inspection/motifs-preview-controls--gallery-controls.png"
+    ],
+    "remainingGaps": [],
+    "success": true,
+    "visualCheckpoints": [
+      {
+        "notes": "Three composer states render with preserved dark contrast, attachment chips, footer metadata, and action buttons.",
+        "storyId": "motifs-chat--composer-states",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Inspector card renders with legible dark-mode headings, metadata rows, close affordance, and footer state.",
+        "storyId": "motifs-chat--inspector-dark",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Composer input and tool chips stay legible on void background with preserved ornamental framing.",
+        "storyId": "motifs-seraph--composer-dark",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Card and task surfaces render with styled framing, status labels, ornaments, and readable hierarchy.",
+        "storyId": "motifs-seraph--cards-and-task-states",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Direct reusable inspection shows branded navigation framing and mixed gate states without relying on the full catalog story.",
+        "storyId": "motifs-component-system--navigation-and-gates",
+        "verdict": "pass"
+      },
+      {
+        "notes": "Selects, toggles, sliders, and title or description framing render as a standalone control surface.",
+        "storyId": "motifs-preview-controls--gallery-controls",
+        "verdict": "pass"
+      }
+    ]
+  }
+}

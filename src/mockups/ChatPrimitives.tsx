@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Button, Input, Tag } from '../components';
+import './mockups.css';
 
 export interface ChatThreadItem {
   mark: string;

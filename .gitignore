@@ -1,5 +1,8 @@
 .a5c/cache/compression/af364c133289fb34.json
+.a5c/runs/
+.tmp/
 dist/
 node_modules/
 storybook-static/
+test-results/
 *.tsbuildinfo

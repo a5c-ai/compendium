@@ -1,0 +1,23 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T08:09:05.629Z",
+  "data": {
+    "effectId": "01KPZ8J2SBN5RQADQV589SR31V",
+    "invocationKey": "design-system-seraph-fidelity-max-v2:S000001:baseline-trace",
+    "invocationHash": "6f74429b82dd3238b7f22b7de910a539fe86dc05be20a405f7365d890f3eba51",
+    "stepId": "S000001",
+    "taskId": "baseline-trace",
+    "kind": "agent",
+    "label": "analysis",
+    "taskDefRef": "tasks/01KPZ8J2SBN5RQADQV589SR31V/task.json",
+    "labels": [
+      "analysis",
+      "brownfield",
+      "seraph",
+      "fidelity"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "d04c46572f90bdd7df0c062799ef0bfcc88fcad078cac538e5218212e27563f9"
+}

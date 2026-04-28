@@ -1,0 +1,23 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T13:07:19.338Z",
+  "data": {
+    "effectId": "01KPZSM53SDHTXE1FH0GG3QXBA",
+    "invocationKey": "design-system-kit-refactor-v1:S000003:kit-review",
+    "invocationHash": "4e139e9aec1a4b4a03c1b47dd999a0ad383c56732e6870bda8776a8b73aa2ef5",
+    "stepId": "S000003",
+    "taskId": "kit-review",
+    "kind": "agent",
+    "label": "review",
+    "taskDefRef": "tasks/01KPZSM53SDHTXE1FH0GG3QXBA/task.json",
+    "labels": [
+      "review",
+      "design-system",
+      "a11y",
+      "reuse"
+    ],
+    "harness": "codex",
+    "sessionId": "019db0e3-d882-7d12-b661-78c3b9385643"
+  },
+  "checksum": "6b84408d985ec5d378cd8b6932fc76650fbb101912f415f82b796de7b688b2fa"
+}

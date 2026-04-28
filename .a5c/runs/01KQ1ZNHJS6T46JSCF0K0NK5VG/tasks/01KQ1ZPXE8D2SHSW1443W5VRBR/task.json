@@ -1,0 +1,138 @@
+{
+  "agent": {
+    "name": "general-purpose",
+    "outputSchema": {
+      "properties": {
+        "changedFiles": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "residualRisks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "stagedFiles": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "changedFiles",
+        "stagedFiles",
+        "summary",
+        "residualRisks"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "audit": {
+          "conflictedFiles": [
+            "src/mockups/AdsPrimitives.stories.tsx",
+            "src/mockups/AdsPrimitives.tsx",
+            "src/mockups/MockupPreviews.tsx"
+          ],
+          "fileDecisions": [
+            {
+              "decision": "Merge both APIs into one module; retain primitive components, add typed catalog data interfaces, and avoid the AdsCard component/type collision by exporting AdsCatalogCard as the structured union.",
+              "file": "src/mockups/AdsPrimitives.tsx"
+            },
+            {
+              "decision": "Preserve primitive-composition coverage and keep a direct catalog story so both public entry styles remain inspectable.",
+              "file": "src/mockups/AdsPrimitives.stories.tsx"
+            },
+            {
+              "decision": "Keep the catalog-driven AdsSurface and remove one-off primitive composition from the preview.",
+              "file": "src/mockups/MockupPreviews.tsx"
+            }
+          ],
+          "mergeDirection": "Keep the branch-introduced low-level Ads primitives, layer in mainline AdsCatalog and typed slot/card data, and keep MockupPreviews consuming the shared catalog surface.",
+          "risks": [
+            "The structured poster payload must be adapted to the primitive-driven renderer to avoid mismatched figure and stanza shapes.",
+            "The conflicted files remain unmerged in git until the resolved versions are staged."
+          ]
+        },
+        "branch": "vk/47a9-deepen-code-edit",
+        "conflictedFiles": [
+          "src/mockups/AdsPrimitives.stories.tsx",
+          "src/mockups/AdsPrimitives.tsx",
+          "src/mockups/MockupPreviews.tsx"
+        ],
+        "onto": "main",
+        "repo": "compendium"
+      },
+      "instructions": [
+        "Preserve the low-level Ads primitive surface introduced on the branch.",
+        "Preserve the higher-level AdsCatalog and typed data-driven surface from main.",
+        "Avoid name collisions between component exports and type exports.",
+        "Keep MockupPreviews on the shared catalog-driven surface where that pattern already exists.",
+        "Return the concrete changed files and a short summary of the merged decisions."
+      ],
+      "outputFormat": "JSON with:\n  changedFiles: string[],\n  stagedFiles: string[],\n  summary: string,\n  residualRisks: string[]",
+      "role": "frontend engineer resolving a careful brownfield rebase conflict",
+      "task": "Resolve the requested conflicted files and stage them for rebase continuation."
+    }
+  },
+  "description": "Merge the Ads primitives, story, and preview surfaces without losing either the primitive or catalog layers.",
+  "io": {
+    "inputJsonPath": "tasks/01KQ1ZPXE8D2SHSW1443W5VRBR/input.json",
+    "outputJsonPath": "tasks/01KQ1ZPXE8D2SHSW1443W5VRBR/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "conflicts",
+    "implementation",
+    "rebase"
+  ],
+  "title": "Resolve ads/mockup rebase conflicts",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ1ZPXE8D2SHSW1443W5VRBR",
+  "taskId": "rebase-resolve-ads-conflicts",
+  "invocationKey": "rebase-ads-conflict-resolution:S000002:rebase-resolve-ads-conflicts",
+  "stepId": "S000002",
+  "inputs": {
+    "audit": {
+      "conflictedFiles": [
+        "src/mockups/AdsPrimitives.stories.tsx",
+        "src/mockups/AdsPrimitives.tsx",
+        "src/mockups/MockupPreviews.tsx"
+      ],
+      "fileDecisions": [
+        {
+          "decision": "Merge both APIs into one module; retain primitive components, add typed catalog data interfaces, and avoid the AdsCard component/type collision by exporting AdsCatalogCard as the structured union.",
+          "file": "src/mockups/AdsPrimitives.tsx"
+        },
+        {
+          "decision": "Preserve primitive-composition coverage and keep a direct catalog story so both public entry styles remain inspectable.",
+          "file": "src/mockups/AdsPrimitives.stories.tsx"
+        },
+        {
+          "decision": "Keep the catalog-driven AdsSurface and remove one-off primitive composition from the preview.",
+          "file": "src/mockups/MockupPreviews.tsx"
+        }
+      ],
+      "mergeDirection": "Keep the branch-introduced low-level Ads primitives, layer in mainline AdsCatalog and typed slot/card data, and keep MockupPreviews consuming the shared catalog surface.",
+      "risks": [
+        "The structured poster payload must be adapted to the primitive-driven renderer to avoid mismatched figure and stanza shapes.",
+        "The conflicted files remain unmerged in git until the resolved versions are staged."
+      ]
+    },
+    "branch": "vk/47a9-deepen-code-edit",
+    "conflictedFiles": [
+      "src/mockups/AdsPrimitives.stories.tsx",
+      "src/mockups/AdsPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx"
+    ],
+    "onto": "main",
+    "repo": "compendium"
+  }
+}

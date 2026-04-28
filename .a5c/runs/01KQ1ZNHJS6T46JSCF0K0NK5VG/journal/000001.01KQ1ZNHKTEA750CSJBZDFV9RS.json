@@ -1,0 +1,16 @@
+{
+  "type": "RUN_CREATED",
+  "recordedAt": "2026-04-25T09:31:25.178Z",
+  "data": {
+    "runId": "01KQ1ZNHJS6T46JSCF0K0NK5VG",
+    "processId": "rebase-ads-conflict-resolution",
+    "entrypoint": {
+      "importPath": "../../processes/rebase-ads-conflict-resolution.js",
+      "exportName": "process"
+    },
+    "harness": "codex",
+    "inputsRef": "inputs.json",
+    "sessionId": "019dc3f0-a90f-7f73-9fac-e5d083b47ff2"
+  },
+  "checksum": "5e0d20640e8eddc43d8e394651aeca244b645ef35f40cb6e0a2c88c4c8d78ceb"
+}

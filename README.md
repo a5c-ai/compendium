@@ -48,11 +48,13 @@ import '@a5c-ai/compendium/css';
 ```bash
 git clone <repo-url>
 cd compendium
-npm install
+npm ci
+npm run playwright:install
 npm run dev        # Start Storybook on port 6006
 npm run build      # Build the library
 npm run lint       # TypeScript type check
 npm run test       # Run tests
+npm run validate   # Full contributor/release validation contract
 ```
 
 ## Contributing
@@ -64,6 +66,12 @@ npx changeset          # Create a new changeset
 npx changeset version  # Apply changesets to bump versions
 npm run release        # Publish to npm
 ```
+
+Before opening or updating a PR, run `npm run validate`. This contract covers linting, tests, package build, Storybook build, tarball validation, example-consumer validation, and browser-level accessibility checks.
+
+The release workflow also requires Chromatic. Repository maintainers must configure `CHROMATIC_PROJECT_TOKEN` for the visual-regression gate.
+
+See [docs/validation-contract.md](./docs/validation-contract.md) for the full gate matrix and maintainer guidance.
 
 ## Design Language
 

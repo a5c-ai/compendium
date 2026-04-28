@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-25T09:31:35.040Z",
+  "data": {
+    "effectId": "01KQ1ZNV7D5S0TQYPFM9KVR9P8",
+    "invocationKey": "rebase-ads-conflict-resolution:S000001:rebase-audit-conflict-state",
+    "invocationHash": "0f93dd874886066a5c150b02f8d5464ea7b80cc66a6274f9ea8a1eaf6f83b071",
+    "stepId": "S000001",
+    "taskId": "rebase-audit-conflict-state",
+    "kind": "agent",
+    "label": "rebase",
+    "taskDefRef": "tasks/01KQ1ZNV7D5S0TQYPFM9KVR9P8/task.json",
+    "labels": [
+      "rebase",
+      "audit",
+      "conflicts"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc3f0-a90f-7f73-9fac-e5d083b47ff2"
+  },
+  "checksum": "55cc872cf9b23c9973e2da5089d8e5a477d7360c6d026c3473dd1219eb63d269"
+}

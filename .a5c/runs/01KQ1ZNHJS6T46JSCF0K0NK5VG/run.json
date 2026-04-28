@@ -1,0 +1,15 @@
+{
+  "runId": "01KQ1ZNHJS6T46JSCF0K0NK5VG",
+  "request": "rebase-ads-conflict-resolution",
+  "processId": "rebase-ads-conflict-resolution",
+  "harness": "codex",
+  "entrypoint": {
+    "importPath": "../../processes/rebase-ads-conflict-resolution.js",
+    "exportName": "process"
+  },
+  "processPath": "../../processes/rebase-ads-conflict-resolution.js",
+  "layoutVersion": "2026.01-storage-preview",
+  "createdAt": "2026-04-25T09:31:25.160Z",
+  "nonInteractive": true,
+  "completionProof": "84845cbcd941fce73c50614c4d3c809c"
+}

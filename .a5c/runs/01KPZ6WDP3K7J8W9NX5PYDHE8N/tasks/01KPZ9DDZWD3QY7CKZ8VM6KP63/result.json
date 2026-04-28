@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZ9DDZWD3QY7CKZ8VM6KP63",
+  "taskId": "visual-and-a11y-review",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000005:visual-and-a11y-review",
+  "status": "ok",
+  "result": {
+    "a11yRisks": [
+      "Small metadata text on parchment and brass-adjacent surfaces still needs explicit contrast tightening.",
+      "Blueprint-themed plate content likely still has some borderline text and ornament contrast combinations.",
+      "The broader mock/system dark-mode pass is still incomplete outside the areas directly touched in this run."
+    ],
+    "approved": false,
+    "issues": [
+      "The shared section plates improved the macro silhouette, but the pages still do not match the reference compositions closely enough. The references have stronger asymmetry, more distinctive vertical choreography, and denser manuscript framing than the current layouts.",
+      "The refactor page is closer, but the terminal and diff regions still read as modern embedded components inside a themed shell rather than artifacts fully designed for the Seraph page language.",
+      "The bestiary page improved structurally, but the illustration region still feels too schematic and not sufficiently integrated into the surrounding folio ornament. It needs a more singular illuminated plate treatment and more bespoke annotation balance.",
+      "Color tuning remains short of the target. The parchment depth, brass brightness range, teal weighting, and cinnabar punctuation still look more systematized than reference-matched.",
+      "The reusable primitive set is better, but there is still not enough section-level control around full-page rail treatments, decorated hero slabs, illuminated callout frames, and denser folio divider systems.",
+      "Storybook controls still emphasize page selection more than exact Seraph motif tuning. The componentization direction is improved, but not yet exhaustive enough for the user's requested level of configurability."
+    ],
+    "nextEdits": [
+      "Push the Seraph page layouts further away from evenly gridded rectangles and closer to the specific manuscript asymmetry of the references.",
+      "Create additional reusable Seraph sections for hero slabs, illuminated callout frames, decorated margin rails, and integrated code/diff housings instead of relying on generic box treatments.",
+      "Redesign the bestiary illustration plate so it becomes the dominant artifact on the page, with annotations and ornament orbiting it rather than sitting beside it as parallel cards.",
+      "Tune colors more aggressively toward the references, especially the relative warmth/coolness and the focal deployment of cinnabar and teal.",
+      "Add more configurable Seraph primitive stories so the motif-level vocabulary is exposed in Storybook, not only the composed pages."
+    ],
+    "overallScore": 79,
+    "strengths": [
+      "The run is making real convergence progress while staying on shared runtime surfaces.",
+      "SeraphSectionPlate improves page grouping and gives the layout a more coherent manuscript structure.",
+      "The primary button contrast issue remains improved at the component layer rather than only in one page.",
+      "The Seraph primitive set is meaningfully more reusable than it was at the start of the run."
+    ]
+  },
+  "startedAt": "2026-04-24T11:57:37.171Z",
+  "finishedAt": "2026-04-24T11:57:37.171Z",
+  "value": {
+    "a11yRisks": [
+      "Small metadata text on parchment and brass-adjacent surfaces still needs explicit contrast tightening.",
+      "Blueprint-themed plate content likely still has some borderline text and ornament contrast combinations.",
+      "The broader mock/system dark-mode pass is still incomplete outside the areas directly touched in this run."
+    ],
+    "approved": false,
+    "issues": [
+      "The shared section plates improved the macro silhouette, but the pages still do not match the reference compositions closely enough. The references have stronger asymmetry, more distinctive vertical choreography, and denser manuscript framing than the current layouts.",
+      "The refactor page is closer, but the terminal and diff regions still read as modern embedded components inside a themed shell rather than artifacts fully designed for the Seraph page language.",
+      "The bestiary page improved structurally, but the illustration region still feels too schematic and not sufficiently integrated into the surrounding folio ornament. It needs a more singular illuminated plate treatment and more bespoke annotation balance.",
+      "Color tuning remains short of the target. The parchment depth, brass brightness range, teal weighting, and cinnabar punctuation still look more systematized than reference-matched.",
+      "The reusable primitive set is better, but there is still not enough section-level control around full-page rail treatments, decorated hero slabs, illuminated callout frames, and denser folio divider systems.",
+      "Storybook controls still emphasize page selection more than exact Seraph motif tuning. The componentization direction is improved, but not yet exhaustive enough for the user's requested level of configurability."
+    ],
+    "nextEdits": [
+      "Push the Seraph page layouts further away from evenly gridded rectangles and closer to the specific manuscript asymmetry of the references.",
+      "Create additional reusable Seraph sections for hero slabs, illuminated callout frames, decorated margin rails, and integrated code/diff housings instead of relying on generic box treatments.",
+      "Redesign the bestiary illustration plate so it becomes the dominant artifact on the page, with annotations and ornament orbiting it rather than sitting beside it as parallel cards.",
+      "Tune colors more aggressively toward the references, especially the relative warmth/coolness and the focal deployment of cinnabar and teal.",
+      "Add more configurable Seraph primitive stories so the motif-level vocabulary is exposed in Storybook, not only the composed pages."
+    ],
+    "overallScore": 79,
+    "strengths": [
+      "The run is making real convergence progress while staying on shared runtime surfaces.",
+      "SeraphSectionPlate improves page grouping and gives the layout a more coherent manuscript structure.",
+      "The primary button contrast issue remains improved at the component layer rather than only in one page.",
+      "The Seraph primitive set is meaningfully more reusable than it was at the start of the run."
+    ]
+  }
+}

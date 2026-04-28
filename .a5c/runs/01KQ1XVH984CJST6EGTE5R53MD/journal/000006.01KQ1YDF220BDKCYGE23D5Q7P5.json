@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-25T09:09:31.842Z",
+  "data": {
+    "effectId": "01KQ1YDF1FT1VCAH08MAT4D9G5",
+    "invocationKey": "code-surface-expansion:S000003:code-surface-expansion-validation",
+    "invocationHash": "c5cad882c2d00db9339e25b6af62eccd14068bdb0042c21eeb50c9e71838b073",
+    "stepId": "S000003",
+    "taskId": "code-surface-expansion-validation",
+    "kind": "agent",
+    "label": "compendium",
+    "taskDefRef": "tasks/01KQ1YDF1FT1VCAH08MAT4D9G5/task.json",
+    "labels": [
+      "compendium",
+      "code-surface",
+      "validation"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc3d9-f63c-7da3-8230-7874233ca22e"
+  },
+  "checksum": "129585240b98b6306dba7205f72f9276617534b105d3819af9362cc386e48b67"
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ1YDWSSTR3HYWQX0NNDNYX8",
+  "taskId": "code-surface-expansion-final-review",
+  "invocationKey": "code-surface-expansion:S000004:code-surface-expansion-final-review",
+  "status": "ok",
+  "result": {
+    "acceptanceStatus": "Accepted: shared code surfaces cover the current known docs, chat, and mock requirements without recurring one-off wrappers, and all requested validation gates passed.",
+    "residualRisks": [
+      "External host surfaces beyond the repo stories and mock previews should still be visually spot-checked for the new embedded and parchment frames."
+    ],
+    "summary": "The shared code-surface family now directly covers metadata-heavy editors, embedded docs/chat usage, alternate framed diffs, empty states, and asymmetric before/after layouts. The Seraph diff wrapper was absorbed into reusable DiffViewer framing, chat/docs consumers now use shared file metadata and embedded density controls, and the direct component stories/tests cover the high-risk permutations called out in the state matrix."
+  },
+  "startedAt": "2026-04-25T09:09:55.289Z",
+  "finishedAt": "2026-04-25T09:09:55.289Z",
+  "value": {
+    "acceptanceStatus": "Accepted: shared code surfaces cover the current known docs, chat, and mock requirements without recurring one-off wrappers, and all requested validation gates passed.",
+    "residualRisks": [
+      "External host surfaces beyond the repo stories and mock previews should still be visually spot-checked for the new embedded and parchment frames."
+    ],
+    "summary": "The shared code-surface family now directly covers metadata-heavy editors, embedded docs/chat usage, alternate framed diffs, empty states, and asymmetric before/after layouts. The Seraph diff wrapper was absorbed into reusable DiffViewer framing, chat/docs consumers now use shared file metadata and embedded density controls, and the direct component stories/tests cover the high-risk permutations called out in the state matrix."
+  }
+}

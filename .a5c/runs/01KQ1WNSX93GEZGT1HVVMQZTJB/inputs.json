@@ -1,0 +1,14 @@
+{
+  "projectDir": ".",
+  "requestText": "Finish Storybook primitive and state coverage for reusable motifs, dark mode, and inspection parity. Add direct stories for mockup-derived primitives and important variants. Add story controls for configurable props that materially affect hierarchy, ornament, metadata, framing, and composition. Add dark-mode and interaction-state stories for surfaces where contrast and state handling are part of the acceptance criteria. Tighten story organization so Storybook reads like a reusable package, not just a preview gallery. Keep mock gallery stories useful, but do not let them carry the primary burden of reusable-surface inspection.",
+  "storybookBuildCommand": "npm run build-storybook",
+  "packageBuildCommand": "npm run build",
+  "visualInspectionTargets": [
+    "motifs-chat--composer-states",
+    "motifs-chat--inspector-dark",
+    "motifs-seraph--composer-dark",
+    "motifs-seraph--cards-and-task-states",
+    "motifs-component-system--navigation-and-gates",
+    "motifs-preview-controls--gallery-controls"
+  ]
+}

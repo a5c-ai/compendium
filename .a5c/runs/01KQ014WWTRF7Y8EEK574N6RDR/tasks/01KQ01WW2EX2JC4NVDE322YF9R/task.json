@@ -1,0 +1,25 @@
+{
+  "description": "Verify the example app consumes shared exported surfaces as a real package consumer.",
+  "expectedExitCode": 0,
+  "io": {
+    "inputJsonPath": "tasks/01KQ01WW2EX2JC4NVDE322YF9R/input.json",
+    "outputJsonPath": "tasks/01KQ01WW2EX2JC4NVDE322YF9R/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "compendium",
+    "example",
+    "verify"
+  ],
+  "shell": {
+    "command": "npm --prefix examples/basic-usage run build",
+    "outputPath": "tasks/01KQ01WW2EX2JC4NVDE322YF9R/result.json"
+  },
+  "title": "Build example app",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ01WW2EX2JC4NVDE322YF9R",
+  "taskId": "compendium-example-build",
+  "invocationKey": "compendium-maturation-pass:S000007:compendium-example-build",
+  "stepId": "S000007",
+  "inputs": {}
+}

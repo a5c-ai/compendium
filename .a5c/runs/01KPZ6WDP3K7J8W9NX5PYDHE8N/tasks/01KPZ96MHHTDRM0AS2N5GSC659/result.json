@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KPZ96MHHTDRM0AS2N5GSC659",
+  "taskId": "repair-pass",
+  "invocationKey": "design-system-seraph-fidelity-max-v2:S000004:repair-pass",
+  "status": "ok",
+  "result": {
+    "exampleSurfaces": [
+      "MockupPreviews shared rendering path",
+      "Seraph Refactor shared rendering path",
+      "Seraph Bestiary shared rendering path"
+    ],
+    "filesChanged": [
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "fixesApplied": [
+      "Added reusable SeraphSectionPlate primitive for bound folio sections with tone-aware heading treatment.",
+      "Wrapped the refactor terminal and diff regions in manuscript section plates so the macro layout reads less like floating boxes and more like a composed folio.",
+      "Wrapped the bestiary notebook task sequence in a shared section plate to strengthen the page-level silhouette and unify the research stack."
+    ],
+    "residualRisks": [
+      "The references are still not matched exactly; this pass improved macro grouping and reuse, but the palette and decorative choreography still need another convergence round.",
+      "The bestiary illustration area still needs more bespoke illuminated framing and tighter integration with annotations.",
+      "Dark-mode and small-text contrast still need a fuller audit across all surfaces and stories."
+    ],
+    "reusableSurfacesTouched": [
+      "SeraphSectionPlate primitive",
+      "shared Seraph manuscript section-plate CSS",
+      "refactor/bestiary page compositions through shared section plates"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Seraph Primitives",
+      "Mockups/Project Previews"
+    ]
+  },
+  "startedAt": "2026-04-24T08:23:46.762Z",
+  "finishedAt": "2026-04-24T08:23:46.762Z",
+  "value": {
+    "exampleSurfaces": [
+      "MockupPreviews shared rendering path",
+      "Seraph Refactor shared rendering path",
+      "Seraph Bestiary shared rendering path"
+    ],
+    "filesChanged": [
+      "src/mockups/SeraphPrimitives.tsx",
+      "src/mockups/MockupPreviews.tsx",
+      "src/mockups/mockups.css"
+    ],
+    "fixesApplied": [
+      "Added reusable SeraphSectionPlate primitive for bound folio sections with tone-aware heading treatment.",
+      "Wrapped the refactor terminal and diff regions in manuscript section plates so the macro layout reads less like floating boxes and more like a composed folio.",
+      "Wrapped the bestiary notebook task sequence in a shared section plate to strengthen the page-level silhouette and unify the research stack."
+    ],
+    "residualRisks": [
+      "The references are still not matched exactly; this pass improved macro grouping and reuse, but the palette and decorative choreography still need another convergence round.",
+      "The bestiary illustration area still needs more bespoke illuminated framing and tighter integration with annotations.",
+      "Dark-mode and small-text contrast still need a fuller audit across all surfaces and stories."
+    ],
+    "reusableSurfacesTouched": [
+      "SeraphSectionPlate primitive",
+      "shared Seraph manuscript section-plate CSS",
+      "refactor/bestiary page compositions through shared section plates"
+    ],
+    "storybookSurfaces": [
+      "Mockups/Seraph Primitives",
+      "Mockups/Project Previews"
+    ]
+  }
+}

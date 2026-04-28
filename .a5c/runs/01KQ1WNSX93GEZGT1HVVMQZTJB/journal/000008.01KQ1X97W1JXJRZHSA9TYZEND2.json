@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-25T08:49:44.833Z",
+  "data": {
+    "effectId": "01KQ1X97VB9XA7TWR471BVBWPN",
+    "invocationKey": "compendium/storybook-primitive-coverage-pass:S000004:storybook-primitive-coverage-final-review",
+    "invocationHash": "8ddc376f7ebf52c9cf4618bfcd33152bbb327b97133824517ef7748a372603f3",
+    "stepId": "S000004",
+    "taskId": "storybook-primitive-coverage-final-review",
+    "kind": "agent",
+    "label": "storybook",
+    "taskDefRef": "tasks/01KQ1X97VB9XA7TWR471BVBWPN/task.json",
+    "labels": [
+      "storybook",
+      "review",
+      "motifs"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc3c7-241f-7ad0-8ba3-18ca01b230e7"
+  },
+  "checksum": "b7c5685c56de597e9848d2a6a65c6a35a0adce47d7dffb3337d7e6ef330bc47e"
+}

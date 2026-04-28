@@ -1,0 +1,16 @@
+{
+  "type": "RUN_CREATED",
+  "recordedAt": "2026-04-24T15:18:48.013Z",
+  "data": {
+    "runId": "01KQ014WWTRF7Y8EEK574N6RDR",
+    "processId": "compendium-maturation-pass",
+    "entrypoint": {
+      "importPath": "../../processes/compendium-maturation-pass.js",
+      "exportName": "process"
+    },
+    "harness": "codex",
+    "inputsRef": "inputs.json",
+    "sessionId": "019dc008-9b40-7993-887e-1f1709083b97"
+  },
+  "checksum": "6170dd19b7d2c1a860a6ef4cc434e939f795c61b55de67dfb38fd78b517e9859"
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQ1X97VB9XA7TWR471BVBWPN",
+  "taskId": "storybook-primitive-coverage-final-review",
+  "invocationKey": "compendium/storybook-primitive-coverage-pass:S000004:storybook-primitive-coverage-final-review",
+  "status": "ok",
+  "result": {
+    "proofPoints": [
+      "Direct Motifs story groups now cover Component System, Preview Controls, Chat, and Seraph reusable surfaces.",
+      "Dark-mode checkpoints were added for preview controls, chat composer and inspector, and seraph composer.",
+      "State permutations are directly inspectable for navigation plus gates, chat memos and composers, and seraph cards plus tasks.",
+      "npm run build and npm run build-storybook both passed after installing local dependencies.",
+      "Playwright screenshots confirmed visual rendering for the six requested inspection checkpoints, with no remaining coverage gaps recorded in the run."
+    ],
+    "residualRisk": [
+      "Storybook still emits the pre-existing large-chunk and eval warnings during static build, but the build passes and the new motif stories render correctly."
+    ],
+    "summary": "Storybook now exposes the reusable mockup motifs as direct Motifs stories with arg-driven controls, dark-mode checkpoints, and state permutations, while the gallery stories remain available under Mockups for broader browsing. The isolated Component, Chat, and Seraph motif stories also carry their own mockup stylesheet so inspection parity no longer depends on page-composition side effects."
+  },
+  "startedAt": "2026-04-25T08:49:56.299Z",
+  "finishedAt": "2026-04-25T08:49:56.299Z",
+  "value": {
+    "proofPoints": [
+      "Direct Motifs story groups now cover Component System, Preview Controls, Chat, and Seraph reusable surfaces.",
+      "Dark-mode checkpoints were added for preview controls, chat composer and inspector, and seraph composer.",
+      "State permutations are directly inspectable for navigation plus gates, chat memos and composers, and seraph cards plus tasks.",
+      "npm run build and npm run build-storybook both passed after installing local dependencies.",
+      "Playwright screenshots confirmed visual rendering for the six requested inspection checkpoints, with no remaining coverage gaps recorded in the run."
+    ],
+    "residualRisk": [
+      "Storybook still emits the pre-existing large-chunk and eval warnings during static build, but the build passes and the new motif stories render correctly."
+    ],
+    "summary": "Storybook now exposes the reusable mockup motifs as direct Motifs stories with arg-driven controls, dark-mode checkpoints, and state permutations, while the gallery stories remain available under Mockups for broader browsing. The isolated Component, Chat, and Seraph motif stories also carry their own mockup stylesheet so inspection parity no longer depends on page-composition side effects."
+  }
+}

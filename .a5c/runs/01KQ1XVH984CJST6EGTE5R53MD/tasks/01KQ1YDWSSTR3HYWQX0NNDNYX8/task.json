@@ -1,0 +1,607 @@
+{
+  "agent": {
+    "name": "component-documentation",
+    "outputSchema": {
+      "properties": {
+        "acceptanceStatus": {
+          "type": "string"
+        },
+        "residualRisks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "summary",
+        "acceptanceStatus",
+        "residualRisks"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "audit": {
+          "apiChanges": [
+            {
+              "change": "Add framing and density props for default, embedded, and alternate-frame treatments plus a dedicated empty-state surface.",
+              "component": "CodeBlock",
+              "reason": "Current usage assumes one panel style and forces docs/mock contexts to compensate outside the component."
+            },
+            {
+              "change": "Replace the narrow filename/fileMeta row with reusable file metadata regions and configurable frame chrome.",
+              "component": "CodeEditor",
+              "reason": "Chat and metadata-heavy contexts need more than one extra string and currently cannot express richer file state cleanly."
+            },
+            {
+              "change": "Add frame variant support, asymmetric layout control, and shared metadata/count surfaces.",
+              "component": "DiffViewer",
+              "reason": "One-sided diffs currently render as two columns with placeholder empties, and mock/docs framing still lives outside the component."
+            },
+            {
+              "change": "Support side visibility or mode controls beyond implicit before/after presence.",
+              "component": "DiffFile",
+              "reason": "Known added-only, removed-only, and emphasis-first states need deliberate one-sided composition rather than incidental empty panels."
+            }
+          ],
+          "implementationPlan": [
+            "Expand the shared Code component types and markup so framing, metadata regions, and asymmetric diff behavior are first-class APIs.",
+            "Update component CSS to support embedded and alternate-frame treatments while staying theme-aware in vellum and void contexts.",
+            "Replace recurring mock/chat/docs wrappers where the pattern is clearly reusable, especially the Seraph diff wrapper and dense editor metadata treatments.",
+            "Rewrite/add stories so metadata-heavy, embedded, alternate-frame, one-sided, and empty states are direct component stories.",
+            "Strengthen tests for the new rendering permutations before running the final validation sweep."
+          ],
+          "recurringWrappers": [
+            {
+              "files": [
+                "src/mockups/MockupPreviews.tsx",
+                "src/mockups/mockups.css"
+              ],
+              "pattern": "Seraph-specific parchment wrapper around DiffViewer",
+              "sharedApiOpportunity": "Add a reusable frame/variant surface on DiffViewer so alternate mock framing is part of the API instead of external wrapper markup."
+            },
+            {
+              "files": [
+                "src/mockups/ChatPrimitives.stories.tsx",
+                "src/mockups/MockupPreviews.tsx"
+              ],
+              "pattern": "Chat/editor metadata packaged through surrounding card structure",
+              "sharedApiOpportunity": "Expose richer file metadata regions and compact framing on CodeEditor so chat/tool contexts do not depend on bespoke surrounding structure for hierarchy."
+            },
+            {
+              "files": [
+                "src/mockups/MockupPreviews.tsx"
+              ],
+              "pattern": "Docs embeds rely on outside layout context to tone down code chrome",
+              "sharedApiOpportunity": "Add embedded framing controls to CodeBlock and DiffViewer so docs usage is first-class."
+            }
+          ],
+          "risks": [
+            "Diff layout changes can regress narrow-width behavior if the asymmetric mode is not explicit in CSS.",
+            "New frame variants can drift visually between vellum and void themes if the styles are hard-coded instead of token-driven.",
+            "Mockup consumers may still carry styling assumptions after wrapper removal and need careful spot checks."
+          ],
+          "runtimeContexts": [
+            {
+              "files": [
+                "src/components/Code/Code.tsx",
+                "src/components/components.css",
+                "src/components/Code/Code.stories.tsx",
+                "src/components/Code/Code.test.tsx"
+              ],
+              "name": "shared code surfaces",
+              "reason": "These files define and validate the exported CodeBlock, CodeEditor, and DiffViewer primitives."
+            },
+            {
+              "files": [
+                "src/mockups/ChatPrimitives.stories.tsx",
+                "src/mockups/MockupPreviews.tsx"
+              ],
+              "name": "chat embedded editor",
+              "reason": "Chat tool cards embed metadata-heavy editors inside a denser memo layout and need quieter framing plus richer file metadata."
+            },
+            {
+              "files": [
+                "src/mockups/MockupPreviews.tsx",
+                "src/mockups/CodexPrimitives.tsx"
+              ],
+              "name": "docs embedded code",
+              "reason": "Docs pages embed code surfaces inline with article typography and margin systems, so the component needs an embedded treatment rather than relying on outside wrappers."
+            },
+            {
+              "files": [
+                "src/mockups/MockupPreviews.tsx",
+                "src/mockups/mockups.css"
+              ],
+              "name": "mock diff framing",
+              "reason": "The Seraph mock wraps DiffViewer in a bespoke parchment frame, which signals a recurring alternate-frame requirement the shared API should absorb."
+            }
+          ],
+          "storyCoverage": [
+            {
+              "reason": "Acceptance explicitly requires direct story coverage for rich file metadata.",
+              "state": "metadata-heavy editor",
+              "storyTarget": "src/components/Code/Code.stories.tsx"
+            },
+            {
+              "reason": "Docs/chat/mock embed states should be inspectable without relying on MockupPreviews.",
+              "state": "embedded code and diff frames",
+              "storyTarget": "src/components/Code/Code.stories.tsx"
+            },
+            {
+              "reason": "The recurring Seraph/docs wrapper should become a direct reusable story.",
+              "state": "alternate diff frame",
+              "storyTarget": "src/components/Code/Code.stories.tsx"
+            },
+            {
+              "reason": "This is the highest-risk API expansion area and needs direct visual coverage.",
+              "state": "one-sided and asymmetric diff modes",
+              "storyTarget": "src/components/Code/Code.stories.tsx"
+            },
+            {
+              "reason": "Acceptance explicitly calls for empty states.",
+              "state": "empty editor and empty diff states",
+              "storyTarget": "src/components/Code/Code.stories.tsx"
+            }
+          ],
+          "targetStateMatrix": [
+            {
+              "context": "docs article embed",
+              "diffShape": "not applicable",
+              "embedded": "must sit inside article and card compositions without extra wrapper shells",
+              "emptyState": "quiet placeholder that still feels intentional inside prose",
+              "framing": "embedded frame with reduced chrome",
+              "metadata": "title, meta, optional fact rail, compact footer",
+              "surface": "CodeBlock",
+              "themes": [
+                "vellum",
+                "void"
+              ]
+            },
+            {
+              "context": "chat tool card",
+              "diffShape": "not applicable",
+              "embedded": "must read cleanly inside dense chat memo and tool-card layouts",
+              "emptyState": "empty file/editor state with preserved header and file rail",
+              "framing": "editor chrome must support compact and embedded variants",
+              "metadata": "filename, fileMeta, status, facts, footer, additional file metadata rows",
+              "surface": "CodeEditor",
+              "themes": [
+                "vellum",
+                "void"
+              ]
+            },
+            {
+              "context": "default shared diff",
+              "diffShape": "two-sided and one-sided",
+              "embedded": "usable as a standalone panel",
+              "emptyState": "global empty diff state",
+              "framing": "standard panel frame with tabs and head",
+              "metadata": "file meta, note, per-side labels, summary counts",
+              "surface": "DiffViewer",
+              "themes": [
+                "vellum",
+                "void"
+              ]
+            },
+            {
+              "context": "docs and mock embed",
+              "diffShape": "supports asymmetric, added-only, removed-only, and side-hidden views",
+              "embedded": "must render inside docs figures and mock cards directly",
+              "emptyState": "embedded empty state must inherit host tone",
+              "framing": "alternate framed treatment matching docs/mock language without external wrapper divs",
+              "metadata": "same metadata richness as default plus embedded title/meta treatment",
+              "surface": "DiffViewer",
+              "themes": [
+                "vellum",
+                "void"
+              ]
+            },
+            {
+              "context": "asymmetric comparison",
+              "diffShape": "before-only, after-only, and intentionally hidden opposite side",
+              "embedded": "works in narrow mock/chat spaces",
+              "emptyState": "custom per-side empty messaging",
+              "framing": "single-column or emphasis-first layout when only one side exists",
+              "metadata": "side labels and file metadata remain readable without dead empty space",
+              "surface": "Diff file view",
+              "themes": [
+                "vellum",
+                "void"
+              ]
+            }
+          ],
+          "testCoverage": [
+            {
+              "reason": "Richer metadata rails are easy to regress structurally.",
+              "state": "metadata-heavy editor framing and file metadata regions",
+              "testTarget": "src/components/Code/Code.test.tsx"
+            },
+            {
+              "reason": "Frame variants drive theme alignment and wrapper removal.",
+              "state": "embedded/alternate frame class application",
+              "testTarget": "src/components/Code/Code.test.tsx"
+            },
+            {
+              "reason": "Asymmetric layouts are the highest-risk rendering change.",
+              "state": "one-sided diff rendering without redundant opposite column",
+              "testTarget": "src/components/Code/Code.test.tsx"
+            },
+            {
+              "reason": "The current implementation only lightly covers placeholders and needs stronger permutation checks.",
+              "state": "global and per-side empty states",
+              "testTarget": "src/components/Code/Code.test.tsx"
+            }
+          ],
+          "validationPlan": [
+            "npm run lint",
+            "npm run test -- --run",
+            "npm run build",
+            "npm run build-storybook"
+          ]
+        },
+        "implementation": {
+          "changedFiles": [
+            "src/components/Code/Code.tsx",
+            "src/components/components.css",
+            "src/components/Code/Code.stories.tsx",
+            "src/components/Code/Code.test.tsx",
+            "src/components/Code/index.ts",
+            "src/components/index.ts",
+            "src/mockups/ChatPrimitives.stories.tsx",
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/mockups.css"
+          ],
+          "residualRisks": [
+            "The new parchment and embedded frame treatments rely on token-driven mixes and should still be spot-checked in any external host surfaces beyond the repo stories and mock previews."
+          ],
+          "storyTargets": [
+            "src/components/Code/Code.stories.tsx"
+          ],
+          "summary": "Expanded the shared CodeBlock, CodeEditor, and DiffViewer APIs with reusable frame, density, file metadata, and asymmetric diff layout controls; updated the direct stories/tests to cover metadata-heavy, embedded, alternate-frame, empty, and one-sided states; and replaced the recurring Seraph/chat wrapper patterns with the shared surface APIs.",
+          "testTargets": [
+            "src/components/Code/Code.test.tsx"
+          ],
+          "validationsRun": [
+            "npm run lint",
+            "npm run test -- --run",
+            "npm run build",
+            "npm run build-storybook"
+          ]
+        },
+        "validation": {
+          "allPassed": true,
+          "blockers": [],
+          "checks": [
+            {
+              "command": "npm run lint",
+              "passed": true,
+              "summary": "Passed after restoring local dev dependencies with npm ci."
+            },
+            {
+              "command": "npm run test -- --run",
+              "passed": true,
+              "summary": "Passed: 2 test files, 8 tests total."
+            },
+            {
+              "command": "npm run build",
+              "passed": true,
+              "summary": "Passed: Vite library build and declaration emit completed successfully."
+            },
+            {
+              "command": "npm run build-storybook",
+              "passed": true,
+              "summary": "Passed: Storybook built successfully; only non-blocking upstream eval and chunk-size warnings were emitted."
+            }
+          ]
+        }
+      },
+      "instructions": [
+        "Confirm whether the shared APIs now cover the audited docs/chat/mock requirements without one-off wrappers.",
+        "Summarize the most important API and composition changes.",
+        "Report validation status and only material residual risks.",
+        "Return strict JSON."
+      ],
+      "outputFormat": "JSON with:\n  summary: string,\n  acceptanceStatus: string,\n  residualRisks: string[]",
+      "role": "principal reviewer closing a reusable component convergence pass",
+      "task": "Summarize the completed code-surface expansion against the requested target state."
+    }
+  },
+  "description": "Produce a concise final review covering the matrix, implementation outcome, and validation status.",
+  "io": {
+    "inputJsonPath": "tasks/01KQ1YDWSSTR3HYWQX0NNDNYX8/input.json",
+    "outputJsonPath": "tasks/01KQ1YDWSSTR3HYWQX0NNDNYX8/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "code-surface",
+    "compendium",
+    "review"
+  ],
+  "title": "Summarize code-surface convergence outcome",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ1YDWSSTR3HYWQX0NNDNYX8",
+  "taskId": "code-surface-expansion-final-review",
+  "invocationKey": "code-surface-expansion:S000004:code-surface-expansion-final-review",
+  "stepId": "S000004",
+  "inputs": {
+    "audit": {
+      "apiChanges": [
+        {
+          "change": "Add framing and density props for default, embedded, and alternate-frame treatments plus a dedicated empty-state surface.",
+          "component": "CodeBlock",
+          "reason": "Current usage assumes one panel style and forces docs/mock contexts to compensate outside the component."
+        },
+        {
+          "change": "Replace the narrow filename/fileMeta row with reusable file metadata regions and configurable frame chrome.",
+          "component": "CodeEditor",
+          "reason": "Chat and metadata-heavy contexts need more than one extra string and currently cannot express richer file state cleanly."
+        },
+        {
+          "change": "Add frame variant support, asymmetric layout control, and shared metadata/count surfaces.",
+          "component": "DiffViewer",
+          "reason": "One-sided diffs currently render as two columns with placeholder empties, and mock/docs framing still lives outside the component."
+        },
+        {
+          "change": "Support side visibility or mode controls beyond implicit before/after presence.",
+          "component": "DiffFile",
+          "reason": "Known added-only, removed-only, and emphasis-first states need deliberate one-sided composition rather than incidental empty panels."
+        }
+      ],
+      "implementationPlan": [
+        "Expand the shared Code component types and markup so framing, metadata regions, and asymmetric diff behavior are first-class APIs.",
+        "Update component CSS to support embedded and alternate-frame treatments while staying theme-aware in vellum and void contexts.",
+        "Replace recurring mock/chat/docs wrappers where the pattern is clearly reusable, especially the Seraph diff wrapper and dense editor metadata treatments.",
+        "Rewrite/add stories so metadata-heavy, embedded, alternate-frame, one-sided, and empty states are direct component stories.",
+        "Strengthen tests for the new rendering permutations before running the final validation sweep."
+      ],
+      "recurringWrappers": [
+        {
+          "files": [
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/mockups.css"
+          ],
+          "pattern": "Seraph-specific parchment wrapper around DiffViewer",
+          "sharedApiOpportunity": "Add a reusable frame/variant surface on DiffViewer so alternate mock framing is part of the API instead of external wrapper markup."
+        },
+        {
+          "files": [
+            "src/mockups/ChatPrimitives.stories.tsx",
+            "src/mockups/MockupPreviews.tsx"
+          ],
+          "pattern": "Chat/editor metadata packaged through surrounding card structure",
+          "sharedApiOpportunity": "Expose richer file metadata regions and compact framing on CodeEditor so chat/tool contexts do not depend on bespoke surrounding structure for hierarchy."
+        },
+        {
+          "files": [
+            "src/mockups/MockupPreviews.tsx"
+          ],
+          "pattern": "Docs embeds rely on outside layout context to tone down code chrome",
+          "sharedApiOpportunity": "Add embedded framing controls to CodeBlock and DiffViewer so docs usage is first-class."
+        }
+      ],
+      "risks": [
+        "Diff layout changes can regress narrow-width behavior if the asymmetric mode is not explicit in CSS.",
+        "New frame variants can drift visually between vellum and void themes if the styles are hard-coded instead of token-driven.",
+        "Mockup consumers may still carry styling assumptions after wrapper removal and need careful spot checks."
+      ],
+      "runtimeContexts": [
+        {
+          "files": [
+            "src/components/Code/Code.tsx",
+            "src/components/components.css",
+            "src/components/Code/Code.stories.tsx",
+            "src/components/Code/Code.test.tsx"
+          ],
+          "name": "shared code surfaces",
+          "reason": "These files define and validate the exported CodeBlock, CodeEditor, and DiffViewer primitives."
+        },
+        {
+          "files": [
+            "src/mockups/ChatPrimitives.stories.tsx",
+            "src/mockups/MockupPreviews.tsx"
+          ],
+          "name": "chat embedded editor",
+          "reason": "Chat tool cards embed metadata-heavy editors inside a denser memo layout and need quieter framing plus richer file metadata."
+        },
+        {
+          "files": [
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/CodexPrimitives.tsx"
+          ],
+          "name": "docs embedded code",
+          "reason": "Docs pages embed code surfaces inline with article typography and margin systems, so the component needs an embedded treatment rather than relying on outside wrappers."
+        },
+        {
+          "files": [
+            "src/mockups/MockupPreviews.tsx",
+            "src/mockups/mockups.css"
+          ],
+          "name": "mock diff framing",
+          "reason": "The Seraph mock wraps DiffViewer in a bespoke parchment frame, which signals a recurring alternate-frame requirement the shared API should absorb."
+        }
+      ],
+      "storyCoverage": [
+        {
+          "reason": "Acceptance explicitly requires direct story coverage for rich file metadata.",
+          "state": "metadata-heavy editor",
+          "storyTarget": "src/components/Code/Code.stories.tsx"
+        },
+        {
+          "reason": "Docs/chat/mock embed states should be inspectable without relying on MockupPreviews.",
+          "state": "embedded code and diff frames",
+          "storyTarget": "src/components/Code/Code.stories.tsx"
+        },
+        {
+          "reason": "The recurring Seraph/docs wrapper should become a direct reusable story.",
+          "state": "alternate diff frame",
+          "storyTarget": "src/components/Code/Code.stories.tsx"
+        },
+        {
+          "reason": "This is the highest-risk API expansion area and needs direct visual coverage.",
+          "state": "one-sided and asymmetric diff modes",
+          "storyTarget": "src/components/Code/Code.stories.tsx"
+        },
+        {
+          "reason": "Acceptance explicitly calls for empty states.",
+          "state": "empty editor and empty diff states",
+          "storyTarget": "src/components/Code/Code.stories.tsx"
+        }
+      ],
+      "targetStateMatrix": [
+        {
+          "context": "docs article embed",
+          "diffShape": "not applicable",
+          "embedded": "must sit inside article and card compositions without extra wrapper shells",
+          "emptyState": "quiet placeholder that still feels intentional inside prose",
+          "framing": "embedded frame with reduced chrome",
+          "metadata": "title, meta, optional fact rail, compact footer",
+          "surface": "CodeBlock",
+          "themes": [
+            "vellum",
+            "void"
+          ]
+        },
+        {
+          "context": "chat tool card",
+          "diffShape": "not applicable",
+          "embedded": "must read cleanly inside dense chat memo and tool-card layouts",
+          "emptyState": "empty file/editor state with preserved header and file rail",
+          "framing": "editor chrome must support compact and embedded variants",
+          "metadata": "filename, fileMeta, status, facts, footer, additional file metadata rows",
+          "surface": "CodeEditor",
+          "themes": [
+            "vellum",
+            "void"
+          ]
+        },
+        {
+          "context": "default shared diff",
+          "diffShape": "two-sided and one-sided",
+          "embedded": "usable as a standalone panel",
+          "emptyState": "global empty diff state",
+          "framing": "standard panel frame with tabs and head",
+          "metadata": "file meta, note, per-side labels, summary counts",
+          "surface": "DiffViewer",
+          "themes": [
+            "vellum",
+            "void"
+          ]
+        },
+        {
+          "context": "docs and mock embed",
+          "diffShape": "supports asymmetric, added-only, removed-only, and side-hidden views",
+          "embedded": "must render inside docs figures and mock cards directly",
+          "emptyState": "embedded empty state must inherit host tone",
+          "framing": "alternate framed treatment matching docs/mock language without external wrapper divs",
+          "metadata": "same metadata richness as default plus embedded title/meta treatment",
+          "surface": "DiffViewer",
+          "themes": [
+            "vellum",
+            "void"
+          ]
+        },
+        {
+          "context": "asymmetric comparison",
+          "diffShape": "before-only, after-only, and intentionally hidden opposite side",
+          "embedded": "works in narrow mock/chat spaces",
+          "emptyState": "custom per-side empty messaging",
+          "framing": "single-column or emphasis-first layout when only one side exists",
+          "metadata": "side labels and file metadata remain readable without dead empty space",
+          "surface": "Diff file view",
+          "themes": [
+            "vellum",
+            "void"
+          ]
+        }
+      ],
+      "testCoverage": [
+        {
+          "reason": "Richer metadata rails are easy to regress structurally.",
+          "state": "metadata-heavy editor framing and file metadata regions",
+          "testTarget": "src/components/Code/Code.test.tsx"
+        },
+        {
+          "reason": "Frame variants drive theme alignment and wrapper removal.",
+          "state": "embedded/alternate frame class application",
+          "testTarget": "src/components/Code/Code.test.tsx"
+        },
+        {
+          "reason": "Asymmetric layouts are the highest-risk rendering change.",
+          "state": "one-sided diff rendering without redundant opposite column",
+          "testTarget": "src/components/Code/Code.test.tsx"
+        },
+        {
+          "reason": "The current implementation only lightly covers placeholders and needs stronger permutation checks.",
+          "state": "global and per-side empty states",
+          "testTarget": "src/components/Code/Code.test.tsx"
+        }
+      ],
+      "validationPlan": [
+        "npm run lint",
+        "npm run test -- --run",
+        "npm run build",
+        "npm run build-storybook"
+      ]
+    },
+    "implementation": {
+      "changedFiles": [
+        "src/components/Code/Code.tsx",
+        "src/components/components.css",
+        "src/components/Code/Code.stories.tsx",
+        "src/components/Code/Code.test.tsx",
+        "src/components/Code/index.ts",
+        "src/components/index.ts",
+        "src/mockups/ChatPrimitives.stories.tsx",
+        "src/mockups/MockupPreviews.tsx",
+        "src/mockups/mockups.css"
+      ],
+      "residualRisks": [
+        "The new parchment and embedded frame treatments rely on token-driven mixes and should still be spot-checked in any external host surfaces beyond the repo stories and mock previews."
+      ],
+      "storyTargets": [
+        "src/components/Code/Code.stories.tsx"
+      ],
+      "summary": "Expanded the shared CodeBlock, CodeEditor, and DiffViewer APIs with reusable frame, density, file metadata, and asymmetric diff layout controls; updated the direct stories/tests to cover metadata-heavy, embedded, alternate-frame, empty, and one-sided states; and replaced the recurring Seraph/chat wrapper patterns with the shared surface APIs.",
+      "testTargets": [
+        "src/components/Code/Code.test.tsx"
+      ],
+      "validationsRun": [
+        "npm run lint",
+        "npm run test -- --run",
+        "npm run build",
+        "npm run build-storybook"
+      ]
+    },
+    "validation": {
+      "allPassed": true,
+      "blockers": [],
+      "checks": [
+        {
+          "command": "npm run lint",
+          "passed": true,
+          "summary": "Passed after restoring local dev dependencies with npm ci."
+        },
+        {
+          "command": "npm run test -- --run",
+          "passed": true,
+          "summary": "Passed: 2 test files, 8 tests total."
+        },
+        {
+          "command": "npm run build",
+          "passed": true,
+          "summary": "Passed: Vite library build and declaration emit completed successfully."
+        },
+        {
+          "command": "npm run build-storybook",
+          "passed": true,
+          "summary": "Passed: Storybook built successfully; only non-blocking upstream eval and chunk-size warnings were emitted."
+        }
+      ]
+    }
+  }
+}

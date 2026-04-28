@@ -1,0 +1,25 @@
+{
+  "description": "Build the package to verify exports, declarations, and CSS bundling.",
+  "expectedExitCode": 0,
+  "io": {
+    "inputJsonPath": "tasks/01KQ01WW1A4VQ83DA4Z6PMPWB1/input.json",
+    "outputJsonPath": "tasks/01KQ01WW1A4VQ83DA4Z6PMPWB1/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "build",
+    "compendium",
+    "verify"
+  ],
+  "shell": {
+    "command": "npm run build",
+    "outputPath": "tasks/01KQ01WW1A4VQ83DA4Z6PMPWB1/result.json"
+  },
+  "title": "Build package",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ01WW1A4VQ83DA4Z6PMPWB1",
+  "taskId": "compendium-build",
+  "invocationKey": "compendium-maturation-pass:S000005:compendium-build",
+  "stepId": "S000005",
+  "inputs": {}
+}

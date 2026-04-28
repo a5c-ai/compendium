@@ -1,0 +1,923 @@
+{
+  "agent": {
+    "name": "storybook-verifier",
+    "outputSchema": {
+      "properties": {
+        "buildResults": {
+          "items": {
+            "properties": {
+              "command": {
+                "type": "string"
+              },
+              "passed": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "command",
+              "passed",
+              "summary"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "commandsRun": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "remainingGaps": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "visualCheckpoints": {
+          "items": {
+            "properties": {
+              "notes": {
+                "type": "string"
+              },
+              "storyId": {
+                "type": "string"
+              },
+              "verdict": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "storyId",
+              "verdict",
+              "notes"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "success",
+        "commandsRun",
+        "buildResults",
+        "visualCheckpoints",
+        "remainingGaps"
+      ],
+      "type": "object"
+    },
+    "prompt": {
+      "context": {
+        "coveragePlan": {
+          "coverageMatrix": [
+            {
+              "darkModeRequired": false,
+              "exportName": "ComponentNavBar",
+              "inspectionReason": "Navigation hierarchy and current-link emphasis need direct inspection outside the catalog story.",
+              "interactionStates": [
+                "current link",
+                "mixed gate tones"
+              ],
+              "modulePath": "src/mockups/ComponentPrimitives.tsx",
+              "requiredControls": [
+                "links",
+                "brand",
+                "actionLabels"
+              ],
+              "requiredStories": [
+                "NavigationAndGates"
+              ],
+              "storyGroup": "Motifs/Component System",
+              "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": false,
+              "exportName": "ComponentGateStrip",
+              "inspectionReason": "Gate tone changes are a core state surface and should be inspectable next to navigation context.",
+              "interactionStates": [
+                "pass",
+                "pending",
+                "sealed"
+              ],
+              "modulePath": "src/mockups/ComponentPrimitives.tsx",
+              "requiredControls": [
+                "items"
+              ],
+              "requiredStories": [
+                "NavigationAndGates"
+              ],
+              "storyGroup": "Motifs/Component System",
+              "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": false,
+              "exportName": "ComponentInstallStrip",
+              "inspectionReason": "Command framing and call-to-action ornamentation need direct inspection with controllable command copy.",
+              "interactionStates": [
+                "dense chip board"
+              ],
+              "modulePath": "src/mockups/ComponentPrimitives.tsx",
+              "requiredControls": [
+                "command",
+                "copyLabel",
+                "items"
+              ],
+              "requiredStories": [
+                "InstallAndChips"
+              ],
+              "storyGroup": "Motifs/Component System",
+              "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": false,
+              "exportName": "ComponentGemRow",
+              "inspectionReason": "Status ornament and color metadata belong in direct reusable-surface stories.",
+              "interactionStates": [
+                "mixed gem colors",
+                "varied gauge needles"
+              ],
+              "modulePath": "src/mockups/ComponentPrimitives.tsx",
+              "requiredControls": [
+                "sealLabel",
+                "gemItems",
+                "gaugeItems"
+              ],
+              "requiredStories": [
+                "GemAndGaugeReadouts"
+              ],
+              "storyGroup": "Motifs/Component System",
+              "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": false,
+              "exportName": "ComponentTabNarrative",
+              "inspectionReason": "Narrative tabs are a standalone inspection surface with configurable tab copy and default selection.",
+              "interactionStates": [
+                "different default tab"
+              ],
+              "modulePath": "src/mockups/ComponentPrimitives.tsx",
+              "requiredControls": [
+                "defaultValue",
+                "items"
+              ],
+              "requiredStories": [
+                "NarrativeTabs"
+              ],
+              "storyGroup": "Motifs/Component System",
+              "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": true,
+              "exportName": "MockupGalleryControls",
+              "inspectionReason": "Gallery controls are the main inspection control surface and need direct prop-driven coverage plus dark theme review.",
+              "interactionStates": [
+                "description hidden",
+                "sources hidden",
+                "zoom extremes"
+              ],
+              "modulePath": "src/mockups/MockupPreviewPrimitives.tsx",
+              "requiredControls": [
+                "title",
+                "description",
+                "columnsValue",
+                "showDescription",
+                "showSources",
+                "zoom",
+                "frameHeight"
+              ],
+              "requiredStories": [
+                "GalleryControls",
+                "GalleryControlsDark"
+              ],
+              "storyGroup": "Motifs/Preview Controls",
+              "storyPath": "src/mockups/MockupPreviewPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": false,
+              "exportName": "MockupSpecList",
+              "inspectionReason": "Spec metadata should be inspectable as a standalone motif with configurable item density.",
+              "interactionStates": [
+                "short list",
+                "dense list"
+              ],
+              "modulePath": "src/mockups/MockupPreviewPrimitives.tsx",
+              "requiredControls": [
+                "items"
+              ],
+              "requiredStories": [
+                "SpecList"
+              ],
+              "storyGroup": "Motifs/Preview Controls",
+              "storyPath": "src/mockups/MockupPreviewPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": true,
+              "exportName": "ChatRail",
+              "inspectionReason": "Thread list hierarchy and current-state emphasis should be reviewed without the full shell carrying the surface.",
+              "interactionStates": [
+                "current thread",
+                "empty-ish groups"
+              ],
+              "modulePath": "src/mockups/ChatPrimitives.tsx",
+              "requiredControls": [
+                "brand",
+                "pinned",
+                "today"
+              ],
+              "requiredStories": [
+                "RailStates"
+              ],
+              "storyGroup": "Motifs/Chat",
+              "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": true,
+              "exportName": "ChatMemo",
+              "inspectionReason": "Memo framing, brief mode, and action affordances are reusable motif behavior and need direct controls.",
+              "interactionStates": [
+                "brief",
+                "full",
+                "with actions"
+              ],
+              "modulePath": "src/mockups/ChatPrimitives.tsx",
+              "requiredControls": [
+                "title",
+                "seat",
+                "timestamp",
+                "footnote",
+                "brief",
+                "actions"
+              ],
+              "requiredStories": [
+                "MemoStates"
+              ],
+              "storyGroup": "Motifs/Chat",
+              "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": true,
+              "exportName": "ChatComposer",
+              "inspectionReason": "Attachment chips and footer metadata are acceptance surfaces for state and contrast handling.",
+              "interactionStates": [
+                "no attachments",
+                "single attachment",
+                "multiple attachments"
+              ],
+              "modulePath": "src/mockups/ChatPrimitives.tsx",
+              "requiredControls": [
+                "attachments",
+                "placeholder",
+                "footerLabel"
+              ],
+              "requiredStories": [
+                "ComposerStates"
+              ],
+              "storyGroup": "Motifs/Chat",
+              "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": true,
+              "exportName": "ChatInspector",
+              "inspectionReason": "Inspector contrast and metadata legibility need a direct dark-mode checkpoint.",
+              "interactionStates": [
+                "dense metadata"
+              ],
+              "modulePath": "src/mockups/ChatPrimitives.tsx",
+              "requiredControls": [
+                "title",
+                "items",
+                "footerLabel"
+              ],
+              "requiredStories": [
+                "InspectorDark"
+              ],
+              "storyGroup": "Motifs/Chat",
+              "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": true,
+              "exportName": "ChatTurn",
+              "inspectionReason": "Conversation atoms should be inspectable without the full workspace wrapper.",
+              "interactionStates": [
+                "user turn",
+                "agent turn",
+                "typing"
+              ],
+              "modulePath": "src/mockups/ChatPrimitives.tsx",
+              "requiredControls": [
+                "userMessage",
+                "agentMessage",
+                "bars",
+                "toolMeta"
+              ],
+              "requiredStories": [
+                "ConversationParts"
+              ],
+              "storyGroup": "Motifs/Chat",
+              "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": false,
+              "exportName": "SeraphSidebar",
+              "inspectionReason": "Sidebar hierarchy, search affordance, and plan footer are direct reusable surfaces.",
+              "interactionStates": [
+                "current thread",
+                "alternate shortcut"
+              ],
+              "modulePath": "src/mockups/SeraphPrimitives.tsx",
+              "requiredControls": [
+                "sectionTitle",
+                "threads",
+                "planTitle",
+                "planSubtitle",
+                "searchShortcut"
+              ],
+              "requiredStories": [
+                "SidebarPlayground"
+              ],
+              "storyGroup": "Motifs/Seraph",
+              "storyPath": "src/mockups/SeraphPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": false,
+              "exportName": "SeraphCard",
+              "inspectionReason": "Card framing and task status treatment are core motif variants that need direct side-by-side review.",
+              "interactionStates": [
+                "with status",
+                "without status",
+                "ornament"
+              ],
+              "modulePath": "src/mockups/SeraphPrimitives.tsx",
+              "requiredControls": [
+                "cardTitle",
+                "cardStatus",
+                "taskStatus"
+              ],
+              "requiredStories": [
+                "CardsAndTaskStates"
+              ],
+              "storyGroup": "Motifs/Seraph",
+              "storyPath": "src/mockups/SeraphPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": true,
+              "exportName": "SeraphComposer",
+              "inspectionReason": "Composer contrast and tool-chip framing are acceptance surfaces in dark mode.",
+              "interactionStates": [
+                "short tools",
+                "dense tools"
+              ],
+              "modulePath": "src/mockups/SeraphPrimitives.tsx",
+              "requiredControls": [
+                "placeholder",
+                "tools"
+              ],
+              "requiredStories": [
+                "ComposerDark"
+              ],
+              "storyGroup": "Motifs/Seraph",
+              "storyPath": "src/mockups/SeraphPrimitives.stories.tsx"
+            },
+            {
+              "darkModeRequired": false,
+              "exportName": "SeraphPromptBar",
+              "inspectionReason": "Prompt bar framing and crest ornament should be directly inspectable without the full window.",
+              "interactionStates": [
+                "alternate ornament"
+              ],
+              "modulePath": "src/mockups/SeraphPrimitives.tsx",
+              "requiredControls": [
+                "seal",
+                "prompt",
+                "time",
+                "sunClass"
+              ],
+              "requiredStories": [
+                "PromptAndCrest"
+              ],
+              "storyGroup": "Motifs/Seraph",
+              "storyPath": "src/mockups/SeraphPrimitives.stories.tsx"
+            }
+          ],
+          "organizationChanges": [
+            "Retitle primitive story files under Motifs rather than Mockups to emphasize reusable inspection surfaces.",
+            "Keep project preview gallery stories under Mockups so gallery browsing remains available without carrying primary inspection burden.",
+            "Use direct stories with args for reusable primitives and reserve full-shell stories for context only."
+          ],
+          "verificationCheckpoints": [
+            "Build Storybook after story changes.",
+            "Build the package to catch story imports and export regressions.",
+            "Visually inspect Chat composer and inspector in dark mode.",
+            "Visually inspect Seraph composer dark mode and card or task state permutations.",
+            "Visually inspect component system navigation plus gate state story and preview controls story."
+          ]
+        },
+        "implementation": {
+          "darkModeStories": [
+            "motifs-preview-controls--gallery-controls-dark",
+            "motifs-chat--composer-states",
+            "motifs-chat--inspector-dark",
+            "motifs-seraph--composer-dark"
+          ],
+          "filesChanged": [
+            "src/mockups/ComponentPrimitives.stories.tsx",
+            "src/mockups/MockupPreviewPrimitives.stories.tsx",
+            "src/mockups/ChatPrimitives.stories.tsx",
+            "src/mockups/SeraphPrimitives.stories.tsx",
+            "src/mockups/ComponentPrimitives.tsx",
+            "src/mockups/ChatPrimitives.tsx",
+            "src/mockups/SeraphPrimitives.tsx"
+          ],
+          "implementedStories": [
+            "motifs-component-system--mode-grid",
+            "motifs-component-system--navigation-and-gates",
+            "motifs-component-system--install-and-chips",
+            "motifs-component-system--gem-and-gauge-readouts",
+            "motifs-component-system--narrative-tabs",
+            "motifs-preview-controls--gallery-controls",
+            "motifs-preview-controls--gallery-controls-dark",
+            "motifs-preview-controls--interactive-gallery",
+            "motifs-preview-controls--spec-list",
+            "motifs-chat--workspace-scaffold",
+            "motifs-chat--rail-states",
+            "motifs-chat--conversation-parts",
+            "motifs-chat--memo-states",
+            "motifs-chat--composer-states",
+            "motifs-chat--inspector-dark",
+            "motifs-seraph--window-scaffold",
+            "motifs-seraph--sidebar-playground",
+            "motifs-seraph--prompt-and-crest",
+            "motifs-seraph--cards-and-task-states",
+            "motifs-seraph--summary-and-ornaments",
+            "motifs-seraph--composer-dark"
+          ],
+          "notes": [
+            "Retitled primitive story files under Motifs so direct reusable inspection sits above gallery browsing.",
+            "Added direct arg-driven stories for motif exports while preserving full-shell context stories.",
+            "Fixed isolated primitive rendering by importing mockup stylesheet in Component, Chat, and Seraph primitive modules."
+          ],
+          "stateStories": [
+            "motifs-component-system--navigation-and-gates",
+            "motifs-chat--memo-states",
+            "motifs-chat--composer-states",
+            "motifs-seraph--cards-and-task-states"
+          ]
+        },
+        "packageBuildCommand": "npm run build",
+        "projectDir": ".",
+        "requestText": "Finish Storybook primitive and state coverage for reusable motifs, dark mode, and inspection parity. Add direct stories for mockup-derived primitives and important variants. Add story controls for configurable props that materially affect hierarchy, ornament, metadata, framing, and composition. Add dark-mode and interaction-state stories for surfaces where contrast and state handling are part of the acceptance criteria. Tighten story organization so Storybook reads like a reusable package, not just a preview gallery. Keep mock gallery stories useful, but do not let them carry the primary burden of reusable-surface inspection.",
+        "storybookBuildCommand": "npm run build-storybook",
+        "visualInspectionTargets": [
+          "motifs-chat--composer-states",
+          "motifs-chat--inspector-dark",
+          "motifs-seraph--composer-dark",
+          "motifs-seraph--cards-and-task-states",
+          "motifs-component-system--navigation-and-gates",
+          "motifs-preview-controls--gallery-controls"
+        ]
+      },
+      "instructions": [
+        "Run the provided Storybook build command and package build command in the project directory and report the real outcomes.",
+        "Visually inspect the target stories that exercise dark mode, controls, and state permutations. Use actual inspection, not assumption.",
+        "Compare the implemented stories against the coverage matrix and call out anything still missing.",
+        "Return success only if the build passes and the requested direct inspection surfaces are present.",
+        "Output strict JSON."
+      ],
+      "outputFormat": "JSON with keys:\n  success: boolean,\n  commandsRun: string[],\n  buildResults: Array<{ command: string, passed: boolean, summary: string }>,\n  visualCheckpoints: Array<{ storyId: string, verdict: string, notes: string }>,\n  remainingGaps: string[]",
+      "role": "frontend verification engineer reviewing Storybook coverage quality",
+      "task": "Verify the implemented Storybook coverage using the requested build and visual inspection checkpoints."
+    }
+  },
+  "description": "Confirm the new story coverage compiles and remains visually inspectable.",
+  "io": {
+    "inputJsonPath": "tasks/01KQ1X880HS1AE96N0JM2W5SPF/input.json",
+    "outputJsonPath": "tasks/01KQ1X880HS1AE96N0JM2W5SPF/result.json"
+  },
+  "kind": "agent",
+  "labels": [
+    "motifs",
+    "storybook",
+    "verification"
+  ],
+  "title": "Verify Storybook build and inspection checkpoints",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ1X880HS1AE96N0JM2W5SPF",
+  "taskId": "storybook-primitive-coverage-verification",
+  "invocationKey": "compendium/storybook-primitive-coverage-pass:S000003:storybook-primitive-coverage-verification",
+  "stepId": "S000003",
+  "inputs": {
+    "coveragePlan": {
+      "coverageMatrix": [
+        {
+          "darkModeRequired": false,
+          "exportName": "ComponentNavBar",
+          "inspectionReason": "Navigation hierarchy and current-link emphasis need direct inspection outside the catalog story.",
+          "interactionStates": [
+            "current link",
+            "mixed gate tones"
+          ],
+          "modulePath": "src/mockups/ComponentPrimitives.tsx",
+          "requiredControls": [
+            "links",
+            "brand",
+            "actionLabels"
+          ],
+          "requiredStories": [
+            "NavigationAndGates"
+          ],
+          "storyGroup": "Motifs/Component System",
+          "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": false,
+          "exportName": "ComponentGateStrip",
+          "inspectionReason": "Gate tone changes are a core state surface and should be inspectable next to navigation context.",
+          "interactionStates": [
+            "pass",
+            "pending",
+            "sealed"
+          ],
+          "modulePath": "src/mockups/ComponentPrimitives.tsx",
+          "requiredControls": [
+            "items"
+          ],
+          "requiredStories": [
+            "NavigationAndGates"
+          ],
+          "storyGroup": "Motifs/Component System",
+          "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": false,
+          "exportName": "ComponentInstallStrip",
+          "inspectionReason": "Command framing and call-to-action ornamentation need direct inspection with controllable command copy.",
+          "interactionStates": [
+            "dense chip board"
+          ],
+          "modulePath": "src/mockups/ComponentPrimitives.tsx",
+          "requiredControls": [
+            "command",
+            "copyLabel",
+            "items"
+          ],
+          "requiredStories": [
+            "InstallAndChips"
+          ],
+          "storyGroup": "Motifs/Component System",
+          "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": false,
+          "exportName": "ComponentGemRow",
+          "inspectionReason": "Status ornament and color metadata belong in direct reusable-surface stories.",
+          "interactionStates": [
+            "mixed gem colors",
+            "varied gauge needles"
+          ],
+          "modulePath": "src/mockups/ComponentPrimitives.tsx",
+          "requiredControls": [
+            "sealLabel",
+            "gemItems",
+            "gaugeItems"
+          ],
+          "requiredStories": [
+            "GemAndGaugeReadouts"
+          ],
+          "storyGroup": "Motifs/Component System",
+          "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": false,
+          "exportName": "ComponentTabNarrative",
+          "inspectionReason": "Narrative tabs are a standalone inspection surface with configurable tab copy and default selection.",
+          "interactionStates": [
+            "different default tab"
+          ],
+          "modulePath": "src/mockups/ComponentPrimitives.tsx",
+          "requiredControls": [
+            "defaultValue",
+            "items"
+          ],
+          "requiredStories": [
+            "NarrativeTabs"
+          ],
+          "storyGroup": "Motifs/Component System",
+          "storyPath": "src/mockups/ComponentPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": true,
+          "exportName": "MockupGalleryControls",
+          "inspectionReason": "Gallery controls are the main inspection control surface and need direct prop-driven coverage plus dark theme review.",
+          "interactionStates": [
+            "description hidden",
+            "sources hidden",
+            "zoom extremes"
+          ],
+          "modulePath": "src/mockups/MockupPreviewPrimitives.tsx",
+          "requiredControls": [
+            "title",
+            "description",
+            "columnsValue",
+            "showDescription",
+            "showSources",
+            "zoom",
+            "frameHeight"
+          ],
+          "requiredStories": [
+            "GalleryControls",
+            "GalleryControlsDark"
+          ],
+          "storyGroup": "Motifs/Preview Controls",
+          "storyPath": "src/mockups/MockupPreviewPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": false,
+          "exportName": "MockupSpecList",
+          "inspectionReason": "Spec metadata should be inspectable as a standalone motif with configurable item density.",
+          "interactionStates": [
+            "short list",
+            "dense list"
+          ],
+          "modulePath": "src/mockups/MockupPreviewPrimitives.tsx",
+          "requiredControls": [
+            "items"
+          ],
+          "requiredStories": [
+            "SpecList"
+          ],
+          "storyGroup": "Motifs/Preview Controls",
+          "storyPath": "src/mockups/MockupPreviewPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": true,
+          "exportName": "ChatRail",
+          "inspectionReason": "Thread list hierarchy and current-state emphasis should be reviewed without the full shell carrying the surface.",
+          "interactionStates": [
+            "current thread",
+            "empty-ish groups"
+          ],
+          "modulePath": "src/mockups/ChatPrimitives.tsx",
+          "requiredControls": [
+            "brand",
+            "pinned",
+            "today"
+          ],
+          "requiredStories": [
+            "RailStates"
+          ],
+          "storyGroup": "Motifs/Chat",
+          "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": true,
+          "exportName": "ChatMemo",
+          "inspectionReason": "Memo framing, brief mode, and action affordances are reusable motif behavior and need direct controls.",
+          "interactionStates": [
+            "brief",
+            "full",
+            "with actions"
+          ],
+          "modulePath": "src/mockups/ChatPrimitives.tsx",
+          "requiredControls": [
+            "title",
+            "seat",
+            "timestamp",
+            "footnote",
+            "brief",
+            "actions"
+          ],
+          "requiredStories": [
+            "MemoStates"
+          ],
+          "storyGroup": "Motifs/Chat",
+          "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": true,
+          "exportName": "ChatComposer",
+          "inspectionReason": "Attachment chips and footer metadata are acceptance surfaces for state and contrast handling.",
+          "interactionStates": [
+            "no attachments",
+            "single attachment",
+            "multiple attachments"
+          ],
+          "modulePath": "src/mockups/ChatPrimitives.tsx",
+          "requiredControls": [
+            "attachments",
+            "placeholder",
+            "footerLabel"
+          ],
+          "requiredStories": [
+            "ComposerStates"
+          ],
+          "storyGroup": "Motifs/Chat",
+          "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": true,
+          "exportName": "ChatInspector",
+          "inspectionReason": "Inspector contrast and metadata legibility need a direct dark-mode checkpoint.",
+          "interactionStates": [
+            "dense metadata"
+          ],
+          "modulePath": "src/mockups/ChatPrimitives.tsx",
+          "requiredControls": [
+            "title",
+            "items",
+            "footerLabel"
+          ],
+          "requiredStories": [
+            "InspectorDark"
+          ],
+          "storyGroup": "Motifs/Chat",
+          "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": true,
+          "exportName": "ChatTurn",
+          "inspectionReason": "Conversation atoms should be inspectable without the full workspace wrapper.",
+          "interactionStates": [
+            "user turn",
+            "agent turn",
+            "typing"
+          ],
+          "modulePath": "src/mockups/ChatPrimitives.tsx",
+          "requiredControls": [
+            "userMessage",
+            "agentMessage",
+            "bars",
+            "toolMeta"
+          ],
+          "requiredStories": [
+            "ConversationParts"
+          ],
+          "storyGroup": "Motifs/Chat",
+          "storyPath": "src/mockups/ChatPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": false,
+          "exportName": "SeraphSidebar",
+          "inspectionReason": "Sidebar hierarchy, search affordance, and plan footer are direct reusable surfaces.",
+          "interactionStates": [
+            "current thread",
+            "alternate shortcut"
+          ],
+          "modulePath": "src/mockups/SeraphPrimitives.tsx",
+          "requiredControls": [
+            "sectionTitle",
+            "threads",
+            "planTitle",
+            "planSubtitle",
+            "searchShortcut"
+          ],
+          "requiredStories": [
+            "SidebarPlayground"
+          ],
+          "storyGroup": "Motifs/Seraph",
+          "storyPath": "src/mockups/SeraphPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": false,
+          "exportName": "SeraphCard",
+          "inspectionReason": "Card framing and task status treatment are core motif variants that need direct side-by-side review.",
+          "interactionStates": [
+            "with status",
+            "without status",
+            "ornament"
+          ],
+          "modulePath": "src/mockups/SeraphPrimitives.tsx",
+          "requiredControls": [
+            "cardTitle",
+            "cardStatus",
+            "taskStatus"
+          ],
+          "requiredStories": [
+            "CardsAndTaskStates"
+          ],
+          "storyGroup": "Motifs/Seraph",
+          "storyPath": "src/mockups/SeraphPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": true,
+          "exportName": "SeraphComposer",
+          "inspectionReason": "Composer contrast and tool-chip framing are acceptance surfaces in dark mode.",
+          "interactionStates": [
+            "short tools",
+            "dense tools"
+          ],
+          "modulePath": "src/mockups/SeraphPrimitives.tsx",
+          "requiredControls": [
+            "placeholder",
+            "tools"
+          ],
+          "requiredStories": [
+            "ComposerDark"
+          ],
+          "storyGroup": "Motifs/Seraph",
+          "storyPath": "src/mockups/SeraphPrimitives.stories.tsx"
+        },
+        {
+          "darkModeRequired": false,
+          "exportName": "SeraphPromptBar",
+          "inspectionReason": "Prompt bar framing and crest ornament should be directly inspectable without the full window.",
+          "interactionStates": [
+            "alternate ornament"
+          ],
+          "modulePath": "src/mockups/SeraphPrimitives.tsx",
+          "requiredControls": [
+            "seal",
+            "prompt",
+            "time",
+            "sunClass"
+          ],
+          "requiredStories": [
+            "PromptAndCrest"
+          ],
+          "storyGroup": "Motifs/Seraph",
+          "storyPath": "src/mockups/SeraphPrimitives.stories.tsx"
+        }
+      ],
+      "organizationChanges": [
+        "Retitle primitive story files under Motifs rather than Mockups to emphasize reusable inspection surfaces.",
+        "Keep project preview gallery stories under Mockups so gallery browsing remains available without carrying primary inspection burden.",
+        "Use direct stories with args for reusable primitives and reserve full-shell stories for context only."
+      ],
+      "verificationCheckpoints": [
+        "Build Storybook after story changes.",
+        "Build the package to catch story imports and export regressions.",
+        "Visually inspect Chat composer and inspector in dark mode.",
+        "Visually inspect Seraph composer dark mode and card or task state permutations.",
+        "Visually inspect component system navigation plus gate state story and preview controls story."
+      ]
+    },
+    "implementation": {
+      "darkModeStories": [
+        "motifs-preview-controls--gallery-controls-dark",
+        "motifs-chat--composer-states",
+        "motifs-chat--inspector-dark",
+        "motifs-seraph--composer-dark"
+      ],
+      "filesChanged": [
+        "src/mockups/ComponentPrimitives.stories.tsx",
+        "src/mockups/MockupPreviewPrimitives.stories.tsx",
+        "src/mockups/ChatPrimitives.stories.tsx",
+        "src/mockups/SeraphPrimitives.stories.tsx",
+        "src/mockups/ComponentPrimitives.tsx",
+        "src/mockups/ChatPrimitives.tsx",
+        "src/mockups/SeraphPrimitives.tsx"
+      ],
+      "implementedStories": [
+        "motifs-component-system--mode-grid",
+        "motifs-component-system--navigation-and-gates",
+        "motifs-component-system--install-and-chips",
+        "motifs-component-system--gem-and-gauge-readouts",
+        "motifs-component-system--narrative-tabs",
+        "motifs-preview-controls--gallery-controls",
+        "motifs-preview-controls--gallery-controls-dark",
+        "motifs-preview-controls--interactive-gallery",
+        "motifs-preview-controls--spec-list",
+        "motifs-chat--workspace-scaffold",
+        "motifs-chat--rail-states",
+        "motifs-chat--conversation-parts",
+        "motifs-chat--memo-states",
+        "motifs-chat--composer-states",
+        "motifs-chat--inspector-dark",
+        "motifs-seraph--window-scaffold",
+        "motifs-seraph--sidebar-playground",
+        "motifs-seraph--prompt-and-crest",
+        "motifs-seraph--cards-and-task-states",
+        "motifs-seraph--summary-and-ornaments",
+        "motifs-seraph--composer-dark"
+      ],
+      "notes": [
+        "Retitled primitive story files under Motifs so direct reusable inspection sits above gallery browsing.",
+        "Added direct arg-driven stories for motif exports while preserving full-shell context stories.",
+        "Fixed isolated primitive rendering by importing mockup stylesheet in Component, Chat, and Seraph primitive modules."
+      ],
+      "stateStories": [
+        "motifs-component-system--navigation-and-gates",
+        "motifs-chat--memo-states",
+        "motifs-chat--composer-states",
+        "motifs-seraph--cards-and-task-states"
+      ]
+    },
+    "packageBuildCommand": "npm run build",
+    "projectDir": ".",
+    "requestText": "Finish Storybook primitive and state coverage for reusable motifs, dark mode, and inspection parity. Add direct stories for mockup-derived primitives and important variants. Add story controls for configurable props that materially affect hierarchy, ornament, metadata, framing, and composition. Add dark-mode and interaction-state stories for surfaces where contrast and state handling are part of the acceptance criteria. Tighten story organization so Storybook reads like a reusable package, not just a preview gallery. Keep mock gallery stories useful, but do not let them carry the primary burden of reusable-surface inspection.",
+    "storybookBuildCommand": "npm run build-storybook",
+    "visualInspectionTargets": [
+      "motifs-chat--composer-states",
+      "motifs-chat--inspector-dark",
+      "motifs-seraph--composer-dark",
+      "motifs-seraph--cards-and-task-states",
+      "motifs-component-system--navigation-and-gates",
+      "motifs-preview-controls--gallery-controls"
+    ]
+  }
+}

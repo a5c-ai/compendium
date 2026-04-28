@@ -1,0 +1,10 @@
+{
+  "packageRoot": ".",
+  "requestText": "Harden CI, release gates, and external validation integrations for compendium package maturity",
+  "acceptanceCriteria": [
+    "CI runs the test suite and validates the example consumer in addition to lint, build, and Storybook.",
+    "Publish and release are gated on the meaningful validation contract.",
+    "Visual and/or browser-level accessibility validation is integrated and documented.",
+    "The package automation posture better matches the maturity target of this pass."
+  ]
+}

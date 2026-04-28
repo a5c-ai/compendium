@@ -1,0 +1,22 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-04-24T15:18:54.589Z",
+  "data": {
+    "effectId": "01KQ0153B5KH9PPFN7GV65XJMM",
+    "invocationKey": "compendium-maturation-pass:S000001:compendium-maturation-plan",
+    "invocationHash": "e896aad2192b01729d7d8e44de4120f49ba0ac3c6f22221480e75dd678079873",
+    "stepId": "S000001",
+    "taskId": "compendium-maturation-plan",
+    "kind": "agent",
+    "label": "compendium",
+    "taskDefRef": "tasks/01KQ0153B5KH9PPFN7GV65XJMM/task.json",
+    "labels": [
+      "compendium",
+      "planning",
+      "brownfield"
+    ],
+    "harness": "codex",
+    "sessionId": "019dc008-9b40-7993-887e-1f1709083b97"
+  },
+  "checksum": "d2797f4f35fe476185ddcfbcb835463a91e59509cd2d75d7874c5da448bcd728"
+}

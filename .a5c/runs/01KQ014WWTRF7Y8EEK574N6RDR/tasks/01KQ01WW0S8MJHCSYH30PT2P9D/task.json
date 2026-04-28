@@ -1,0 +1,25 @@
+{
+  "description": "Run repository tests relevant to the touched reusable surfaces.",
+  "expectedExitCode": 0,
+  "io": {
+    "inputJsonPath": "tasks/01KQ01WW0S8MJHCSYH30PT2P9D/input.json",
+    "outputJsonPath": "tasks/01KQ01WW0S8MJHCSYH30PT2P9D/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "compendium",
+    "test",
+    "verify"
+  ],
+  "shell": {
+    "command": "npm run test -- --run",
+    "outputPath": "tasks/01KQ01WW0S8MJHCSYH30PT2P9D/result.json"
+  },
+  "title": "Run Vitest suite",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQ01WW0S8MJHCSYH30PT2P9D",
+  "taskId": "compendium-test",
+  "invocationKey": "compendium-maturation-pass:S000004:compendium-test",
+  "stepId": "S000004",
+  "inputs": {}
+}
