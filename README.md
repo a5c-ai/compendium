@@ -16,6 +16,7 @@ import { Button, Toggle, Modal } from '@a5c-ai/compendium';
 
 // Or import specific subpaths for tree-shaking
 import { Button, Input, Select } from '@a5c-ai/compendium/react';
+import { CodexDocsShell, CodexDashboardShell } from '@a5c-ai/compendium/codex';
 import { colors, spacing } from '@a5c-ai/compendium/tokens';
 import { LogoWordmark, SealGatePassed } from '@a5c-ai/compendium/icons';
 
@@ -29,6 +30,7 @@ import '@a5c-ai/compendium/css';
 |--------|----------|
 | `@a5c-ai/compendium` | Everything: components, tokens, icons, CSS |
 | `@a5c-ai/compendium/react` | React components only |
+| `@a5c-ai/compendium/codex` | Codex docs/dashboard primitives and their supporting types |
 | `@a5c-ai/compendium/tokens` | Design tokens (CSS variables + JS constants) |
 | `@a5c-ai/compendium/icons` | SVG icon React components |
 | `@a5c-ai/compendium/css` | CSS custom properties, reset, and base typography |

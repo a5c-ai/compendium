@@ -105,6 +105,9 @@ export type {
   DiffViewerVariant,
 } from "./Code";
 
+/* Codex docs/dashboard kit */
+export * from "./Codex";
+
 /* Tooltip */
 export { Tooltip } from "./Tooltip";
 export type { TooltipProps } from "./Tooltip";
