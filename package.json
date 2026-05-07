@@ -86,5 +86,8 @@
     "prepublishOnly": "npm run validate:release",
     "changeset": "changeset",
     "release": "npm run validate:release && changeset publish"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.60.2"
   }
 }
