@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
+import { readFileSync } from 'node:fs';
 
 const rootDir = process.cwd();
 const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
@@ -12,6 +13,9 @@ const requiredDistFiles = [
   'dist/react.js',
   'dist/react.cjs',
   'dist/react.d.ts',
+  'dist/codex.js',
+  'dist/codex.cjs',
+  'dist/codex.d.ts',
   'dist/icons.js',
   'dist/icons.cjs',
   'dist/icons.d.ts',
@@ -19,7 +23,16 @@ const requiredDistFiles = [
   'dist/tokens.cjs',
   'dist/tokens.d.ts',
   'dist/tokens.css',
+  'dist/CodexPrimitives.css',
 ];
+
+const packageJson = JSON.parse(readFileSync(path.join(rootDir, 'package.json'), 'utf8'));
+const requiredExports = ['.', './react', './codex', './tokens', './icons', './css', './css/*'];
+const missingExports = requiredExports.filter((exportPath) => !(exportPath in (packageJson.exports ?? {})));
+
+if (missingExports.length > 0) {
+  throw new Error(`package.json is missing required exports: ${missingExports.join(', ')}`);
+}
 
 for (const relativePath of requiredDistFiles) {
   if (!existsSync(path.join(rootDir, relativePath))) {
