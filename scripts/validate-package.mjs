@@ -3,6 +3,7 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 
 const rootDir = process.cwd();
+const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 
 const requiredDistFiles = [
   'dist/index.js',
@@ -26,9 +27,10 @@ for (const relativePath of requiredDistFiles) {
   }
 }
 
-const packJson = execFileSync('npm', ['pack', '--json', '--dry-run'], {
+const packJson = execFileSync(npmCommand, ['pack', '--json', '--dry-run'], {
   cwd: rootDir,
   encoding: 'utf8',
+  shell: process.platform === 'win32',
 });
 
 const [packResult] = JSON.parse(packJson);
